@@ -14,7 +14,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 97%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,49 +22,24 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 97%;
 }
 
 header .logo h1 {
     margin: 0;
     font-size: 24px;
     color: #333;
+}    
+
+
+
+header .nav-icons a {
+    margin-left: 15px;
 }
 
-header .nav-search {
-    display: flex;
-    align-items: center;
-}
-
-header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-header nav ul li {
-    margin-left: 20px;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: #333;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
-}
-
-header nav ul li a:hover {
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 3px;
-}
-
-header .search input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-left: 20px;
+header .nav-icons img {
+    width: 24px;
+    height: 24px;
 }
 
 aside {
@@ -73,7 +48,20 @@ aside {
     padding: 20px;
     border-right: 1px solid #ccc;
     flex-shrink: 0;
-    min-height: 100vh;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+aside input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 
 aside ul {
@@ -82,115 +70,140 @@ aside ul {
 }
 
 aside ul li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 aside ul li a {
     text-decoration: none;
-    color: #333;
+    color: #000;
     display: block;
     padding: 10px;
     border-radius: 3px;
-    transition: background-color 0.3s;
+    background-color: #e0e0e0;
 }
 
 aside ul li a:hover {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #ccc;
 }
 
 main {
     flex: 1;
+    margin-left: 220px;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 220px;
+    right: 0;
+    bottom: 0;
 }
 
 main .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 main h2 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
-.calendar-header {
+main .tabs {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
 }
 
-.calendar-nav {
-    display: flex;
-    align-items: center;
-}
-
-.calendar-nav button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 0 10px;
-    transition: background-color 0.3s;
-}
-
-.calendar-nav button:hover {
-    background-color: #0056b3;
-}
-
-#current-month {
-    font-size: 18px;
-}
-
-.view-options button {
-    background-color: #e0e0e0;
-    border: none;
+main .tabs a {
+    margin-right: 10px;
+    text-decoration: none;
     padding: 10px 20px;
+    background-color: #e0e0e0;
     border-radius: 3px;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: background-color 0.3s;
+    color: #000;
 }
 
-.view-options button:hover, .view-options button.active {
+main .tabs a.active {
     background-color: #007bff;
     color: #fff;
 }
 
-.calendar {
+.chat-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.chat-message {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
+.chat-message.left .chat-text {
+    background-color: #f1f1f1;
+    color: #000;
+    border-radius: 10px;
+    padding: 15px;
+    margin-left: 25px;
 }
 
-.day, .date {
+.chat-message.right .chat-text {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+.chat-avatar {
+    flex-shrink: 0;
+}
+
+.chat-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat-input {
+    margin-bottom: 70px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
     background-color: #fff;
-    border: 1px solid #ccc;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
-.day {
-    background-color: #f0f0f0;
-    font-weight: bold;
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 10px 0;
-    position: relative;
+    padding: 5px 0;
+    position: relative; /* 기존의 코드와 충돌하지 않도록 설정 */
     bottom: 0;
     width: 100%;
+    flex-shrink: 0; /* 추가 */
+    margin-top: auto; /* 추가 */
 }
