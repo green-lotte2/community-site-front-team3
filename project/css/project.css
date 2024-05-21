@@ -5,10 +5,11 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #f0f0f0;
 }
 
 header {
-    background-color: #f8f8f8;
+    background-color: #fff;
     padding: 10px 20px;
     border-bottom: 1px solid #ccc;
     display: flex;
@@ -59,7 +60,6 @@ header nav ul li a {
 }
 
 header .search input {
-    margin-right: 40px;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -68,7 +68,7 @@ header .search input {
 
 aside {
     width: 200px;
-    background-color: #f0f0f0;
+    background-color: #fff;
     padding: 20px;
     border-right: 1px solid #ccc;
     height: calc(100vh - 60px);
@@ -96,10 +96,20 @@ aside ul li a {
 
 main {
     flex: 1;
-    margin-left: 270px;
+    margin-left: 220px;
     padding: 80px 20px 20px 20px;
     box-sizing: border-box;
     overflow: auto;
+}
+
+main .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 main .tabs {
@@ -121,14 +131,20 @@ main .tabs a.active {
     color: #fff;
 }
 
-.actions {
+.search-and-create {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
 }
 
-.actions button {
+.search-and-create input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 30%;
+}
+
+.search-and-create .create-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -137,30 +153,90 @@ main .tabs a.active {
     cursor: pointer;
 }
 
-.actions input {
-    padding: 5px;
-    border: 1px solid #ccc;
+.project-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+    margin: 0 0 10px;
+}
+
+.project-card p {
+    margin: 0 0 10px;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+}
+
+.project-meta .date {
+    font-weight: bold;
+}
+
+.project-meta .actions button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     border-radius: 3px;
-    margin-left: 300px;
+    cursor: pointer;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.board {
+    display: flex;
+    justify-content: space-between;
 }
 
-table th, table td {
+.column {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    width: 30%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column h3 {
+    margin-top: 0;
+}
+
+.task-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task-card h4 {
+    margin: 0 0 10px;
+}
+
+.task-card p {
+    margin: 0 0 10px;
+}
+
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+}
+
+.new-task {
+    color: #007bff;
+    cursor: pointer;
+    text-align: center;
     padding: 10px;
-    border: 1px solid #ccc;
-    text-align: left;
-}
-
-table th {
-    background-color: #f0f0f0;
-}
-
-table td .paid {
-    color: green;
+    border: 1px dashed #007bff;
+    border-radius: 5px;
 }
 
 footer {
@@ -172,37 +248,4 @@ footer {
     bottom: 0;
     width: 100%;
 }
-
-.editor-container {
-    margin-top: 20px;
-}
-
-.editor {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 20px;
-}
-
-.editor-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.editor-body {
-    min-height: 200px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.complete-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    float: right;
-}
+    

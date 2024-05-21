@@ -4,7 +4,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 header {
@@ -14,7 +14,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 97%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -74,9 +74,9 @@ aside {
     padding: 20px;
     border-right: 1px solid #ccc;
     flex-shrink: 0;
-    height: calc(100vh - 60px);
+    height: 100vh;
     position: fixed;
-    top: 49px;
+    top: 49px; /* 헤더 높이와 동일하게 설정 */
     left: 0;
     overflow-y: auto;
 }
@@ -106,148 +106,103 @@ aside ul li a:hover {
 
 main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
-    margin-left: 220px;
-    margin-top: 60px;
+    margin-left: 220px; /* Add margin to account for the aside width */
+    margin-top: 60px; /* Add margin to account for the header height */
+}
+
+main .container {
     max-width: 1200px;
-    width: calc(100% - 220px);
-}
-
-.welcome-section {
-    background-color: #f1f1f1;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-avatar img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-
-.user-details h2 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.user-details p {
-    margin: 5px 0;
-}
-
-.user-role {
-    font-size: 14px;
-    color: #777;
-}
-
-.action-buttons {
+    margin: 50px auto;
+    flex: 0;
     display: flex;
     flex-direction: column;
 }
 
-.action-buttons button {
-    padding: 10px 20px;
+main h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-nav button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    padding: 10px;
     border-radius: 3px;
-    margin-bottom: 10px;
     cursor: pointer;
+    margin: 0 10px;
     transition: background-color 0.3s;
 }
 
-.action-buttons .learn-more {
-    background-color: #777;
-    color: #fff;
+.calendar-nav button:hover {
+    background-color: #0056b3;
 }
 
-.action-buttons .learn-more:hover {
-    background-color: #555;
+#current-month {
+    font-size: 18px;
 }
 
-.action-buttons .join-now {
+.view-options button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.view-options button:hover, .view-options button.active {
     background-color: #007bff;
     color: #fff;
 }
 
-.action-buttons .join-now:hover {
-    background-color: #0056b3;
-}
-
-.updates-section {
-    text-align: center;
-}
-
-.updates-section h2 {
-    font-size: 32px;
-    margin-bottom: 40px;
-}
-
-.updates {
+.calendar {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    flex: 1;
 }
 
-.update {
-    max-width: 200px;
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    flex: 1;
+}
+
+.day, .date {
+    background-color: #fff;
+    border: 1px solid #ccc;
     text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.update img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-}
-
-.update h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.update p {
-    margin: 5px 0;
-}
-
-.update .time {
-    color: #777;
+.day {
+    background-color: #f0f0f0;
+    font-weight: bold;
 }
 
 footer {
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: #333;
+    color: #fff;
     text-align: center;
     padding: 10px 0;
-    border-top: 1px solid #ccc;
-    position: relative;
-    bottom: 0;
     width: 100%;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-}
-
-footer ul li {
-    margin: 0 10px;
-}
-
-footer ul li a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s;
-}
-
-footer ul li a:hover {
-    color: #007bff;
 }

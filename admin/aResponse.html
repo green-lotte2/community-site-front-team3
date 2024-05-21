@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 글쓰기</title>
-    <link rel="stylesheet" href="./css/board.css">
+    <title>문의 답변(관리자)</title>
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <h1>Company Community</h1>
+                <h1>문의 답변(관리자)</h1>
             </div>
             <div class="nav-search">
                 <nav>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Forums</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </nav>
                 <div class="search">
@@ -29,14 +28,14 @@
     </header>
     <aside>
         <ul>
-            <li><a href="#">Call Support</a></li>
-            <li><a href="#">Live Chat</a></li>
-            <li><a href="#">Email Us</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Feedback</a></li>
         </ul>
     </aside>
     <main>
         <div class="container">
-            <h2>게시판 글쓰기</h2>
+            <h2>문의 답변</h2>
             <div class="tabs">
                 <a href="#" class="active">Overview</a>
                 <a href="#">Tasks</a>
@@ -45,18 +44,28 @@
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>
             </div>
-            <div class="editor-container">
-                <div class="editor">
-                    <div class="editor-title">No Title</div>
-                    <div class="editor-body"></div>
+            <div class="content-section">
+                <div class="post-content">
+                    <h3>글 내용</h3>
+                    <div class="content-box">
+                        <!-- 글 내용 -->
+                    </div>
                 </div>
-                <button class="complete-button">작성완료</button>
+                <div class="response-section">
+                    <h3>답변하기</h3>
+                    <div class="response-box">
+                        <!-- 답변 내용 -->
+                    </div>
+                </div>
+                <div class="response-actions">
+                    <button>답변완료</button>
+                </div>
             </div>
         </div>
     </main>
     <footer>
         <div class="container">
-            <p>3조 (주)롯데정보통신 사내 커뮤니티 사이트 프로젝트</p>
+            <p>Terms of Service | Privacy Policy | &copy; 2022 Customer Support Center</p>
         </div>
     </footer>
 </body>
