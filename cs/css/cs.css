@@ -86,7 +86,7 @@ aside ul {
 }
 
 aside ul li {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* 기존 10px에서 20px로 수정하여 간격을 넓힘 */
 }
 
 aside ul li a {
@@ -96,39 +96,61 @@ aside ul li a {
 
 main {
     flex: 1;
-    margin-left: 270px;
+    margin-left: 240px; /* 기존 220px에서 240px로 수정하여 사이드바와 본문 사이의 간격을 추가 */
     padding: 80px 20px 20px 20px;
     box-sizing: border-box;
     overflow: auto;
 }
 
-main .tabs {
-    display: flex;
+.search-box {
     margin-bottom: 20px;
 }
 
-main .tabs a {
-    margin-right: 10px;
-    text-decoration: none;
-    padding: 10px 20px;
-    background-color: #e0e0e0;
+.search-box input {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 3px;
-    color: #000;
 }
 
-main .tabs a.active {
-    background-color: #007bff;
+.info-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    width: 48%;
+    position: relative;
+}
+
+.info-icon {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 10px;
+    background-color: #007bff; /* 동그라미 배경 색상 */
     color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%; /* 동그라미 모양으로 만들기 */
+    margin: 0 auto; /* 가운데 정렬 */
 }
 
-.actions {
+.faq-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.actions button {
+.faq-actions button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -137,11 +159,12 @@ main .tabs a.active {
     cursor: pointer;
 }
 
-.actions input {
-    padding: 5px;
+.faq-actions input {
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-left: 300px;
+    width: 300px;
+    margin-left: 20px; /* Add margin to move it next to the action button */
 }
 
 table {
@@ -164,45 +187,94 @@ table td .paid {
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #f8f8f8;
+    color: #000;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
     position: relative;
     bottom: 0;
     width: 100%;
 }
 
-.editor-container {
+
+/* qna 추가할 CSS */
+.inquiry-section {
     margin-top: 20px;
 }
 
-.editor {
+.post-content, .file-attachment {
+    background-color: #fff;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.editor-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.editor-body {
+.content-box, .attachment-box {
     min-height: 200px;
     border: 1px solid #ccc;
     padding: 10px;
+    background-color: #f9f9f9;
     border-radius: 3px;
 }
 
-.complete-button {
-    margin-top: 20px;
+.inquiry-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inquiry-actions button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    float: right;
+    transition: background-color 0.3s;
+}
+
+.inquiry-actions button:hover {
+    background-color: #0056b3;
+}
+
+
+/* view 추가할 CSS */
+.content-section {
+    margin-top: 20px;
+}
+
+.post-content, .response-section {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.content-box, .response-box {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+}
+
+.response-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.response-actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.response-actions button:hover {
+    background-color: #0056b3;
 }

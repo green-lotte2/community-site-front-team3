@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 글쓰기</title>
-    <link rel="stylesheet" href="./css/board.css">
+    <title>Company Community - Project List</title>
+    <link rel="stylesheet" href="./css/project.css">
 </head>
 <body>
     <header>
@@ -36,21 +36,38 @@
     </aside>
     <main>
         <div class="container">
-            <h2>게시판 글쓰기</h2>
+            <h2>Project List</h2>
             <div class="tabs">
-                <a href="#" class="active">Overview</a>
-                <a href="#">Tasks</a>
-                <a href="#">Documents</a>
+                <a href="#" class="active">Documents</a>
                 <a href="#">Team</a>
                 <a href="#">Reports</a>
-                <a href="#">Admin</a>
+                <a href="#">Actions</a>
             </div>
-            <div class="editor-container">
-                <div class="editor">
-                    <div class="editor-title">No Title</div>
-                    <div class="editor-body"></div>
+            <div class="search-and-create">
+                <input type="text" placeholder="Search">
+                <button class="create-button">New Project</button>
+            </div>
+            <div class="project-card">
+                <h3>Project 1</h3>
+                <p>Description of Project 1</p>
+                <div class="project-meta">
+                    <span class="date">Due Date: 2023-05-01</span>
+                    <span class="actions">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </span>
                 </div>
-                <button class="complete-button">작성완료</button>
+            </div>
+            <div class="project-card">
+                <h3>Project 2</h3>
+                <p>Description of Project 2</p>
+                <div class="project-meta">
+                    <span class="date">Due Date: 2023-06-01</span>
+                    <span class="actions">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </span>
+                </div>
             </div>
         </div>
     </main>

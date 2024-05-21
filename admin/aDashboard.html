@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - 게시글 관리</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Admin Dashboard</h1>
+            </div>
+            <div class="nav-search">
+                <nav>
+                    <ul>
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">로그인/가입</a></li>
+                    </ul>
+                </nav>
+                <div class="search">
+                    <input type="text" placeholder="Search in site">
+                </div>
+            </div>
+        </div>
+    </header>
+    <aside>
+        <ul>
+            <li><a href="#">게시판</a></li>
+            <li><a href="#">회원</a></li>
+            <li><a href="#">페이지</a></li>
+            <li><a href="#">프로젝트</a></li>
+            <li><a href="#">채팅방</a></li>
+        </ul>
+    </aside>
+    <main>
+        <div class="container">
+            <h2>게시글 관리</h2>
+            <p>Manage your content and projects efficiently</p>
+            <div class="table-actions">
+                <button>Action</button>
+                <input type="text" placeholder="Search Invoice">
+                <button>Create Invoice</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>날짜</th>
+                        <th>상태</th>
+                        <th>액션</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>#4610</td>
+                        <td>게시물 제목<br><small>작성자 이름</small></td>
+                        <td>24-05-20</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><button>...</button></td>
+                    </tr>
+                    <!-- 반복되는 행들 -->
+                </tbody>
+            </table>
+            <div class="pagination">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>FOOTER</p>
+        </div>
+    </footer>
+</body>
+</html>

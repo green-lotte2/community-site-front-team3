@@ -3,37 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 글쓰기</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>게시판 글보기</title>
+    <link rel="stylesheet" href="./css/board.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-item">Call Support</div>
-            <div class="sidebar-item">Live Chat</div>
-            <div class="sidebar-item">Email Us</div>
-        </div>
-        <div class="main-content">
-            <header>
-                <h1>게시판 글보기</h1>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Company Community</h1>
+            </div>
+            <div class="nav-search">
                 <nav>
-                    <ul>    
-                        <li>Overview</li>
-                        <li>Tasks</li>
-                        <li>Documents</li>
-                        <li>Team</li>
-                        <li>Reports</li>
-                        <li>Admin</li>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">About Us</a></li>
                     </ul>
                 </nav>
-            </header>
-            <div class="content">
-                <div class="editor">
-                    <div class="editor-title">No Title</div>
-                    <div class="editor-body"></div>
+                <div class="search">
+                    <input type="text" placeholder="Search in site">
                 </div>
             </div>
         </div>
-    </div>
+    </header>
+    <aside>
+        <ul>
+            <li><a href="#">Call Support</a></li>
+            <li><a href="#">Live Chat</a></li>
+            <li><a href="#">Email Us</a></li>
+        </ul>
+    </aside>
+    <main>
+        <div class="container">
+            <h2>게시판 글보기</h2>
+            <div class="tabs">
+                <a href="#" class="active">Overview</a>
+                <a href="#">Tasks</a>
+                <a href="#">Documents</a>
+                <a href="#">Team</a>
+                <a href="#">Reports</a>
+                <a href="#">Admin</a>
+            </div>
+            <div class="editor-container">
+                <div class="editor">
+                    <div class="editor-title">No Title</div>
+                    <div class="editor-body"></div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>3조 (주)롯데정보통신 사내 커뮤니티 사이트 프로젝트</p>
+        </div>
+    </footer>
 </body>
 </html>

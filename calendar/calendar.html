@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Community - Calendar</title>
+    <link rel="stylesheet" href="./css/calendar.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Company Community</h1>
+            </div>
+            <div class="nav-search">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </nav>
+                <div class="search">
+                    <input type="text" placeholder="Search in site">
+                </div>
+            </div>
+        </div>
+    </header>
+    <aside>
+        <ul>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Feedback</a></li>
+        </ul>
+    </aside>
+    <main>
+        <div class="container">
+            <h2>캘린더</h2>
+            <div class="calendar-header">
+                <div class="calendar-nav">
+                    <button id="prev-month">&lt;</button>
+                    <span id="current-month">2024년 5월</span>
+                    <button id="next-month">&gt;</button>
+                </div>
+                <div class="view-options">
+                    <button class="active">월</button>
+                    <button>주</button>
+                    <button>일</button>
+                </div>
+            </div>
+            <div class="calendar">
+                <div class="calendar-grid">
+                    <!-- 일자 헤더 및 날짜 셀은 JavaScript를 통해 동적으로 생성됩니다. -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>3조 (주)롯데정보통신 사내 커뮤니티 사이트 프로젝트 &copy; 2023 All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+    const currentMonthElement = document.getElementById("current-month");
+    const prevMonthButton = document.getElementById("prev-month");
+    const nextMonthButton = document.getElementById("next-month");
+
+    let currentDate = new Date();
+
+    function updateCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+        
+        currentMonthElement.textContent = `${year}년 ${monthNames[month]}`;
+
+        // Generate the days of the month
+        const calendarGrid = document.querySelector(".calendar-grid");
+        calendarGrid.innerHTML = "";
+        
+        // Add the day headers
+        const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+        days.forEach(day => {
+            const dayElement = document.createElement("div");
+            dayElement.className = "day";
+            dayElement.textContent = day;
+            calendarGrid.appendChild(dayElement);
+        });
+
+        // Get the first day of the month
+        const firstDay = new Date(year, month, 1).getDay();
+
+        // Get the number of days in the month
+        const lastDate = new Date(year, month + 1, 0).getDate();
+
+        // Add empty cells for days before the first day of the month
+        for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.className = "date empty";
+            calendarGrid.appendChild(emptyCell);
+        }
+
+        // Add the days of the month
+        for (let i = 1; i <= lastDate; i++) {
+            const dateCell = document.createElement("div");
+            dateCell.className = "date";
+            dateCell.textContent = i;
+            calendarGrid.appendChild(dateCell);
+        }
+    }
+
+    prevMonthButton.addEventListener("click", function() {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        updateCalendar();
+    });
+
+    nextMonthButton.addEventListener("click", function() {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        updateCalendar();
+    });
+
+    updateCalendar();
+});
+
+    </script>
+</body>
+</html>
