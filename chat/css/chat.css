@@ -75,7 +75,7 @@ aside ul li {
 
 aside ul li a {
     text-decoration: none;
-    color: #000;
+    color: #333;
     display: block;
     padding: 10px;
     border-radius: 3px;
@@ -88,26 +88,25 @@ aside ul li a:hover {
 
 main {
     flex: 1;
-    margin-left: 220px;
-    padding: 20px;
+    margin-left: 40px;
+    padding: 0px;
     box-sizing: border-box;
     overflow-y: auto;
     height: calc(100vh - 60px);
     position: fixed;
-    top: 60px;
+    top: 61px;
     left: 220px;
-    right: 0;
-    bottom: 0;
+    right: 17px;
+    bottom: 0px;
 }
 
 main .container {
-    display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 95%;
 }
 
 main h2 {
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 20px;
 }
 
@@ -122,7 +121,8 @@ main .tabs a {
     padding: 10px 20px;
     background-color: #e0e0e0;
     border-radius: 3px;
-    color: #000;
+    color: #333;
+    transition: background-color 0.3s;
 }
 
 main .tabs a.active {
@@ -133,7 +133,9 @@ main .tabs a.active {
 .chat-container {
     flex: 1;
     overflow-y: auto;
-    padding-right: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
     margin-bottom: 20px;
 }
 
@@ -147,17 +149,19 @@ main .tabs a.active {
     background-color: #f1f1f1;
     color: #000;
     border-radius: 10px;
-    padding: 15px;
-    margin-left: 25px;
+    padding: 10px;
+    margin-left: 10px;
+    max-width: 60%;
 }
 
 .chat-message.right .chat-text {
     background-color: #007bff;
     color: #fff;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
     margin-left: auto;
-    margin-right: 25px;
+    margin-right: 10px;
+    max-width: 60%;
 }
 
 .chat-avatar {
@@ -171,12 +175,12 @@ main .tabs a.active {
 }
 
 .chat-input {
-    margin-bottom: 70px;
     display: flex;
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ccc;
     background-color: #fff;
+    border-radius: 5px;
 }
 
 .chat-input input {
