@@ -2,7 +2,7 @@ import React from "react";
 
 const Aside = () => {
     return(
-    <aside>
+    <aside className="chatAside">
         <input type="text" placeholder="Search for..." />
         <ul>
             <li><a href="#">menu1</a></li>

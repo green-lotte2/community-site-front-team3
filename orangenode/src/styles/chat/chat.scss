@@ -68,12 +68,14 @@ header .search input {
 }
 
 aside {
-    width: 200px;
+    top: 49px;
+    width: 175px;
     background-color: #f8f8f8;
-    padding: 20px;
+    padding: 10px;
     border-right: 1px solid #ccc;
     flex-shrink: 0;
     min-height: 100vh;
+    
 }
 
 aside ul {
@@ -99,6 +101,75 @@ aside ul li a:hover {
     color: #fff;
 }
 
+// 레이아웃
+.chat-layout-container {
+    display: flex;
+    flex: 1;
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-container .tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-container .tabs a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+    background-color: #f0f0f0;
+    flex: 1;
+    text-align: center;
+}
+
+.chat-container .tabs a.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.chat-container .tabs a:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.chat-input {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    padding: 10px 0; /* 위아래 여백 추가 */
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px; /* 크기 키움 */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px; /* 버튼과 간격 */
+    max-width: 500px; /* 최대 너비 설정 */
+}
+
+.chat-input button {
+    padding: 10px 20px; /* 크기 키움 */
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+.messages {
+    margin-top: 20px;
+}
+
+
 main {
     flex: 1;
     padding: 20px;
@@ -115,82 +186,14 @@ main h2 {
     margin-bottom: 20px;
 }
 
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.calendar-nav {
-    display: flex;
-    align-items: center;
-}
-
-.calendar-nav button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 0 10px;
-    transition: background-color 0.3s;
-}
-
-.calendar-nav button:hover {
-    background-color: #0056b3;
-}
-
-#current-month {
-    font-size: 18px;
-}
-
-.view-options button {
-    background-color: #e0e0e0;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: background-color 0.3s;
-}
-
-.view-options button:hover, .view-options button.active {
-    background-color: #007bff;
-    color: #fff;
-}
-
-.calendar {
-    display: flex;
-    flex-direction: column;
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-}
-
-.day, .date {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.day {
-    background-color: #f0f0f0;
-    font-weight: bold;
-}
 
 footer {
     background-color: #f8af65;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: relative;
-    bottom: 0;
     width: 100%;
+    position: absolute;
+    bottom: 0;
 }
+

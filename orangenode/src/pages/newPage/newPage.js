@@ -1,13 +1,13 @@
 import React from 'react'
-import DefaultLayout from '../../layouts/DefaultLayout'
+import ChatLayout from '../../layouts/ChatLayout'
 import NewPageMain from '../../components/newPage/NewPageMain'
 import 'styles/newPage/newpage.css';
 
 const NewPage = () => {
   return (
-    <DefaultLayout>
+    <ChatLayout>
       <NewPageMain />
-  </DefaultLayout>
+    </ChatLayout>
   )
 }
 

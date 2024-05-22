@@ -7,8 +7,12 @@ const ChatLayout = ({ children }) => {
     return (
         <div id="mainContainer">
             <Header />
-            {children}
-            <Aside />
+            <div className="chat-layout-container">
+                <Aside />
+                <main>
+                    {children}
+                </main>
+            </div>
             <Footer />
         </div> 
         
