@@ -34,6 +34,7 @@ const root = createBrowserRouter([
     { path: '/member/login', element: <LoginPage /> },
     { path: '/member/register', element: <RegisterPage /> },
     { path: '/member/terms', element: <TermsPage /> },
+    
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
     { path: '/project/list', element: <ProjectListPage /> },
