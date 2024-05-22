@@ -46,7 +46,7 @@ const root = createBrowserRouter([
     { path: '/board/view', element: <View /> },
 
     // newPage
-    { path: '/board/newPage', element: <NewPage /> },
+    { path: '/newPage', element: <NewPage /> },
 ]);
 
 // 라우터 내보내기
