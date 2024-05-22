@@ -25,16 +25,27 @@ header .container {
     width: 100%;
 }
 
-header .logo h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
+.logo a {
+    text-decoration: none;
+    color: orange; /* 링크 버튼 색상 */
+    font-size: 24px; /* 링크 버튼 글꼴 크기 */
+    margin: 0; /* 로고 버튼 마진 설정 */
+}
+
+.logo a:hover {
+    background-color: green; /* 마우스 오버시 배경색 변경 */
+    color: orange; /* 마우스 오버시 텍스트 색상 변경 */
 }
 
 header .nav-search {
     margin-right: 40px;
     display: flex;
     align-items: center;
+}
+
+header nav {
+    display: flex;
+    margin-right: 30px;
 }
 
 header nav ul {
