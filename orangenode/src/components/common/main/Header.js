@@ -7,7 +7,8 @@ const header = () => {
             <header>
                 <div class="container">
                     <div class="logo">
-                        <Link to="#">OrangeNode</Link>
+                    <img src="/images/logo/logo6.png" alt="aa" style={{ width: "120px" }} />
+
                     </div>
                     <div class="nav-search">
                         <nav>
