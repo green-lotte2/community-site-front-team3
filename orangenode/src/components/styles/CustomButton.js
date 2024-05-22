@@ -5,8 +5,12 @@ import { globalColors } from '../../globalColors';
 
 // 스타일이 적용된 CustomButton 컴포넌트
 export const CustomButton = styled(Button)(() => ({
-  fontSize: "2rem",
-  marginTop: "10px",
-  backgroundColor: globalColors.orange[100],
-  "&:hover": { backgroundColor: globalColors.orange[200] },
+  fontSize: "14px",
+  fontWeight: "550",
+  //marginTop: "10px",
+  marginLeft: "3px",
+  marginBottom: "3px",
+  color: globalColors.white,
+  backgroundColor: globalColors.orange,
+  "&:hover": { backgroundColor: globalColors.orange },
 }));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { AdminDefaultLayout } from '../../layouts/AdminDefaultLayout';
 import AdminMain from '../../components/admin/main/AdminMain';
-import '../../styles/admin/admin.css';
 
 const AdminPage = () => {
     return (
