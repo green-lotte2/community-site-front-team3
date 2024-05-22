@@ -9,7 +9,7 @@ body {
 
 header {
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 0px 20px;
     border-bottom: 1px solid #ccc;
     display: flex;
     justify-content: space-between;
@@ -55,7 +55,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    background-color: #007bff;
+    background-color: #ff8916;
     color: #fff;
     border-radius: 3px;
 }
@@ -71,8 +71,8 @@ aside {
     top: 49px;
     width: 175px;
     background-color: #f8f8f8;
-    padding: 10px;
-    border-right: 1px solid #ccc;
+    padding: 22px;
+    border-right: 2px solid #ccc;
     flex-shrink: 0;
     min-height: 100vh;
     
@@ -97,7 +97,7 @@ aside ul li a {
 }
 
 aside ul li a:hover {
-    background-color: #007bff;
+    background-color: #ff8916;
     color: #fff;
 }
 
@@ -131,12 +131,12 @@ aside ul li a:hover {
 }
 
 .chat-container .tabs a.active {
-    background-color: #007bff;
+    background-color: #ff8916;
     color: #fff;
 }
 
 .chat-container .tabs a:hover {
-    background-color: #0056b3;
+    background-color: #ff8916;
     color: #fff;
 }
 
@@ -158,12 +158,11 @@ aside ul li a:hover {
 .chat-input button {
     padding: 10px 20px; /* 크기 키움 */
     border: none;
-    background-color: #007bff;
+    background-color: #ff8916;
     color: #fff;
     border-radius: 3px;
     cursor: pointer;
 }
-
 
 .messages {
     margin-top: 20px;
