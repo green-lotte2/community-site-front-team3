@@ -14,7 +14,7 @@ const header = () => {
                         <nav>
                             <ul>
                                 <li>
-<<<<<<< HEAD
+
                                     <Link to="/">Home</Link>
                                 </li>
                                 <li>
@@ -25,12 +25,10 @@ const header = () => {
                                 </li>
                                 <li>
                                     <Link to="/admin">Admin</Link>
-=======
                                     <Link to="#">홈</Link>
                                 </li>
                                 <li>
                                     <Link to="#">로그인</Link>
->>>>>>> 97f971b0e24fb3ce5936cd7484056c003cefaa23
                                 </li>
                             </ul>
                         </nav>
