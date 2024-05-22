@@ -10,7 +10,8 @@ const ChatLayout = ({ children }) => {
             {children}
             <Aside />
             <Footer />
-        </div>
+        </div> 
+        
     );
 };
 
