@@ -1,11 +1,13 @@
 import React from 'react';
 import ChatLayout from '../../layouts/ChatLayout';
-import Chat from './chatPage'
+import Chat from 'components/chat/Chat'
 
-export const Chatpage = () => {
+const Chatpage = () => {
     return (
         <ChatLayout>
             <Chat />
         </ChatLayout>
     );
 };
+
+export default Chatpage;

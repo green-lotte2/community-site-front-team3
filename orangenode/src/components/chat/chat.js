@@ -1,9 +1,9 @@
 import React from 'react';
-import ChatMessage from './chatMessage';
-import ChatInput from './chatinput'
+import ChatMessage from './ChatMessage';
+import ChatInput from './ChatInput'
 
 
-const chat = () => {
+const Chat = () => {
     return (
         <div className="container">
             <h2>Chat</h2>
@@ -26,4 +26,4 @@ const chat = () => {
         </div>
     );
 };
-export default chat;
+export default Chat;
