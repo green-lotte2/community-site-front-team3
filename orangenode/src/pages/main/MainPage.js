@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import Main from '../../components/main/Main';
+import '../../styles/main/main.css';
 
 const MainPage = () => {
     return (

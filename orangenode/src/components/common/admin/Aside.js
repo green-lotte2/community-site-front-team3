@@ -7,10 +7,10 @@ const Aside = () => {
             <aside>
                 <ul>
                     <li>
-                        <Link to="#">게시판</Link>
+                        <Link to="/admin/article">게시판</Link>
                     </li>
                     <li>
-                        <Link to="#">회원</Link>
+                        <Link to="/admin/member">회원</Link>
                     </li>
                     <li>
                         <Link to="#">페이지</Link>

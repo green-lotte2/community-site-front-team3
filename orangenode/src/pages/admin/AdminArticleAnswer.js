@@ -1,14 +1,14 @@
 import React from 'react';
 import { AdminDefaultLayout } from '../../layouts/AdminDefaultLayout';
-import AdminMain from '../../components/admin/main/AdminMain';
+import Container from '../../components/admin/article/answer/Container';
 import '../../styles/admin/admin.css';
 
-const AdminPage = () => {
+const AdminArticleAnswer = () => {
     return (
         <AdminDefaultLayout>
-            <AdminMain />
+            <Container />
         </AdminDefaultLayout>
     );
 };
 
-export default AdminPage;
+export default AdminArticleAnswer;
