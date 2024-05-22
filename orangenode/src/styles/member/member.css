@@ -1,13 +1,19 @@
 /* 공통 스타일 */
 body {
-    font-family: Arial, sans-serif;
+    height: 100%;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
+#mainContainer {
+    height: 100vh;
+}
 .container {
     width: 80%;
+    height: 100%;
     margin: 0 auto;
+<<<<<<< HEAD
 }
 
 header {
@@ -66,6 +72,11 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+=======
+    display: flex;
+    justify-content: center;
+    align-items: center;
+>>>>>>> 97f971b0e24fb3ce5936cd7484056c003cefaa23
 }
 
 /* 로그인 페이지 스타일 */
@@ -73,14 +84,21 @@ footer a:hover {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
-.login-options, .login-form {
+.login-form {
     background-color: #fff;
     padding: 30px;
     border: 1px solid #ccc;
     width: 45%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-options {
+    display: flex;
+    width: 45%;
+    margin-right: 300px;
 }
 
 .login-options h2 {
@@ -88,8 +106,9 @@ footer a:hover {
 }
 
 .login-buttons button {
-    display: block;
-    width: 100%;
+    display: flex;
+    width: 300px;
+    height: 80px;
     padding: 10px;
     margin: 10px 0;
     border: none;
@@ -98,13 +117,11 @@ footer a:hover {
 }
 
 .kakao-login {
-    background-color: #FEE500;
-    color: #000;
+    background-image: url('../../../public/images/member/kakaoLogin.png');
 }
 
 .google-login {
-    background-color: #4285F4;
-    color: #fff;
+    background-image: url('../../../public/images/member/googleLogin.png');
 }
 
 .login-form form {
@@ -145,6 +162,23 @@ footer a:hover {
     font-size: 16px;
 }
 
+/* 반반으로 나누기 */
+.login-options,
+.login-form {
+    width: 45%;
+}
+
+.login-buttons,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.additional-options {
+    margin-top: 20px;
+}
 /* 회원가입 페이지 스타일 */
 .signup-container {
     display: flex;
@@ -152,12 +186,13 @@ footer a:hover {
     align-items: center;
 }
 
-.signup-options, .signup-form {
+.signup-options,
+.signup-form {
     background-color: #fff;
     padding: 30px;
     border: 1px solid #ccc;
     width: 70%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
@@ -176,12 +211,12 @@ footer a:hover {
 }
 
 .kakao-signup {
-    background-color: #FEE500;
+    background-color: #fee500;
     color: #000;
 }
 
 .google-signup {
-    background-color: #4285F4;
+    background-color: #4285f4;
     color: #fff;
 }
 

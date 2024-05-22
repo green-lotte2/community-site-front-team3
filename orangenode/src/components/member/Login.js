@@ -8,10 +8,9 @@ const Login = () => {
             <div className="container">
                 <div className="login-container">
                     <div className="login-options">
-                        <h2>로그인</h2>
                         <div className="login-buttons">
-                            <button className="kakao-login">카카오</button>
-                            <button className="google-login">구글</button>
+                            <button className="kakao-login"></button>
+                            <button className="google-login"></button>
                         </div>
                     </div>
                     <div className="login-form">
