@@ -7,7 +7,9 @@ export const AdminDefaultLayout = ({ children }) => {
     return (
         <div id="adminContainer">
             <Header />
+            <main>
             {children}
+            </main>
             <Aside />
             <Footer />
         </div>

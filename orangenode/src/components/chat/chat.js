@@ -4,7 +4,7 @@ import ChatInput from './ChatInput'
 
 const Chat = () => {
     return (
-        <div className="container">
+        <div className="chat-container">
             <h2>Chat</h2>
             <div class="tabs">
                 <a href="#" class="active">Overview</a>
