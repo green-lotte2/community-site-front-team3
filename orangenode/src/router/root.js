@@ -1,5 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainPage from '../pages/main/MainPage';
+import AdminPage from '../pages/admin/AdminPage';
+import AdminMember from '../pages/admin/AdminMember';
+import AdminMemberList from '../pages/admin/AdminMemberList';
+import AdminArticleList from '../pages/admin/AdminArticleList';
+import AdminArticleView from '../pages/admin/AdminArticleView';
+import AdminArticleAnswer from '../pages/admin/AdminArticleAnswer';
 import LoginPage from '../pages/member/LoginPage';
 import TermsPage from '../pages/member/TermsPage';
 import RegisterPage from '../pages/member/RegisterPage';
@@ -15,6 +21,15 @@ import NewPage from 'pages/newPage/NewPage';
 const root = createBrowserRouter([
     // main
     { path: '/', element: <MainPage /> },
+  
+     // admin
+    { path: '/admin', element: <AdminPage /> },
+    { path: '/admin/member', element: <AdminMember /> },
+    { path: '/admin/member/list', element: <AdminMemberList /> },
+    { path: '/admin/article', element: <AdminArticleList /> },
+    { path: '/admin/article/view', element: <AdminArticleView /> },
+    { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
+
     // member
     { path: '/member/login', element: <LoginPage /> },
     { path: '/member/register', element: <RegisterPage /> },
@@ -32,7 +47,6 @@ const root = createBrowserRouter([
 
     // newPage
     { path: '/board/newPage', element: <NewPage /> },
-
 ]);
 
 // 라우터 내보내기
