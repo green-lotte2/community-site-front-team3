@@ -4,15 +4,15 @@ import { globalColors } from "./globalColors";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: globalColors.orange[100],
-      light: globalColors.orange[200],
-      dark : globalColors.orange[500],
+      main: globalColors.orange,
+      light: globalColors.orange,
+      dark : globalColors.orange,
       contrastText : globalColors.white,
     },
     secondary: {
-      main: globalColors.orange[100],
-      light: globalColors.orange[200],
-      dark : globalColors.orange[100],
+      main: globalColors.orange,
+      light: globalColors.orange,
+      dark : globalColors.orange,
       contrastText : globalColors.white,
     }
   },

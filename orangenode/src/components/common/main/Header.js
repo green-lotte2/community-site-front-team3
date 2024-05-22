@@ -7,12 +7,24 @@ const header = () => {
             <header>
                 <div class="container">
                     <div class="logo">
-                        <Link to="#">OrangeNode</Link>
+                    <img src="/images/logo/logo6.png" alt="aa" style={{ width: "120px" }} />
+
                     </div>
                     <div class="nav-search">
                         <nav>
                             <ul>
                                 <li>
+
+                                    <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="#">Forums</Link>
+                                </li>
+                                <li>
+                                    <Link to="/board/list">Board</Link>
+                                </li>
+                                <li>
+                                    <Link to="/admin">Admin</Link>
                                     <Link to="#">홈</Link>
                                 </li>
                                 <li>

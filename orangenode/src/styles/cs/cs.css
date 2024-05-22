@@ -1,0 +1,280 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background-color: #f8f8f8;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo h1 {
+    margin: 0;
+}
+
+header .nav-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+header .search input {
+    margin-right: 40px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+aside {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    z-index: 500;
+    overflow: auto;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin-bottom: 20px; /* 기존 10px에서 20px로 수정하여 간격을 넓힘 */
+}
+
+aside ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+main {
+    flex: 1;
+    margin-left: 240px; /* 기존 220px에서 240px로 수정하여 사이드바와 본문 사이의 간격을 추가 */
+    padding: 80px 20px 20px 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.info-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    width: 48%;
+    position: relative;
+}
+
+.info-icon {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 10px;
+    background-color: #007bff; /* 동그라미 배경 색상 */
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%; /* 동그라미 모양으로 만들기 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+.faq-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.faq-actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.faq-actions input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 300px;
+    margin-left: 20px; /* Add margin to move it next to the action button */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+table td .paid {
+    color: green;
+}
+
+footer {
+    background-color: #f8af65;
+    color: #000;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/* qna 추가할 CSS */
+.inquiry-section {
+    margin-top: 20px;
+}
+
+.post-content, .file-attachment {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.content-box, .attachment-box {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+}
+
+.inquiry-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inquiry-actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.inquiry-actions button:hover {
+    background-color: #0056b3;
+}
+
+
+/* view 추가할 CSS */
+.content-section {
+    margin-top: 20px;
+}
+
+.post-content, .response-section {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.content-box, .response-box {
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+}
+
+.response-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.response-actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.response-actions button:hover {
+    background-color: #0056b3;
+}
