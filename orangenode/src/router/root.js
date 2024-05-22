@@ -22,8 +22,8 @@ import Chatpage from 'pages/chat/ChatPage';
 const root = createBrowserRouter([
     // main
     { path: '/', element: <MainPage /> },
-  
-     // admin
+
+    // admin
     { path: '/admin', element: <AdminPage /> },
     { path: '/admin/member', element: <AdminMember /> },
     { path: '/admin/member/list', element: <AdminMemberList /> },

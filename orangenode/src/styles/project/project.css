@@ -43,13 +43,6 @@ header .nav-search {
     margin-left: auto;
 }
 
-header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
 header nav ul li {
     margin-left: 20px;
 }
@@ -248,4 +241,3 @@ footer {
     bottom: 0;
     width: 100%;
 }
-    
