@@ -22,8 +22,8 @@ import Chatpage from 'pages/chat/ChatPage';
 const root = createBrowserRouter([
     // main
     { path: '/', element: <MainPage /> },
-  
-     // admin
+
+    // admin
     { path: '/admin', element: <AdminPage /> },
     { path: '/admin/member', element: <AdminMember /> },
     { path: '/admin/member/list', element: <AdminMemberList /> },
@@ -35,6 +35,7 @@ const root = createBrowserRouter([
     { path: '/member/login', element: <LoginPage /> },
     { path: '/member/register', element: <RegisterPage /> },
     { path: '/member/terms', element: <TermsPage /> },
+    
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
     { path: '/project/list', element: <ProjectListPage /> },
@@ -47,10 +48,10 @@ const root = createBrowserRouter([
     { path: '/board/view', element: <View /> },
 
     // newPage
-    { path: '/board/newPage', element: <NewPage /> },
-
+    { path: '/newPage', element: <NewPage /> },
     // chat
     { path: '/chat/chatPage', element: <Chatpage /> },
+
 ]);
 
 // 라우터 내보내기
