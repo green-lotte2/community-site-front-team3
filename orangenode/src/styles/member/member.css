@@ -13,7 +13,7 @@ body {
     width: 80%;
     height: 100%;
     margin: 0 auto;
-<<<<<<< HEAD
+
 }
 
 header {
@@ -72,11 +72,10 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-=======
+
     display: flex;
     justify-content: center;
     align-items: center;
->>>>>>> 97f971b0e24fb3ce5936cd7484056c003cefaa23
 }
 
 /* 로그인 페이지 스타일 */
