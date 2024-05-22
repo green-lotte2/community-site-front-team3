@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BoardTabs from "../../components/board/BoardTabs";
 import EditorContainer from "../../components/board/EditorContainer";
+import BoardContainer from "components/board/BoardContainer";
 
-const register = () => {
+const Register = () => {
   return (
-    <div className="register">
-      <h2>게시판 글쓰기</h2>
-      <BoardTabs />
-      <EditorContainer text="작성" />
-    </div>
+  
+    <BoardContainer props="작성"/>
   );
 };
 
-export default register;
+export default Register;

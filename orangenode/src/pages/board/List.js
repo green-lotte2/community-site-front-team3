@@ -4,9 +4,9 @@ import BoardTabs from '../../components/board/BoardTabs'
 import Search from '../../components/board/Search'
 import Table from '../../components/board/Table'
 
-const board = () => {
+const List = () => {
   return (
-    <div className="board">
+    <div className="list">
             <h2>게시판 목록</h2>
             <BoardTabs />
             <Search />
@@ -15,4 +15,4 @@ const board = () => {
   )
 }
 
-export default board
+export default List

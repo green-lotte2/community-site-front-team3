@@ -2,7 +2,7 @@ import React from 'react'
 import DefaultLayout from '../../layouts/DefaultLayout'
 import NewPageMain from '../../components/newPage/NewPageMain'
 
-const newPage = () => {
+const NewPage = () => {
   return (
     <DefaultLayout>
       <NewPageMain />
@@ -10,4 +10,4 @@ const newPage = () => {
   )
 }
 
-export default newPage
+export default NewPage

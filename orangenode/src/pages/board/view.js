@@ -1,15 +1,12 @@
 import React from "react";
 import BoardTabs from "../../components/board/BoardTabs";
 import EditorContainer from "../../components/board/EditorContainer";
+import BoardContainer from "components/board/BoardContainer";
 
-const view = () => {
+const View = () => {
   return (
-    <div className="container">
-      <h2>게시판 글보기</h2>
-      <BoardTabs />
-      <EditorContainer />
-    </div>
+    <BoardContainer props="보기"/>
   );
 };
 
-export default view;
+export default View;
