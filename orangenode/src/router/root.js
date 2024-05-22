@@ -12,10 +12,11 @@ import RegisterPage from '../pages/member/RegisterPage';
 import ProjectBoardPage from 'pages/project/ProjectBoardPage';
 import ProjectListPage from 'pages/project/ProjectListPage';
 import List from 'pages/board/List';
-import Modify from 'pages/board/modify';
-import Register from 'components/member/Register';
-import View from 'pages/board/view';
-import NewPage from 'pages/newPage/newPage';
+import Modify from 'pages/board/Modify';
+import Register from 'pages/board/Register';
+import View from 'pages/board/View';
+import NewPage from 'pages/newPage/NewPage';
+import Chatpage from 'pages/chat/ChatPage';
 
 // 라우터 생성
 const root = createBrowserRouter([
@@ -47,6 +48,9 @@ const root = createBrowserRouter([
 
     // newPage
     { path: '/board/newPage', element: <NewPage /> },
+
+    // chat
+    { path: '/chat/chatPage', element: <Chatpage /> },
 ]);
 
 // 라우터 내보내기
