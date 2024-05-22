@@ -14,10 +14,23 @@ const header = () => {
                         <nav>
                             <ul>
                                 <li>
+<<<<<<< HEAD
+                                    <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="#">Forums</Link>
+                                </li>
+                                <li>
+                                    <Link to="/board/list">Board</Link>
+                                </li>
+                                <li>
+                                    <Link to="/admin">Admin</Link>
+=======
                                     <Link to="#">홈</Link>
                                 </li>
                                 <li>
                                     <Link to="#">로그인</Link>
+>>>>>>> 97f971b0e24fb3ce5936cd7484056c003cefaa23
                                 </li>
                             </ul>
                         </nav>

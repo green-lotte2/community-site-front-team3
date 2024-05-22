@@ -134,6 +134,7 @@ main p {
 
 /* NewPage 적용할 스타일 */
 .NewPageMain {
+    margin-left: 300px;
     margin-top: 80px; /* Header 높이와 동일하게 조정 */
     padding: 20px;
   }
