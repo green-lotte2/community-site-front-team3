@@ -10,14 +10,9 @@ body {
     height: 100vh;
 }
 .container {
-<<<<<<< HEAD
-    width: 100%;
-    height: 100vh; /* 화면 전체 높이 */
-=======
     width: 80%;
     height: 100%;
     margin: 0 auto;
-
 }
 
 header {
@@ -76,8 +71,6 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-
->>>>>>> ec979097d4f383c0636056d6e57c84d833a9de8b
     display: flex;
     justify-content: center;
     align-items: center;
