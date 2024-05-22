@@ -14,22 +14,13 @@ const header = () => {
                         <nav>
                             <ul>
                                 <li>
-                                    <Link to="#">Home</Link>
+                                    <Link to="#">홈</Link>
                                 </li>
                                 <li>
-                                    <Link to="#">Forums</Link>
-                                </li>
-                                <li>
-                                    <Link to="#">Events</Link>
-                                </li>
-                                <li>
-                                    <Link to="/admin">Admin</Link>
+                                    <Link to="#">로그인</Link>
                                 </li>
                             </ul>
                         </nav>
-                        <div class="search">
-                            <input type="text" placeholder="Search in site" />
-                        </div>
                     </div>
                 </div>
             </header>

@@ -7,13 +7,22 @@ const Aside = () => {
             <aside>
                 <ul>
                     <li>
-                        <Link to="#">Call Support</Link>
+                        <Link to="#">프로젝트</Link>
                     </li>
                     <li>
-                        <Link to="#">Live Chat</Link>
+                        <Link to="#">캘린더</Link>
                     </li>
                     <li>
-                        <Link to="#">Email Us</Link>
+                        <Link to="#">페이지</Link>
+                    </li>
+                    <li>
+                        <Link to="#">게시판</Link>
+                    </li>
+                    <li>
+                        <Link to="#">채팅</Link>
+                    </li>
+                    <li>
+                        <Link to="#">고객센터</Link>
                     </li>
                 </ul>
             </aside>

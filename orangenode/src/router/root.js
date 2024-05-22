@@ -16,13 +16,14 @@ import Modify from 'pages/board/Modify';
 import Register from 'pages/board/Register';
 import View from 'pages/board/View';
 import NewPage from 'pages/newPage/NewPage';
+import Chatpage from 'pages/chat/ChatPage';
 
 // 라우터 생성
 const root = createBrowserRouter([
     // main
     { path: '/', element: <MainPage /> },
-  
-     // admin
+
+    // admin
     { path: '/admin', element: <AdminPage /> },
     { path: '/admin/member', element: <AdminMember /> },
     { path: '/admin/member/list', element: <AdminMemberList /> },
@@ -48,6 +49,9 @@ const root = createBrowserRouter([
 
     // newPage
     { path: '/newPage', element: <NewPage /> },
+    // chat
+    { path: '/chat/chatPage', element: <Chatpage /> },
+
 ]);
 
 // 라우터 내보내기
