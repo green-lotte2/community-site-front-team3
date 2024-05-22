@@ -14,22 +14,19 @@ const header = () => {
                         <nav>
                             <ul>
                                 <li>
-                                    <Link to="#">Home</Link>
+                                    <Link to="/">Home</Link>
                                 </li>
                                 <li>
                                     <Link to="#">Forums</Link>
                                 </li>
                                 <li>
-                                    <Link to="#">Events</Link>
+                                    <Link to="/board/list">Board</Link>
                                 </li>
                                 <li>
                                     <Link to="/admin">Admin</Link>
                                 </li>
                             </ul>
                         </nav>
-                        <div class="search">
-                            <input type="text" placeholder="Search in site" />
-                        </div>
                     </div>
                 </div>
             </header>
