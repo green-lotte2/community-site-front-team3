@@ -1,0 +1,296 @@
+/* 공통 스타일 */
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#mainContainer {
+    height: 100vh;
+}
+.container {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+
+}
+
+header {
+    background-color: #fff;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+header .logo h1 {
+    margin: 0;
+    display: inline;
+}
+
+header nav {
+    display: inline;
+    float: right;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+main {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    min-height: 80vh;
+}
+
+footer {
+    background-color: #f8af65;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: #000;
+}
+
+footer a:hover {
+    text-decoration: underline;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 로그인 페이지 스타일 */
+.login-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-form {
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ccc;
+    width: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-options {
+    display: flex;
+    width: 45%;
+    margin-right: 300px;
+}
+
+.login-options h2 {
+    margin-bottom: 20px;
+}
+
+.login-buttons button {
+    display: flex;
+    width: 300px;
+    height: 80px;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.kakao-login {
+    background-image: url('../../../public/images/member/kakaoLogin.png');
+}
+
+.google-login {
+    background-image: url('../../../public/images/member/googleLogin.png');
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form label {
+    margin: 10px 0 5px;
+}
+
+.login-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+}
+
+.additional-options {
+    margin-bottom: 15px;
+}
+
+.additional-options a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+}
+
+.additional-options a:hover {
+    text-decoration: underline;
+}
+
+.login-form button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 반반으로 나누기 */
+.login-options,
+.login-form {
+    width: 45%;
+}
+
+.login-buttons,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.additional-options {
+    margin-top: 20px;
+}
+/* 회원가입 페이지 스타일 */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-options,
+.signup-form {
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ccc;
+    width: 70%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.signup-options h2 {
+    margin-bottom: 20px;
+}
+
+.signup-buttons button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.kakao-signup {
+    background-color: #fee500;
+    color: #000;
+}
+
+.google-signup {
+    background-color: #4285f4;
+    color: #fff;
+}
+
+.signup-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form label {
+    margin: 10px 0 5px;
+}
+
+.signup-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+}
+
+.email-verify {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.signup-form button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* 약관 페이지 스타일 */
+.terms {
+    margin: 20px 0;
+}
+
+.terms h3 {
+    margin-bottom: 10px;
+}
+
+.term {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.term-label {
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.term-content {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    text-align: left; /* 글을 왼쪽으로 정렬 */
+}
+
+.term-actions {
+    display: flex;
+    justify-content: flex-end; /* 체크박스와 동의 버튼을 오른쪽 끝으로 이동 */
+    align-items: center;
+}
+
+.term-actions input {
+    margin-right: 5px;
+}
