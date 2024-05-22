@@ -10,19 +10,18 @@ body {
     height: 100vh;
 }
 .container {
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
+    width: 100%;
+    height: 100vh; /* 화면 전체 높이 */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 로그인 페이지 스타일 */
 .login-container {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
 }
@@ -33,21 +32,38 @@ body {
     border: 1px solid #ccc;
     width: 45%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* 로그인 폼 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 로그인 폼 내부 요소 가운데 정렬 */
+    height: 80%; /* 높이 조절 */
+}
+.login-form-submit {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
 }
 .login-options {
+    width: 100%; /* 로그인 옵션의 너비를 로그인 폼과 동일하게 설정 */
+    margin-top: 20px; /* 로그인 옵션과 로그인 폼 사이의 간격 */
     display: flex;
-    width: 45%;
-    margin-right: 300px;
+    flex-direction: column;
+    align-items: center; /* 로그인 옵션 내부 요소 가운데 정렬 */
 }
-
 .login-options h2 {
     margin-bottom: 20px;
 }
 
-.login-buttons button {
+.login-buttons {
     display: flex;
-    width: 300px;
-    height: 80px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.login-buttons button {
+    width: 100px;
+    height: 50px;
     padding: 10px;
     margin: 10px 0;
     border: none;
@@ -56,16 +72,11 @@ body {
 }
 
 .kakao-login {
-    background-image: url('../../../public/images/member/kakaoLogin.png');
+    background-image: url('../../../public/images/member/kakao_login.png');
 }
 
 .google-login {
-    background-image: url('../../../public/images/member/googleLogin.png');
-}
-
-.login-form form {
-    display: flex;
-    flex-direction: column;
+    background-image: url('../../../public/images/member/google_login.png');
 }
 
 .login-form label {
@@ -76,10 +87,13 @@ body {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
+    box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
+    width: calc(100% - 22px);
 }
 
 .additional-options {
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .additional-options a {
@@ -91,33 +105,6 @@ body {
 .additional-options a:hover {
     text-decoration: underline;
 }
-
-.login-form button {
-    padding: 10px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* 반반으로 나누기 */
-.login-options,
-.login-form {
-    width: 45%;
-}
-
-.login-buttons,
-.login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.additional-options {
-    margin-top: 20px;
-}
 /* 회원가입 페이지 스타일 */
 .signup-container {
     display: flex;
@@ -125,23 +112,41 @@ body {
     align-items: center;
 }
 
-.signup-options,
-.signup-form {
-    background-color: #fff;
+.signup-Form {
     padding: 30px;
     border: 1px solid #ccc;
-    width: 70%;
+    width: 250vh; /* 변경된 가로폭 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
+    height: 10%; /* 높이 조절 */
+    border: none;
+}
+.signup-Form form {
+    display: flex;
+    flex-direction: column;
 }
 
-.signup-options h2 {
-    margin-bottom: 20px;
+.signup-options {
+    width: 100%; /* 회원가입 옵션의 너비를 회원가입 폼과 동일하게 설정 */
+    margin-top: 20px; /* 회원가입 옵션과 회원가입 폼 사이의 간격 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 회원가입 옵션 내부 요소 가운데 정렬 */
+}
+
+.signup-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .signup-buttons button {
-    display: block;
-    width: 100%;
+    width: 150px; /* 버튼 너비 조정 */
+    height: 50px; /* 버튼 높이 조정 */
     padding: 10px;
     margin: 10px 0;
     border: none;
@@ -159,16 +164,11 @@ body {
     color: #fff;
 }
 
-.signup-form form {
-    display: flex;
-    flex-direction: column;
-}
-
-.signup-form label {
+.signup-Form label {
     margin: 10px 0 5px;
 }
 
-.signup-form input {
+.signup-Form input {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -184,7 +184,7 @@ body {
     margin-bottom: 15px;
 }
 
-.signup-form button {
+.signup-Form button[type='submit'] {
     padding: 10px;
     background-color: #000;
     color: #fff;
