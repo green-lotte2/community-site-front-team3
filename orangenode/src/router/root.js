@@ -50,7 +50,7 @@ const root = createBrowserRouter([
     // newPage
     { path: '/newPage', element: <NewPage /> },
     // chat
-    { path: '/chat/chatPage', element: <Chatpage /> },
+    { path: '/chat', element: <Chatpage /> },
 
 ]);
 

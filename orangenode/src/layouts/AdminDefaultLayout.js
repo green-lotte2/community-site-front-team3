@@ -6,7 +6,7 @@ import Footer from '../components/common/admin/Footer';
 
 export const AdminDefaultLayout = ({ children }) => {
     return (
-        <div id="adminContainer">
+        <div id="adminContainer" className='adminContainer'>
             <Header />
             <main>
             {children}
