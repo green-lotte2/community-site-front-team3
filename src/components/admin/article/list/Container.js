@@ -10,6 +10,8 @@ const Container = () => {
     const cno = queryParams.get('cno');
     //const pg = queryParams.get('pg');
 
+    console.log(pg);
+
     const [articleList, setArticleList] = useState(null);
 
     // render 시 실행 

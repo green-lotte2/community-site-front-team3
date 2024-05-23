@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import BoardTabs from "../../components/board/BoardTabs";
 import Search from "../../components/board/Search";
 import Table from "../../components/board/Table";
@@ -7,11 +7,11 @@ import DefaultLayout from "layouts/DefaultLayout";
 import { getList } from "api/ArticleApi";
 
 const List = () => {
-  //const location = useLocation();
-  //const queryParams = new URLSearchParams(location.search);
-  //const cno = queryParams.get('cno');
-  //const pg = queryParams.get('pg');
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const cno = queryParams.get('cno');
+  const pg = queryParams.get('pg');
+ console.log(pg);
   const [articleList, setArticleList] = useState(null);
 
   // render 시 실행 
