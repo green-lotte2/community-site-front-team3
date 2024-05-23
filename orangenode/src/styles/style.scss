@@ -556,12 +556,13 @@ body {
         margin-right: 5px;
     }
 }
-// board 게시판
+
 // board 게시판
 .boardContainer {
     main .container {
         max-width: 1000px;
         margin: 0 auto;
+        padding: 20px;
     }
 
     main h2 {
@@ -569,22 +570,7 @@ body {
         margin-bottom: 20px;
     }
 
-    main p {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-
-    .image-placeholder {
-        width: 200px;
-        height: 200px;
-        background-color: #ccc;
-        display: inline-block;
-        margin-top: -84px;
-        margin-left: 720px;
-    }
-
-    // 추가된 스타일
-    .boardTabs {
+    .BoardTabs {
         display: flex;
         gap: 10px;
         margin-bottom: 20px;
@@ -592,11 +578,11 @@ body {
         a {
             text-decoration: none;
             color: #333;
-            padding: 10px;
+            padding: 10px 20px;
             border-radius: 3px;
             transition: background-color 0.3s;
             background-color: #f0f0f0;
-            flex: 1;
+            flex: none;
             text-align: center;
         }
 
@@ -611,46 +597,104 @@ body {
         }
     }
 
-    .editorContainer {
+    .search-container {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 20px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
 
-        .complete-button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #ff8916;
-            color: #fff;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-top: 20px;
-            align-self: center; /* Center the button */
-        }
-    }
-
-    .editor {
-        width: 100%;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        background-color: #fff;
-
-        .editor-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .editor-body {
-            min-height: 200px; /* Adjust as needed */
+        button,
+        input {
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
-            padding: 10px;
-            background-color: #f9f9f9;
+            margin-right: 10px;
+        }
+
+        input {
+            flex: 1;
         }
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f8f8;
+        }
+    }
+
+    .status.paid {
+        color: green;
+    }
+
+    .pagination {
+        text-align: center;
+
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            margin: 0 5px;
+            border-radius: 3px;
+
+            &:hover {
+                background-color: #007bff;
+                color: #fff;
+                border: 1px solid #007bff;
+            }
+        }
+    }
+
+    .Search {
+        display: flex;
+        justify-content: flex-end; /* 검색창을 우측으로 */
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .Search input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-right: 10px;
+    }
+    
+    .Search button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ff8916;
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    
+    .CustomButton {
+        position: fixed;
+        bottom: 20px; /* 원하는 위치로 조정 */
+        right: 20px; /* 원하는 위치로 조정 */
+        padding: 10px 20px;
+        background-color: #ff8916;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
 }
+
+
+
+
 
 // newPage 페이지
 .NewPageMain {

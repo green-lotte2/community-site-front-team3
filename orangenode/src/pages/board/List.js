@@ -9,17 +9,18 @@ import { getList } from "api/ArticleApi";
 const List = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const cno = queryParams.get('cno');
+  //const cno = queryParams.get('cno');
   const pg = queryParams.get('pg');
 
   const [articleList, setArticleList] = useState(null);
 
   // render 시 실행 
   useEffect(() => {
+    console.log("asdasd");
       // 비동기 함수 정의
       const fetchData = async () => {
           try {
-              const response = await getList(cno);
+              const response = await getList(8);
               setArticleList(response);
           } catch (error) {
               console.log(error);
@@ -30,7 +31,7 @@ const List = () => {
       fetchData();
 
         // cno(카테고리)가 변경될 때마다 실행
-      }, [cno]);
+      }, []);
   return (
     <DefaultLayout>
       <div className="boardContainer">
@@ -39,7 +40,7 @@ const List = () => {
         <Search />
         <Table  articleList={articleList}/>
       </div>
-    </DefaultLayout>
+    </DefaultLayout> 
   );
 };
 

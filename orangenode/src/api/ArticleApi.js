@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/orangenode/article';
+const url = 'http://localhost:8080/articles';
 
 // 글 목록
 export const getList = async (params1) => {
     
-    const response = await axios.get(`${url}/list?cno=${params1}`);
+    const response = await axios.get(`${url}?cno=${params1}`);
+    alert(response);
   
     return response.data;
 };
