@@ -22,38 +22,6 @@ import Calendar from "pages/calendar/Calendar";
 // 라우터 생성
 const root = createBrowserRouter([
 
-    // main
-    { path: '/', element: <MainPage /> },
-
-    // admin
-    { path: '/admin', element: <AdminPage /> },
-    { path: '/admin/member', element: <AdminMember /> },
-    { path: '/admin/member/list', element: <AdminMemberList /> },
-    { path: '/admin/article', element: <AdminArticleList /> },
-    { path: '/admin/article/view', element: <AdminArticleView /> },
-    { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
-
-    // member
-    { path: '/member/login', element: <LoginPage /> },
-    { path: '/member/register', element: <RegisterPage /> },
-    { path: '/member/terms', element: <TermsPage /> },
-
-    // project
-    { path: '/project/board', element: <ProjectBoardPage /> },
-    { path: '/project/list', element: <ProjectListPage /> },
-    { path: '/member/terms', element: <TermsPage /> },
-
-    // board
-    { path: '/board/list', element: <List /> },
-    { path: '/board/modify', element: <Modify /> },
-    { path: '/board/register', element: <Register /> },
-    { path: '/board/view', element: <View /> },
-
-    // newPage
-    { path: '/newPage', element: <NewPage /> },
-    // chat
-    { path: '/chat', element: <Chatpage /> },
-
   // main
   { path: "/", element: <MainPage /> },
 
