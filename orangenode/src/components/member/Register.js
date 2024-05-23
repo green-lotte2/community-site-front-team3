@@ -1,44 +1,120 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        uid: '',
+        pass: '',
+        pass2: '',
+        name: '',
+        nick: '',
+        email: '',
+        hp: '',
+    });
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        console.log(user);
+
+        if (user.pass !== user.pass2) {
+            alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return;
+        }
+
+        axios
+            .post('http://localhost:8080/user/register', user)
+            .then((response) => {
+                console.log(response.data);
+                alert('회원가입 완료!');
+
+                navigate('/user/login');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const changeHandler = (e) => {
+        e.preventDefault();
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
     return (
         <>
-            <div class="container">
-                <div class="signup-container">
-                    <div class="signup-Form">
-                        <form>
-                            <label htmlhtmlFor="user-id">아이디</label>
-                            <input type="text" id="user-id" name="user-id" placeholder="Enter your ID" />
-
-                            <label htmlhtmlFor="password">비밀번호</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your PW" />
-
-                            <label htmlhtmlFor="confirm-password">비밀번호 확인</label>
+            <div className="container">
+                <div className="signup-container">
+                    <div className="signup-Form">
+                        <form onSubmit={submitHandler}>
+                            <label htmlFor="uid">아이디</label>
                             <input
-                                type="password"
-                                id="confirm-password"
-                                name="confirm-password"
-                                placeholder="Check your PW"
+                                type="text"
+                                name="uid"
+                                placeholder="Enter your ID"
+                                onChange={changeHandler}
+                                value={user.uid}
                             />
 
-                            <label htmlhtmlFor="name">이름</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your name" />
+                            <label htmlFor="password">비밀번호</label>
+                            <input
+                                type="password"
+                                name="pass"
+                                placeholder="Enter your PW"
+                                value={user.pass}
+                                onChange={changeHandler}
+                            />
 
-                            <label htmlhtmlFor="email">이메일</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" />
-                            <button class="email-verify" type="button">
+                            <label htmlFor="confirm-password">비밀번호 확인</label>
+                            <input type="password" name="pass2" placeholder="Check your PW" onChange={changeHandler} />
+
+                            <label htmlFor="name">이름</label>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Enter your name"
+                                value={user.name}
+                                onChange={changeHandler}
+                            />
+
+                            <label htmlFor="nick">별명</label>
+                            <input
+                                type="text"
+                                name="nick"
+                                placeholder="Enter your nick"
+                                value={user.nick}
+                                onChange={changeHandler}
+                            />
+
+                            <label htmlFor="email">이메일</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                value={user.email}
+                                onChange={changeHandler}
+                            />
+                            <button className="email-verify" type="button">
                                 이메일 인증
                             </button>
 
-                            <label htmlhtmlFor="phone">휴대폰번호</label>
-                            <input type="text" id="phone" name="phone" placeholder="Enter your HP" />
+                            <label htmlFor="hp">휴대폰번호</label>
+                            <input
+                                type="text"
+                                name="hp"
+                                placeholder="Enter your HP"
+                                value={user.hp}
+                                onChange={changeHandler}
+                            />
 
                             <button type="submit">회원가입</button>
                         </form>
-                        <div class="signup-options">
-                            <div class="signup-buttons">
-                                <button class="kakao-signup">카카오</button>
-                                <button class="google-signup">구글</button>
+                        <div className="signup-options">
+                            <div className="signup-buttons">
+                                <button className="kakao-signup">카카오</button>
+                                <button className="google-signup">구글</button>
                             </div>
                         </div>
                     </div>
