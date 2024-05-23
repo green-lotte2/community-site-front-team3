@@ -1,8 +1,33 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
+import axios from 'axios';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput'
 
 const Chat = () => {
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/messages')
+            .then(response => {setMessages(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }, []);
+
+    const handleSendMessage = (text) => {
+        const newMessage = { position: 'right', text};
+        setMessages([...messages, newMessage]);
+
+        axios('/api/messages', newMessage)
+        .then(response => {
+            console.log("Message sent successfully:", response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    };
+
     return (
         <div className="chat-container">
             <h2>Chat</h2>
@@ -15,13 +40,12 @@ const Chat = () => {
                 <a href="#">Admin</a>
             </div>
             <div className='chat-container'>
-                <ChatMessage position="left" text="How can we help? We’re here for you!" />
-                <ChatMessage position="right" text="Hey John, I am looking for the best admin template. Could you please help me to find it out?" />
-                <ChatMessage position="left" text="It should be MUI 5 compatible." />
-                <ChatMessage position="right" text="Absolutely!" />
-                <ChatMessage position="left" text="This admin template is built with MUI." />
+                {messages.map((message, index) => (
+                    <ChatMessage key={index} position={message.position} text={message.text} />
+                ))}
             </div>
-            <ChatInput />
+            
+            <ChatInput onSendMessage={handleSendMessage} />
         </div>
     );
 };

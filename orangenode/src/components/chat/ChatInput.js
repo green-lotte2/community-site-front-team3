@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 
-const ChatInput = () => {
+const ChatInput = ({onSendMessage}) => {
+    const [inputText, setInputText] = useState("");
+
+    const handleSendMessage =() => {
+        onSendMessage(inputText);
+        setInputText("");
+    };
+
     return (
         <div className="chat-input">
-            <input type="text" placeholder="Type your message here..."/>
-            <button>SEND</button>
+            <input
+             type="text"
+             placeholder=""
+             value={inputText}
+             onChange={(e) => setInputText(e.target.value)}
+        />
+            <button onClick={handleSendMessage}>SEND</button>
         </div>
     );
 };
