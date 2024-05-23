@@ -5,9 +5,10 @@ import { CustomButton } from '../styles/CustomButton';
 const Search = () => {
   return (
     <div className="Search">
-      <button>검색</button>
       <input type="text" placeholder="Search Invoice" />
-      <CustomButton>게시판 생성</CustomButton>
+      <button>검색</button>
+    
+      <CustomButton className="CustomButton">게시판 생성</CustomButton>
     </div>
   );
 };
