@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Terms = () => {
+    const [termsAgreed, setTermsAgreed] = useState(false);
+    const [privacyAgreed, setPrivacyAgreed] = useState(false);
+    const [financeAgreed, setFinanceAgreed] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+
+        if (termsAgreed && privacyAgreed && financeAgreed) {
+            navigate('/member/register');
+        } else {
+            alert('필수 약관을 동의해주세요.');
+        }
+    };
     return (
         <>
             <div className="container">
                 <div className="signup-container">
                     <div className="signup-form">
-                        <form>
+                        <form onSubmit={handleFormSubmit}>
                             <div className="termsMain">
                                 <h3>약관 내용</h3>
                             </div>
@@ -19,7 +35,12 @@ const Terms = () => {
                                         <p>여기에 약관 내용을 입력하세요.</p>
                                     </div>
                                     <div className="term-actions">
-                                        <input type="checkbox" id="terms" name="terms" />
+                                        <input
+                                            type="checkbox"
+                                            name="terms"
+                                            checked={termsAgreed}
+                                            onChange={() => setTermsAgreed(!termsAgreed)}
+                                        />
                                         <label htmlFor="terms">동의</label>
                                     </div>
                                 </div>
@@ -32,7 +53,12 @@ const Terms = () => {
                                         <p>여기에 약관 내용을 입력하세요.</p>
                                     </div>
                                     <div className="term-actions">
-                                        <input type="checkbox" id="privacy" name="privacy" />
+                                        <input
+                                            type="checkbox"
+                                            name="privacy"
+                                            checked={privacyAgreed}
+                                            onChange={() => setPrivacyAgreed(!privacyAgreed)}
+                                        />
                                         <label htmlFor="privacy">동의</label>
                                     </div>
                                 </div>
@@ -45,7 +71,12 @@ const Terms = () => {
                                         <p>여기에 약관 내용을 입력하세요.</p>
                                     </div>
                                     <div className="term-actions">
-                                        <input type="checkbox" id="finance" name="finance" />
+                                        <input
+                                            type="checkbox"
+                                            name="finance"
+                                            checked={financeAgreed}
+                                            onChange={() => setFinanceAgreed(!financeAgreed)}
+                                        />
                                         <label htmlFor="finance">동의</label>
                                     </div>
                                 </div>
@@ -58,7 +89,7 @@ const Terms = () => {
                                         <p>여기에 약관 내용을 입력하세요.</p>
                                     </div>
                                     <div className="term-actions">
-                                        <input type="checkbox" id="location" name="location" />
+                                        <input type="checkbox" name="location" />
                                         <label htmlFor="location">동의</label>
                                     </div>
                                 </div>

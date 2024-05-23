@@ -1,7 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from 'slices/authSlice';
 
-const header = () => {
+const Header = () => {
+    const dispatch = useDispatch();
+    const authSlice = useSelector((state) => state.authSlice);
+
+    const logoutHandler = () => {
+        // 리덕스 로그아웃 액션 실행
+        dispatch(logout());
+    };
     return (
         <>
             <header>
@@ -12,12 +21,28 @@ const header = () => {
                     <div class="nav-search">
                         <nav>
                             <ul>
-                                <li>
-                                    <Link to="#">로그인</Link>
-                                </li>
-                                <li>
-                                    <Link to="#">회원가입</Link>
-                                </li>
+                                {!authSlice.username ? (
+                                    <>
+                                        <li>
+                                            <Link to="/member/login">로그인</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/member/terms">회원가입</Link>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li>
+                                            <Link to="/member/logout/" onClick={logoutHandler}>
+                                                로그아웃
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="#">관리자</Link>
+                                        </li>
+                                    </>
+                                )}
+
                                 <li>
                                     <Link to="#">고객센터</Link>
                                 </li>
@@ -30,4 +55,4 @@ const header = () => {
     );
 };
 
-export default header;
+export default Header;
