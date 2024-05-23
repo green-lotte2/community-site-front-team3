@@ -12,6 +12,7 @@ const List = () => {
   const cno = queryParams.get('cno');
   const pg = queryParams.get('pg');
  console.log(pg);
+ console.log(cno);
   const [articleList, setArticleList] = useState(null);
 
   // render 시 실행 
