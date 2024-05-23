@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CustomButton } from '../styles/CustomButton';
 
-const Login = () => {
+const Login = ({}) => {
     return (
         <>
             <div className="container">
@@ -19,7 +20,7 @@ const Login = () => {
                                 <Link to="#">비밀번호 찾기</Link>
                             </div>
 
-                            <button type="submit">로그인</button>
+                            <CustomButton type="submit">로그인</CustomButton>
 
                             <div className="login-buttons">
                                 <button className="kakao-login"></button>

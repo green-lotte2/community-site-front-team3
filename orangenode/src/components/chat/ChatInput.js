@@ -1,11 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 
-const ChatInput = () => {
+const ChatInput = ({onSendMessage}) => {
+    const [inputText, setInputText] = useState("");
+
+    const handleSendMessage =(e) => {
+        e.preventDefault();
+        onSendMessage(inputText);
+        setInputText("");
+    };
+
     return (
-        <div className="chat-input">
-            <input type="text" placeholder="Type your message here..."/>
-            <button>SEND</button>
-        </div>
+        <form className="chat-input" onSubmit={handleSendMessage}>
+            <input
+             type="text"
+             value={inputText}
+             onChange={(e) => setInputText(e.target.value)}
+        />
+            <button type="submit" onClick={handleSendMessage}>SEND</button>
+        </form>
     );
 };
 export default ChatInput;
