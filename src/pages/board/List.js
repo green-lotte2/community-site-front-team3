@@ -9,9 +9,9 @@ import { getList } from "api/ArticleApi";
 const List = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  //const cno = queryParams.get('cno');
+  const cno = queryParams.get('cno');
   const pg = queryParams.get('pg');
-console.log(pg);
+ console.log(pg);
   const [articleList, setArticleList] = useState(null);
 
   // render 시 실행 

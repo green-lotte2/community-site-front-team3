@@ -8,7 +8,7 @@ const Container = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const cno = queryParams.get('cno');
-    const pg = queryParams.get('pg');
+    //const pg = queryParams.get('pg');
 
     console.log(pg);
 
