@@ -260,21 +260,24 @@ body {
   }
 
   .login-buttons button {
-    width: 100px;
-    height: 50px;
-    padding: 10px;
+    width: 150px;
+    height: 30px;
     margin: 10px 0;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    background-size: contain;  // 이미지를 버튼 크기에 맞게 조절
+    background-repeat: no-repeat;  // 이미지를 반복하지 않도록 설정
+    background-position: center;
+    border-radius: 7px;
   }
 
   .kakao-login {
-    background-image: url("../../public/images/member/kakao_login.png");
+    background-image: url("../../public/images/member/kakao_login_large.png");
   }
 
   .google-login {
-    background-image: url("../../public/images/member/google_login.png");
+    background-image: url("../../public/images/member/google_login_large.png");
   }
 
   .login-form label {
@@ -286,7 +289,7 @@ body {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
-    width: calc(100% - 22px);
+    width: 246px;
   }
 
   .additional-options {
