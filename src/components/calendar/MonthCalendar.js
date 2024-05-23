@@ -3,6 +3,7 @@ import Calendar from "@toast-ui/calendar/ie11";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
+import calNav from "components/calendar/calNav";
 
 function MonthCalendar() {
   const calendarRef = useRef(null);
@@ -137,8 +138,29 @@ function MonthCalendar() {
     };
   }, []);
 
+  const handleViewChange = (view) => {
+    if (calendarInstance.current) {
+      calendarInstance.current.changeView(view);
+    }
+  };
+
+  const buttonStyle = {
+    borderRadius: "25px",
+    border: "1px solid #ddd",
+    fontSize: "15px",
+    color: "#333",
+    marginRight: "5px",
+  };
   return (
     <div>
+      <div style={{ marginBottom: "10px" }}>
+        <button style={buttonStyle} onClick={() => handleViewChange("month")}>
+          월간 형식
+        </button>
+        <button style={buttonStyle} onClick={() => handleViewChange("week")}>
+          주간 형식
+        </button>
+      </div>
       <div ref={calendarRef} style={{ width: "100%", height: "600px" }} />
     </div>
   );
