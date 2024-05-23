@@ -35,7 +35,7 @@ const root = createBrowserRouter([
     { path: '/member/login', element: <LoginPage /> },
     { path: '/member/register', element: <RegisterPage /> },
     { path: '/member/terms', element: <TermsPage /> },
-    
+
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
     { path: '/project/list', element: <ProjectListPage /> },
@@ -51,7 +51,6 @@ const root = createBrowserRouter([
     { path: '/newPage', element: <NewPage /> },
     // chat
     { path: '/chat', element: <Chatpage /> },
-
 ]);
 
 // 라우터 내보내기
