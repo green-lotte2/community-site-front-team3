@@ -1,11 +1,13 @@
 import React from "react";
+import { Button } from '@mui/material';
+import { CustomButton } from '../styles/CustomButton';
 
 const Search = () => {
   return (
     <div className="Search">
       <button>검색</button>
       <input type="text" placeholder="Search Invoice" />
-      <button>게시판 생성</button>
+      <CustomButton>게시판 생성</CustomButton>
     </div>
   );
 };

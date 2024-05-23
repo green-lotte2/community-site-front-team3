@@ -5,7 +5,7 @@ import Footer from '../components/common/main/Footer';
 
 const ChatLayout = ({ children }) => {
     return (
-        <div id="mainContainer">
+        <div id="chatContainer">
             <Header />
             <div className="chat-layout-container">
                 <Aside />

@@ -1,20 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import 'styles/member/member.css';
+import { CustomButton } from '../styles/CustomButton';
 
-const Login = () => {
+const Login = ({}) => {
     return (
         <>
             <div className="container">
                 <div className="login-container">
-                    <div className="login-options">
-                        <div className="login-buttons">
-                            <button className="kakao-login"></button>
-                            <button className="google-login"></button>
-                        </div>
-                    </div>
                     <div className="login-form">
-                        <form>
+                        <form className="login-form-submit">
                             <label htmlFor="user-id">아이디</label>
                             <input type="text" id="user-id" name="user-id" placeholder="Enter your ID" />
 
@@ -26,7 +20,12 @@ const Login = () => {
                                 <Link to="#">비밀번호 찾기</Link>
                             </div>
 
-                            <button type="submit">로그인</button>
+                            <CustomButton type="submit">로그인</CustomButton>
+
+                            <div className="login-buttons">
+                                <button className="kakao-login"></button>
+                                <button className="google-login"></button>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -1,18 +1,10 @@
 import React from 'react';
-import 'styles/member/member.css';
 
 const Register = () => {
     return (
         <>
             <div class="container">
                 <div class="signup-container">
-                    <div class="signup-options">
-                        <h2>회원가입</h2>
-                        <div class="signup-buttons">
-                            <button class="kakao-signup">카카오</button>
-                            <button class="google-signup">구글</button>
-                        </div>
-                    </div>
                     <div class="signup-Form">
                         <form>
                             <label htmlhtmlFor="user-id">아이디</label>
@@ -43,6 +35,12 @@ const Register = () => {
 
                             <button type="submit">회원가입</button>
                         </form>
+                        <div class="signup-options">
+                            <div class="signup-buttons">
+                                <button class="kakao-signup">카카오</button>
+                                <button class="google-signup">구글</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import EditorContainer from './EditorContainer'
 const BoardContainer = ({ props }) => {
   return (
       
-    <div className="container">
+    <div className="boardContainer">
       <h2>게시판 글{props}</h2>
       <BoardTabs />
       <EditorContainer text={props} />

@@ -8,7 +8,7 @@ import DefaultLayout from "layouts/DefaultLayout";
 const List = () => {
   return (
     <DefaultLayout>
-      <div className="list">
+      <div className="boardContainer">
         <h2>게시판 목록</h2>
         <BoardTabs />
         <Search />
