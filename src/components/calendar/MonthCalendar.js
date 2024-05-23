@@ -3,7 +3,6 @@ import Calendar from "@toast-ui/calendar/ie11";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
-import calNav from "components/calendar/calNav";
 
 function MonthCalendar() {
   const calendarRef = useRef(null);
@@ -121,6 +120,7 @@ function MonthCalendar() {
       },
     });
 
+    /*
     // 다음 주로 이동하는 버튼
     const handleClickNextButton = () => {
       calendar.next();
@@ -130,7 +130,7 @@ function MonthCalendar() {
     const weekChangeButton = () => {
       calendar.changeView("week");
     };
-
+*/
     return () => {
       if (calendar) {
         calendar.destroy();
