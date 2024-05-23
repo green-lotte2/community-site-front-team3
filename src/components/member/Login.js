@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CustomButton } from '../styles/CustomButton';
 
-const Login = ({}) => {
+const Login = () => {
     return (
         <>
             <div className="container">

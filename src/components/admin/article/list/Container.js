@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ArticleList from './ArticleList';
 import { Pagination } from '@mui/material';
 import { getList } from 'api/ArticleApi';
@@ -8,7 +8,7 @@ const Container = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const cno = queryParams.get('cno');
-    const pg = queryParams.get('pg');
+    //const pg = queryParams.get('pg');
 
     const [articleList, setArticleList] = useState(null);
 
