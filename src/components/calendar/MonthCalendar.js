@@ -6,6 +6,7 @@ import "tui-time-picker/dist/tui-time-picker.css";
 
 function MonthCalendar() {
   const calendarRef = useRef(null);
+  const calendarInstance = useRef(null);
 
   useEffect(() => {
     const container = calendarRef.current;
@@ -89,22 +90,45 @@ function MonthCalendar() {
       calendar.changeView(event === "week" ? "day" : "month");
     });
 
-    // 주말의 배경색을 변경
+    // 테마 변경
     calendar.setTheme({
-      month: {},
+      month: {
+        startDayOfWeek: 0,
+        daynames: ["일", "월", "화", "수", "목", "금", "토"],
+        format: "YYYY-MM",
+      },
+      week: {
+        startDayOfWeek: 0,
+        daynames: ["일", "월", "화", "수", "목", "금", "토"],
+        showTimezoneCollapseButton: true,
+        timezonesCollapsed: true,
+      },
       common: {
+        // 쉬는날 빨간색
         holiday: {
           color: "rgba(255, 64, 64, 1)",
         },
+        // 오늘 날짜 표시 커스텀
         today: {
           color: "#fff",
           backgroundColor: "orange",
         },
+        // 토요일 파란색
         saturday: {
           color: "rgba(64, 64, 255, 1)",
         },
       },
     });
+
+    // 다음 주로 이동하는 버튼
+    const handleClickNextButton = () => {
+      calendar.next();
+    };
+
+    // 한 주 스케줄 보기
+    const weekChangeButton = () => {
+      calendar.changeView("week");
+    };
 
     return () => {
       if (calendar) {
@@ -113,7 +137,11 @@ function MonthCalendar() {
     };
   }, []);
 
-  return <div ref={calendarRef} style={{ width: "100%", height: "600px" }} />;
+  return (
+    <div>
+      <div ref={calendarRef} style={{ width: "100%", height: "600px" }} />
+    </div>
+  );
 }
 
 export default MonthCalendar;
