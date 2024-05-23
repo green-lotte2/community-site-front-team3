@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import Main from '../../components/main/Main';
-import { getTest } from 'api/TestApi';
 
 const MainPage = () => {
 
