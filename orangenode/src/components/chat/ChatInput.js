@@ -3,21 +3,21 @@ import React, {useState} from "react";
 const ChatInput = ({onSendMessage}) => {
     const [inputText, setInputText] = useState("");
 
-    const handleSendMessage =() => {
+    const handleSendMessage =(e) => {
+        e.preventDefault();
         onSendMessage(inputText);
         setInputText("");
     };
 
     return (
-        <div className="chat-input">
+        <form className="chat-input" onSubmit={handleSendMessage}>
             <input
              type="text"
-             placeholder=""
              value={inputText}
              onChange={(e) => setInputText(e.target.value)}
         />
-            <button onClick={handleSendMessage}>SEND</button>
-        </div>
+            <button type="submit" onClick={handleSendMessage}>SEND</button>
+        </form>
     );
 };
 export default ChatInput;
