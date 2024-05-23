@@ -13,6 +13,8 @@ const Register = () => {
         nick: '',
         email: '',
         hp: '',
+        grade: 'BASIC',
+        role: 'USER',
     });
 
     const submitHandler = (e) => {
@@ -26,7 +28,7 @@ const Register = () => {
         }
 
         axios
-            .post('http://localhost:8080/user/register', user)
+            .post('http://localhost:8080/user', user)
             .then((response) => {
                 console.log(response.data);
                 alert('회원가입 완료!');
