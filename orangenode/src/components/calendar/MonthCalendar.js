@@ -12,6 +12,8 @@ function MonthCalendar() {
     const options = {
       defaultView: "month",
 
+      isReadOnly: false,
+
       // 시간대 설정
       timezone: {
         zones: [
@@ -69,18 +71,12 @@ function MonthCalendar() {
     });
 
     // 일정을 수정
-    calendar.on("beforeUpdateEvent", (update) => {
-      const updateCal = {
-        title: update.title,
-        start: update.start,
-        end: update.end,
-        location: update.location,
-        category: update.category,
-        state: update.state,
-        isReadOnly: false,
-        isAllDay: update.isAllday,
-      };
-      calendar.updateEvent(update.id, update.calendarId, [updateCal]);
+    calendar.on("beforeUpdateEvent", ({ event, changes }) => {
+      if (changes) {
+        changes.customStyle = { fontSize: "15px" };
+      }
+
+      calendar.updateEvent(event.id, event.calendarId, changes);
     });
 
     // 일정을 삭제
@@ -95,9 +91,17 @@ function MonthCalendar() {
 
     // 주말의 배경색을 변경
     calendar.setTheme({
-      month: {
-        weekend: {
-          backgroundColor: "#ffdead",
+      month: {},
+      common: {
+        holiday: {
+          color: "rgba(255, 64, 64, 1)",
+        },
+        today: {
+          color: "#fff",
+          backgroundColor: "orange",
+        },
+        saturday: {
+          color: "rgba(64, 64, 255, 1)",
         },
       },
     });
