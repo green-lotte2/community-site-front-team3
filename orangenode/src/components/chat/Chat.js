@@ -44,6 +44,7 @@ const Chat = () => {
                     <ChatMessage key={index} position={message.position} text={message.text} />
                 ))}
             </div>
+            
             <ChatInput onSendMessage={handleSendMessage} />
         </div>
     );

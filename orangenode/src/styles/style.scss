@@ -710,6 +710,7 @@ body {
     }
 
     .chat-container {
+        margin-top: 50px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -771,9 +772,8 @@ body {
     }
 
     main {
-        flex: 1;
-        padding: 20px;
-        margin-left: 220px;
+        flex: 0;
+        margin-left: 200px;
         box-sizing: border-box;
     }
 
