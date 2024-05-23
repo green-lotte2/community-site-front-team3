@@ -69,6 +69,83 @@ body {
         text-decoration: none;
         color: #000;
     }
+  .login-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .login-buttons button {
+    width: 150px;
+    height: 30px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    background-size: contain;  // 이미지를 버튼 크기에 맞게 조절
+    background-repeat: no-repeat;  // 이미지를 반복하지 않도록 설정
+    background-position: center;
+    border-radius: 7px;
+  }
+
+  .kakao-login {
+    background-image: url("../../public/images/member/kakao_login_large.png");
+  }
+
+  .google-login {
+    background-image: url("../../public/images/member/google_login_large.png");
+  }
+
+  .login-form label {
+    margin: 10px 0 5px;
+  }
+
+  .login-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
+    width: 246px;
+  }
+
+  .additional-options {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .additional-options a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .additional-options a:hover {
+    text-decoration: underline;
+  }
+  /* 회원가입 페이지 스타일 */
+  .signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signup-Form {
+    padding: 30px;
+    border: 1px solid #ccc;
+    width: 250vh; /* 변경된 가로폭 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
+    height: 10%; /* 높이 조절 */
+    border: none;
+  }
+  .signup-Form form {
+    display: flex;
+    flex-direction: column;
+  }
 
     header .search input {
         margin-right: 40px;
