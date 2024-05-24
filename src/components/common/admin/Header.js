@@ -16,7 +16,7 @@ const Header = () => {
                         <nav>
                             <ul>
                                 <li>
-                                    <Link to="/">HOME</Link>
+                                    <Link to="/admin">HOME</Link>
                                 </li>
                                 <li>
                                     <Link to="#">로그인/가입</Link>

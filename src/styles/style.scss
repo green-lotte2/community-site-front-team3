@@ -1033,8 +1033,17 @@ footer ul li a {
 
 // admin 관리자
 .adminContainer {
-    header {
-        background-color: #333;
+    $basicColor: #f1f1e6;
+    $asideColor: #f9f9f9;
+    $thirdColor: #0c1425;
+    $hoverColor: #727787;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .aHeader {
+        background-color: $basicColor;
         color: #fff;
         padding: 10px 20px;
         display: flex;
@@ -1042,19 +1051,25 @@ footer ul li a {
         align-items: center;
         width: 100%;
 
-        .container {
+        .aContainer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
 
-        .logo h1 {
+        .aContainer img {
+            margin-left: 25px;
+        }
+
+        .aLogo h1 {
+            color: $thirdColor;
             margin: 0;
+            margin-left: -290px;
             font-size: 24px;
         }
 
-        .nav-search {
+        .aNav-search {
             display: flex;
             align-items: center;
         }
@@ -1070,13 +1085,13 @@ footer ul li a {
 
                 a {
                     text-decoration: none;
-                    color: #fff;
-                    padding: 5px 10px;
+                    color: $thirdColor;
+                    padding: 10px 10px;
                     transition: background-color 0.3s;
 
                     &:hover {
-                        background-color: #007bff;
-                        color: #fff;
+                        background-color: $hoverColor;
+                        color: $thirdColor;
                         border-radius: 3px;
                     }
                 }
@@ -1084,44 +1099,54 @@ footer ul li a {
         }
 
         .search input {
+            background-color: #f9f9f9;
             margin-right: 40px;
             padding: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid $thirdColor;
             border-radius: 3px;
             margin-left: 20px;
         }
     }
+    .content-wrapper {
+        display: flex;
+        flex: 1;
+        background-color: #f9f9f9;
+    }
 
     aside {
-        width: 200px;
-        background-color: #f8f8f8;
+        width: 150px;
+        background-color: $asideColor;
         padding: 20px;
-        border-right: 1px solid #ccc;
         flex-shrink: 0;
-        height: calc(100vh - 49px);
-        position: fixed;
-        top: 49px;
-        left: 0;
+        position: absolute; /* 화면 좌측에 고정하지 않고 content-wrapper 내부에 고정 */
+        top: 73.9px; /* 헤더 아래에 위치 */
+        bottom: 0; /* 푸터 위에 위치 */
+        left: 0; /* 화면의 좌측에 고정 */
         overflow-y: auto;
+        height: calc(100vh - 120px - 74px); /* 헤더와 푸터의 높이만큼 뺀 높이 */
 
         ul {
             list-style: none;
             padding: 0;
+            margin-top: 70px;
 
             li {
                 margin-bottom: 20px;
+                margin-left: 30px;
+                display: flex;
+                align-items: center;
 
                 a {
                     text-decoration: none;
-                    color: #333;
+                    color: $thirdColor;
                     display: block;
                     padding: 10px;
                     border-radius: 3px;
                     transition: background-color 0.3s;
 
                     &:hover {
-                        background-color: #007bff;
-                        color: #fff;
+                        background-color: $hoverColor;
+                        color: $thirdColor;
                     }
                 }
             }
@@ -1131,18 +1156,16 @@ footer ul li a {
     main {
         flex: 1;
         padding: 20px;
-        box-sizing: border-box;
-        margin-left: 220px;
-        margin-top: 49px;
-        max-width: calc(100% - 220px);
-        width: calc(100% - 220px);
-
+        margin-left: 180px; /* aside의 너비에 padding을 더하여 main의 시작점 설정 */
+        margin-top: 50px; /* 헤더 높이만큼 마진 설정 */
+        width: calc(100% - 180px); /* aside의 너비에 맞게 너비 조정 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
         h2 {
+            color: $thirdColor;
             font-size: 28px;
             margin-bottom: 10px;
             text-align: center;
@@ -1152,7 +1175,7 @@ footer ul li a {
         p {
             text-align: center;
             font-size: 16px;
-            color: #666;
+            color: $thirdColor;
             margin-bottom: 40px;
         }
 
@@ -1163,12 +1186,13 @@ footer ul li a {
             .recent-items,
             .member-list {
                 width: 45%;
-                background-color: #fff;
+                background-color: $asideColor;
                 padding: 20px;
-                border: 1px solid #ccc;
+                border: 1px solid $thirdColor;
                 border-radius: 3px;
 
                 h3 {
+                    color: $thirdColor;
                     font-size: 20px;
                     margin-bottom: 20px;
                     text-align: center;
@@ -1194,7 +1218,7 @@ footer ul li a {
                 }
 
                 .time {
-                    color: #777;
+                    color: $thirdColor;
                     text-align: right;
                     flex-shrink: 0;
                     white-space: nowrap;
@@ -1206,6 +1230,7 @@ footer ul li a {
                 padding: 0;
 
                 li {
+                    color: $thirdColor;
                     margin-bottom: 10px;
                     text-align: center;
                     font-size: 18px;
@@ -1215,14 +1240,13 @@ footer ul li a {
     }
 
     footer {
-        background-color: #f8af65;
-        color: #fff;
+        background-color: #f9f9f9;
+        color: $thirdColor;
         text-align: center;
-        padding: 20px 0;
+        padding: 15px 20px;
         border-top: 1px solid #ccc;
         width: 100%;
-        position: relative;
-        bottom: 0;
+        margin-top: auto;
     }
 
     /* dashBoard 추가할 CSS */
