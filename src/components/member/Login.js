@@ -4,6 +4,10 @@ import { CustomButton } from '../styles/CustomButton';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { login } from 'slices/authSlice';
+import { globalPath } from 'globalPaths';
+
+
+const url = globalPath.path;
 
 const Login = () => {
     const navigate = useNavigate();
@@ -18,7 +22,7 @@ const Login = () => {
         e.preventDefault();
 
         axios
-            .post('http://localhost:8080/user/login', user)
+            .post(`${url}/user/login`, user)
             .then((resp) => {
                 console.log(resp.data);
 

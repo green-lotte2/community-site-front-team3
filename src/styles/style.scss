@@ -261,7 +261,7 @@ body {
     .container {
         width: 80%;
         height: 100%;
-        margin: 120px auto;
+        margin: 0 auto;
     }
 
     header {
@@ -336,10 +336,12 @@ body {
 
     .login-form {
         background-color: #fff;
-        border: 1px solid #f8af65;
-        width: 50%;
+        padding: 30px;
+        border: 1px solid #ccc;
+        width: 45%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 50px auto; /* 로그인 폼 가운데 정렬 */
+        margin: 20px auto; /* 로그인 폼 가운데 정렬 */
+
         display: flex;
         flex-direction: column;
         align-items: center; /* 로그인 폼 내부 요소 가운데 정렬 */
@@ -348,7 +350,7 @@ body {
     .login-form-submit {
         display: flex;
         flex-direction: column;
-        margin: 100px auto;
+        margin-top: 100px;
     }
     .login-options {
         width: 100%; /* 로그인 옵션의 너비를 로그인 폼과 동일하게 설정 */
@@ -555,11 +557,11 @@ body {
     }
 }
 // board 게시판
-// board 게시판
 .boardContainer {
     main .container {
         max-width: 1000px;
         margin: 0 auto;
+        padding: 20px;
     }
 
     main h2 {
@@ -567,22 +569,7 @@ body {
         margin-bottom: 20px;
     }
 
-    main p {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-
-    .image-placeholder {
-        width: 200px;
-        height: 200px;
-        background-color: #ccc;
-        display: inline-block;
-        margin-top: -84px;
-        margin-left: 720px;
-    }
-
-    // 추가된 스타일
-    .boardTabs {
+    .BoardTabs {
         display: flex;
         gap: 10px;
         margin-bottom: 20px;
@@ -590,11 +577,11 @@ body {
         a {
             text-decoration: none;
             color: #333;
-            padding: 10px;
+            padding: 10px 20px;
             border-radius: 3px;
             transition: background-color 0.3s;
             background-color: #f0f0f0;
-            flex: 1;
+            flex: none;
             text-align: center;
         }
 
@@ -609,45 +596,138 @@ body {
         }
     }
 
-    .editorContainer {
+    .search-container {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 20px;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 20px;
 
-        .complete-button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #ff8916;
-            color: #fff;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-top: 20px;
-            align-self: center; /* Center the button */
-        }
-    }
-
-    .editor {
-        width: 100%;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        background-color: #fff;
-
-        .editor-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .editor-body {
-            min-height: 200px; /* Adjust as needed */
+        button,
+        input {
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
-            padding: 10px;
-            background-color: #f9f9f9;
+            margin-right: 10px;
+        }
+
+        input {
+            flex: 1;
         }
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f8f8;
+        }
+    }
+
+    .status.paid {
+        color: green;
+    }
+
+    .pagination {
+        text-align: center;
+
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px;
+            border: 1px solid #ccc;
+            margin: 0 5px;
+            border-radius: 3px;
+
+            &:hover {
+                background-color: #007bff;
+                color: #fff;
+                border: 1px solid #007bff;
+            }
+        }
+    }
+}
+
+// 추가할 CSS
+.Search {
+    display: flex;
+    justify-content: flex-end; /* 검색창을 우측으로 */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Search input[type='text'] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.Search button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff8916;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.CustomButton {
+    position: fixed;
+    bottom: 60px; /* 푸터 위에 위치하도록 설정 */
+    right: 20px; /* 원하는 위치로 조정 */
+    padding: 10px 20px;
+    background-color: #ff8916;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #f8af65;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* 푸터가 항상 상위에 위치하도록 설정 */
+}
+
+footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px; /* 리스트 아이템 간 간격 */
+}
+
+footer ul li {
+    margin: 0;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: #fff;
 }
 
 // newPage 페이지
@@ -822,6 +902,21 @@ body {
         color: #fff;
     }
 
+    .messages-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column-reverse; /* 메시지가 아래에서 위로 올라가도록 설정 */
+        overflow-y: auto;
+        margin-bottom: 60px; /* 입력 창 높이만큼 여유를 줌 */
+        max-height: calc(80vh - 160px); /* 헤더, 탭, 입력창 등을 제외한 높이로 설정 */
+    }
+
+    .messages {
+        display: flex;
+        flex-direction: column; /* 최신 메시지가 아래에 오도록 설정 */
+        padding-bottom: 20px; /* 입력 칸과 푸터 공간 확보 */
+    }
+
     .chat-input {
         display: flex;
         justify-content: center; /* 중앙 정렬 */
@@ -850,15 +945,6 @@ body {
         color: #fff;
         border-radius: 3px;
         cursor: pointer;
-    }
-
-    .messages {
-        margin-top: 20px;
-        flex: 1;
-        overflow-y: auto; /* 스크롤 추가 */
-        display: flex;
-        flex-direction: column; /* 최신 메시지가 아래에 오도록 설정 */
-        padding-bottom: 20px; /* 입력 칸과 푸터 공간 확보 */
     }
 
     .chat-message {
