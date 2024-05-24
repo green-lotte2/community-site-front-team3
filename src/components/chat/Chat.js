@@ -1,3 +1,4 @@
+// src/components/Chat/Chat.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ChatMessage from "./ChatMessage";
@@ -11,10 +12,17 @@ const Chat = () => {
     axios
       .get("/api/messages")
       .then((response) => {
-        setMessages(response.data);
+        console.log("Data fetched:", response.data); // 디버깅용 콘솔 로그
+        if (Array.isArray(response.data)) {
+          setMessages(response.data);
+        } else {
+          console.error("Expected array but got:", typeof response.data);
+          setMessages([]); // 기본값 설정
+        }
       })
       .catch((error) => {
         console.error(error);
+        setMessages([]); // 기본값 설정
       });
   }, []);
 
