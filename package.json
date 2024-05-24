@@ -19,6 +19,7 @@
         "react-router-dom": "^6.23.1",
         "react-script": "^2.0.5",
         "react-scripts": "5.0.1",
+        "socket.io-client": "^4.7.5",
         "styled-components": "^6.1.11",
         "tui-date-picker": "^4.3.3",
         "tui-time-picker": "^2.1.6",
