@@ -1,43 +1,31 @@
-// src/components/Chat/Chat.js
+// src/components/chat/Chat.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { Link } from "react-router-dom";
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("/api/messages")
-      .then((response) => {
-        console.log("Data fetched:", response.data); // 디버깅용 콘솔 로그
-        if (Array.isArray(response.data)) {
-          setMessages(response.data);
-        } else {
-          console.error("Expected array but got:", typeof response.data);
-          setMessages([]); // 기본값 설정
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setMessages([]); // 기본값 설정
-      });
+    const newSocket = new WebSocket("ws://localhost:8080/ws/chat");
+    setSocket(newSocket);
+
+    newSocket.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      setMessages((prevMessages) => [...prevMessages, msg]);
+    };
+
+    return () => newSocket.close();
   }, []);
 
   const handleSendMessage = (text) => {
     const newMessage = { position: "right", text };
     setMessages([...messages, newMessage]);
-
-    axios
-      .post("/api/messages", newMessage)
-      .then((response) => {
-        console.log("Message sent successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (socket) {
+      socket.send(JSON.stringify(newMessage));
+    }
   };
 
   return (
