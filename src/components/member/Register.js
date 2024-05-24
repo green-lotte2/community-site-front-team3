@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -16,6 +17,35 @@ const Register = () => {
         grade: 'BASIC',
         role: 'USER',
     });
+    const [verificationCode, setVerificationCode] = useState('');
+
+    const sendVerificationEmail = () => {
+        alert('요청 보냄');
+        // 이메일 인증 요청 보내기
+        axios
+            .get(`http://localhost:8080/member/checkUser/email/${user.email}`)
+            .then((response) => {
+                // 이메일 전송 후 서버에서의 처리
+                console.log(response.data);
+                // 사용자가 이메일을 확인하고 이메일에 포함된 인증 코드를 입력하도록 유도
+            })
+            .catch((error) => {
+                console.error('이메일 인증 요청:', error);
+            });
+    };
+    const verifyCode = () => {
+        // 입력된 인증 코드를 서버로 보내어 확인
+        axios
+            .get(`http://localhost:8080/member/checkEmailCode/${verificationCode}`)
+            .then((response) => {
+                // 서버로부터 받은 응답에 따라 처리
+                console.log(response.data);
+                // 인증 성공 시 다음 단계로 진행
+            })
+            .catch((error) => {
+                console.error('Error verifying verification code:', error);
+            });
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -137,8 +167,16 @@ const Register = () => {
                                     value={user.email}
                                     onChange={changeHandler}
                                 />
-                                <button className="email-verify" type="button">
+                                <button type="button" className="emailCheckBtn" onClick={sendVerificationEmail}>
                                     이메일 인증
+                                </button>
+                                <input
+                                    type="text"
+                                    value={verificationCode}
+                                    onChange={(e) => setVerificationCode(e.target.value)}
+                                />
+                                <button type="button" onClick={verifyCode}>
+                                    인증 코드 확인
                                 </button>
                             </div>
 

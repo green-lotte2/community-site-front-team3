@@ -261,7 +261,7 @@ body {
     .container {
         width: 80%;
         height: 100%;
-        margin: 0 auto;
+        margin: 120px auto;
     }
 
     header {
@@ -336,11 +336,10 @@ body {
 
     .login-form {
         background-color: #fff;
-        padding: 30px;
-        border: 1px solid #ccc;
-        width: 45%;
+        border: 1px solid #f8af65;
+        width: 50%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 20px auto; /* 로그인 폼 가운데 정렬 */
+        margin: 50px auto; /* 로그인 폼 가운데 정렬 */
         display: flex;
         flex-direction: column;
         align-items: center; /* 로그인 폼 내부 요소 가운데 정렬 */
@@ -349,7 +348,7 @@ body {
     .login-form-submit {
         display: flex;
         flex-direction: column;
-        margin-top: 100px;
+        margin: 100px auto;
     }
     .login-options {
         width: 100%; /* 로그인 옵션의 너비를 로그인 폼과 동일하게 설정 */
