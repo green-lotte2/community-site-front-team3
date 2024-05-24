@@ -1447,3 +1447,24 @@ footer ul li a {
         }
     }
 }
+
+// jo9 추가
+// 메인 페이지
+.updates {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.user-details {
+    background-color: #007bff;
+    padding: 10px;
+    align-items: center;
+    background-color: lightblue;
+    padding: 10px;
+    border: 1px solid blue;
+    margin: 0 10px; /* 아이템 간의 간격을 20px로 설정 (좌우 10px씩) */
+}
+
+.user-details h2 {
+}

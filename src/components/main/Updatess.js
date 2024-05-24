@@ -3,26 +3,27 @@ import React from 'react';
 const Updates = () => {
     return (
         <>
-            <div class="updatess">
-                <h2>Latest Updates</h2>
-                <div class="updates">
-                    <div class="update">
-                        <img src="feature_icon.png" alt="Feature Icon" />
-                        <h3>New Feature Released</h3>
-                        <p>Check out the latest updates</p>
-                        <p class="time">5 days ago</p>
+            <div className="updatess">
+                <h2>최근 업데이트</h2>
+                <div className="updates">
+                    <div className="update">
+                        <img src="/images/icon/notification.png" alt="Feature Icon" style={{ width: '70px' }} />
+                        <h3>새로운 기능 출시</h3>
+                        <p>최신 업데이트를 확인하세요</p>
+
+                        <p className="time">5일 전</p>
                     </div>
-                    <div class="update">
-                        <img src="event_icon.png" alt="Event Icon" />
-                        <h3>Upcoming Event</h3>
-                        <p>Save the date for our community gathering</p>
-                        <p class="time">2 weeks to go</p>
+                    <div className="update">
+                        <img src="/images/icon/notification.png" alt="Feature Icon" style={{ width: '70px' }} />
+                        <h3>다가오는 행사</h3>
+                        <p>커뮤니티 모임 날짜를 저장하세요</p>
+                        <p className="time">2주 후</p>
                     </div>
-                    <div class="update">
-                        <img src="announcement_icon.png" alt="Announcement Icon" />
-                        <h3>Important Announcement</h3>
-                        <p>Stay informed about important news</p>
-                        <p class="time">Just In</p>
+                    <div className="update">
+                        <img src="/images/icon/notification.png" alt="Feature Icon" style={{ width: '70px' }} />
+                        <h3>중요 공지</h3>
+                        <p>중요한 소식을 확인 하세요</p>
+                        <p className="time">방금 전</p>
                     </div>
                 </div>
             </div>
