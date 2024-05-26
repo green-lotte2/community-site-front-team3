@@ -5,30 +5,22 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
-
-
 const url = globalPath.path;
-
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const [user, setUser] = useState({
         uid: '',
         pass: '',
     });
-
     const submitHandler = (e) => {
         e.preventDefault();
-
         axios
             .post(`${url}/user/login`, user)
             .then((resp) => {
                 console.log(resp.data);
-
                 // 리덕스 액션 실행
                 dispatch(login(resp.data));
-
                 // 메인 전환
                 navigate('/');
             })
@@ -40,7 +32,6 @@ const Login = () => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });
     };
-
     return (
         <>
             <div className="container">
@@ -56,24 +47,20 @@ const Login = () => {
                                 onChange={changeHandler}
                                 required
                             />
-
                             <label htmlFor="pass">비밀번호</label>
                             <input
-                                type="pass"
+                                type="password"
                                 name="pass"
                                 placeholder="Enter your password"
                                 value={user.pass}
                                 onChange={changeHandler}
                                 required
                             />
-
                             <div className="additional-options">
                                 <Link to="#">자동로그인</Link> |<Link to="#">아이디 찾기</Link> |
                                 <Link to="#">비밀번호 찾기</Link>
                             </div>
-
                             <CustomButton type="submit">로그인</CustomButton>
-
                             <div className="login-buttons">
                                 <button className="kakao-login"></button>
                                 <button className="google-login"></button>
@@ -85,5 +72,4 @@ const Login = () => {
         </>
     );
 };
-
 export default Login;
