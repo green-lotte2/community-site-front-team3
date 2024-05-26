@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import CSS file for styling
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
@@ -23,6 +23,12 @@ const Register = () => {
         email: '',
         verificationCode: '',
     });
+    // 비밀번호 숨기기
+    const [passwordType, setPasswordType] = useState('password');
+    const [passwordButtonIcon, setPasswordButtonIcon] = useState('eye-light-off-icon');
+    const [confirmPasswordType, setConfirmPasswordType] = useState('password');
+    const [confirmPasswordButtonIcon, setConfirmPasswordButtonIcon] = useState('eye-light-off-icon');
+
     const [showVerification, setShowVerification] = useState(false); // State to control visibility of verification code input
     const handleBlur = (e) => {
         const { name, value } = e.target;
@@ -40,7 +46,8 @@ const Register = () => {
                 errorMessage = user.pass !== value ? '비밀번호와 비밀번호 확인이 일치하지 않습니다.' : '';
                 break;
             case 'name':
-                errorMessage = !value ? '이름은 필수입력 사항입니다.' : '';
+                const namePattern = /^(?=.*[가-힣])[가-힣]{2,}$/;
+                errorMessage = !namePattern.test(value) ? '이름은 2글자 이상 입력하셔야 합니다. ' : '';
                 break;
             case 'email':
                 const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -114,6 +121,15 @@ const Register = () => {
                 //alert('인증코드 확인에 실패했습니다.');
             });
     };
+    const togglePasswordVisibility = () => {
+        setPasswordType(passwordType === 'password' ? 'text' : 'password');
+        setPasswordButtonIcon(passwordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setConfirmPasswordType(confirmPasswordType === 'password' ? 'text' : 'password');
+        setConfirmPasswordButtonIcon(confirmPasswordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
+    };
     return (
         <>
             <div className="container">
@@ -124,36 +140,55 @@ const Register = () => {
                             <input
                                 type="text"
                                 name="uid"
-                                placeholder="Enter your ID"
+                                placeholder="아이디를 입력하세요."
                                 onBlur={handleBlur}
                                 onChange={changeHandler}
                                 value={user.uid}
                             />
                             <span className="error-message">{errors.uid}</span>
                             <label htmlFor="password">비밀번호</label>
-                            <input
-                                type="password"
-                                name="pass"
-                                placeholder="Enter your PW"
-                                onBlur={handleBlur}
-                                onChange={changeHandler}
-                                value={user.pass}
-                            />
+                            <div className="password-container">
+                                <input
+                                    type={passwordType}
+                                    name="pass"
+                                    placeholder="비밀번호를 입력하세요."
+                                    onBlur={handleBlur}
+                                    onChange={changeHandler}
+                                    value={user.pass}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className={`password-toggle-button ${passwordButtonIcon}`}
+                                >
+                                    {passwordType === 'password' ? 'Show' : 'Hide'}
+                                </button>
+                            </div>
                             <span className="error-message">{errors.pass}</span>
                             <label htmlFor="confirm-password">비밀번호 확인</label>
-                            <input
-                                type="password"
-                                name="pass2"
-                                placeholder="Check your PW"
-                                onBlur={handleBlur}
-                                onChange={changeHandler}
-                            />
+                            <div className="password-container">
+                                <input
+                                    type={confirmPasswordType}
+                                    name="pass2"
+                                    placeholder="동일한 비밀번호를 입력하세요."
+                                    onBlur={handleBlur}
+                                    onChange={changeHandler}
+                                    value={user.pass2}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={toggleConfirmPasswordVisibility}
+                                    className={`password-toggle-button ${confirmPasswordButtonIcon}`}
+                                >
+                                    {confirmPasswordType === 'password' ? 'Show' : 'Hide'}
+                                </button>
+                            </div>
                             <span className="error-message">{errors.pass2}</span>
                             <label htmlFor="name">이름</label>
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Enter your name"
+                                placeholder="이름을 입력하세요."
                                 onBlur={handleBlur}
                                 onChange={changeHandler}
                                 value={user.name}
@@ -164,17 +199,17 @@ const Register = () => {
                                 <input
                                     type="email"
                                     name="email"
-                                    placeholder="Enter your email"
+                                    placeholder="이메일을 입력하세요."
                                     onBlur={handleBlur}
                                     onChange={changeHandler}
                                     value={user.email}
                                 />
-                                <span className="error-message">{errors.email}</span>
                                 {/* Button to trigger email verification */}
                                 <button className="email-verify" type="button" onClick={handleEmailVerification}>
                                     이메일 인증
                                 </button>
                             </div>
+                            <span className="error-message">{errors.email}</span>
                             {/* Conditionally render verification code input */}
                             {showVerification && (
                                 <div className="verification-code-container">
@@ -196,8 +231,8 @@ const Register = () => {
                         </form>
                         <div className="signup-options">
                             <div className="signup-buttons">
-                                <button className="kakao-signup">카카오</button>
-                                <button className="google-signup">구글</button>
+                                 <button className="kakao-signup"></button>
+                                 <button className="google-signup"></button> 
                             </div>
                         </div>
                     </div>

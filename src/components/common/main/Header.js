@@ -1,15 +1,21 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector, u } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from 'slices/authSlice';
+import { globalPath } from 'globalPaths';
 
 const Header = () => {
     const dispatch = useDispatch();
     const authSlice = useSelector((state) => state.authSlice);
+    const navigate = useNavigate();
 
-    const logoutHandler = () => {
+    const logoutHandler = async () => {
+        
         // 리덕스 로그아웃 액션 실행
-        dispatch(logout());
+        await dispatch(logout());
+        alert('로그아웃 되었습니다.');
+        navigate(`${globalPath.loginPath}`);
+        
     };
     return (
         <>
@@ -34,6 +40,9 @@ const Header = () => {
                                     </>
                                 ) : (
                                     <>
+                                        <li>
+                                            <div className='welcome-user'>{authSlice.username} 님 반갑습니다</div>
+                                        </li>
                                         <li>
                                             <Link to="/member/logout/" onClick={logoutHandler}>
                                                 로그아웃

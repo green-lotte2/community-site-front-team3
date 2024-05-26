@@ -6,9 +6,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#mainContainer {
-    height: 100vh;
-}
 .container {
     width: 80%;
     height: 100%;
