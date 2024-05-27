@@ -3,9 +3,9 @@ import React from 'react';
 const MemberList = () => {
     return (
         <>
-            <div className="member-list">
+            <div class="member-list">
                 <h3>회원 목록</h3>
-                <div className="member-list-content"></div>
+                <div class="member-list-content"></div>
             </div>
         </>
     );

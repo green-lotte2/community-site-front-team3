@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const Container = () => {
     return (
         <>
-            <div className="container">
+            <div class="container">
                 <h2>문의 답변</h2>
-                <div className="tabs">
-                    <Link to="#" className="active">
+                <div class="tabs">
+                    <Link to="#" class="active">
                         Overview
                     </Link>
                     <Link to="#">Tasks</Link>
@@ -16,16 +16,16 @@ const Container = () => {
                     <Link to="#">Reports</Link>
                     <Link to="#">Admin</Link>
                 </div>
-                <div className="content-section">
-                    <div className="post-content">
+                <div class="content-section">
+                    <div class="post-content">
                         <h3>글 내용</h3>
-                        <div className="content-box"></div>
+                        <div class="content-box"></div>
                     </div>
-                    <div className="response-section">
+                    <div class="response-section">
                         <h3>답변하기</h3>
-                        <div className="response-box"></div>
+                        <div class="response-box"></div>
                     </div>
-                    <div className="response-actions">
+                    <div class="response-actions">
                         <button>답변완료</button>
                     </div>
                 </div>

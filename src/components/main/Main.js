@@ -5,6 +5,7 @@ import Updatess from './Updatess';
 const Main = () => {
     return (
         <>
+            <Welcome />
             <Updatess />
         </>
     );

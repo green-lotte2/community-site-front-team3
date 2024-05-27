@@ -3,7 +3,7 @@ import React from 'react';
 const Member = () => {
     return (
         <>
-            <div className="member-list">
+            <div class="member-list">
                 <h3>회원 목록</h3>
                 <ul>
                     <li>회원 목록 1</li>
