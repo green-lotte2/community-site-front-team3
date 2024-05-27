@@ -755,7 +755,7 @@ footer ul li a {
   }
 }
 
-// chat 채팅
+/* chat 채팅 */
 #chatContainer {
   header {
     background-color: #f8f8f8;
@@ -857,7 +857,7 @@ footer ul li a {
     color: #fff;
   }
 
-  // 레이아웃
+  /* 레이아웃 */
   .chat-layout-container {
     display: flex;
     flex: 1;
@@ -952,29 +952,43 @@ footer ul li a {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    justify-content: flex-start; /* 메시지를 왼쪽으로 정렬 */
   }
 
   .chat-message.right {
-    justify-content: flex-end; /* 메시지를 오른쪽으로 정렬 */
+    justify-content: flex-end;
+  }
+
+  .chat-message.left {
+    justify-content: flex-start;
   }
 
   .chat-message.right .chat-user {
-    order: 2; /* 사용자 아이콘을 뒤로 이동 */
-    margin-left: 10px; /* 메시지와의 간격 */
+    order: 2;
+    margin-left: 10px;
     margin-right: 0;
   }
 
-  .chat-message .chat-user {
+  .chat-message.left .chat-user {
     margin-right: 10px;
   }
 
-  .chat-message .chat-text {
-    background-color: #f0f0f0;
-    padding: 10px;
+  .chat-user {
+    margin: 0 10px;
+  }
+
+  .chat-text {
+    background-color: #f1f1f1;
     border-radius: 5px;
+    padding: 10px;
     max-width: 60%;
-    word-wrap: break-word;
+  }
+
+  .chat-message.right .chat-text {
+    background-color: #e6f3ff;
+  }
+
+  .chat-message.left .chat-text {
+    background-color: #f1f1f1;
   }
 
   main {
