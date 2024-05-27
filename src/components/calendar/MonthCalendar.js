@@ -12,6 +12,7 @@ import {
 import { GrFormPrevious } from "react-icons/gr";
 import axios from "axios";
 import { globalPath } from "globalPaths";
+import { useSelector } from "react-redux";
 
 function MonthCalendar() {
   const calendarRef = useRef(null);
@@ -19,6 +20,7 @@ function MonthCalendar() {
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentYear, setCurrentYear] = useState("");
   const [error, setError] = useState("");
+  const authSlice = useSelector((state) => state.authSlice);
   useEffect(() => {
     const container = calendarRef.current;
     const options = {
@@ -94,11 +96,11 @@ function MonthCalendar() {
     // 일정을 생성
     calendar.on("beforeCreateEvent", (event) => {
       const newEvent = {
-        id: event.id,
+        id: authSlice.username,
         calendarId: event.calendarId,
         title: event.title,
-        start: event.start,
-        end: event.end,
+        start: event.start.toDate(),
+        end: event.end.toDate(),
         location: event.location,
         state: event.state,
         isReadOnly: false,
@@ -106,8 +108,10 @@ function MonthCalendar() {
         color: "#FFFFFF",
       };
       calendar.createEvents([newEvent]);
+      console.log(newEvent);
+      const url = globalPath.path;
       axios
-        .post(`${globalPath.path}'/calendar/insert'`, newEvent)
+        .post(`${url}/calendar/insert`, newEvent)
         .then((resp) => {
           console.log(resp.data);
         })
@@ -119,7 +123,7 @@ function MonthCalendar() {
 
     // 일정을 수정
     calendar.on("beforeUpdateEvent", ({ event, changes }) => {
-      calendar.updateEvent(event.id, event.id, changes);
+      calendar.updateEvent(event.id, event.calendarId, changes);
       console.log(changes);
     });
 
