@@ -1,8 +1,18 @@
-import React from 'react';
+import axios from 'axios';
 import { globalPath } from 'globalPaths';
 
-export const getAdminList = () => {
-    return <div>AdminApi</div>;
-};
+const url = globalPath.path;
 
-export default AdminApi;
+//admin article list
+export const adminArticleList = async () => {
+    try {
+        const response = await axios.get(`${url}/admin/article`);
+        alert(response);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching admin articles:', error);
+        alert('Failed to fetch admin articles. Please try again later.');
+        // 필요에 따라 에러를 다시 throw 할 수도 있습니다.
+        throw error;
+    }
+};

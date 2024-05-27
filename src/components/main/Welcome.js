@@ -1,7 +1,7 @@
-import React from 'react';
+//import React from 'react';
 
-const Welcome = () => {
-    return <></>;
-};
+//const Welcome = () => {
+//  return <></>;
+//};
 
-export default Welcome;
+//export default Welcome;

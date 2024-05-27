@@ -7,7 +7,7 @@ const MainPage = () => {
     return (
         <DefaultLayout>
             <Main />
-            <div className="calendar">
+            <div className="calendar" style={{ width: '300px', height: '400px' }}>
                 <MonthCalendar />
             </div>
         </DefaultLayout>

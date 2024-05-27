@@ -5,10 +5,10 @@ import Member from './Member';
 const container = () => {
     return (
         <>
-            <div class="container">
+            <div className="container">
                 <h2>관리자 메인</h2>
                 <p>Manage your content and projects efficiently</p>
-                <div class="dashboard">
+                <div className="dashboard">
                     <Recent />
                     <Member />
                 </div>
