@@ -3,6 +3,7 @@ import Board from 'components/project/Board';
 import Form from 'components/project/Form';
 
 import { TaskContext, ColumnContext } from '../../context.js';
+import DefaultLayout from 'layouts/DefaultLayout.js';
 
 const ProjectKanbanPage = () => {
     const columns = [
@@ -87,12 +88,14 @@ const ProjectKanbanPage = () => {
 
     return (
         <>
-            <Form getNewTask={getNewTask} />
-            <ColumnProvider value={{ columns }}>
-                <TaskProvider value={{ tasks, moveTask, moveBackTask, removeTask }}>
-                    <Board />
-                </TaskProvider>
-            </ColumnProvider>
+            <DefaultLayout>
+                <Form getNewTask={getNewTask} />
+                <ColumnProvider value={{ columns }}>
+                    <TaskProvider value={{ tasks, moveTask, moveBackTask, removeTask }}>
+                        <Board />
+                    </TaskProvider>
+                </ColumnProvider>
+            </DefaultLayout>
         </>
     );
 };
