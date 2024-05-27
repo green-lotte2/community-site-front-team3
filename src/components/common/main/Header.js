@@ -10,12 +10,10 @@ const Header = () => {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        
         // 리덕스 로그아웃 액션 실행
         await dispatch(logout());
         alert('로그아웃 되었습니다.');
         navigate(`${globalPath.loginPath}`);
-        
     };
     return (
         <>
@@ -41,7 +39,7 @@ const Header = () => {
                                 ) : (
                                     <>
                                         <li>
-                                            <div className='welcome-user'>{authSlice.username} 님 반갑습니다</div>
+                                            <div className="welcome-user">{authSlice.username} 님 반갑습니다</div>
                                         </li>
                                         <li>
                                             <Link to="/member/logout/" onClick={logoutHandler}>
@@ -62,7 +60,7 @@ const Header = () => {
                     </div>
                     <div className="user-info">
                         <div className="user-avatar">
-                            <img src="#" alt="User Avatar" />
+                            <img src="/images/icon/user.png" alt="User Avatar" style={{ width: '50px' }} />
                         </div>
                         <div className="user-details">
                             <h2>안녕하세요. 000님</h2>

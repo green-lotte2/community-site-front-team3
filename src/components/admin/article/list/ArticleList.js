@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArticleList = ({articleList}) => {
+const ArticleList = ({ articleList }) => {
     return (
         <>
             <table>
@@ -17,24 +17,24 @@ const ArticleList = ({articleList}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <input type="checkbox" />
-                        </td>
-                        <td>#4610</td>
-                        <td>
-                            게시물 제목
-                            <br />
-                            <small>작성자 이름</small>
-                        </td>
-                        <td>24-05-20</td>
-                        <td>
-                            <span class="status paid">Paid</span>
-                        </td>
-                        <td>
-                            <button>...</button>
-                        </td>
-                    </tr>
+                    {articleList.map((article, index) => (
+                        <tr key={article.ano}>
+                            <td>
+                                <input type="checkbox" />
+                            </td>
+                            <td>{index + 1}</td>
+                            <td>
+                                {article.title}
+                                <br />
+                                <small>{article.uid}</small>
+                            </td>
+                            <td>{new Date(article.rdate).toLocaleDateString()}</td>
+                            <td></td>
+                            <td>
+                                <button>...</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>
