@@ -4,14 +4,12 @@ import Chat from "components/chat/Chat";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
-import Aside from "components/chat/Aside";
 
 const ChatPage = () => {
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.username;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
-  const [chatRooms, setChatRooms] = useState([]);
 
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/ws/chat");
@@ -63,17 +61,8 @@ const ChatPage = () => {
     }
   };
 
-  const handleAddChatRoom = () => {
-    const newRoomName = prompt("Enter chat room name:");
-    if (newRoomName) {
-      const newRoom = { id: chatRooms.length + 1, name: newRoomName };
-      setChatRooms([...chatRooms, newRoom]);
-    }
-  };
-
   return (
     <ChatLayout>
-      <Aside chatRooms={chatRooms} onAddChatRoom={handleAddChatRoom} />
       <Chat messages={messages} onSendMessage={handleSendMessage} uid={uid} />
     </ChatLayout>
   );
