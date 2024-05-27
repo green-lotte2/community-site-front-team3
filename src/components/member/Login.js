@@ -7,6 +7,7 @@ import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
 
 const Login = () => {
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
@@ -101,6 +102,7 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
+                
             </div>
         </>
     );
