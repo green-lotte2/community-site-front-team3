@@ -1,33 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Aside = () => {
+const Aside = ({ chatRooms = [], onaddChatRoom }) => {
   return (
     <aside className="chatAside">
       <ul>
+        {chatRooms.map((room, index) => (
+          <li key={index}>
+            <Link to={`/chat/${room.id}`}>{room.name}</Link>
+          </li>
+        ))}
+
+        <Link to={"/"}>첫화면</Link>
+
         <li>
-          <Link to="#">menu1</Link>
-        </li>
-        <li>
-          <Link to="#">menu2</Link>
-        </li>
-        <li>
-          <Link to="#">menu3</Link>
-        </li>
-        <li>
-          <Link to="#">menu4</Link>
-        </li>
-        <li>
-          <Link to="#">menu5</Link>
-        </li>
-        <li>
-          <Link to="#">menu6</Link>
-        </li>
-        <li>
-          <Link to="#">menu7</Link>
-        </li>
-        <li>
-          <Link to="#">menu8</Link>
+          <button onClick={onaddChatRoom}> + 채팅방 추가하기</button>
         </li>
       </ul>
     </aside>
