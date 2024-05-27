@@ -1,15 +1,13 @@
 import React from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Chat = ({ messages, onSendMessage, uid }) => {
-  const { roomId } = useParams();
-
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
-        <h2>Chat Room {roomId}</h2>
+        <h2>Chat</h2>
         <div className="tabs">
           <Link to="#" className="active">
             Overview
