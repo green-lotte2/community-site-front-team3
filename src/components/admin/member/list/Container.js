@@ -5,16 +5,16 @@ import MemberList from './MemberList';
 const Container = () => {
     return (
         <>
-            <div class="container">
+            <div className="container">
                 <h2>회원 관리</h2>
                 <p>Manage your content and projects efficiently</p>
-                <div class="table-actions">
+                <div className="table-actions">
                     <button>Action</button>
                     <input type="text" placeholder="Search Invoice" />
                     <button>Create Invoice</button>
                 </div>
                 <MemberList />
-                <div class="pagination">
+                <div className="pagination">
                     <Link to="#">1</Link>
                     <Link to="#">2</Link>
                     <Link to="#">3</Link>
