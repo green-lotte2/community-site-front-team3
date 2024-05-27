@@ -1793,3 +1793,301 @@ footer ul li a {
 
 .user-details h2 {
 }
+
+/* 칸반보드 프로젝트 */
+
+.kanban {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 30px;
+    background-color: #eef2f9;
+    border: 4px solid #e4e8f0;
+    border-radius: 5px;
+
+    /* COLUMNS */
+
+    .column {
+        padding: 10px;
+        min-width: 260px;
+        min-height: 600px;
+        border-radius: 5px;
+        margin: 5px;
+        border: 4px solid #e4e8f0;
+        background-color: #f6f8fc;
+        width: 25%;
+        justify-content: stretch;
+    }
+
+    .col_first {
+        border-top: 4px solid #d671ae;
+    }
+    .col_second {
+        border-top: 4px solid #ffbd0a;
+    }
+    .col_third {
+        border-top: 4px solid #8fabfb;
+    }
+    .col_fourth {
+        border-top: 4px solid #6ddba6;
+    }
+
+    .column__container {
+        display: flex;
+        justify-content: stretch;
+    }
+
+    /* TASK  */
+
+    .task {
+        padding: 10px;
+        min-width: 230px;
+        background-color: white;
+        margin-top: 15px;
+        border-radius: 5px;
+        border: 1px solid #e4e8f0;
+        box-shadow: 4px 4px 0px -1px #d6dce7;
+    }
+
+    .task__header {
+        display: flex;
+        justify-content: center;
+    }
+
+    .task__delete {
+        padding: 5px;
+        border: none;
+        margin-left: 230px;
+        background-color: white;
+        color: #86879d;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+    .task__delete:hover {
+        color: red;
+        font-weight: 600;
+    }
+
+    h3 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .button {
+        padding: 5px;
+        border: 1px solid #e4e8f0;
+        border-radius: 5px;
+        background-color: white;
+        color: #86879d;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+    .button:hover {
+        background-color: #c2caf0;
+    }
+
+    .button__left {
+        margin-right: 30px;
+    }
+
+    .button__right {
+        margin-left: 30px;
+    }
+
+    .btn_mobile {
+        display: none;
+    }
+
+    /* FORM */
+
+    .form {
+        color: white;
+        margin-top: 50px;
+        min-height: 60px;
+        font-weight: 700;
+        background-color: #94a9fb;
+        border: 3px solid #8a9ef1;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+    .form__container {
+        padding: 10px;
+    }
+
+    input {
+        padding: 8px;
+        margin: 5px;
+        border-radius: 5px;
+        background-color: #94a9fb;
+        border: 1px solid #f6f8fc;
+        opacity: 70%;
+        box-shadow: inset 7px 7px 15px #8498e9, inset -7px -7px 15px #a5b7fd;
+    }
+
+    .form__submit {
+        background-color: #b194fb;
+        border: 1px solid #765cb6;
+        color: white;
+        cursor: pointer;
+        box-shadow: none;
+    }
+
+    .form__submit:hover,
+    input:hover {
+        box-shadow: 4px 4px 0px -1px rgba(66, 68, 90, 1);
+    }
+
+    ::placeholder {
+        color: white;
+    }
+
+    /* -------------------- media max 1230px --------------------  */
+    @media (max-width: 1230px) {
+        #root {
+            width: 1230px;
+        }
+
+        .column {
+            padding: 10px;
+            min-width: 180px;
+            min-height: 600px;
+            margin: 5px;
+            margin-right: 10px;
+        }
+
+        .task {
+            padding: 10px;
+            min-width: 20%;
+            margin-top: 15px;
+        }
+
+        .column__container {
+            display: flex;
+        }
+
+        .task__delete {
+            margin-left: 160px;
+        }
+    }
+
+    /* -------------------- media max 990px --------------------  */
+    @media (max-width: 990px) {
+        .column {
+            padding: 10px;
+            min-height: 600px;
+            margin: 5px;
+            margin-right: 10px;
+            width: 40%;
+        }
+
+        .task {
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .column__container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .kanban {
+            max-width: 990px;
+        }
+
+        .task__delete {
+            margin-left: 200px;
+        }
+    }
+
+    /* -------------------- media max 620px --------------------  */
+    @media (max-width: 620px) {
+        .column {
+            padding: 10px;
+            min-width: 90%;
+            min-height: 600px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .task {
+            padding: 10px;
+            min-width: 120px;
+            margin-top: 15px;
+        }
+
+        .column__container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form__container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .form {
+            margin: 0;
+            max-width: 320px;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: #c2caf0;
+            border: none;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 20px;
+            margin-left: 30px;
+            background-color: #c2caf0;
+            box-shadow: none;
+            border: 1px solid #765cb6;
+            justify-content: center;
+            text-align: center;
+        }
+
+        input::placeholder {
+            justify-content: center;
+            color: #765cb6;
+        }
+
+        .form__submit {
+            width: 150px;
+            margin: 0 auto;
+        }
+
+        .kanban {
+            max-width: 300px;
+            background-color: #c2caf0;
+            border: none;
+        }
+
+        .task__delete {
+            margin-left: 180px;
+        }
+
+        h1 {
+            color: #765cb6;
+        }
+
+        .btn_mobile {
+            display: flex;
+            margin: 0 auto;
+            margin-top: 5px;
+            padding: 2px 8px 2px 8px;
+        }
+
+        .btn_desktop {
+            display: none;
+        }
+    }
+}
