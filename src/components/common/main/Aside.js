@@ -13,7 +13,7 @@ const Aside = () => {
             <Link to="/calendar">캘린더</Link>
           </li>
           <li>
-            <Link to="/newPage">페이지</Link>
+            <Link to="/page">페이지</Link>
           </li>
           <li>
             <Link to="/board/list">게시판</Link>

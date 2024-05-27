@@ -1,5 +1,3 @@
-import { light } from "@mui/material/styles/createPalette";
-
 export const globalColors = {
   white: "#ffffff",
   black: "#000000",
