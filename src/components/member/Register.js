@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { globalPath } from 'globalPaths';
+
 const Register = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
@@ -29,98 +31,8 @@ const Register = () => {
     const [confirmPasswordType, setConfirmPasswordType] = useState('password');
     const [confirmPasswordButtonIcon, setConfirmPasswordButtonIcon] = useState('eye-light-off-icon');
 
-    const [showVerification, setShowVerification] = useState(false); // State to control visibility of verification code input
-    const handleBlur = (e) => {
-        const { name, value } = e.target;
-        let errorMessage = '';
-        switch (name) {
-            case 'uid':
-                const uidPattern = /^[a-zA-Z0-9_]{4,20}$/;
-                errorMessage = !uidPattern.test(value) ? '아이디는 영문자와 숫자로 4자 이상, 20자 이하여야 합니다.' : '';
-                break;
-            case 'pass':
-                const passPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-                errorMessage = !passPattern.test(value) ? '비밀번호는 영문자와 숫자를 포함하여 8자 이상이어야 합니다.' : '';
-                break;
-            case 'pass2':
-                errorMessage = user.pass !== value ? '비밀번호와 비밀번호 확인이 일치하지 않습니다.' : '';
-                break;
-            case 'name':
-                const namePattern = /^(?=.*[가-힣])[가-힣]{2,}$/;
-                errorMessage = !namePattern.test(value) ? '이름은 2글자 이상 입력하셔야 합니다. ' : '';
-                break;
-            case 'email':
-                const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-                errorMessage = !emailPattern.test(value) ? '올바른 이메일 주소를 입력해주세요.' : '';
-                break;
-            default:
-                break;
-        }
-        setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
-    };
-    const submitHandler = (e) => {
-        e.preventDefault();
-        // Check for any remaining errors
-        for (const error in errors) {
-            if (errors[error]) {
-                alert('양식을 올바르게 작성해주세요.');
-                return;
-            }
-        }
-        registerUser();
-    };
-    const registerUser = () => {
-        axios
-            .post('http://localhost:8080/user', user)
-            .then((response) => {
-                console.log(response.data);
-                alert('회원가입 완료!');
-                navigate('/member/login');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    const changeHandler = (e) => {
-        e.preventDefault();
-        setUser({ ...user, [e.target.name]: e.target.value });
-        // Clear the error message when user starts typing again
-        setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
-    };
-    const handleEmailVerification = () => {
-        // Make an API call to your backend to send the email verification code
-        axios
-            .get(`http://localhost:8080/member/checkUser/email/${user.email}`)
-            .then((response) => {
-                console.log(response.data);
-                //alert('인증코드가 이메일로 전송되었습니다.');
-                setShowVerification(true); // Show the verification code input field
-            })
-            .catch((err) => {
-                console.log(err);
-                // Handle error, such as displaying an error message to the user
-                //alert('인증코드 전송에 실패했습니다. 다시 시도해주세요.');
-            });
-    };
-    const checkEmailCode = () => {
-        axios
-            .get(`http://localhost:8080/member/checkEmailCode/${user.verificationCode}`)
-            .then((response) => {
-                const data = response.data;
-                if (data.result === 0) {
-                    console.log(user.verificationCode);
-                    //alert('인증코드가 일치합니다.');
-                } else {
-                    console.log(user.verificationCode);
-                    //alert('인증코드가 일치하지 않습니다.');
-                }
-            })
-            .catch((error) => {
-                console.log(user.verificationCode);
-                console.error('인증코드 확인에 실패하였습니다.', error);
-                //alert('인증코드 확인에 실패했습니다.');
-            });
-    };
+    const [showVerification, setShowVerification] = useState(false);
+
     const togglePasswordVisibility = () => {
         setPasswordType(passwordType === 'password' ? 'text' : 'password');
         setPasswordButtonIcon(passwordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
@@ -130,6 +42,124 @@ const Register = () => {
         setConfirmPasswordType(confirmPasswordType === 'password' ? 'text' : 'password');
         setConfirmPasswordButtonIcon(confirmPasswordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
     };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        let errorMessage = '';
+        switch (name) {
+            case 'uid':
+                const uidPattern = /^[a-zA-Z0-9_]{4,20}$/;
+                errorMessage = !uidPattern.test(value)
+                    ? '아이디는 영문자와 숫자로 4자 이상, 20자 이하여야 합니다.'
+                    : '';
+                break;
+            case 'pass':
+                const passPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+                errorMessage = !passPattern.test(value)
+                    ? '비밀번호는 영문자와 특수문자와 숫자를 포함하여 8자 이상이어야 합니다.'
+                    : '';
+                break;
+            case 'pass2':
+                errorMessage = user.pass !== value ? '비밀번호와 비밀번호 확인이 일치하지 않습니다.' : '';
+                break;
+            case 'name':
+                const namePattern = /^(?=.*[가-힣])[가-힣]{2,}$/;
+                errorMessage = !namePattern.test(value) ? '이름은 2글자 이상 입력하셔야 합니다. ' : '';
+                break;
+            case 'email':
+                const emailPattern =
+                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+                errorMessage = !emailPattern.test(value) ? '올바른 이메일 주소를 입력해주세요.' : '';
+                break;
+            default:
+                break;
+        }
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
+    };
+
+    let emailOk = false;
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        for (const key in user) {
+            if (user[key] === '') {
+                alert('모든 필드를 입력해주세요.');
+                return;
+            }
+        }
+
+        for (const error in errors) {
+            if (errors[error]) {
+                alert('양식을 올바르게 작성해주세요.');
+                return;
+            }
+        }
+        if (emailOk === true) {
+            registerUser();
+        } else {
+            alert('이메일을 확인해주세요.');
+        }
+    };
+
+    const registerUser = () => {
+        axios
+            .post(`${globalPath.user}`, user)
+            .then((response) => {
+                console.log(response.data);
+                alert('회원가입 완료!');
+                navigate('/member/login');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const changeHandler = (e) => {
+        e.preventDefault();
+        setUser({ ...user, [e.target.name]: e.target.value });
+        // Clear the error message when user starts typing again
+        setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
+    };
+
+    const handleEmailVerification = () => {
+        // Make an API call to your backend to send the email verification code
+        axios
+            .get(`${globalPath.sendEmailCode}/${user.email}`, { withCredentials: true })
+            .then((response) => {
+                if (response.data.result === 1) {
+                    return;
+                } else {
+                    alert('인증코드가 이메일로 전송되었습니다.');
+                    setShowVerification(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('이메일이 중복되었습니다. 다른 이메일을 사용해주세요.');
+            });
+    };
+
+    const checkEmailCode = () => {
+        console.log('check...1 : ' + user.verificationCode);
+
+        axios
+            .get(`${globalPath.checkEmailCode}/${user.verificationCode}`, { withCredentials: true })
+            .then((response) => {
+                const data = response.data;
+                if (data.result === 0) {
+                    alert('인증코드가 일치합니다.');
+                    emailOk = true;
+                } else {
+                    alert('인증코드가 일치하지 않습니다.');
+                }
+            })
+            .catch((error) => {
+                console.log(user.verificationCode);
+                console.error('인증코드 확인에 실패하였습니다.', error);
+                //alert('인증코드 확인에 실패했습니다.');
+            });
+    };
+
     return (
         <>
             <div className="container">
@@ -221,7 +251,6 @@ const Register = () => {
                                         onChange={changeHandler}
                                         value={user.verificationCode}
                                     />
-                                    {/* Button to confirm verification code */}
                                     <button className="email-verify" type="button" onClick={checkEmailCode}>
                                         인증코드 확인
                                     </button>
@@ -231,8 +260,8 @@ const Register = () => {
                         </form>
                         <div className="signup-options">
                             <div className="signup-buttons">
-                                 <button className="kakao-signup"></button>
-                                 <button className="google-signup"></button> 
+                                <button className="kakao-signup"></button>
+                                <button className="google-signup"></button>
                             </div>
                         </div>
                     </div>

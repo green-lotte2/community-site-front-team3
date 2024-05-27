@@ -19,7 +19,6 @@ body {
 
 // 공통
 #mainContainer {
-    
     // 공통 헤더
     header {
         background-color: #f8f8f8;
@@ -33,7 +32,6 @@ body {
         z-index: 1000;
         height: 60px;
     }
-    
 
     header .container {
         height: 100%;
@@ -285,7 +283,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-width: 1903px;
+        min-width: 100%;
         min-height: 100vh; /* 뷰포트 높이의 100%로 설정 */
         background-color: #f8af65;
     }
@@ -358,7 +356,7 @@ body {
         height: 100vh;
         width: 200vh; /* 좌우 여백 설정 */
     }
-    
+
     .login-image {
         display: flex;
         justify-content: center;
@@ -371,7 +369,7 @@ body {
         background-position: center; /* 이미지를 중앙에 정렬 */
         border-radius: 30px;
     }
-    
+
     .login-form {
         background-color: #fff;
         padding: 30px;
@@ -427,7 +425,7 @@ body {
 
     .login-form label {
         margin: 30px 0 7px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .login-form input {
@@ -442,8 +440,7 @@ body {
     .additional-options {
         margin-bottom: 30px;
         text-align: center;
-        font-family: Verdana, Geneva, Tahoma, sans-serif
-        
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .additional-options a {
@@ -462,7 +459,7 @@ body {
     }
     .login-description {
         color: rgba(0, 0, 0, 0.7);
-      
+
         font-size: 14px;
         font-weight: 400;
         line-height: 140%;
@@ -470,80 +467,80 @@ body {
     }
     .login-description span a {
         color: black;
-      }
-      
-      .login-description span a:hover {
-        color: black; 
-        text-decoration: underline; 
-      }
-      .login-errMsg {
+    }
+
+    .login-description span a:hover {
+        color: black;
+        text-decoration: underline;
+    }
+    .login-errMsg {
         margin-bottom: 13px;
         font-size: 12px;
         color: red;
-      }
-      .password-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
+    }
+    .password-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
 
-.password-container input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  box-sizing: border-box;
-}
+    .password-container input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
+    }
 
-.password-toggle-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0 10px;
-}
+    .password-toggle-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0 10px;
+    }
 
-.eye-light-off-icon::before {
-  content: '🔒'; /* 잠금 아이콘 */
-}
+    .eye-light-off-icon::before {
+        content: '🔒'; /* 잠금 아이콘 */
+    }
 
-.eye-light-on-icon::before {
-  content: '🔓'; /* 잠금 해제 아이콘 */
-}
-.password-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .password-container input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  .password-toggle-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 10px;
-  }
-  
-  .eye-light-off-icon::before {
-    content: '🔒'; /* 잠금 아이콘 */
-  }
-  
-  .eye-light-on-icon::before {
-    content: '🔓'; /* 잠금 해제 아이콘 */
-  }
+    .eye-light-on-icon::before {
+        content: '🔓'; /* 잠금 해제 아이콘 */
+    }
+    .password-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .password-container input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .password-toggle-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0 10px;
+    }
+
+    .eye-light-off-icon::before {
+        content: '🔒'; /* 잠금 아이콘 */
+    }
+
+    .eye-light-on-icon::before {
+        content: '🔓'; /* 잠금 해제 아이콘 */
+    }
     /* 회원가입 페이지 스타일 */
     .signup-container {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 120vh;
-        width: 200vh;   
+        width: 200vh;
     }
 
     .signup-Form {
@@ -598,7 +595,7 @@ body {
 
     .signup-Form label {
         margin: 15px 0 7px;
-        font-family: Verdana, Geneva, Tahoma, sans-serif
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .signup-Form input {
@@ -631,12 +628,12 @@ body {
     }
     .email-input-container {
         display: flex;
-        align-items: center; 
+        align-items: center;
     }
 
     .email-input-container input[type='email'] {
-        flex: 1; 
-        margin-right: 10px; 
+        flex: 1;
+        margin-right: 10px;
     }
     .error-message {
         display: block; /* 블록 요소로 변경 */
@@ -645,9 +642,24 @@ body {
         color: red;
         font-size: 12px;
     }
+    .green-text {
+        color: green;
+        font-size: 12px;
+        display: block; /* 블록 요소로 변경 */
+        clear: both; /* 다음 요소가 옆으로 이동하지 않도록 해제 */
+        margin-bottom: 13px;
+    }
+
+    .red-text {
+        color: red;
+        font-size: 12px;
+        display: block; /* 블록 요소로 변경 */
+        clear: both; /* 다음 요소가 옆으로 이동하지 않도록 해제 */
+        margin-bottom: 13px;
+    }
 
     /* 약관 페이지 스타일 */
-    .terms.container{
+    .terms.container {
         background-color: #f8af65;
         display: flex;
         justify-content: center;
@@ -656,141 +668,141 @@ body {
     }
 
     .terms-container-content {
-    width: 400px;
-    height: 100%;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        width: 400px;
+        height: 100%;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-.terms-form {
-    background-color: #fff;
-    padding: 30px;
-    border: 1px solid #ccc; 
-    width: 400px; /* 변경된 너비 */
-    height: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+    .terms-form {
+        background-color: #fff;
+        padding: 30px;
+        border: 1px solid #ccc;
+        width: 400px; /* 변경된 너비 */
+        height: 400px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.termsMain {
-    margin-bottom: 50px;
-}
-.termsMain h3 {
-    margin-bottom: 10px;
-}
+    .termsMain {
+        margin-bottom: 50px;
+    }
+    .termsMain h3 {
+        margin-bottom: 10px;
+    }
 
-.terms p {
-    margin-bottom: 20px;
-}
+    .terms p {
+        margin-bottom: 20px;
+    }
 
-.term {
-    margin-bottom: 15px;
-}
+    .term {
+        margin-bottom: 15px;
+    }
 
-.term-label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-    color: #666;
-}
-.term-allcheck {
-    font-weight: 1000;
-}
+    .term-label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        color: #666;
+    }
+    .term-allcheck {
+        font-weight: 1000;
+    }
 
-.term-label input[type="checkbox"] {
-    margin-right: 10px;
-}
+    .term-label input[type='checkbox'] {
+        margin-right: 10px;
+    }
 
-.term-label span {
-    margin-left: auto;
-    color: #666;
-    cursor: pointer;
-    text-decoration: underline;
-}
+    .term-label span {
+        margin-left: auto;
+        color: #666;
+        cursor: pointer;
+        text-decoration: underline;
+    }
 
-.term-label span:hover {
-    text-decoration: underline;
-}
+    .term-label span:hover {
+        text-decoration: underline;
+    }
 
-.term-actions {
-    display: flex;
-    align-items: center;
-}
+    .term-actions {
+        display: flex;
+        align-items: center;
+    }
 
-.term-actions input[type="checkbox"] {
-    margin-right: 5px;
-}
+    .term-actions input[type='checkbox'] {
+        margin-right: 5px;
+    }
 
-.terms-form button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #f8af65;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    .terms-form button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #f8af65;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-.terms-form button:hover {
-    background-color: #f8af65;
-}
+    .terms-form button:hover {
+        background-color: #f8af65;
+    }
 
-.terms-form button[type="button"] {
-    background-color: #28a745;
-}
+    .terms-form button[type='button'] {
+        background-color: #28a745;
+    }
 
-.terms-form button[type="button"]:hover {
-    background-color: #218838;
-}
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    width: 90%; /* 너비를 조정하여 더 크게 만듦 */
-    max-width: 800px; /* 최대 너비를 설정하여 너비가 너무 커지지 않도록 제한 */
-    padding: 40px; /* 내용과 모달 창의 여백을 더 넓게 조정 */
-    border-radius: 10px; /* 모서리를 더 둥글게 만듦 */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 그림자 효과를 더 강화 */
-    color: #333;
-}
+    .terms-form button[type='button']:hover {
+        background-color: #218838;
+    }
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        width: 90%; /* 너비를 조정하여 더 크게 만듦 */
+        max-width: 800px; /* 최대 너비를 설정하여 너비가 너무 커지지 않도록 제한 */
+        padding: 40px; /* 내용과 모달 창의 여백을 더 넓게 조정 */
+        border-radius: 10px; /* 모서리를 더 둥글게 만듦 */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 그림자 효과를 더 강화 */
+        color: #333;
+    }
 
-.modal-content {
-    font-size: 16px; /* 폰트 크기를 설정하여 텍스트가 더 잘 보이도록 함 */
-    line-height: 1.6; /* 줄 간격을 설정하여 텍스트의 가독성을 높임 */
-    color: #fff; /* 텍스트 색상을 변경하여 더 잘 보이도록 함 */
-}
+    .modal-content {
+        font-size: 16px; /* 폰트 크기를 설정하여 텍스트가 더 잘 보이도록 함 */
+        line-height: 1.6; /* 줄 간격을 설정하여 텍스트의 가독성을 높임 */
+        color: #fff; /* 텍스트 색상을 변경하여 더 잘 보이도록 함 */
+    }
 
-.modal-content p {
-    margin-bottom: 10px; /* 문단 사이의 간격을 설정하여 텍스트가 더 잘 구분되도록 함 */
-}
+    .modal-content p {
+        margin-bottom: 10px; /* 문단 사이의 간격을 설정하여 텍스트가 더 잘 구분되도록 함 */
+    }
 
-.modal-content span {
-    color: #ff7f50; /* 링크 색상을 변경하여 더 눈에 띄도록 함 */
-    text-decoration: underline; /* 링크에 밑줄을 추가하여 클릭 가능성을 강조함 */
-    cursor: pointer; /* 마우스를 호버 시 포인터 모양으로 변경하여 클릭 가능성을 시각적으로 표시함 */
-}
+    .modal-content span {
+        color: #ff7f50; /* 링크 색상을 변경하여 더 눈에 띄도록 함 */
+        text-decoration: underline; /* 링크에 밑줄을 추가하여 클릭 가능성을 강조함 */
+        cursor: pointer; /* 마우스를 호버 시 포인터 모양으로 변경하여 클릭 가능성을 시각적으로 표시함 */
+    }
 
-.modal-content span:hover {
-    color: #ffa07a; /* 마우스 호버 시 링크 색상을 변경하여 더 동적으로 표시함 */
-}
+    .modal-content span:hover {
+        color: #ffa07a; /* 마우스 호버 시 링크 색상을 변경하여 더 동적으로 표시함 */
+    }
 
-.close {
-    position: absolute; /* 닫기 버튼을 모달 내에서 위치시키기 위해 절대 위치로 설정 */
-    top: 10px; /* 모달 상단에서 10px 아래에 위치 */
-    right: 10px; /* 모달 우측에서 10px 왼쪽에 위치 */
-    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-}
+    .close {
+        position: absolute; /* 닫기 버튼을 모달 내에서 위치시키기 위해 절대 위치로 설정 */
+        top: 10px; /* 모달 상단에서 10px 아래에 위치 */
+        right: 10px; /* 모달 우측에서 10px 왼쪽에 위치 */
+        cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
+    }
 }
 // board 게시판
 .boardContainer {
@@ -971,105 +983,103 @@ footer ul li a {
     margin-left: 300px;
     margin-top: 80px;
     padding: 20px;
-  
+
     h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
-  
+
     p {
-      font-size: 18px;
-      margin-bottom: 20px;
+        font-size: 18px;
+        margin-bottom: 20px;
     }
-  
+
     .image-placeholder {
-      width: 200px;
-      height: 200px;
-      background-color: #ccc;
-      margin-top: -84px;
-      margin-left: auto;
-      margin-right: auto;
+        width: 200px;
+        height: 200px;
+        background-color: #ccc;
+        margin-top: -84px;
+        margin-left: auto;
+        margin-right: auto;
     }
-  
+
     .chat-input {
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
-  
-      input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid $border-color;
-        border-radius: 3px;
-        margin-right: 10px;
-        max-width: 500px;
-      }
-  
-      button {
-        padding: 10px 20px;
-        border: none;
-        background-color: $primary-color;
-        color: $white;
-        border-radius: 3px;
-        cursor: pointer;
-      }
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid $border-color;
+            border-radius: 3px;
+            margin-right: 10px;
+            max-width: 500px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: $primary-color;
+            color: $white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
     }
-  
+
     .messages {
-      margin-top: 20px;
+        margin-top: 20px;
     }
-  
+
     // 제목
     .pageTitle {
-      max-width: 100%; 
-      width: 100%; 
-      white-space: pre-wrap; 
-      word-break: break-word; 
-      caret-color: rgb(55, 53, 47); 
-      padding-top: 3px; 
-      padding-left: 2px; 
-      padding-right: 2px; 
-      font-size: 2.2em;
-      font-weight: inherit; 
-      color: rgb(1, 1, 1);
-      margin: 0px; 
-      min-height: 1em; 
-      cursor: text;
-  
-      &:empty::before {
-        content: attr(placeholder);
-        color: rgb(148, 147, 147);
-        pointer-events: none;
-      }
-      &:not(:empty) {
-        color: rgb(1, 1, 1) ; /* 텍스트가 입력된 경우 검정색으로 표시 */
-      }
-      &:read-write:focus {
-        outline: none;
-      }
+        max-width: 100%;
+        width: 100%;
+        white-space: pre-wrap;
+        word-break: break-word;
+        caret-color: rgb(55, 53, 47);
+        padding-top: 3px;
+        padding-left: 2px;
+        padding-right: 2px;
+        font-size: 2.2em;
+        font-weight: inherit;
+        color: rgb(1, 1, 1);
+        margin: 0px;
+        min-height: 1em;
+        cursor: text;
+
+        &:empty::before {
+            content: attr(placeholder);
+            color: rgb(148, 147, 147);
+            pointer-events: none;
+        }
+        &:not(:empty) {
+            color: rgb(1, 1, 1); /* 텍스트가 입력된 경우 검정색으로 표시 */
+        }
+        &:read-write:focus {
+            outline: none;
+        }
     }
     // 내용
     .contentEditor {
-      margin-top: 10px;
-      padding: 10px;
-      &:empty::before {
-        content: attr(placeholder);
-        color: gray
-      }
-  
-      &:read-write:focus {
-        outline: none;
-      }
-  
-      &:focus:empty:before {
-        /* focus 되어있을 때 plceholder가 보이도록 추가 */
-        content: attr(placeholder);
-        color: gray
-      }
-  
+        margin-top: 10px;
+        padding: 10px;
+        &:empty::before {
+            content: attr(placeholder);
+            color: gray;
+        }
+
+        &:read-write:focus {
+            outline: none;
+        }
+
+        &:focus:empty:before {
+            /* focus 되어있을 때 plceholder가 보이도록 추가 */
+            content: attr(placeholder);
+            color: gray;
+        }
     }
-  
-  }
+}
 
 // chat 채팅
 #chatContainer {
