@@ -1,30 +1,63 @@
-// src/components/chat/Chat.js
 import React, { useState, useEffect } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { Link } from "react-router-dom";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import { useSelector } from "react-redux";
 
 const Chat = () => {
+  const authSlice = useSelector((state) => state.authSlice);
+  const uid = authSlice.username;
   const [messages, setMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+  const [stompClient, setStompClient] = useState(null);
+  console.log("Chat uid : " + uid);
 
   useEffect(() => {
-    const newSocket = new WebSocket("ws://localhost:8080/ws/chat");
-    setSocket(newSocket);
+    const socket = new SockJS("http://localhost:8080/ws/chat");
+    const client = new Client({
+      webSocketFactory: () => socket,
+      reconnectDelay: 5000,
+    });
 
-    newSocket.onmessage = (event) => {
-      const msg = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, msg]);
+    client.onConnect = () => {
+      console.log("Connected");
+
+      client.subscribe("/topic/public", (message) => {
+        const msg = JSON.parse(message.body);
+        console.log("Received message:", msg);
+        setMessages((prevMessages) => [...prevMessages, msg]);
+      });
+
+      client.send("/app/chat.addUser", {}, JSON.stringify({ uid }));
     };
 
-    return () => newSocket.close();
-  }, []);
+    client.onStompError = (frame) => {
+      console.error("Broker reported error: " + frame.headers["message"]);
+      console.error("Additional details: " + frame.body);
+    };
+
+    client.activate();
+    setStompClient(client);
+
+    return () => {
+      if (client) {
+        client.deactivate();
+      }
+    };
+  }, [uid]);
 
   const handleSendMessage = (text) => {
-    const newMessage = { position: "right", text };
-    setMessages([...messages, newMessage]);
-    if (socket) {
-      socket.send(JSON.stringify(newMessage));
+    if (stompClient && stompClient.connected) {
+      const chatMessage = {
+        uid: uid,
+        message: text,
+      };
+      console.log("chatMessage : " + JSON.stringify(chatMessage));
+      stompClient.publish({
+        destination: "/app/chat.sendMessage",
+        body: JSON.stringify(chatMessage),
+      });
     }
   };
 
@@ -47,8 +80,8 @@ const Chat = () => {
             {messages.map((message, index) => (
               <ChatMessage
                 key={index}
-                position={message.position}
-                text={message.text}
+                position={message.uid === uid ? "right" : "left"} // 변경된 부분
+                text={message.message}
               />
             ))}
           </div>
