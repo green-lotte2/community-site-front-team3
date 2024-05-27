@@ -5,18 +5,7 @@ import axios from 'axios';
 import { Pagination } from '@mui/material';
 import { globalPath } from 'globalPaths';
 
-const url = globalPath.adminArticleListPath;
-
-// 글 목록 가져오기
-const fetchAdminArticleList = async () => {
-    try {
-        const response = await axios.get(`${url}/admin/article`);
-        return response.data;
-    } catch (error) {
-        console.error('데이터 가져왔니', error);
-        throw error;
-    }
-};
+const url = globalPath.path;
 
 const Container = () => {
     const location = useLocation();
@@ -26,25 +15,21 @@ const Container = () => {
 
     const [articleList, setArticleList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            setError(null);
+        const response = axios
+            .get(`${url}/admin/article`, { withCredentials: true })
+            .then((resp) => {
+                console.log(resp.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log(`${url}/admin/article`);
+            });
 
-            try {
-                const response = await fetchAdminArticleList();
-                setArticleList(response);
-            } catch (error) {
-                setError('글을 가져오지 못했습니다 ㅠㅠ');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [cno]);
+        console.log(response);
+    }, []);
 
     return (
         <div className="container">

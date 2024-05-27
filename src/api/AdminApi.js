@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
 
-const url = globalPath.adminArticleListPath;
+const url = globalPath.path;
 
 //admin article list
 export const adminArticleList = async () => {
