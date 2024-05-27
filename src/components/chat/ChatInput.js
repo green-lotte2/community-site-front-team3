@@ -17,9 +17,11 @@ const ChatInput = ({ onSendMessage }) => {
         type="text"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
+        placeholder="Type your message here..."
       />
       <button type="submit">SEND</button>
     </form>
   );
 };
+
 export default ChatInput;
