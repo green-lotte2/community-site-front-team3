@@ -269,6 +269,17 @@ body {
         color: #fff;
     }
 }
+.appVersion{
+    position: fixed;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    color: white;
+}
 // member 회원
 #memberContainer {
     padding: 100px 0px 150px;

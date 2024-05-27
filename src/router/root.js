@@ -50,7 +50,7 @@ const root = createBrowserRouter([
     { path: '/board/view', element: <View /> },
 
     // newPage
-    { path: '/newPage', element: <NewPage /> },
+    { path: '/page', element: <NewPage /> },
 
     // chat
     { path: '/chat', element: <Chatpage /> },
