@@ -17,6 +17,7 @@ const Container = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
 
+    /** 공지사항 목록 출력 */
     useEffect(() => {
         const response = axios
             .get(`${url}/admin/article`, { withCredentials: true })

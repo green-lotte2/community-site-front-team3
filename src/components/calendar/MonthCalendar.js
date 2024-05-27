@@ -73,6 +73,7 @@ function MonthCalendar() {
       useFormPopup: true,
     };
 
+    /** 랜덤 색상 설정 */
     const getRandomColor = () => {
       const letters = "0123456789ABCDEF";
       let color = "#";
@@ -93,7 +94,7 @@ function MonthCalendar() {
       },
     });
 
-    // 일정을 생성
+    /** 일정을 생성 */
     calendar.on("beforeCreateEvent", (event) => {
       const newEvent = {
         id: authSlice.username,
@@ -121,18 +122,18 @@ function MonthCalendar() {
         });
     });
 
-    // 일정을 수정
+    /** 일정을 수정 */
     calendar.on("beforeUpdateEvent", ({ event, changes }) => {
       calendar.updateEvent(event.id, event.calendarId, changes);
       console.log(changes);
     });
 
-    // 일정을 삭제
+    /** 일정을 삭제 */
     calendar.on("beforeDeleteEvent", (eventObj) => {
       calendar.deleteEvent(eventObj.id, eventObj.calendarId);
     });
 
-    // 테마 변경
+    /**  테마 변경 */
     calendar.setTheme({
       month: {
         startDayOfWeek: 0,
@@ -171,24 +172,24 @@ function MonthCalendar() {
     };
   }, []);
 
-  // 다음 달로 이동하는 버튼
+  /**  다음 달로 이동하는 버튼 */
   const handleClickNextButton = () => {
     calendarInstance.current.next();
     setCurrentMonth(calendarInstance.current.getDate().getMonth() + 1);
     setCurrentYear(calendarInstance.current.getDate().getFullYear());
   };
-  // 이전 달로 이동하는 버튼
+  /** 이전 달로 이동하는 버튼 */
   const handleClickPrevButton = () => {
     calendarInstance.current.prev();
     setCurrentMonth(calendarInstance.current.getDate().getMonth() + 1);
     setCurrentYear(calendarInstance.current.getDate().getFullYear());
   };
 
-  // 한 주 스케줄로 보기
+  /** 한 주 스케줄로 보기 */
   const weekChangeButton = (view) => {
     calendarInstance.current.changeView("week");
   };
-  // 월간 스케줄로 보기
+  /** 월간 스케줄로 보기 */
   const monthChangeButton = (view) => {
     calendarInstance.current.changeView("month");
   };

@@ -18,6 +18,7 @@ const Login = () => {
     const [passwordButtonIcon, setPasswordButtonIcon] = useState('eye-light-off-icon');
     const [error, setError] = useState('');
 
+    /** 로그인 버튼 클릭 */
     const submitHandler = (e) => {
         e.preventDefault();
         axios
@@ -37,11 +38,13 @@ const Login = () => {
             
     };
 
+    /** 값 입력  */
     const changeHandler = (e) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
+    
     const onPasswordButtonClickHandler = () => {
         if (passwordType === 'text') {
             setPasswordType('password');

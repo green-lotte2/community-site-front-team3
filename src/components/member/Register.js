@@ -43,6 +43,7 @@ const Register = () => {
         setConfirmPasswordButtonIcon(confirmPasswordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
     };
 
+    /** 포커스 아웃되면 유효성 검사 */
     const handleBlur = (e) => {
         const { name, value } = e.target;
         let errorMessage = '';
@@ -78,7 +79,7 @@ const Register = () => {
     };
 
     let emailOk = false;
-
+    /** 가입하기 버튼 */
     const submitHandler = (e) => {
         e.preventDefault();
         for (const key in user) {
@@ -101,6 +102,7 @@ const Register = () => {
         }
     };
 
+    /** 모든 유효성 검사 통과하면 */
     const registerUser = () => {
         axios
             .post(`${globalPath.user}`, user)
@@ -121,6 +123,7 @@ const Register = () => {
         setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
     };
 
+    /** 인증코드 전송 버튼 */
     const handleEmailVerification = () => {
         // Make an API call to your backend to send the email verification code
         axios
@@ -139,6 +142,7 @@ const Register = () => {
             });
     };
 
+    /** 인증코드 확인 버튼 */
     const checkEmailCode = () => {
         console.log('check...1 : ' + user.verificationCode);
 
