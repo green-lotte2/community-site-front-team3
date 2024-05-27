@@ -1,11 +1,13 @@
 import axios from 'axios';
+import { globalPath } from 'globalPaths';
 
-const url = 'http://localhost:8080/articles';
+const url = globalPath.path;
 
 // 글 목록
 export const getList = async (params1) => {
+  console.log(url);
     
-    const response = await axios.get(`${url}?cno=${params1}`);
+    const response = await axios.get(`${url}/articles?cno=${params1}`);
     alert(response);
   
     return response.data;

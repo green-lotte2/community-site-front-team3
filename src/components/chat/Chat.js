@@ -4,10 +4,14 @@ import ChatInput from "./ChatInput";
 import { Link } from "react-router-dom";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { useSelector } from "react-redux";
 
-const Chat = ({ uid }) => {
+const Chat = () => {
+  const authSlice = useSelector((state) => state.authSlice);
+  const uid = authSlice.username;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
+  console.log("Chat uid : " + uid);
 
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/ws/chat");
@@ -46,9 +50,10 @@ const Chat = ({ uid }) => {
   const handleSendMessage = (text) => {
     if (stompClient && stompClient.connected) {
       const chatMessage = {
-        uid,
+        uid: uid,
         message: text,
       };
+      console.log("chatMessage : " + JSON.stringify(chatMessage));
       stompClient.publish({
         destination: "/app/chat.sendMessage",
         body: JSON.stringify(chatMessage),

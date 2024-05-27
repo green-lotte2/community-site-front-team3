@@ -85,11 +85,6 @@ function MonthCalendar() {
       calendar.deleteEvent(eventObj.id, eventObj.calendarId);
     });
 
-    // 월간, 주간, 일 형식으로 변경
-    calendar.on("beforeCreateEvent", (event) => {
-      calendar.changeView(event === "week" ? "day" : "month");
-    });
-
     // 테마 변경
     calendar.setTheme({
       month: {
@@ -120,7 +115,6 @@ function MonthCalendar() {
       },
     });
 
-    /*
     // 다음 주로 이동하는 버튼
     const handleClickNextButton = () => {
       calendar.next();
@@ -130,7 +124,7 @@ function MonthCalendar() {
     const weekChangeButton = () => {
       calendar.changeView("week");
     };
-*/
+
     return () => {
       if (calendar) {
         calendar.destroy();
@@ -138,19 +132,42 @@ function MonthCalendar() {
     };
   }, []);
 
+  const container = calendarRef.current;
+  const options = {
+    defaultView: "month",
+
+    isReadOnly: false,
+
+    timezone: {
+      zones: [
+        {
+          timezoneName: "Asia/Seoul",
+          displayLabel: "Seoul",
+        },
+      ],
+    },
+    calendars: [],
+
+    useDetailPopup: true,
+
+    useFormPopup: true,
+  };
+  const calendar = new Calendar(container, options);
+
   const handleViewChange = (view) => {
-    if (calendarInstance.current) {
-      calendarInstance.current.changeView(view);
+    if (calendar) {
+      calendar.changeView(view);
     }
   };
 
   const buttonStyle = {
     borderRadius: "25px",
-    border: "1px solid #ddd",
+    border: "2px solid #ddd",
     fontSize: "15px",
     color: "#333",
     marginRight: "5px",
   };
+
   return (
     <div>
       <div style={{ marginBottom: "10px" }}>
