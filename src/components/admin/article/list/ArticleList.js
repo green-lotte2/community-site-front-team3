@@ -16,26 +16,24 @@ const ArticleList = ({ articleList }) => {
                 </tr>
             </thead>
             <tbody>
-                {articleList && articleList.length > 0 ? (
-                    articleList.map((article, index) => (
-                        <tr key={index}>
-                            <td>
-                                <input type="checkbox" />
-                            </td>
-                            <td>#{article.no}</td>
-                            <td>
-                                {article.title}
-                                <br />
-                                <small>{article.uid}</small>
-                            </td>
-                            <td>{article.rdate}</td>
-                            <td></td>
-                            <td>
-                                <button>...</button>
-                            </td>
-                        </tr>
-                    ))
-                ) : (
+                {articleList.map((article, index) => (
+                    <tr key={index}>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>#{article.no}</td>
+                        <td>
+                            {article.title}
+                            <br />
+                            <small>{article.uid}</small>
+                        </td>
+                        <td>{article.rdate}</td>
+                        <td></td>
+                        <td>
+                            <button>...</button>
+                        </td>
+                    </tr>
+                ))(
                     <tr>
                         <td colSpan="6">No articles available</td>
                     </tr>
