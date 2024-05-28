@@ -93,6 +93,19 @@ function MonthCalendar() {
         isAlways6Weeks: false,
       },
     });
+    const uid = authSlice.username;
+    console.log("아이디 : " + uid);
+    const url = globalPath.path;
+    const jsonData = { uid: uid };
+    axios
+      .get(`${url}/calendar/selects?uid=` + `${uid}`)
+      .then((response) => {
+        console.log("일정가져오기 :" + response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("일정을 불러오지 못했습니다.");
+      });
 
     /** 일정을 생성 */
     calendar.on("beforeCreateEvent", (event) => {
@@ -113,8 +126,8 @@ function MonthCalendar() {
       const url = globalPath.path;
       axios
         .post(`${url}/calendar/insert`, newEvent)
-        .then((resp) => {
-          console.log(resp.data);
+        .then((response) => {
+          console.log(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -193,10 +206,24 @@ function MonthCalendar() {
   const monthChangeButton = (view) => {
     calendarInstance.current.changeView("month");
   };
+  /** 오늘 날짜로 돌아가기 */
+  const goToday = () => {
+    calendarInstance.current.today();
+  };
 
   const buttonStyle = {
     borderRadius: "25px",
     border: "2px solid #ddd",
+    fontSize: "15px",
+    color: "#333",
+    marginRight: "5px",
+  };
+  const btnToday = {
+    borderRadius: "25px",
+    border: "2px solid #ddd",
+    padding: "0 16px",
+    lineHeight: "30px",
+    fontweight: "700",
     fontSize: "15px",
     color: "#333",
     marginRight: "5px",
@@ -227,8 +254,12 @@ function MonthCalendar() {
         <button style={buttonStyle} onClick={weekChangeButton}>
           <FaCalendarWeek style={{ marginRight: "5px" }} /> 주간 형식
         </button>
+
         <button style={btnMoveStyle} onClick={handleClickPrevButton}>
           <GrFormPrevious />
+        </button>
+        <button style={btnMoveStyle} onClick={goToday}>
+          today
         </button>
         <button style={btnMoveStyle} onClick={handleClickNextButton}>
           <MdNavigateNext />

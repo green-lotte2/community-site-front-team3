@@ -65,14 +65,7 @@ const Header = () => {
             </nav>
           </div>
           <div className="user-info">
-            <div className="user-avatar">
-              <img src="#" alt="User Avatar" />
-            </div>
-            <div className="user-details">
-              <h2>안녕하세요. 000님</h2>
-              <p className="user-role">요금제 남은기간 표시</p>
-              <p>Create, Collaborate, Community </p>
-            </div>
+            <div className="user-avatar"></div>
           </div>
           <div className="action-buttons">
             <button className="learn-more">1:1 문의하기</button>
