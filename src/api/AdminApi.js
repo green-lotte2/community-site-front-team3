@@ -10,9 +10,9 @@ export const adminArticleList = async () => {
         console.log(response); // 디버깅 목적
         return response.data;
     } catch (error) {
-        console.error('Error fetching admin articles:', error);
-        alert('Failed to fetch admin articles. Please try again later.');
-        // 필요에 따라 에러를 다시 throw 할 수도 있습니다.
+        console.error('error:', error);
+        alert('에러에러에러');
+
         throw error;
     }
 };
