@@ -46,10 +46,9 @@ body {
     align-items: center;
   }
 
-.terms-form button:hover {
+  .terms-form button:hover {
     background-color: #f8af65;
-}
-
+  }
 
   header .logo h1 {
     margin: 0;
@@ -284,11 +283,10 @@ body {
   color: white;
 }
 
-
 .terms-form button:hover {
   background-color: #f8af65;
 
-.pagination {
+  .pagination {
     margin-top: 2rem;
     width: 100%;
     display: flex;
@@ -296,17 +294,18 @@ body {
     gap: 1rem;
 
     > * {
-        cursor: pointer;
+      cursor: pointer;
     }
-}
+  }
 
-.pagination__link {
+  .pagination__link {
     transition: all 0.25s;
     padding: 0.2rem 0.6rem;
     border-radius: 0.3rem;
-}
+  }
 
-.pagination__link__active {
+  .pagination__link__active {
     background-color: #bbb;
     color: #fefefe;
+  }
 }
