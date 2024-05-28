@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ProjectList = () => {
     return (
         <>
-            <div class="container">
+            <div class="project-container">
                 <h2>Project List</h2>
                 <div class="tabs">
                     <Link to="#" class="active">
