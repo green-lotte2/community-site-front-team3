@@ -10,7 +10,7 @@ $black: #000;
     
     // newPage 페이지
     .NewPageMain {
-      margin-left: 300px;
+    
       margin-top: 80px;
       padding: 20px;
 
@@ -108,5 +108,9 @@ $black: #000;
               content: attr(placeholder);
               color: gray;
           }
+          img {
+            max-width: 100%;
+        }
+    
       }
   }
