@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ArticleList from './ArticleList';
 import axios from 'axios';
-import { Pagination } from '@mui/material';
+import Pagination from 'components/common/Pagination';
 import { globalPath } from 'globalPaths';
 
 const url = globalPath.path;
@@ -14,22 +14,10 @@ const Container = () => {
     const pg = queryParams.get('pg');
 
     const [articleList, setArticleList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState('');
+    // axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
 
-    /** 공지사항 목록 출력 */
     useEffect(() => {
-        const response = axios
-            .get(`${url}/admin/article`, { withCredentials: true })
-            .then((resp) => {
-                console.log(resp.data);
-            })
-            .catch((err) => {
-                console.log(err);
-                console.log(`${url}/admin/article`);
-            });
-
-        console.log(response);
+        axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
     }, []);
 
     return (
@@ -41,7 +29,7 @@ const Container = () => {
                 <input type="text" placeholder="Search Invoice" />
                 <button>Create Invoice</button>
             </div>
-            {isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : <ArticleList articleList={articleList} />}
+            {<ArticleList articleList={articleList} setArticleList={setArticleList} />}
             <Pagination />
         </div>
     );
