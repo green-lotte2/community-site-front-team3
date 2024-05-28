@@ -201,6 +201,20 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    color: white;
+}
+
+.terms-form button:hover {
+    background-color: #f8af65;
+}
+
+// 추가할 CSS
+.Search {
+
   }
 
   aside ul li a:hover::after {
