@@ -6,6 +6,7 @@ import './styles/board.scss';
 import './styles/chat.scss';
 import './styles/newpage.scss';
 import './styles/project.scss';
+import './styles/member.scss';
 
 function App() {
     return (
