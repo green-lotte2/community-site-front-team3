@@ -18,7 +18,6 @@ import View from 'pages/board/View';
 import NewPage from 'pages/newPage/NewPage';
 import Chatpage from 'pages/chat/ChatPage';
 import Calendar from 'pages/calendar/Calendar';
-import ProjectKanbanPage from 'pages/project/ProjectKanbanPage';
 
 // 라우터 생성
 const root = createBrowserRouter([
@@ -42,7 +41,6 @@ const root = createBrowserRouter([
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
     { path: '/project/list', element: <ProjectListPage /> },
-    { path: '/project/kanban', element: <ProjectKanbanPage /> },
 
     // board
     { path: '/board/list', element: <List /> },
