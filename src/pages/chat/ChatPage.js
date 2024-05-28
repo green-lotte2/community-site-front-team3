@@ -4,15 +4,35 @@ import Chat from "components/chat/Chat";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { globalPath } from "globalPaths";
+
+const url = globalPath.path;
 
 const ChatPage = () => {
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.username;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
+  const [chatRooms, setChatRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [newRoomName, setNewRoomName] = useState("");
 
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8080/ws/chat");
+    const fetchChatRooms = async () => {
+      try {
+        const response = await axios.get("/api/chatrooms");
+        setChatRooms(response.data);
+      } catch (error) {
+        console.error("Error fetching chat rooms", error);
+      }
+    };
+
+    fetchChatRooms();
+  }, []);
+
+  useEffect(() => {
+    const socket = new SockJS(`${url}/ws/chat`);
     const client = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
@@ -61,9 +81,53 @@ const ChatPage = () => {
     }
   };
 
+  const handleCreateRoom = async () => {
+    try {
+      const response = await axios.post("/api/chatrooms", {
+        title: newRoomName,
+        status: "active",
+      });
+      setChatRooms([...chatRooms, response.data]);
+      setNewRoomName("");
+    } catch (error) {
+      console.error("Error creating chat room", error);
+    }
+  };
+
+  const handleSelectRoom = (room) => {
+    setSelectedRoom(room);
+    // Load messages for the selected room (implement this part)
+  };
+
   return (
     <ChatLayout>
-      <Chat messages={messages} onSendMessage={handleSendMessage} uid={uid} />
+      <div>
+        <h1>Chat Rooms</h1>
+        <ul>
+          {chatRooms.map((room) => (
+            <li key={room.chatNo} onClick={() => handleSelectRoom(room)}>
+              {room.title}
+            </li>
+          ))}
+        </ul>
+        <input
+          type="text"
+          value={newRoomName}
+          onChange={(e) => setNewRoomName(e.target.value)}
+          placeholder="New room name"
+        />
+        <button onClick={handleCreateRoom}>Create Room</button>
+      </div>
+      {selectedRoom && (
+        <div>
+          <h2>Selected Room: {selectedRoom.title}</h2>
+          <Chat
+            messages={messages}
+            onSendMessage={handleSendMessage}
+            uid={uid}
+          />
+        </div>
+      )}
     </ChatLayout>
   );
 };

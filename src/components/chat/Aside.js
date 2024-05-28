@@ -1,7 +1,25 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Aside = ({ chatRooms = [], onaddChatRoom }) => {
+const Aside = ({ chatRooms = [], onAddChatRoom }) => {
+  const [newChatRoomTitle, setNewChatRoomTitle] = useState("");
+
+  const handleAddChatRoom = async () => {
+    if (newChatRoomTitle.trim() === "") return;
+
+    try {
+      const response = await axios.post("/api/chatrooms", newChatRoomTitle, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      onAddChatRoom(response.data);
+      setNewChatRoomTitle("");
+    } catch (error) {
+      console.error("Error creating chat room", error);
+    }
+  };
   return (
     <aside className="chatAside">
       <ul>
@@ -11,10 +29,17 @@ const Aside = ({ chatRooms = [], onaddChatRoom }) => {
           </li>
         ))}
 
-        <Link to={"/"}>첫화면</Link>
+        <Link to={"/"}>처음으로</Link>
 
         <li>
-          <button onClick={onaddChatRoom}> + 채팅방 추가하기</button>
+          <input
+            type="text"
+            value={newChatRoomTitle}
+            onChange={(e) => setNewChatRoomTitle(e.target.value)}
+            placeholder="New Chat Room Title"
+          />
+
+          <button onClick={handleAddChatRoom}> + 채팅방 추가하기</button>
         </li>
       </ul>
     </aside>
