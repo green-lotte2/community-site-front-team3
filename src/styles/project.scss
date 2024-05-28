@@ -9997,3 +9997,66 @@ code {
         }
     }
 }
+.project-list-container {
+    text-align: center;
+
+    .project-list {
+        display: inline-block;
+        width: 1000px;
+        text-align: left;
+        padding: 20px 50px;
+        border: 1px solid #111;
+        border-radius: 10px;
+        background-color: #c9c9c9;
+    }
+
+    .search-and-create {
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        display: flex;
+    }
+
+    .input-group input[type='text'] {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .input-group button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+    }
+
+    .project-card {
+        border-top: 2px solid;
+        margin-top: 20px;
+    }
+
+    .project-card h3 {
+        margin-top: 0;
+    }
+
+    .project-card p {
+        margin-bottom: 10px;
+    }
+
+    .project-meta {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .project-meta .date {
+        color: #888;
+    }
+
+    .project-meta .actions button {
+        margin-left: 5px;
+    }
+}
