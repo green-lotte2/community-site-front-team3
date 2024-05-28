@@ -213,10 +213,6 @@ body {
 }
 
 // 추가할 CSS
-.Search {
-
-  }
-
   aside ul li a:hover::after {
     width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
   }
@@ -284,7 +280,7 @@ body {
     text-decoration: none;
     color: #fff;
   }
-}
+
 .appVersion {
   position: fixed;
   bottom: 6%;
@@ -322,4 +318,5 @@ body {
     background-color: #bbb;
     color: #fefefe;
   }
+}
 }
