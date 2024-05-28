@@ -11,6 +11,7 @@ import TermsPage from '../pages/member/TermsPage';
 import RegisterPage from '../pages/member/RegisterPage';
 import ProjectBoardPage from 'pages/project/ProjectBoardPage';
 import ProjectListPage from 'pages/project/ProjectListPage';
+import KanbanPage from 'pages/project/KanbanPage';
 import List from 'pages/board/List';
 import Modify from 'pages/board/Modify';
 import Register from 'pages/board/Register';
@@ -41,6 +42,7 @@ const root = createBrowserRouter([
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
     { path: '/project/list', element: <ProjectListPage /> },
+    { path: '/project/kanban', element: <KanbanPage /> },
 
     // board
     { path: '/board/list', element: <List /> },
