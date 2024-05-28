@@ -9,6 +9,7 @@ const MainPage = () => {
             <Main />
             <div className="calendar">
                 <MonthCalendar />
+                
             </div>
         </DefaultLayout>
     );
