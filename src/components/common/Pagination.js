@@ -1,16 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import ReactPaginate from 'react-paginate';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const pagination = ({props}) => {
-  return (
-    <div class="pagination">
-    <Link to="#">1</Link>
-    <Link to="#">2</Link>
-    <Link to="#">3</Link>
-    <Link to="#">4</Link>
-    <Link to="#">5</Link>
-</div>
-  )
-}
+const Pagination = ({ pageCount, onPageChange, currentPage }) => {
+    return (
+        <ReactPaginate
+            previousLabel={<FiChevronLeft />}
+            nextLabel={<FiChevronRight />}
+            pageCount={pageCount}
+            onPageChange={onPageChange}
+            containerClassName={'pagination'}
+            pageLinkClassName={'pagination__link'}
+            activeLinkClassName={'pagination__link__active'}
+        />
+    );
+};
 
-export default pagination
+export default Pagination;

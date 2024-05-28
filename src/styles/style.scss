@@ -279,10 +279,9 @@ body {
     color: white;
 }
 
-    .terms-form button:hover {
-        background-color: #f8af65;
-    }
-
+.terms-form button:hover {
+    background-color: #f8af65;
+}
 
 // 추가할 CSS
 .Search {
@@ -358,5 +357,25 @@ footer ul li a {
     color: #fff;
 }
 
+.pagination {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 
+    > * {
+        cursor: pointer;
+    }
+}
 
+.pagination__link {
+    transition: all 0.25s;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+}
+
+.pagination__link__active {
+    background-color: #bbb;
+    color: #fefefe;
+}
