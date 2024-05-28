@@ -31,9 +31,9 @@ body {
     top: 0;
     z-index: 1000;
     height: 60px;
-  }
 
-  header .container {
+
+   .container {
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -41,27 +41,22 @@ body {
     width: 100%;
   }
 
-  header .logo {
+   .logo {
     display: flex;
     align-items: center;
   }
-
-  .terms-form button:hover {
-    background-color: #f8af65;
-  }
-
-  header .logo h1 {
+   .logo h1 {
     margin: 0;
   }
 
-  header .nav-search {
+   .nav-search {
     height: 100%;
     display: flex;
     align-items: center;
     margin-right: 20px;
   }
 
-  header nav ul {
+   nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -71,19 +66,21 @@ body {
     height: 100%; /* 부모 컨테이너의 높이와 일치 */
   }
 
-  header nav ul li {
+   nav ul li {
     margin: 0 8px; /* li 요소 간의 간격 조정 */
     font-size: 12px;
   }
 
-  header nav ul li:hover {
+   nav ul li:hover {
     border-bottom: 2px solid #ff8916;
   }
 
-  header nav ul li a {
+   nav ul li a {
     text-decoration: none;
     color: #000;
   }
+
+}
   .login-buttons {
     display: flex;
     flex-direction: column;
@@ -170,52 +167,47 @@ body {
     bottom: 0;
     z-index: 500;
     overflow: auto;
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 20px;
+      text-align: center; /* 텍스트 가운데 정렬 */
+    }
+
+    ul li a {
+      padding: 10px;
+      text-decoration: none;
+      color: #000;
+      display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
+      position: relative;
+    }
+    ul li a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #ff8916;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: white;
+    }
+
+    ul li a:hover::after {
+      width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
+    }
+
   }
-
-  aside ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  aside ul li {
-    margin-bottom: 20px;
-    text-align: center; /* 텍스트 가운데 정렬 */
-  }
-
-  aside ul li a {
-    padding: 10px;
-    text-decoration: none;
-    color: #000;
-    display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
-    position: relative;
-  }
-
-  aside ul li a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #ff8916;
-    transition: width 0.3s;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    color: white;
-}
-
-.terms-form button:hover {
-    background-color: #f8af65;
-}
-
-// 추가할 CSS
-  aside ul li a:hover::after {
-    width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
-  }
+  .terms-form button:hover {
+      background-color: #f8af65;
+  } 
   // 공통 main + tabs
   main {
     flex: 1;
@@ -256,42 +248,29 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
 
-  footer .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  footer ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 15px; /* 리스트 아이템 간 간격 */
-  }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px; /* 리스트 아이템 간 간격 */
+    }
 
-  footer ul li {
-    margin: 0;
+    ul li {
+      margin: 0;
+    }
+    ul li a {
+      text-decoration: none;
+      color: #fff;
+    }
   }
-
-  footer ul li a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-.appVersion {
-  position: fixed;
-  bottom: 6%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  width: 100%;
-  padding: 10px;
-  /* background-color: rgba(0, 0, 0, 0.5); */
-  color: white;
-}
 
 .terms-form button:hover {
   background-color: #f8af65;
@@ -319,4 +298,16 @@ body {
     color: #fefefe;
   }
 }
+}
+// app version 출력
+.appVersion {
+  position: fixed;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  color: white;
 }
