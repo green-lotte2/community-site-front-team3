@@ -22,4 +22,5 @@ const ChatInput = ({ onSendMessage }) => {
     </form>
   );
 };
+
 export default ChatInput;

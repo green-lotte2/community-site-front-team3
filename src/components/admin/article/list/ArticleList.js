@@ -1,43 +1,62 @@
 import React from 'react';
+import moment from 'moment';
+import axios from 'axios';
+import { globalPath } from 'globalPaths';
 
-const ArticleList = ({articleList}) => {
+const ArticleList = ({ articleList, setArticleList }) => {
+    const url = globalPath.path;
+
+    const del = (ano) => {
+        if (window.confirm('정말 삭제하시겠습니까?')) {
+            axios
+                .delete(`${url}/admin/article/${ano}`)
+                .then(() => {
+                    setArticleList((prevList) => prevList.filter((article) => article.ano !== ano));
+                })
+                .catch((err) => {
+                    console.error('글 삭제 오류:', err);
+                });
+        }
+    };
+
     return (
-        <>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <input type="checkbox" />
-                        </th>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>날짜</th>
-                        <th>상태</th>
-                        <th>액션</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" />
+                    </th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <th>상태</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {articleList.map((article) => (
+                    <tr key={article.ano}>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>#4610</td>
+                        <td>{article.ano}</td>
                         <td>
-                            게시물 제목
+                            {article.title}
                             <br />
-                            <small>작성자 이름</small>
+                            <small>{article.uid}</small>
                         </td>
-                        <td>24-05-20</td>
+                        <td>{moment(article.rdate).format('YY-MM-DD')}</td>
+                        <td>..</td>
                         <td>
-                            <span class="status paid">Paid</span>
-                        </td>
-                        <td>
-                            <button>...</button>
+                            <button onClick={() => del(article.ano)} className="btn-del">
+                                삭제
+                            </button>
+                            <button className="btn-modi">수정</button>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </>
+                ))}
+            </tbody>
+        </table>
     );
 };
 

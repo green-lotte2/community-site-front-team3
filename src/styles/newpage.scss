@@ -1,0 +1,116 @@
+$primary-color: #ff8916;
+$secondary-color: #007bff;
+$background-color: #f0f0f0;
+$text-color: #333;
+$border-color: #ccc;
+$hover-color: #ff8916;
+$footer-bg-color: #f8af65;
+$white: #fff;
+$black: #000;
+    
+    // newPage 페이지
+    .NewPageMain {
+    
+      margin-top: 80px;
+      padding: 20px;
+
+      h2 {
+          font-size: 24px;
+          margin-bottom: 20px;
+      }
+
+      p {
+          font-size: 18px;
+          margin-bottom: 20px;
+      }
+
+      .image-placeholder {
+          width: 200px;
+          height: 200px;
+          background-color: #ccc;
+          margin-top: -84px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .chat-input {
+          display: flex;
+          justify-content: center;
+          padding: 10px 0;
+
+          input {
+              flex: 1;
+              padding: 10px;
+              border: 1px solid $border-color;
+              border-radius: 3px;
+              margin-right: 10px;
+              max-width: 500px;
+          }
+
+          button {
+              padding: 10px 20px;
+              border: none;
+              background-color: $primary-color;
+              color: $white;
+              border-radius: 3px;
+              cursor: pointer;
+          }
+      }
+
+      .messages {
+          margin-top: 20px;
+      }
+
+      // 제목
+      .pageTitle {
+          max-width: 100%;
+          width: 100%;
+          white-space: pre-wrap;
+          word-break: break-word;
+          caret-color: rgb(55, 53, 47);
+          padding-top: 3px;
+          padding-left: 2px;
+          padding-right: 2px;
+          font-size: 2.2em;
+          font-weight: inherit;
+          color: rgb(1, 1, 1);
+          margin: 0px;
+          min-height: 1em;
+          cursor: text;
+
+          &:empty::before {
+              content: attr(placeholder);
+              color: rgb(148, 147, 147);
+              pointer-events: none;
+          }
+          &:not(:empty) {
+              color: rgb(1, 1, 1); /* 텍스트가 입력된 경우 검정색으로 표시 */
+          }
+          &:read-write:focus {
+              outline: none;
+          }
+      }
+      // 내용
+      .contentEditor {
+          margin-top: 10px;
+          padding: 10px;
+          &:empty::before {
+              content: attr(placeholder);
+              color: gray;
+          }
+
+          &:read-write:focus {
+              outline: none;
+          }
+
+          &:focus:empty:before {
+              /* focus 되어있을 때 plceholder가 보이도록 추가 */
+              content: attr(placeholder);
+              color: gray;
+          }
+          img {
+            max-width: 100%;
+        }
+    
+      }
+  }

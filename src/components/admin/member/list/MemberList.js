@@ -29,7 +29,7 @@ const ArticleList = () => {
                         </td>
                         <td>24-05-20</td>
                         <td>
-                            <span class="status paid">Paid</span>
+                            <span className="status paid">Paid</span>
                         </td>
                         <td>
                             <button>...</button>
