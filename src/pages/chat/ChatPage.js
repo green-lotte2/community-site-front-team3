@@ -6,6 +6,7 @@ import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { globalPath } from "globalPaths";
+import Aside from "components/chat/Aside";
 
 const url = globalPath.path;
 
@@ -16,12 +17,11 @@ const ChatPage = () => {
   const [stompClient, setStompClient] = useState(null);
   const [chatRooms, setChatRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [newRoomName, setNewRoomName] = useState("");
 
   useEffect(() => {
     const fetchChatRooms = async () => {
       try {
-        const response = await axios.get("/api/chatrooms");
+        const response = await axios.get("/api/chatroom");
         setChatRooms(response.data);
       } catch (error) {
         console.error("Error fetching chat rooms", error);
@@ -72,6 +72,7 @@ const ChatPage = () => {
       const chatMessage = {
         uid: uid,
         message: text,
+        chatNo: selectedRoom?.chatNo,
       };
       console.log("chatMessage : " + JSON.stringify(chatMessage));
       stompClient.publish({
@@ -81,54 +82,36 @@ const ChatPage = () => {
     }
   };
 
-  const handleCreateRoom = async () => {
+  const handleAddChatRoom = (newRoom) => {
+    setChatRooms((prevRooms) => [...prevRooms, newRoom]);
+  };
+
+  const handleSelectChatRoom = (room) => {
+    setSelectedRoom(room);
+    // 해당 채팅방의 메시지를 불러오는 로직을 추가할 수 있습니다.
+  };
+
+  const handleDeleteRoom = async (chatNo) => {
     try {
-      const response = await axios.post("/api/chatrooms", {
-        title: newRoomName,
-        status: "active",
-      });
-      setChatRooms([...chatRooms, response.data]);
-      setNewRoomName("");
+      await axios.delete(`/api/chatroom/${chatNo}`);
+      setChatRooms(chatRooms.filter((room) => room.chatNo !== chatNo));
     } catch (error) {
-      console.error("Error creating chat room", error);
+      console.error("Error deleting chat room", error);
     }
   };
 
-  const handleSelectRoom = (room) => {
-    setSelectedRoom(room);
-    // Load messages for the selected room (implement this part)
-  };
-
   return (
-    <ChatLayout>
-      <div>
-        <h1>Chat Rooms</h1>
-        <ul>
-          {chatRooms.map((room) => (
-            <li key={room.chatNo} onClick={() => handleSelectRoom(room)}>
-              {room.title}
-            </li>
-          ))}
-        </ul>
-        <input
-          type="text"
-          value={newRoomName}
-          onChange={(e) => setNewRoomName(e.target.value)}
-          placeholder="New room name"
-        />
-        <button onClick={handleCreateRoom}>Create Room</button>
-      </div>
-      {selectedRoom && (
-        <div>
-          <h2>Selected Room: {selectedRoom.title}</h2>
-          <Chat
-            messages={messages}
-            onSendMessage={handleSendMessage}
-            uid={uid}
-          />
-        </div>
-      )}
-    </ChatLayout>
+    <div className="chat-layout-container">
+      <Aside
+        chatRooms={chatRooms}
+        onAddChatRoom={handleAddChatRoom}
+        onDeleteChatRoom={handleDeleteRoom}
+        onSelectChatRoom={handleSelectChatRoom}
+      />
+      <ChatLayout>
+        <Chat messages={messages} onSendMessage={handleSendMessage} uid={uid} />
+      </ChatLayout>
+    </div>
   );
 };
 

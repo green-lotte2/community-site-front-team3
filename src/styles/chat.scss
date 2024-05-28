@@ -63,7 +63,7 @@
   }
 
   aside {
-    width: 120px;
+    width: 200px;
     background-color: #f0f0f0;
     padding: 20px;
     border-right: 1px solid #ccc;
@@ -98,6 +98,69 @@
   aside ul li a:hover {
     background-color: #ff8916;
     color: #fff;
+  }
+
+  .chatAside {
+    padding: 20px;
+    background-color: #f0f0f0;
+    width: 250px;
+  }
+
+  .chatAside ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .chatAside ul li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chatAside ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    flex: 1;
+  }
+
+  .chatAside ul li button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #ff8916;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .btnChatPlus {
+    width: 30px !important;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: none;
+    border: none;
+    background-color: #ff8916;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .chatAside input {
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+
+  .chatAside button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
   }
 
   /* 레이아웃 */
@@ -167,7 +230,7 @@
     padding: 10px 300px; /* 위아래 여백 추가 */
     position: fixed;
     bottom: 70px; /* 푸터 높이만큼 위로 */
-    left: 120px; /* aside 너비와 맞춤 */
+    left: 220px; /* aside 너비와 맞춤 */
     right: 0;
     background-color: #fff;
     border-top: 1px solid #ccc;

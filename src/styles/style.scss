@@ -9,354 +9,276 @@ $white: #fff;
 $black: #000;
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 // 공통
 #mainContainer {
-    // 공통 헤더
-    header {
-        background-color: #f8f8f8;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        height: 60px;
-    }
-
-    header .container {
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    header .logo {
-        display: flex;
-        align-items: center;
-    }
-
-    header .logo h1 {
-        margin: 0;
-    }
-
-    header .nav-search {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-    }
-
-    header nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%; /* 부모 컨테이너의 높이와 일치 */
-    }
-
-    header nav ul li {
-        margin: 0 8px; /* li 요소 간의 간격 조정 */
-        font-size: 12px;
-    }
-
-    header nav ul li:hover {
-        border-bottom: 2px solid #ff8916;
-    }
-
-    header nav ul li a {
-        text-decoration: none;
-        color: #000;
-    }
-    .login-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-    }
-
-    .kakao-login {
-        background-image: url('../../public/images/member/kakao_login_large.png');
-    }
-
-    .google-login {
-        background-image: url('../../public/images/member/google_login_large.png');
-    }
-
-    .login-form label {
-        margin: 10px 0 5px;
-    }
-
-    .login-form input {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
-        width: 246px;
-    }
-
-    .additional-options {
-        margin-bottom: 15px;
-        text-align: center;
-    }
-
-    .additional-options a {
-        text-decoration: none;
-        color: #000;
-        font-size: 14px;
-    }
-
-    .additional-options a:hover {
-        text-decoration: underline;
-    }
-    /* 회원가입 페이지 스타일 */
-    .signup-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .signup-Form {
-        padding: 30px;
-        border: 1px solid #ccc;
-        width: 250vh; /* 변경된 가로폭 */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
-        height: 10%; /* 높이 조절 */
-        border: none;
-    }
-    .signup-Form form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    header .search input {
-        margin-right: 40px;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-left: 20px;
-    }
-
-    // 공통 aside
-    aside {
-        width: 120px;
-        background-color: #f0f0f0;
-        padding: 20px;
-        border-right: 1px solid #ccc;
-        height: calc(100vh - 60px);
-        position: fixed;
-        top: 60px;
-        left: 0;
-        bottom: 0;
-        z-index: 500;
-        overflow: auto;
-    }
-
-    aside ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    aside ul li {
-        margin-bottom: 20px;
-        text-align: center; /* 텍스트 가운데 정렬 */
-    }
-
-    aside ul li a {
-        padding: 10px;
-        text-decoration: none;
-        color: #000;
-        display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
-        position: relative;
-    }
-
-    aside ul li a::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 2px;
-        background: #ff8916;
-        transition: width 0.3s;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    aside ul li a:hover::after {
-        width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
-    }
-    // 공통 main + tabs
-    main {
-        flex: 1;
-        margin-left: 270px;
-        padding: 80px 20px 20px 20px;
-        box-sizing: border-box;
-        overflow: auto;
-    }
-
-    main .tabs {
-        display: flex;
-        margin-bottom: 20px;
-    }
-
-    main .tabs a {
-        margin-right: 10px;
-        text-decoration: none;
-        padding: 10px 20px;
-        background-color: #e0e0e0;
-        border-radius: 3px;
-        color: #000;
-    }
-
-    main .tabs a.active {
-        background-color: #007bff;
-        color: #fff;
-    }
-    // 공통 footer
-    footer {
-        background-color: #f8af65;
-        color: #fff;
-        text-align: center;
-        padding: 10px 0;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    footer .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    footer ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 15px; /* 리스트 아이템 간 간격 */
-    }
-
-    footer ul li {
-        margin: 0;
-    }
-
-    footer ul li a {
-        text-decoration: none;
-        color: #fff;
-    }
-}
-.appVersion {
-    position: fixed;
-    bottom: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    color: white;
-}
-
-    .terms-form button:hover {
-        background-color: #f8af65;
-    }
-
-
-// 추가할 CSS
-.Search {
+  // 공통 헤더
+  header {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ccc;
     display: flex;
-    justify-content: flex-end; /* 검색창을 우측으로 */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-}
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    height: 60px;
+  }
 
-.Search input[type='text'] {
+  header .container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  header .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  header .logo h1 {
+    margin: 0;
+  }
+
+  header .nav-search {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* 부모 컨테이너의 높이와 일치 */
+  }
+
+  header nav ul li {
+    margin: 0 8px; /* li 요소 간의 간격 조정 */
+    font-size: 12px;
+  }
+
+  header nav ul li:hover {
+    border-bottom: 2px solid #ff8916;
+  }
+
+  header nav ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  .login-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .kakao-login {
+    background-image: url("../../public/images/member/kakao_login_large.png");
+  }
+
+  .google-login {
+    background-image: url("../../public/images/member/google_login_large.png");
+  }
+
+  .login-form label {
+    margin: 10px 0 5px;
+  }
+
+  .login-form input {
     padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
+    width: 246px;
+  }
+
+  .additional-options {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .additional-options a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .additional-options a:hover {
+    text-decoration: underline;
+  }
+  /* 회원가입 페이지 스타일 */
+  .signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signup-Form {
+    padding: 30px;
+    border: 1px solid #ccc;
+    width: 250vh; /* 변경된 가로폭 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
+    height: 10%; /* 높이 조절 */
+    border: none;
+  }
+  .signup-Form form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header .search input {
+    margin-right: 40px;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-right: 10px;
-}
+    margin-left: 20px;
+  }
 
-.Search button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #ff8916;
-    color: #fff;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.CustomButton {
+  // 공통 aside
+  aside {
+    width: 120px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    height: calc(100vh - 60px);
     position: fixed;
-    bottom: 60px; /* 푸터 위에 위치하도록 설정 */
-    right: 20px; /* 원하는 위치로 조정 */
-    padding: 10px 20px;
-    background-color: #ff8916;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    z-index: 500;
+    overflow: auto;
+  }
 
-footer {
+  aside ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  aside ul li {
+    margin-bottom: 20px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+  }
+
+  aside ul li a {
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
+    position: relative;
+  }
+
+  aside ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #ff8916;
+    transition: width 0.3s;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  aside ul li a:hover::after {
+    width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
+  }
+  // 공통 main + tabs
+  main {
+    flex: 1;
+    margin-left: 270px;
+    padding: 80px 20px 20px 20px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+  main .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  main .tabs a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    color: #000;
+  }
+
+  main .tabs a.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  // 공통 footer
+  footer {
     background-color: #f8af65;
     color: #fff;
     text-align: center;
     padding: 10px 0;
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* 푸터가 항상 상위에 위치하도록 설정 */
-}
+  }
 
-footer .container {
+  footer .container {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-footer ul {
+  footer ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     gap: 15px; /* 리스트 아이템 간 간격 */
-}
+  }
 
-footer ul li {
+  footer ul li {
     margin: 0;
-}
+  }
 
-footer ul li a {
+  footer ul li a {
     text-decoration: none;
     color: #fff;
+  }
+}
+.appVersion {
+  position: fixed;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  color: white;
 }
 
-
-
+.terms-form button:hover {
+  background-color: #f8af65;
+}
