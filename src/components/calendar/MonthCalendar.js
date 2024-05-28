@@ -99,7 +99,8 @@ function MonthCalendar() {
       .post(`${url}/calendar/selects`, uuid)
       .then((response) => {
         response.data.forEach((event) => {
-          //console.log(event.start[1] - 1);
+          const isReadOnly = event.isReadOnly === "false" ? false : true;
+          const isAllDay = event.isAllDay === "false" ? false : true;
           const newEvent = {
             id: event.uid,
             calendarId: event.calendarId,
@@ -112,13 +113,11 @@ function MonthCalendar() {
               .format("YYYY-MM-DD[T]HH:mm:ss"),
             location: event.location,
             state: event.state,
-            isReadOnly: event.isReadOnly,
-            isAllDay: event.isAllDay,
+            isReadOnly: isReadOnly,
+            isAllDay: isAllDay,
             backgroundColor: event.backgroundColor,
             color: event.color,
           };
-
-          //console.log("아아아" + newEvent.start);
 
           calendar.createEvents([newEvent]);
         });
@@ -137,8 +136,12 @@ function MonthCalendar() {
         uid: authSlice.username,
         calendarId: event.calendarId,
         title: event.title,
-        start: event.start.toDate(),
-        end: event.end.toDate(),
+        start: Moment(event.start.toDate())
+          .utcOffset(9)
+          .format("YYYY-MM-DD[T]HH:mm:ss"),
+        end: Moment(event.end.toDate())
+          .utcOffset(9)
+          .format("YYYY-MM-DD[T]HH:mm:ss"),
         location: event.location,
         state: event.state,
         isReadOnly: false,
@@ -149,13 +152,7 @@ function MonthCalendar() {
         color: "#FFFFFF",
       };
       calendar.createEvents([newEvent]);
-      calendar.setOptions({
-        template: {
-          milestone(event) {
-            return `<span style="color: blue;">${event.title}</span>`;
-          },
-        },
-      });
+      calendar.setOptions({});
       console.log(newEvent);
       const url = globalPath.path;
       axios
