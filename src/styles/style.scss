@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
 $primary-color: #ff8916;
 $secondary-color: #007bff;
 $background-color: #f0f0f0;
@@ -8,8 +10,10 @@ $footer-bg-color: #f8af65;
 $white: #fff;
 $black: #000;
 
+
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -156,9 +160,9 @@ body {
 
   // 공통 aside
   aside {
-    width: 120px;
+    width: 140px;
     background-color: #f0f0f0;
-    padding: 20px;
+    padding-right: 20px;
     border-right: 1px solid #ccc;
     height: calc(100vh - 60px);
     position: fixed;
@@ -175,7 +179,7 @@ body {
 
     ul li {
       margin-bottom: 20px;
-      text-align: center; /* 텍스트 가운데 정렬 */
+      padding: 5px;
     }
 
     ul li a {
@@ -184,9 +188,15 @@ body {
       color: #000;
       display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
       position: relative;
+      font-size: 15px;
+      svg {
+        vertical-align: bottom;
+        margin-right: 5px;
+      }
     }
     ul li a::after {
       content: "";
+      margin-left: 10px;
       display: block;
       width: 0;
       height: 2px;
