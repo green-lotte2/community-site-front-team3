@@ -12,25 +12,41 @@ const Container = () => {
     const queryParams = new URLSearchParams(location.search);
     const cno = queryParams.get('cno');
     const pg = queryParams.get('pg');
-
     const [articleList, setArticleList] = useState([]);
-    // axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
+    const [loading, setLoading] = useState(false);
+
+    // 페이지네이션
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
 
     useEffect(() => {
-        axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
+        const fetchData = async () => {
+            setLoading(true);
+            const response = await axios.get(`${url}/admin/article`); // 정렬 파라미터 추가
+            const sortedData = response.data.sort((a, b) => new Date(b.rdate) - new Date(a.rdate)); // 최신순으로 정렬
+            setArticleList(sortedData);
+            setLoading(false);
+        };
+        fetchData();
     }, []);
+
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = (posts) => {
+        return posts.slice(indexOfFirst, indexOfLast);
+    };
 
     return (
         <div className="container">
             <h2>게시글 관리</h2>
-            <p>Manage your content and projects efficiently</p>
+            <p>-- 게시글 수정, 삭제 및 조회 --</p>
             <div className="table-actions">
                 <button>Action</button>
                 <input type="text" placeholder="Search Invoice" />
                 <button>Create Invoice</button>
             </div>
-            {<ArticleList articleList={articleList} setArticleList={setArticleList} />}
-            <Pagination />
+            {<ArticleList articleList={currentPosts(articleList)} setArticleList={setArticleList} />}
+            <Pagination postsPerPage={postsPerPage} totalPosts={articleList.length} paginate={setCurrentPage} />
         </div>
     );
 };
