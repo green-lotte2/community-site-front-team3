@@ -12,12 +12,15 @@ const Container = () => {
     const queryParams = new URLSearchParams(location.search);
     const cno = queryParams.get('cno');
     const pg = queryParams.get('pg');
-
     const [articleList, setArticleList] = useState([]);
+
     // axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
 
     useEffect(() => {
-        axios.get(`${url}/admin/article`).then((response) => setArticleList(response.data));
+        axios
+            .get(`${url}/admin/article`)
+            .then((response) => setArticleList(response.data))
+            .catch((error) => console.error(error));
     }, []);
 
     return (
