@@ -30,7 +30,7 @@ const root = createBrowserRouter([
     { path: '/admin/member', element: <AdminMember /> },
     { path: '/admin/member/list', element: <AdminMemberList /> },
     { path: '/admin/article', element: <AdminArticleList /> },
-    { path: '/admin/article/view', element: <AdminArticleView /> },
+    { path: '/admin/article/{ano}', element: <AdminArticleView /> },
     { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
 
     // member
