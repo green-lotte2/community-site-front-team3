@@ -23,7 +23,7 @@ import Calendar from 'pages/calendar/Calendar';
 // 라우터 생성
 const root = createBrowserRouter([
     // main
-    { path: '/', element: <MainPage /> },
+    { path: '/main', element: <MainPage /> },
 
     // admin
     { path: '/admin', element: <AdminPage /> },
@@ -34,7 +34,7 @@ const root = createBrowserRouter([
     { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
 
     // member
-    { path: '/member/login', element: <LoginPage /> },
+    { path: '/', element: <LoginPage /> },
     { path: '/member/register', element: <RegisterPage /> },
     { path: '/member/terms', element: <TermsPage /> },
     { path: '/member/logout', element: <Navigate replace to="/" /> },

@@ -3,7 +3,8 @@ import Calendar, { TZDate } from "@toast-ui/calendar";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
-import { FaCalendarAlt, FaCalendarWeek } from "react-icons/fa";
+import { FaCalendarAlt, FaCalendarWeek, FaItunesNote } from "react-icons/fa";
+import { TbBriefcase2Filled } from "react-icons/tb";
 import {
   MdLineWeight,
   MdNavigateNext,
@@ -20,8 +21,10 @@ import "moment/locale/ko";
 function MonthCalendar() {
   const calendarRef = useRef(null);
   const calendarInstance = useRef(null);
+  const randomNum = useRef(null);
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentYear, setCurrentYear] = useState("");
+  const [numbers, setNumbers] = useState([]);
   const [error, setError] = useState("");
   const authSlice = useSelector((state) => state.authSlice);
 
@@ -69,17 +72,6 @@ function MonthCalendar() {
       useFormPopup: true,
     };
 
-    /** 랜덤 색상 설정 */
-    const getRandomColor = () => {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-
-      return color;
-    };
-
     const calendar = new Calendar(container, options);
 
     calendarInstance.current = calendar;
@@ -94,6 +86,11 @@ function MonthCalendar() {
     console.log("아이디 : " + uid);
     const url = globalPath.path;
 
+    // 일정에 랜덤 아이디 부여
+    const randomDate = Moment(new Date()).format("YYMMDDHHmmSS");
+    const eventId = randomDate + uid;
+    console.log(eventId);
+
     /** 일정 불러오기 */
     axios
       .post(`${url}/calendar/selects`, uuid)
@@ -101,8 +98,9 @@ function MonthCalendar() {
         response.data.forEach((event) => {
           const isReadOnly = event.isReadOnly === "false" ? false : true;
           const isAllDay = event.isAllDay === "false" ? false : true;
+
           const newEvent = {
-            id: event.uid,
+            id: event.id,
             calendarId: event.calendarId,
             title: event.title,
             start: Moment(event.start)
@@ -132,7 +130,9 @@ function MonthCalendar() {
       const selectedCalendar = options.calendars.find(
         (cal) => cal.id === event.calendarId
       );
+
       const newEvent = {
+        id: eventId,
         uid: authSlice.username,
         calendarId: event.calendarId,
         title: event.title,
@@ -169,12 +169,48 @@ function MonthCalendar() {
     /** 일정을 수정 */
     calendar.on("beforeUpdateEvent", ({ event, changes }) => {
       calendar.updateEvent(event.id, event.calendarId, changes);
-      console.log(changes);
+
+      const start = Moment(changes.start.toDate()).format(
+        "YYYY-MM-DD[T]HH:mm:ss"
+      );
+      const end = Moment(changes.end.toDate()).format("YYYY-MM-DD[T]HH:mm:ss");
+
+      console.log("start : " + start);
+      console.log("end : " + end);
+      const chage = {
+        calendarId: changes.calendarId,
+        title: changes.title,
+        location: changes.location,
+        start: start,
+        end: end,
+        state: changes.state,
+        isAllDay: changes.isAllday,
+      };
+      console.log(chage);
+
+      axios
+        .post(`${url}/calendar/modify/${event.id}`, chage)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
 
     /** 일정을 삭제 */
-    calendar.on("beforeDeleteEvent", (eventObj) => {
-      calendar.deleteEvent(eventObj.id, eventObj.calendarId);
+    calendar.on("beforeDeleteEvent", (event) => {
+      calendar.deleteEvent(event.id, event.calendarId);
+      console.log(event.id);
+      const url = globalPath.path;
+      axios
+        .get(`${url}/calendar/delete?id=${event.id}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
 
     /**  테마 변경 */
