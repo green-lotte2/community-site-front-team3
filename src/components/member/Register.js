@@ -10,11 +10,7 @@ const Register = () => {
         pass: '',
         pass2: '',
         name: '',
-        nick: 'NULL',
         email: '',
-        hp: 'NULL',
-        grade: 'BASIC',
-        role: 'USER',
         verificationCode: '',
     });
     const [errors, setErrors] = useState({
