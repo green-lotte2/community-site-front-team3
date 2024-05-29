@@ -1,12 +1,23 @@
-import React from 'react';
+import axios from 'axios';
+import { globalPath } from 'globalPaths';
+import React, { useEffect, useState } from 'react';
 
 const Recent = () => {
+    const url = globalPath.path;
+    const [articleList, setArticleList] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`${url}/admin/article`);
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             <div className="recent-items">
                 <h3>최근 게시물</h3>
                 <div className="item">
-                    <img src="post_icon.png" alt="Post Icon" />
+                    <img src="#" alt="#" />
                     <p>
                         최신 게시글
                         <br />
