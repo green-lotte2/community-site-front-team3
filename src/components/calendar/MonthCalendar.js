@@ -137,7 +137,7 @@ function MonthCalendar() {
 
       const newEvent = {
         id: eventId,
-        uid: authSlice.username,
+        uid: authSlice.uid,
         calendarId: event.calendarId,
         title: event.title,
         start: Moment(event.start.toDate())
