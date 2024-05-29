@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Calendar from "@toast-ui/calendar/ie11";
+import Calendar, { TZDate } from "@toast-ui/calendar";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
@@ -14,6 +14,9 @@ import axios from "axios";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
 
+import Moment from "moment";
+import "moment/locale/ko";
+
 function MonthCalendar() {
   const calendarRef = useRef(null);
   const calendarInstance = useRef(null);
@@ -21,6 +24,7 @@ function MonthCalendar() {
   const [currentYear, setCurrentYear] = useState("");
   const [error, setError] = useState("");
   const authSlice = useSelector((state) => state.authSlice);
+
   useEffect(() => {
     const container = calendarRef.current;
     const options = {
@@ -41,30 +45,22 @@ function MonthCalendar() {
         {
           id: "1",
           name: "업무",
-          color: "#ffffff",
           backgroundColor: "#ff4040",
-          borderColor: "#ff4040",
         },
         {
           id: "2",
           name: "미팅",
-          color: "#ffffff",
           backgroundColor: "#4040ff",
-          borderColor: "#4040ff",
         },
         {
           id: "3",
           name: "회의",
-          color: "#ffffff",
           backgroundColor: "#40ff40",
-          borderColor: "#40ff40",
         },
         {
           id: "4",
           name: "미정",
-          color: "#ffffff",
           backgroundColor: "#FF9900",
-          borderColor: "#40ff40",
         },
       ],
 
@@ -94,13 +90,37 @@ function MonthCalendar() {
       },
     });
     const uid = authSlice.username;
+    const uuid = { uid };
     console.log("아이디 : " + uid);
     const url = globalPath.path;
-    const jsonData = { uid: uid };
+
+    /** 일정 불러오기 */
     axios
-      .get(`${url}/calendar/selects?uid=` + `${uid}`)
+      .post(`${url}/calendar/selects`, uuid)
       .then((response) => {
-        console.log("일정가져오기 :" + response.data);
+        response.data.forEach((event) => {
+          const isReadOnly = event.isReadOnly === "false" ? false : true;
+          const isAllDay = event.isAllDay === "false" ? false : true;
+          const newEvent = {
+            id: event.uid,
+            calendarId: event.calendarId,
+            title: event.title,
+            start: Moment(event.start)
+              .subtract(1, "months")
+              .format("YYYY-MM-DD[T]HH:mm:ss"),
+            end: Moment(event.end)
+              .subtract(1, "months")
+              .format("YYYY-MM-DD[T]HH:mm:ss"),
+            location: event.location,
+            state: event.state,
+            isReadOnly: isReadOnly,
+            isAllDay: isAllDay,
+            backgroundColor: event.backgroundColor,
+            color: event.color,
+          };
+
+          calendar.createEvents([newEvent]);
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -109,19 +129,30 @@ function MonthCalendar() {
 
     /** 일정을 생성 */
     calendar.on("beforeCreateEvent", (event) => {
+      const selectedCalendar = options.calendars.find(
+        (cal) => cal.id === event.calendarId
+      );
       const newEvent = {
-        id: authSlice.username,
+        uid: authSlice.username,
         calendarId: event.calendarId,
         title: event.title,
-        start: event.start.toDate(),
-        end: event.end.toDate(),
+        start: Moment(event.start.toDate())
+          .utcOffset(9)
+          .format("YYYY-MM-DD[T]HH:mm:ss"),
+        end: Moment(event.end.toDate())
+          .utcOffset(9)
+          .format("YYYY-MM-DD[T]HH:mm:ss"),
         location: event.location,
         state: event.state,
         isReadOnly: false,
         isAllDay: event.isAllday,
+        backgroundColor: selectedCalendar
+          ? selectedCalendar.backgroundColor
+          : "#000000",
         color: "#FFFFFF",
       };
       calendar.createEvents([newEvent]);
+      calendar.setOptions({});
       console.log(newEvent);
       const url = globalPath.path;
       axios
