@@ -6,7 +6,6 @@ import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { globalPath } from "globalPaths";
-import Aside from "components/chat/Aside";
 
 const url = globalPath.path;
 
@@ -15,21 +14,8 @@ const ChatPage = () => {
   const uid = authSlice.username;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
-  const [chatRooms, setChatRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
-
-  useEffect(() => {
-    const fetchChatRooms = async () => {
-      try {
-        const response = await axios.get("/api/chatroom");
-        setChatRooms(response.data);
-      } catch (error) {
-        console.error("Error fetching chat rooms", error);
-      }
-    };
-
-    fetchChatRooms();
-  }, []);
+  const [subscription, setSubscription] = useState(null);
 
   useEffect(() => {
     const socket = new SockJS(`${url}/ws/chat`);
@@ -39,18 +25,28 @@ const ChatPage = () => {
     });
 
     client.onConnect = () => {
-      console.log("Connected");
-
-      client.subscribe("/topic/public", (message) => {
-        const msg = JSON.parse(message.body);
-        setMessages((prevMessages) => [...prevMessages, msg]);
-      });
-
-      client.publish({
-        destination: "/app/chat.addUser",
-        body: JSON.stringify({ uid }),
-      });
+      console.log("연결성공");
+      setStompClient(client);
     };
+
+    /*
+      if (selectedRoom && selectedRoom.chatNo) {
+        client.subscribe(
+          `/topic/chatroom/${selectedRoom.chatNo}`,
+          (message) => {
+            const msg = JSON.parse(message.body);
+            console.log("New message received: ", msg); // 수신된 메시지 확인
+            setMessages((prevMessages) => [...prevMessages, msg]);
+          }
+        );
+
+        client.publish({
+          destination: "/app/chat.addUser",
+          body: JSON.stringify({ uid }),
+        });
+      }
+    };
+    */
 
     client.onStompError = (frame) => {
       console.error("Broker reported error: " + frame.headers["message"]);
@@ -58,7 +54,6 @@ const ChatPage = () => {
     };
 
     client.activate();
-    setStompClient(client);
 
     return () => {
       if (client) {
@@ -67,48 +62,62 @@ const ChatPage = () => {
     };
   }, [uid]);
 
+  useEffect(() => {
+    if (stompClient && selectedRoom) {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+
+      const newSubscription = stompClient.subscribe(
+        `/topic/chatroom/${selectedRoom.chatNo}`,
+        (message) => {
+          const msg = JSON.parse(message.body);
+          console.log("New message received in subscription: ", msg); // 수신된 메시지 확인
+          setMessages((prevMessages) => [...prevMessages, msg]);
+        }
+      );
+
+      stompClient.publish({
+        destination: "/app/chat.addUser",
+        body: JSON.stringify({ uid }),
+      });
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    }
+  }, [selectedRoom, stompClient, uid]);
+
+  const handleSelectChatRoom = async (room) => {
+    setSelectedRoom(room);
+    setMessages([]);
+    try {
+      const response = await axios.get(`/api/chatroom/${room.chatNo}`);
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Error fetching chat room messages", error);
+    }
+  };
+
   const handleSendMessage = (text) => {
-    if (stompClient && stompClient.connected) {
+    if (stompClient && stompClient.connected && selectedRoom) {
       const chatMessage = {
         uid: uid,
         message: text,
-        chatNo: selectedRoom?.chatNo,
+        chatNo: selectedRoom.chatNo,
       };
-      console.log("chatMessage : " + JSON.stringify(chatMessage));
+
+      console.log("Sending chatMessage: ", chatMessage); // 전송할 메시지 확인
       stompClient.publish({
-        destination: "/app/chat.sendMessage",
+        destination: `/app/chat.sendMessage`,
         body: JSON.stringify(chatMessage),
       });
     }
   };
 
-  const handleAddChatRoom = (newRoom) => {
-    setChatRooms((prevRooms) => [...prevRooms, newRoom]);
-  };
-
-  const handleSelectChatRoom = (room) => {
-    setSelectedRoom(room);
-    // 해당 채팅방의 메시지를 불러오는 로직을 추가할 수 있습니다.
-  };
-
-  const handleDeleteRoom = async (chatNo) => {
-    try {
-      await axios.delete(`/api/chatroom/${chatNo}`);
-      setChatRooms(chatRooms.filter((room) => room.chatNo !== chatNo));
-    } catch (error) {
-      console.error("Error deleting chat room", error);
-    }
-  };
-
   return (
     <div className="chat-layout-container">
-      <Aside
-        chatRooms={chatRooms}
-        onAddChatRoom={handleAddChatRoom}
-        onDeleteChatRoom={handleDeleteRoom}
-        onSelectChatRoom={handleSelectChatRoom}
-      />
-      <ChatLayout>
+      <ChatLayout setSelectedRoom={handleSelectChatRoom}>
         <Chat messages={messages} onSendMessage={handleSendMessage} uid={uid} />
       </ChatLayout>
     </div>
