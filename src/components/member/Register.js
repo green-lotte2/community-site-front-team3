@@ -109,7 +109,7 @@ const Register = () => {
             .then((response) => {
                 console.log(response.data);
                 alert('회원가입 완료!');
-                navigate('/member/login');
+                navigate('/');
             })
             .catch((err) => {
                 console.log(err);
