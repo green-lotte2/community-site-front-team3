@@ -9997,66 +9997,133 @@ code {
         }
     }
 }
+/* 프로젝트 리스트 */
 .project-list-container {
     text-align: center;
+}
 
-    .project-list {
-        display: inline-block;
-        width: 1000px;
-        text-align: left;
-        padding: 20px 50px;
-        border: 1px solid #111;
-        border-radius: 10px;
-        background-color: #c9c9c9;
-    }
+.project-list {
+    display: inline-block;
+    width: 1000px;
+    text-align: left;
+    padding: 20px 50px;
+    border: 1px solid #111;
+    border-radius: 10px;
+    background-color: #c9c9c9;
+}
 
-    .search-and-create {
-        margin-bottom: 20px;
-    }
+.search-and-create {
+    margin-bottom: 20px;
+}
 
-    .input-group {
-        display: flex;
-    }
+.input-group {
+    display: flex;
+}
 
-    .input-group input[type='text'] {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px 0 0 4px;
-    }
+.input-group input[type='text'] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+}
 
-    .input-group button {
-        padding: 8px 12px;
-        background-color: #007bff;
-        border: none;
-        color: #fff;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-    }
+.input-group button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
 
-    .project-card {
-        border-top: 2px solid;
-        margin-top: 20px;
-    }
+.project-card {
+    border-top: 2px solid;
+    margin-top: 20px;
+}
 
-    .project-card h3 {
-        margin-top: 0;
-    }
+.project-card h3 {
+    margin-top: 0;
+}
 
-    .project-card p {
-        margin-bottom: 10px;
-    }
+.project-card p {
+    margin-bottom: 10px;
+}
 
-    .project-meta {
-        display: flex;
-        justify-content: space-between;
-    }
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+}
 
-    .project-meta .date {
-        color: #888;
-    }
+.project-meta .date {
+    color: #888;
+}
 
-    .project-meta .actions button {
-        margin-left: 5px;
-    }
+.project-meta .actions button {
+    margin-left: 5px;
+}
+
+/* 모달 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.modal input[type='text'],
+.modal select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+.modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
