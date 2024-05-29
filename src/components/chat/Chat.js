@@ -1,19 +1,18 @@
 import React from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
-import { Link } from "react-router-dom";
 
-const Chat = ({ messages, onSendMessage, uid }) => {
+const Chat = ({ messages, onSendMessage, uid, roomTitle }) => {
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
-        <h2>Chat</h2>
+        <h2>{roomTitle}</h2> {/* 채팅방 제목 표시 */}
         <div className="messages-wrapper">
           <div className="messages">
             {messages.map((message, index) => (
               <ChatMessage
                 key={index}
-                position={message.uid === uid ? "right" : "left"}
+                position={message.uid === uid ? "right" : "left"} // 메시지 위치 설정
                 text={message.message}
               />
             ))}
