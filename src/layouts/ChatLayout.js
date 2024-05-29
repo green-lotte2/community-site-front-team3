@@ -3,12 +3,12 @@ import Header from "../components/common/main/Header";
 import Aside from "../components/chat/Aside";
 import Footer from "../components/common/main/Footer";
 
-const ChatLayout = ({ children }) => {
+const ChatLayout = ({ children, setSelectedRoom }) => {
   return (
     <div id="chatContainer">
       <Header />
       <div className="chat-layout-container">
-        <Aside />
+        <Aside setSelectedRoom={setSelectedRoom} />
         <main>{children}</main>
       </div>
       <Footer />
