@@ -7,8 +7,8 @@ const ChatLayout = ({ children, setSelectedRoom }) => {
   return (
     <div id="chatContainer">
       <Header />
+      <Aside setSelectedRoom={setSelectedRoom} />
       <div className="chat-layout-container">
-        <Aside setSelectedRoom={setSelectedRoom} />
         <main>{children}</main>
       </div>
       <Footer />

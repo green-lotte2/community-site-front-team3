@@ -154,7 +154,7 @@
   }
 
   .chatAside button {
-    width: 100%;
+    width: 100px;
     padding: 10px;
     border: none;
     background-color: #007bff;
@@ -165,8 +165,9 @@
 
   /* 레이아웃 */
   .chat-layout-container {
-    margin-left: 205px;
-    display: flex;
+    width: 100%;
+    //margin-left: 205px;
+    //display: flex;
     flex: 1;
   }
 

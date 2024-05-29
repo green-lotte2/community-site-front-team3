@@ -1,42 +1,65 @@
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import styled from 'styled-components';
 
 const Recent = () => {
     const url = globalPath.path;
     const [articleList, setArticleList] = useState([]);
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`${url}/admin/article`);
+            setArticleList(response.data.slice(0, 5)); // 최대 5개로 제한
         };
         fetchData();
-    }, []);
+    }, [url]);
 
     return (
-        <>
-            <div className="recent-items">
-                <h3>최근 게시물</h3>
-                <div className="item">
-                    <img src="#" alt="#" />
-                    <p>
-                        최신 게시글
-                        <br />
-                        John Doe
-                    </p>
-                    <p className="time">2 hours ago</p>
-                </div>
-                <div className="item">
-                    <img src="project_icon.png" alt="Project Icon" />
-                    <p>
-                        최신 프로젝트
-                        <br />
-                        Project ABC
-                    </p>
-                    <p className="time">1 day ago</p>
-                </div>
-            </div>
-        </>
+        <div className="recent-items">
+            <h3>최근 게시물</h3>
+            <ItemContainer>
+                {articleList.map((article) => (
+                    <Item key={article.ano}>
+                        <ul>
+                            <li>{article.title}</li>
+                            <li>
+                                <small>{article.uid}</small>
+                            </li>
+                            <li>{article.content}</li>
+                            <DateItem>{moment(article.rdate).format('YY-MM-DD')}</DateItem>
+                        </ul>
+                    </Item>
+                ))}
+            </ItemContainer>
+        </div>
     );
 };
 
 export default Recent;
+
+// Styled Components
+const ItemContainer = styled.div`
+    display: flex;
+    flex-direction: column; /* 항목을 세로로 정렬 */
+    gap: 10px; /* 항목 간의 간격 설정 */
+    color: #86879d;
+`;
+
+const Item = styled.div`
+    ul {
+        display: flex; /* 가로로 정렬 */
+        list-style: none;
+        padding: 0;
+        gap: 5px; /* li 요소 간의 간격 설정 */
+        justify-content: space-between; /* li 요소를 양 끝에 배치 */
+    }
+    li {
+        margin-bottom: 10px;
+    }
+`;
+
+const DateItem = styled.li`
+    margin-left: auto; /* 오른쪽으로 정렬 */
+`;
