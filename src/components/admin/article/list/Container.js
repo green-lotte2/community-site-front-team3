@@ -23,8 +23,7 @@ const Container = () => {
         const fetchData = async () => {
             setLoading(true);
             const response = await axios.get(`${url}/admin/article`); // 정렬 파라미터 추가
-            const sortedData = response.data.sort((a, b) => new Date(b.rdate) - new Date(a.rdate)); // 최신순으로 정렬
-            setArticleList(sortedData);
+            setArticleList(response.data);
             setLoading(false);
         };
         fetchData();
