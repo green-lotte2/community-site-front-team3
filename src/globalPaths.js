@@ -18,4 +18,8 @@ export const globalPath = {
     terms: '/user/terms',
     checkEmailCode: '/member/checkEmailCode',
     sendEmailCode: '/member/checkUser/email',
+
+    /* 프로젝트 */
+    projectList: '/project/list',
+    projectKanBan: '/project/kanban',
 };
