@@ -96,6 +96,14 @@ $black: #000;
   }
   #test {
     padding: 0 20px;
+
+    .ce-block__content {
+      max-width: none;
+      margin-left: 10px;
+      width: 100% !important;
+
+
+    }
   }
   #test * {
     margin: 0;
