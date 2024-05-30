@@ -11,14 +11,16 @@ const ProjectList = () => {
     const [userUids, setuserUids] = useState([]);
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [status, setStatus] = useState(1);
 
     useEffect(() => {
         if (authSlice && authSlice.uid && authSlice.company) {
             fetchUsersByCompany(authSlice.company);
             selectProjectList();
         }
-    }, [authSlice]);
+    }, [authSlice, status]);
 
+    console.log('proejct222:', projects);
     // 같은 회사인 유저 조회 //
     const fetchUsersByCompany = async (company) => {
         try {
@@ -34,6 +36,7 @@ const ProjectList = () => {
         try {
             const response = await axios.get(`/project/list?uid=${authSlice.uid}`);
             setProjects(response.data);
+            console.log('proejct111:', response.data);
         } catch (error) {
             console.error('Error fetching projects:', error);
         }
@@ -44,14 +47,33 @@ const ProjectList = () => {
         try {
             e.preventDefault();
 
+            if (projectTitle.trim() === '' || userUids.length === 0) {
+                alert('프로젝트 제목과 협업자를 추가해주세요.');
+                return;
+            }
+
             const response = await axios.post(`/project/create`, {
                 uid: authSlice.uid,
                 title: projectTitle,
                 uids: userUids,
             });
+            alert('프로젝트 생성완료!');
+            selectProjectList();
             console.log('Project created:', response.data.proNo);
         } catch (error) {
             console.error('Error creating project:', error);
+        }
+    };
+    // 프로젝트 삭제 //
+    const deleteProject = async (proNo) => {
+        try {
+            const response = await axios.delete(`/project/delete?proNo=${proNo}`);
+            console.log(response.data);
+            setStatus(status + 1);
+            alert('삭제완료');
+            selectProjectList();
+        } catch (error) {
+            console.error('Error deleting  projects:', error);
         }
     };
 
@@ -100,7 +122,7 @@ const ProjectList = () => {
                             New Project
                         </button>
                     </div>
-                    {projects.length > 0 ? (
+                    {projects && projects.length > 0 ? (
                         projects.map((project, index) => (
                             <div className="project-card" key={index}>
                                 <p>{project.title}</p>
@@ -108,7 +130,7 @@ const ProjectList = () => {
                                     <span className="date">{moment(projects.rdate).format('YY.MM.DD')}</span>
                                     <span className="actions">
                                         <button>Edit</button>
-                                        <button>Delete</button>
+                                        <button onClick={() => deleteProject(project.proNo)}>Delete</button>
                                     </span>
                                 </div>
                             </div>
