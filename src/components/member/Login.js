@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
+import { LOGIN_PATH } from 'requestPath';
 
 const Login = () => {
-    
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
@@ -22,20 +22,19 @@ const Login = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         axios
-            .post(`${globalPath.userLoginPath}`, user)
+            .post(LOGIN_PATH, user)
             .then((resp) => {
                 console.log(resp.data);
                 // 리덕스 액션 실행
                 dispatch(login(resp.data));
                 // 메인 전환
-                navigate(`${globalPath.mainPath}`);
+                navigate('/main');
                 alert('로그인에 성공하셨습니다');
             })
             .catch((err) => {
                 console.log(err);
                 setError('아이디 또는 비밀번호가 틀렸습니다. 다시 확인해주세요.');
             });
-            
     };
 
     /** 값 입력  */
@@ -44,7 +43,6 @@ const Login = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
-    
     const onPasswordButtonClickHandler = () => {
         if (passwordType === 'text') {
             setPasswordType('password');
@@ -87,10 +85,9 @@ const Login = () => {
                                     {passwordType === 'password' ? 'Show' : 'Hide'}
                                 </button>
                             </div>
-                            {error && <div className='login-errMsg'>{error}</div>}
+                            {error && <div className="login-errMsg">{error}</div>}
                             <div className="additional-options">
-                                <Link to="#">아이디 찾기</Link> |
-                                <Link to="#"> 비밀번호 찾기</Link>
+                                <Link to="#">아이디 찾기</Link> |<Link to="#"> 비밀번호 찾기</Link>
                             </div>
                             <LoginButtonContainer>
                                 <LoginButton type="submit">로그인</LoginButton>
@@ -99,13 +96,17 @@ const Login = () => {
                                 <button className="kakao-login"></button>
                                 <button className="google-login"></button>
                             </div>
-                            <div className='login-description-box'>
-                                <div className='login-description'>{'신규 사용자이신가요? '}<span><Link to={`${globalPath.regitserPath}`}>{'회원가입'}</Link></span></div>
+                            <div className="login-description-box">
+                                <div className="login-description">
+                                    {'신규 사용자이신가요? '}
+                                    <span>
+                                        <Link to={`${globalPath.regitserPath}`}>{'회원가입'}</Link>
+                                    </span>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                
             </div>
         </>
     );

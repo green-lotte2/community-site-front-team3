@@ -20,7 +20,7 @@ const Header = () => {
             <header>
                 <div class="container">
                     <div class="logo">
-                        <Link to="/">
+                        <Link to= {globalPath.mainPath}>
                             <img src="/images/logo/logo6.png" alt="aa" style={{ width: '120px' }} />
                         </Link>
                     </div>
@@ -30,7 +30,7 @@ const Header = () => {
                                 {!authSlice.uid ? (
                                     <>
                                         <li>
-                                            <Link to="/member/login">로그인</Link>
+                                            <Link to="/">로그인</Link>
                                         </li>
                                         <li>
                                             <Link to="/member/terms">회원가입</Link>

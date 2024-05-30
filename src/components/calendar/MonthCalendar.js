@@ -81,7 +81,7 @@ function MonthCalendar() {
         isAlways6Weeks: false,
       },
     });
-    const uid = authSlice.username;
+    const uid = authSlice.uid;
     const uuid = { uid };
     console.log("아이디 : " + uid);
     const url = globalPath.path;
@@ -98,7 +98,9 @@ function MonthCalendar() {
         response.data.forEach((event) => {
           const isReadOnly = event.isReadOnly === "false" ? false : true;
           const isAllDay = event.isAllDay === "false" ? false : true;
-
+          const selectedCalendar = options.calendars.find(
+            (cal) => cal.id === event.calendarId
+          );
           const newEvent = {
             id: event.id,
             calendarId: event.calendarId,
@@ -113,7 +115,9 @@ function MonthCalendar() {
             state: event.state,
             isReadOnly: isReadOnly,
             isAllDay: isAllDay,
-            backgroundColor: event.backgroundColor,
+            backgroundColor: selectedCalendar
+              ? selectedCalendar.backgroundColor
+              : "#000000",
             color: event.color,
           };
 
@@ -133,7 +137,7 @@ function MonthCalendar() {
 
       const newEvent = {
         id: eventId,
-        uid: authSlice.username,
+        uid: authSlice.uid,
         calendarId: event.calendarId,
         title: event.title,
         start: Moment(event.start.toDate())
@@ -170,10 +174,14 @@ function MonthCalendar() {
     calendar.on("beforeUpdateEvent", ({ event, changes }) => {
       calendar.updateEvent(event.id, event.calendarId, changes);
 
-      const start = Moment(changes.start.toDate()).format(
-        "YYYY-MM-DD[T]HH:mm:ss"
-      );
-      const end = Moment(changes.end.toDate()).format("YYYY-MM-DD[T]HH:mm:ss");
+      const start =
+        changes.start === undefined
+          ? null
+          : Moment(changes.start.toDate()).format("YYYY-MM-DD[T]HH:mm:ss");
+      const end =
+        changes.end === undefined
+          ? null
+          : Moment(changes.end.toDate()).format("YYYY-MM-DD[T]HH:mm:ss");
 
       console.log("start : " + start);
       console.log("end : " + end);
@@ -185,6 +193,7 @@ function MonthCalendar() {
         end: end,
         state: changes.state,
         isAllDay: changes.isAllday,
+        isReadOnly: changes.isReadOnly,
       };
       console.log(chage);
 
@@ -192,6 +201,7 @@ function MonthCalendar() {
         .post(`${url}/calendar/modify/${event.id}`, chage)
         .then((response) => {
           console.log(response.data);
+          window.location.reload();
         })
         .catch((err) => {
           console.log(err);

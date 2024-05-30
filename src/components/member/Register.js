@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { globalPath } from "globalPaths";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { globalPath } from 'globalPaths';
+import { CHECK_EMAIL_CODE_PATH, SEND_EMAIL_CODE_PATH } from 'requestPath';
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -136,51 +138,46 @@ const Register = () => {
     // Clear the error message when user starts typing again
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
-
-  /** 인증코드 전송 버튼 */
-  const handleEmailVerification = () => {
-    // Make an API call to your backend to send the email verification code
-    axios
-      .get(`${globalPath.sendEmailCode}/${user.email}`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.result === 1) {
-          return;
-        } else {
-          alert("인증코드가 이메일로 전송되었습니다.");
-          setShowVerification(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("이메일이 중복되었습니다. 다른 이메일을 사용해주세요.");
-      });
-  };
+    /** 인증코드 전송 버튼 */
+    const handleEmailVerification = () => {
+        // Make an API call to your backend to send the email verification code
+        axios
+            .get(`${SEND_EMAIL_CODE_PATH}/${user.email}`, { withCredentials: true })
+            .then((response) => {
+                if (response.data.result === 1) {
+                    return;
+                } else {
+                    alert('인증코드가 이메일로 전송되었습니다.');
+                    setShowVerification(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert('이메일이 중복되었습니다. 다른 이메일을 사용해주세요.');
+            });
+    };
 
   /** 인증코드 확인 버튼 */
   const checkEmailCode = () => {
     console.log("check...1 : " + user.verificationCode);
-
-    axios
-      .get(`${globalPath.checkEmailCode}/${user.verificationCode}`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        const data = response.data;
-        if (data.result === 0) {
-          alert("인증코드가 일치합니다.");
-          emailOk = true;
-        } else {
-          alert("인증코드가 일치하지 않습니다.");
-        }
-      })
-      .catch((error) => {
-        console.log(user.verificationCode);
-        console.error("인증코드 확인에 실패하였습니다.", error);
-        //alert('인증코드 확인에 실패했습니다.');
-      });
-  };
+   
+        axios
+            .get(`${CHECK_EMAIL_CODE_PATH}/${user.verificationCode}`, { withCredentials: true })
+            .then((response) => {
+                const data = response.data;
+                if (data.result === 0) {
+                    alert('인증코드가 일치합니다.');
+                    emailOk = true;
+                } else {
+                    alert('인증코드가 일치하지 않습니다.');
+                }
+            })
+            .catch((error) => {
+                console.log(user.verificationCode);
+                console.error('인증코드 확인에 실패하였습니다.', error);
+                //alert('인증코드 확인에 실패했습니다.');
+            });
+    };
 
   return (
     <>

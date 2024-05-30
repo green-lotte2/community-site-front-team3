@@ -5,44 +5,46 @@ import { IoChatboxEllipses } from "react-icons/io5";
 import { MdContactPage } from "react-icons/md";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { AiFillProject } from "react-icons/ai";
+
 const Aside = () => {
+  const dynamicPath = '/project/list';
   return (
     <>
       <aside>
         <ul>
           <li>
-            <Link to="/project/board">
-              <AiFillProject />
+            <Link to={dynamicPath}>
+              <AiFillProject size={20} />
               프로젝트
             </Link>
           </li>
           <li>
             <Link to="/calendar">
-              <FaCalendarAlt />
+              <FaCalendarAlt size={20} />
               캘린더
             </Link>
           </li>
           <li>
             <Link to="/page">
-              <MdContactPage />
+              <MdContactPage size={20} />
               페이지
             </Link>
           </li>
           <li>
             <Link to="/board/list">
-              <FaClipboardList />
+              <FaClipboardList size={20} />
               게시판
             </Link>
           </li>
           <li>
             <Link to="/chat">
-              <IoChatboxEllipses />
+              <IoChatboxEllipses size={20} />
               채팅
             </Link>
           </li>
           <li>
-            <Link to="#">
-              <RiCustomerServiceFill />
+            <Link to="/cs">
+              <RiCustomerServiceFill size={20} />
               고객센터
             </Link>
           </li>

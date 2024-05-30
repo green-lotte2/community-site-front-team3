@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
+import { useNavigate } from 'react-router-dom';
 
 const ArticleList = ({ articleList, setArticleList }) => {
+    const navigate = useNavigate();
     const url = globalPath.path;
 
     const del = (ano) => {
@@ -19,6 +21,10 @@ const ArticleList = ({ articleList, setArticleList }) => {
         }
     };
 
+    const view = (ano) => {
+        navigate(`/admin/article/${ano}`);
+    };
+
     return (
         <table>
             <thead>
@@ -28,6 +34,7 @@ const ArticleList = ({ articleList, setArticleList }) => {
                     </th>
                     <th>번호</th>
                     <th>제목</th>
+                    <th>내용</th>
                     <th>날짜</th>
                     <th>상태</th>
                     <th>관리</th>
@@ -45,13 +52,16 @@ const ArticleList = ({ articleList, setArticleList }) => {
                             <br />
                             <small>{article.uid}</small>
                         </td>
+                        <td>{article.content}</td>
                         <td>{moment(article.rdate).format('YY-MM-DD')}</td>
-                        <td>..</td>
+                        <td>{article.reply}</td>
                         <td>
                             <button onClick={() => del(article.ano)} className="btn-del">
                                 삭제
                             </button>
-                            <button className="btn-modi">수정</button>
+                            <button onClick={() => view(article.ano)} className="btn-view">
+                                상세보기
+                            </button>
                         </td>
                     </tr>
                 ))}
