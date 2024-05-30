@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ProfileUpdate = () => {
+  const location = useLocation();
   const [profile, setProfile] = useState({
     profilePicture: '',
-    name: '',
+    nick: '',
     email: '',
-    password: ''
+    company: '',
+    department: '',
+    position: '',
+    
   });
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      setProfile(location.state.user);
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,13 +71,12 @@ const ProfileUpdate = () => {
               onChange={handleChange}
               value={profile.nick}
             />  
-            <label htmlFor="password">비밀번호 변경하기</label>
+            <label htmlFor="password">비밀번호 변경</label>
             <input
               type="password"
               name="password"
-              placeholder="새 비밀번호를 입력하세요."
+              placeholder="새로운 비밀번호를 입력하세요."
               onChange={handleChange}
-              value={profile.password}
             />
             <label htmlFor="email">이메일 관리</label>
             <input
@@ -76,6 +85,14 @@ const ProfileUpdate = () => {
               placeholder="이메일을 입력하세요."
               onChange={handleChange}
               value={profile.email}
+            />
+            <label htmlFor="hp">연락처</label>
+            <input
+              type="text"
+              name="hp"
+              placeholder="연락처를 입력하세요."
+              onChange={handleChange}
+              value={profile.hp}
             />
             <label htmlFor="company">회사</label>
             <input
