@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
+import { useNavigate } from 'react-router-dom';
 
 const ArticleList = ({ articleList, setArticleList }) => {
+    const navigate = useNavigate();
     const url = globalPath.path;
 
     const del = (ano) => {
@@ -19,17 +21,8 @@ const ArticleList = ({ articleList, setArticleList }) => {
         }
     };
 
-    const upd = (ano) => {
-        if (window.confirm('수정 페이지로 이동 하시겠습니까?')) {
-            axios
-                .get(`${url}/admin/article/${ano}`)
-                .then(() => {
-                    setArticleList((prevList) => prevList.filter((article) => article.ano !== ano));
-                })
-                .catch((err) => {
-                    console.error('글 수정 오류: ', err);
-                });
-        }
+    const view = (ano) => {
+        navigate(`/admin/article/${ano}`);
     };
 
     return (
@@ -66,8 +59,8 @@ const ArticleList = ({ articleList, setArticleList }) => {
                             <button onClick={() => del(article.ano)} className="btn-del">
                                 삭제
                             </button>
-                            <button onClick={() => upd(article.ano)} className="btn-modi">
-                                수정
+                            <button onClick={() => view(article.ano)} className="btn-view">
+                                상세보기
                             </button>
                         </td>
                     </tr>

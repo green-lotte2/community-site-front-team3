@@ -26,13 +26,13 @@ const root = createBrowserRouter([
   // main
   { path: "/main", element: <MainPage /> },
 
-  // admin
-  { path: "/admin", element: <AdminPage /> },
-  { path: "/admin/member", element: <AdminMember /> },
-  { path: "/admin/member/list", element: <AdminMemberList /> },
-  { path: "/admin/article", element: <AdminArticleList /> },
-  { path: "/admin/article/{ano}", element: <AdminArticleView /> },
-  { path: "/admin/article/view/answer", element: <AdminArticleAnswer /> },
+    // admin
+    { path: '/admin', element: <AdminPage /> },
+    { path: '/admin/member', element: <AdminMember /> },
+    { path: '/admin/member/list', element: <AdminMemberList /> },
+    { path: '/admin/article', element: <AdminArticleList /> },
+    { path: '/admin/article/:ano', element: <AdminArticleView /> },
+    { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
 
   // member
   { path: "/", element: <LoginPage /> },
