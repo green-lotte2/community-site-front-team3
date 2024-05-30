@@ -1,49 +1,43 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ChatRoom from "./ChatRoom";
+import { globalPath } from "globalPaths";
 
-const Aside = ({ setSelectedRoom }) => {
+const url = globalPath.path;
+
+const Aside = ({ setSelectedRoom, uid }) => {
   const [newChatRoomTitle, setNewChatRoomTitle] = useState("");
-  const [roomName, setRoomName] = useState("");
   const [chatRooms, setChatRooms] = useState([]);
 
-  /** 채팅방 리스트 조회 */
   useEffect(() => {
     const fetchChatRooms = async () => {
       try {
-        const response = await axios.get("/api/chatrooms");
+        const response = await axios.get(`${url}/chatroom/user/${uid}`);
         setChatRooms([...chatRooms, response.data]);
-        console.log("채팅방 : " + response.data);
-        console.log(chatRooms);
-        console.log(chatRooms.length);
-        console.log(chatRooms.values);
       } catch (error) {
         console.error("Error fetching chat rooms", error);
       }
     };
 
     fetchChatRooms();
-  }, []);
+  }, [uid]);
 
-  /** 채팅방 삭제 */
   const handleDeleteRoom = async (chatNo) => {
     try {
-      await axios.delete(`/api/chatroom/${chatNo}`);
+      await axios.delete(`chatroom/${chatNo}`);
       setChatRooms(chatRooms.filter((room) => room.chatNo !== chatNo));
     } catch (error) {
       console.error("Error deleting chat room", error);
     }
   };
 
-  /** 채팅방 추가 */
   const handleAddChatRoom = async () => {
     if (newChatRoomTitle.trim() === "") return;
 
     try {
       const response = await axios.post(
-        "/api/chatroom",
-        { title: newChatRoomTitle, status: "active" },
+        "/chatroom",
+        { title: newChatRoomTitle, status: "active", uid: uid },
         {
           headers: {
             "Content-Type": "application/json",
@@ -51,8 +45,6 @@ const Aside = ({ setSelectedRoom }) => {
         }
       );
       setNewChatRoomTitle("");
-      setRoomName(newChatRoomTitle);
-      // 채팅방 리스트 업데이트
       setChatRooms([...chatRooms, response.data]);
     } catch (error) {
       console.error("Error creating chat room", error);
@@ -62,6 +54,7 @@ const Aside = ({ setSelectedRoom }) => {
   return (
     <aside className="chatAside">
       <ul>
+        <Link to="/main">처음으로</Link>
         {chatRooms.length === 0 ? (
           <li>메세지 없음</li>
         ) : (
@@ -87,7 +80,6 @@ const Aside = ({ setSelectedRoom }) => {
           </button>
         </li>
       </ul>
-      <ChatRoom roomName={roomName} />
     </aside>
   );
 };
