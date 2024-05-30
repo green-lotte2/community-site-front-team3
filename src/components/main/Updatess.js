@@ -1,13 +1,15 @@
+import { globalPath } from 'globalPaths';
 import React from 'react';
 
 const Updates = () => {
+    const path = globalPath.path;
     return (
         <>
             <div className="updatess">
                 <h2>최근 업데이트</h2>
                 <div className="updates">
                     <div className="update">
-                        <img src="/images/icon/notification.png" alt="Feature Icon" style={{ width: '70px' }} />
+                        <img src={`${path}/uploads/logo192.png`} alt="Feature Icon" style={{ width: '70px' }} />
                         <h3>새로운 기능 출시</h3>
                         <p>최신 업데이트를 확인하세요</p>
 

@@ -72,7 +72,7 @@ const Editor = () => {
         onInitialize={handleInitialize}
         />
       </div>
-      <button onClick={handleSave}>fffff</button>
+      <button onClick={handleSave}>저장</button>
       </div>
   );
 };
