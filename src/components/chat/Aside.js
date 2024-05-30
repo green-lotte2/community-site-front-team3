@@ -15,6 +15,7 @@ const Aside = ({ setSelectedRoom }) => {
         const response = await axios.get("/api/chatrooms");
         setChatRooms(response.data);
         console.log("채팅방 : " + response.data);
+        console.log(chatRooms);
       } catch (error) {
         console.error("Error fetching chat rooms", error);
       }
