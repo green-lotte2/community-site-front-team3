@@ -1,18 +1,17 @@
-// InviteFriends.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-const InviteFriends = ({ chatRoomId }) => {
-  const [friendId, setFriendId] = useState("");
+const InviteFriends = ({ chatNo, company }) => {
+  const [friendId, setFriendId] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState("");
 
   useEffect(() => {
     const fetchFriends = async () => {
       try {
-        const response = await axios.get("/friends");
+        const response = await axios.get(`${url}/friends/${company}`);
         setFriendId(response.data);
       } catch (error) {
         console.error("Error fetching friends", error);
@@ -20,20 +19,24 @@ const InviteFriends = ({ chatRoomId }) => {
     };
 
     fetchFriends();
-  }, []);
+  }, [company]);
 
+  /** 친구 초대 */
   const handleInvite = async () => {
     try {
-      await axios.post(`${url}/chatroom/${chatRoomId}/invite`, {
+      await axios.post(`${url}/chatroom/invite`, {
+        chatNo: chatNo,
         uid: selectedFriend,
       });
+      alert("친구 초대 성공");
     } catch (error) {
-      console.error("친구초대 실패ㅠ", error);
+      console.error("친구 초대 실패", error);
+      alert("친구 초대 실패");
     }
   };
 
   return (
-    <div>
+    <div className="invite-friends">
       <select
         value={selectedFriend}
         onChange={(e) => setSelectedFriend(e.target.value)}

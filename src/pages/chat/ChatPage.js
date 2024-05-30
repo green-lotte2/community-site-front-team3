@@ -113,7 +113,10 @@ const ChatPage = () => {
           <div>채팅방을 선택해주세요</div>
         ) : (
           <>
-            <InviteFriends chatRoomId={selectedRoom.chatNo} />
+            <InviteFriends
+              chatNo={selectedRoom.chatNo}
+              company={authSlice.company}
+            />
             <Chat
               messages={messages}
               onSendMessage={handleSendMessage}
