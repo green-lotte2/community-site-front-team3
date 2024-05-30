@@ -14,37 +14,37 @@ const Aside = () => {
         <ul>
           <li>
             <Link to={dynamicPath}>
-              <AiFillProject size={20}/>
+              <AiFillProject size={20} />
               프로젝트
             </Link>
           </li>
           <li>
             <Link to="/calendar">
-              <FaCalendarAlt size={20}/>
+              <FaCalendarAlt size={20} />
               캘린더
             </Link>
           </li>
           <li>
             <Link to="/page">
-              <MdContactPage size={20}/>
+              <MdContactPage size={20} />
               페이지
             </Link>
           </li>
           <li>
             <Link to="/board/list">
-              <FaClipboardList size={20}/>
+              <FaClipboardList size={20} />
               게시판
             </Link>
           </li>
           <li>
             <Link to="/chat">
-              <IoChatboxEllipses size={20}/>
+              <IoChatboxEllipses size={20} />
               채팅
             </Link>
           </li>
           <li>
-            <Link to="#">
-              <RiCustomerServiceFill size={20}/>
+            <Link to="/cs">
+              <RiCustomerServiceFill size={20} />
               고객센터
             </Link>
           </li>
