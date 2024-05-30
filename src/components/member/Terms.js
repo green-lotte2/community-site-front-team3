@@ -53,6 +53,7 @@ const Terms = () => {
             default:
                 break;
         }
+        
         if (termsAgreed && privacyAgreed && ageAgreed) {
             setAllAgreed(true);
         } else {

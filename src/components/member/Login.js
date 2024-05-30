@@ -100,7 +100,7 @@ const Login = () => {
                                 <div className="login-description">
                                     {'신규 사용자이신가요? '}
                                     <span>
-                                        <Link to={`${globalPath.regitserPath}`}>{'회원가입'}</Link>
+                                        <Link to={`${globalPath.terms}`}>{'회원가입'}</Link>
                                     </span>
                                 </div>
                             </div>
