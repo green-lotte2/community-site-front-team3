@@ -3,7 +3,8 @@ import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle }) => {
-  // 범인 아님
+  console.log("@@@@@");
+  console.log(messages);
   return (
     <div className="chat-layout-container">
       <div className="chat-container">

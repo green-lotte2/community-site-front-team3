@@ -13,9 +13,11 @@ const Aside = ({ setSelectedRoom }) => {
     const fetchChatRooms = async () => {
       try {
         const response = await axios.get("/api/chatrooms");
-        setChatRooms(response.data);
+        setChatRooms([...chatRooms, response.data]);
         console.log("채팅방 : " + response.data);
         console.log(chatRooms);
+        console.log(chatRooms.length);
+        console.log(chatRooms.values);
       } catch (error) {
         console.error("Error fetching chat rooms", error);
       }
@@ -60,14 +62,18 @@ const Aside = ({ setSelectedRoom }) => {
   return (
     <aside className="chatAside">
       <ul>
-        {chatRooms.map((room, index) => (
-          <li key={index}>
-            <Link to="#" onClick={() => setSelectedRoom(room)}>
-              {room.title}
-            </Link>
-            <button onClick={() => handleDeleteRoom(room.chatNo)}>삭제</button>
-          </li>
-        ))}
+        {chatRooms.length === 0 ? (
+          <li>메세지 없음</li>
+        ) : (
+          chatRooms.map((room, index) => (
+            <li key={index}>
+              <Link to="#" onClick={() => setSelectedRoom(room)}>
+                {room.title}
+              </Link>
+              <button onClick={() => handleDeleteRoom(room.chatNo)}>삭제</button>
+            </li>
+          ))
+        )}
         <li>
           <input
             type="text"
@@ -85,5 +91,6 @@ const Aside = ({ setSelectedRoom }) => {
     </aside>
   );
 };
+
 
 export default Aside;

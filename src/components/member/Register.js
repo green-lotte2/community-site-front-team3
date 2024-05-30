@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
+import { CHECK_EMAIL_CODE_PATH, SEND_EMAIL_CODE_PATH } from 'requestPath';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -123,7 +124,7 @@ const Register = () => {
     const handleEmailVerification = () => {
         // Make an API call to your backend to send the email verification code
         axios
-            .get(`${globalPath.sendEmailCode}/${user.email}`, { withCredentials: true })
+            .get(`${SEND_EMAIL_CODE_PATH}/${user.email}`, { withCredentials: true })
             .then((response) => {
                 if (response.data.result === 1) {
                     return;
@@ -143,7 +144,7 @@ const Register = () => {
         console.log('check...1 : ' + user.verificationCode);
 
         axios
-            .get(`${globalPath.checkEmailCode}/${user.verificationCode}`, { withCredentials: true })
+            .get(`${CHECK_EMAIL_CODE_PATH}/${user.verificationCode}`, { withCredentials: true })
             .then((response) => {
                 const data = response.data;
                 if (data.result === 0) {

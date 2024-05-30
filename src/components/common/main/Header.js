@@ -20,7 +20,7 @@ const Header = () => {
             <header>
                 <div class="container">
                     <div class="logo">
-                        <Link to="/">
+                        <Link to= {globalPath.mainPath}>
                             <img src="/images/logo/logo6.png" alt="aa" style={{ width: '120px' }} />
                         </Link>
                     </div>
