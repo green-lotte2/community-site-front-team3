@@ -32,7 +32,7 @@ const List = () => {
       fetchData();
 
         // cno(카테고리)가 변경될 때마다 실행
-      }, []);
+      }, [cno]);
   return (
     <DefaultLayout>
       <div className="boardContainer">

@@ -3,12 +3,12 @@ import { globalPath } from 'globalPaths';
 
 const url = globalPath.path;
 
-// 글 목록
+/** 글 목록 조회 */ 
 export const getList = async (params1) => {
   console.log(url);
     
     const response = await axios.get(`${url}/articles?cno=${params1}`);
-    alert(response);
+    alert(response.data);
   
     return response.data;
 };

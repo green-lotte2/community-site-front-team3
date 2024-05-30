@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
+import { LOGIN_PATH } from 'requestPath';
 
 const Login = () => {
     
@@ -22,13 +23,13 @@ const Login = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         axios
-            .post(`${globalPath.userLoginPath}`, user)
+            .post(LOGIN_PATH, user)
             .then((resp) => {
                 console.log(resp.data);
                 // 리덕스 액션 실행
                 dispatch(login(resp.data));
                 // 메인 전환
-                navigate(`${globalPath.mainPath}`);
+                navigate('/main');
                 alert('로그인에 성공하셨습니다');
             })
             .catch((err) => {
