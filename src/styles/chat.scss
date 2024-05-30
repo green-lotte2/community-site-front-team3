@@ -109,9 +109,11 @@
   .chatAside ul {
     list-style: none;
     padding: 0;
+    text-align: center;
   }
 
   .chatAside ul li {
+    margin-top: 10%;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -166,8 +168,6 @@
   /* 레이아웃 */
   .chat-layout-container {
     width: 100%;
-    //margin-left: 205px;
-    //display: flex;
     flex: 1;
   }
 
@@ -207,6 +207,10 @@
   .chat-container .tabs a:hover {
     background-color: #ff8916;
     color: #fff;
+  }
+
+  .invite-friends {
+    margin-bottom: 10px;
   }
 
   .messages-wrapper {

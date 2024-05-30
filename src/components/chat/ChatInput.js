@@ -17,6 +17,7 @@ const ChatInput = ({ onSendMessage }) => {
         type="text"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
+        placeholder="메시지를 입력하세요"
       />
       <button type="submit">SEND</button>
     </form>
