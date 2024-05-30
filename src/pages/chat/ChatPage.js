@@ -74,7 +74,7 @@ const ChatPage = () => {
     setMessages([]); // 이전 메시지 초기화
     try {
       const response = await axios.get(`/api/chatroom/${room.chatNo}`);
-      setMessages(response.data); // 새로운 채팅방의 메시지 설정
+      setMessages([...messages, response.data]); // 새로운 채팅방의 메시지 설정
     } catch (error) {
       console.error("Error fetching chat room messages", error);
     }
