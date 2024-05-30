@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
+import { TERMS_PATH } from 'requestPath';
 
 const Terms = () => {
     const [terms, setTerms] = useState({
@@ -22,7 +23,7 @@ const Terms = () => {
 
     const selectTerms = async () => {
         try {
-            const response = await axios.get(`${globalPath.terms}`);
+            const response = await axios.get(TERMS_PATH);
             const termsData = response.data[0];
             setTerms({ terms: termsData.terms, privacy: termsData.privacy, age: termsData.age });
         } catch (error) {

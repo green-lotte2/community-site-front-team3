@@ -29,7 +29,7 @@ const Login = () => {
                 // 리덕스 액션 실행
                 dispatch(login(resp.data));
                 // 메인 전환
-                navigate(`${globalPath.mainPath}`);
+                navigate('/main');
                 alert('로그인에 성공하셨습니다');
             })
             .catch((err) => {

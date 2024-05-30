@@ -5,10 +5,9 @@ import { IoChatboxEllipses } from "react-icons/io5";
 import { MdContactPage } from "react-icons/md";
 import { RiCustomerServiceFill } from "react-icons/ri";
 import { AiFillProject } from "react-icons/ai";
-import { globalPath } from "globalPaths";
 
 const Aside = () => {
-  const dynamicPath = `${globalPath.projectList}`;
+  const dynamicPath = '/project/list';
   return (
     <>
       <aside>
