@@ -10047,6 +10047,10 @@ code {
 
 .project-card p {
     margin-bottom: 10px;
+    cursor: pointer;
+}
+.project-card p:hover {
+    font-weight: 1000;
 }
 
 .project-meta {
