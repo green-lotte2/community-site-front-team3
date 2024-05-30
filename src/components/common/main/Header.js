@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
 
 const Header = () => {
+    const url = globalPath.path;
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const dispatch = useDispatch();
     const authSlice = useSelector((state) => state.authSlice);
     const navigate = useNavigate();
@@ -13,8 +15,17 @@ const Header = () => {
         // 리덕스 로그아웃 액션 실행
         await dispatch(logout());
         alert('로그아웃 되었습니다.');
-        navigate(`${globalPath.loginPath}`);
+        navigate(`/`);
     };
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
+    };
+
+    const handleSettingClick = () => {
+        navigate('/settings');
+    };
+
+
     return (
         <>
             <header>
@@ -38,13 +49,38 @@ const Header = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <li>
-                                            <div className="welcome-user">{authSlice.name}님 반갑습니다</div>
+                                        <li className="welcome-section" onClick={toggleDropdown}>
+                                            <img 
+                                                src="/images/icon/user.png"
+                                                alt="Profile" 
+                                                className="profile-picture"
+                                            />
+                                            {isDropdownVisible && (
+                                                <div className="jnd-dropdown-menu gnb-profile-dropdown right">
+                                                    <h5 className="jnd-option-title">
+                                                        <span className="jnd-option-txt">
+                                                            <span className="ng-scope">프로필</span>
+                                                        </span>
+                                                    </h5>
+                                                    <ul className="jnd-option-list">
+                                                        <li tabIndex="0" className="jnd-option-item" onClick={handleSettingClick}>
+                                                            <i className="jnd-option-icon icon-pencil" aria-hidden="true"></i>
+                                                            <span className="jnd-option-txt">
+                                                                <span className="ng-scope">계정 설정</span>
+                                                            </span>
+                                                        </li>
+                                                        <li tabIndex="0" className="jnd-option-item" onClick={logoutHandler}>
+                                                            <i className="jnd-option-icon icon-sign-out" aria-hidden="true"></i>
+                                                            <span className="jnd-option-txt">
+                                                                <span className="ng-scope">로그아웃</span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </li>
                                         <li>
-                                            <Link to="/member/logout/" onClick={logoutHandler}>
-                                                로그아웃
-                                            </Link>
+                                            <div className="welcome-user">{authSlice.name}님 반갑습니다</div>
                                         </li>
                                         <li>
                                             <Link to="#">관리자</Link>

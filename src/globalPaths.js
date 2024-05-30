@@ -7,7 +7,7 @@ export const globalPath = {
     mainPath: '/main',
     user: '/user',
     regitserPath: '/member/register',
-    terms: '/user/terms',
+    terms: '/member/terms',
     checkEmailCode: '/member/checkEmailCode',
     sendEmailCode: '/member/checkUser/email',
 

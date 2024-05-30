@@ -20,6 +20,7 @@ import NewPage from "pages/newPage/NewPage";
 import Chatpage from "pages/chat/ChatPage";
 import Calendar from "pages/calendar/Calendar";
 import Cs from "pages/cs/CsPage";
+import ProfileUpdatePage from "pages/member/ProfileUpdatePage";
 
 // 라우터 생성
 const root = createBrowserRouter([
@@ -39,6 +40,7 @@ const root = createBrowserRouter([
   { path: "/member/register", element: <RegisterPage /> },
   { path: "/member/terms", element: <TermsPage /> },
   { path: "/member/logout", element: <Navigate replace to="/" /> },
+  { path: "/member/profile", element: <ProfileUpdatePage/> },
 
   // project
   { path: "/project/board", element: <ProjectBoardPage /> },
