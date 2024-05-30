@@ -56,11 +56,11 @@ const ArticleList = ({ articleList, setArticleList }) => {
                         <td>{moment(article.rdate).format('YY-MM-DD')}</td>
                         <td>{article.reply}</td>
                         <td>
-                            <button onClick={() => del(article.ano)} className="btn-del">
-                                삭제
-                            </button>
                             <button onClick={() => view(article.ano)} className="btn-view">
                                 상세보기
+                            </button>
+                            <button onClick={() => del(article.ano)} className="btn-del">
+                                삭제
                             </button>
                         </td>
                     </tr>

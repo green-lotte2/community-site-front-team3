@@ -1,8 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
 import MemberList from './MemberList';
+import { globalPath } from 'globalPaths';
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 const Container = () => {
+    const url = globalPath.path;
+    const [memberList, setMemberList] = useState([]);
+
+    // 페이지네이션
+    const [currentPage, setCurrentPage] = useState(1);
+    const [membersPerPage] = useState(10);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`${url}/admin/member/list`);
+            setMemberList(response.data);
+        };
+        fetchData();
+    }, []);
+
+    const indexOfLast = currentPage * membersPerPage;
+    const indexOfFirst = indexOfLast - membersPerPage;
+    const currentUsers = (members) => {
+        return members.slice(indexOfFirst, indexOfLast);
+    };
+
     return (
         <>
             <div className="container">
@@ -13,14 +37,12 @@ const Container = () => {
                     <input type="text" placeholder="Search Invoice" />
                     <button>Create Invoice</button>
                 </div>
-                <MemberList />
-                <div className="pagination">
-                    <Link to="#">1</Link>
-                    <Link to="#">2</Link>
-                    <Link to="#">3</Link>
-                    <Link to="#">4</Link>
-                    <Link to="#">5</Link>
-                </div>
+                {<MemberList memberList={currentUsers(memberList)} setMemberList={setMemberList} />}
+                <Pagination
+                    membersPerPage={membersPerPage}
+                    totalMembers={memberList.length}
+                    paginate={setCurrentPage}
+                />
             </div>
         </>
     );
