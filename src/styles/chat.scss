@@ -109,9 +109,11 @@
   .chatAside ul {
     list-style: none;
     padding: 0;
+    text-align: center;
   }
 
   .chatAside ul li {
+    margin-top: 10%;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;

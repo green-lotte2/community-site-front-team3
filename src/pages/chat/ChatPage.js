@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import ChatLayout from "../../layouts/ChatLayout";
 import Chat from "components/chat/Chat";
+import InviteFriends from "components/chat/InviteFriends";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
@@ -11,11 +12,11 @@ const url = globalPath.path;
 
 const ChatPage = () => {
   const authSlice = useSelector((state) => state.authSlice);
-  const uid = authSlice.uid; // 올바른 필드 사용
+  const uid = authSlice.uid;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [isMessageSent, setIsMessageSent] = useState(false); // 메시지 전송 상태 추적
+  const [isMessageSent, setIsMessageSent] = useState(false);
 
   console.log("selectedRoom: " + JSON.stringify(selectedRoom));
 
@@ -28,8 +29,8 @@ const ChatPage = () => {
     });
 
     client.onConnect = () => {
-      console.log("Connected to WebSocket");
-      setStompClient(client); // WebSocket 연결 후 stompClient 설정
+      console.log("Connected");
+      setStompClient(client);
     };
 
     client.onStompError = (frame) => {
@@ -44,16 +45,16 @@ const ChatPage = () => {
         client.deactivate();
       }
     };
-  }, [uid]); // uid가 변경될 때만 useEffect 실행
+  }, [uid]);
 
   // 채팅방 선택 시 메시지 구독 설정 및 초기 메시지 로드
   useEffect(() => {
     if (stompClient && selectedRoom) {
       const subscription = stompClient.subscribe(
-        `/topic/chatroom/${selectedRoom.chatNo}`, // 구독하는 채팅방의 경로 설정
+        `/topic/chatroom/${selectedRoom.chatNo}`,
         (message) => {
           const msg = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, msg]); // 새 메시지를 상태에 추가
+          setMessages((prevMessages) => [...prevMessages, msg]);
         }
       );
 
@@ -63,18 +64,18 @@ const ChatPage = () => {
       });
 
       return () => {
-        subscription.unsubscribe(); // 컴포넌트 언마운트 시 구독 해제
+        subscription.unsubscribe();
       };
     }
-  }, [selectedRoom, stompClient, uid]); // selectedRoom, stompClient, uid가 변경될 때만 useEffect 실행
+  }, [selectedRoom, stompClient, uid]);
 
   // 채팅방 조회 및 메시지 초기화
   const handleSelectChatRoom = async (room) => {
     setSelectedRoom(room);
-    setMessages([]); // 이전 메시지 초기화
+    setMessages([]);
     try {
-      const response = await axios.get(`/api/chatroom/${room.chatNo}`);
-      setMessages([...messages, response.data]); // 새로운 채팅방의 메시지 설정
+      const response = await axios.get(`${url}/chatroom/${room.chatNo}`);
+      setMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat room messages", error);
     }
@@ -90,33 +91,37 @@ const ChatPage = () => {
       };
       console.log("Sending chatMessage: ", chatMessage);
 
-      // 메시지 전송
       stompClient.publish({
         destination: `/app/chat.sendMessage/${selectedRoom.chatNo}`,
         body: JSON.stringify(chatMessage),
       });
 
-      // 메시지 전송 상태 업데이트
       setIsMessageSent(true);
     }
   };
 
-  // WebSocket을 통해 수신된 메시지로 상태 업데이트
   useEffect(() => {
     if (isMessageSent) {
-      setIsMessageSent(false); // 전송 상태 초기화
+      setIsMessageSent(false);
     }
   }, [messages]);
 
   return (
     <div className="chat-layout-container">
       <ChatLayout setSelectedRoom={handleSelectChatRoom}>
-        <Chat
-          messages={messages}
-          onSendMessage={handleSendMessage}
-          uid={uid}
-          roomTitle={selectedRoom ? selectedRoom.title : "Chat"} // 채팅방 제목 표시
-        />
+        {!selectedRoom ? (
+          <div>채팅방을 선택해주세요</div>
+        ) : (
+          <>
+            <InviteFriends chatRoomId={selectedRoom.chatNo} />
+            <Chat
+              messages={messages}
+              onSendMessage={handleSendMessage}
+              uid={uid}
+              roomTitle={selectedRoom ? selectedRoom.title : "Chat"}
+            />
+          </>
+        )}
       </ChatLayout>
     </div>
   );
