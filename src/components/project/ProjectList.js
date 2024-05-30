@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectList = () => {
+    const navigate = useNavigate();
     const authSlice = useSelector((state) => state.authSlice);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [projectTitle, setProjectTitle] = useState('');
     const [invitedUsers, setInvitedUsers] = useState([]);
     const [userUids, setuserUids] = useState([]);
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
     const [status, setStatus] = useState(1);
+    const [editProject, setEditProject] = useState(null);
 
     useEffect(() => {
         if (authSlice && authSlice.uid && authSlice.company) {
@@ -20,7 +24,6 @@ const ProjectList = () => {
         }
     }, [authSlice, status]);
 
-    console.log('proejct222:', projects);
     // 같은 회사인 유저 조회 //
     const fetchUsersByCompany = async (company) => {
         try {
@@ -28,7 +31,7 @@ const ProjectList = () => {
             console.log('Response:', response.data);
             setUsers(response.data);
         } catch (error) {
-            console.error('Error fetching users:', error);
+            console.error('프로젝트 조회 에러:', error);
         }
     };
     // 프로젝트 리스트 출력 //
@@ -38,7 +41,7 @@ const ProjectList = () => {
             setProjects(response.data);
             console.log('proejct111:', response.data);
         } catch (error) {
-            console.error('Error fetching projects:', error);
+            console.error('프로젝트 출력 에러:', error);
         }
     };
 
@@ -59,9 +62,9 @@ const ProjectList = () => {
             });
             alert('프로젝트 생성완료!');
             selectProjectList();
-            console.log('Project created:', response.data.proNo);
+            console.log('프로젝트 생성:', response.data.proNo);
         } catch (error) {
-            console.error('Error creating project:', error);
+            console.error('프로젝트 생성 에러:', error);
         }
     };
     // 프로젝트 삭제 //
@@ -73,7 +76,36 @@ const ProjectList = () => {
             alert('삭제완료');
             selectProjectList();
         } catch (error) {
-            console.error('Error deleting  projects:', error);
+            console.error('프로젝트 삭제 에러:', error);
+        }
+    };
+    // 프로젝트 수정 //
+    const updateProject = async (e) => {
+        try {
+            e.preventDefault();
+            if (projectTitle.trim() === '') {
+                alert('제목을 설정해주세요.');
+                return;
+            }
+            const response = await axios.put(`/project/update`, {
+                proNo: editProject.proNo,
+                title: projectTitle,
+                status: editProject.status,
+            });
+            alert('프로젝트 수정완료!');
+            selectProjectList();
+            closeEditModal();
+            console.log('프로젝트 업데이트:', response.data);
+        } catch (error) {
+            console.error('업데이트 에러:', error);
+        }
+    };
+    // 프로젝트 칸반보드 이동 //
+    const viewKanban = async (proNo) => {
+        try {
+            navigate(`/project/kanban/${proNo}`);
+        } catch (error) {
+            console.error('칸반보드 이동:', error);
         }
     };
 
@@ -92,7 +124,6 @@ const ProjectList = () => {
     const handleInviteUser = (e) => {
         const selectdata = e.target.value.split('?');
         const selectedUser = selectdata[0];
-
         const selectUids = selectdata[1];
 
         if (selectedUser && !invitedUsers.includes(selectedUser)) {
@@ -111,6 +142,17 @@ const ProjectList = () => {
     const getFilteredUsers = () => {
         return users.filter((user) => !invitedUsers.includes(user.uid));
     };
+    const openEditModal = (project) => {
+        setEditProject(project);
+        setProjectTitle(project.title);
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+        setEditProject(null);
+        setProjectTitle('');
+    };
     return (
         <>
             <div className="project-list-container">
@@ -125,11 +167,11 @@ const ProjectList = () => {
                     {projects && projects.length > 0 ? (
                         projects.map((project, index) => (
                             <div className="project-card" key={index}>
-                                <p>{project.title}</p>
+                                <p onClick={() => viewKanban(project.proNo)}>{project.title}</p>
                                 <div className="project-meta">
                                     <span className="date">{moment(projects.rdate).format('YY.MM.DD')}</span>
                                     <span className="actions">
-                                        <button>Edit</button>
+                                        <button onClick={() => openEditModal(project)}>Edit</button>
                                         <button onClick={() => deleteProject(project.proNo)}>Delete</button>
                                     </span>
                                 </div>
@@ -167,6 +209,34 @@ const ProjectList = () => {
                             ))}
                         </div>
                         <button onClick={handleCreateProject}>Create Project</button>
+                    </div>
+                </div>
+            )}
+            {/* Edit 모달 */}
+            {isEditModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <button className="close-button" onClick={closeEditModal}>
+                            x
+                        </button>
+                        <h2>Edit Project</h2>
+                        <label htmlFor="editProjectTitle">Project Title:</label>
+                        <input
+                            type="text"
+                            id="editProjectTitle"
+                            value={projectTitle}
+                            onChange={handleProjectTitleChange}
+                        />
+                        <label htmlFor="editProjectStatus">Status:</label>
+                        <select
+                            id="editProjectStatus"
+                            value={editProject.status}
+                            onChange={(e) => setEditProject({ ...editProject, status: e.target.value })}
+                        >
+                            <option value="1">완료</option>
+                            <option value="0">진행중</option>
+                        </select>
+                        <button onClick={updateProject}>Update Project</button>
                     </div>
                 </div>
             )}
