@@ -30,7 +30,7 @@ const Header = () => {
                                 {!authSlice.uid ? (
                                     <>
                                         <li>
-                                            <Link to="/member/login">로그인</Link>
+                                            <Link to="/">로그인</Link>
                                         </li>
                                         <li>
                                             <Link to="/member/terms">회원가입</Link>
