@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
+import axios from 'axios';
 
 const Header = () => {
     const url = globalPath.path;
@@ -21,10 +22,13 @@ const Header = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
 
-    const handleSettingClick = () => {
-        navigate('/settings');
-    };
+    const getUserInfo = async () => {
 
+        const response = await axios.get(`/user/info?uid=${authSlice.uid}`);
+        navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
+       
+
+    }
 
     return (
         <>
@@ -63,7 +67,7 @@ const Header = () => {
                                                         </span>
                                                     </h5>
                                                     <ul className="jnd-option-list">
-                                                        <li tabIndex="0" className="jnd-option-item" onClick={handleSettingClick}>
+                                                        <li tabIndex="0" className="jnd-option-item" onClick={getUserInfo}>
                                                             <i className="jnd-option-icon icon-pencil" aria-hidden="true"></i>
                                                             <span className="jnd-option-txt">
                                                                 <span className="ng-scope">계정 설정</span>
