@@ -1,47 +1,66 @@
-import React from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { LuMailQuestion } from "react-icons/lu";
-import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { RiFontSize } from "react-icons/ri";
 
 const ContentHead = () => {
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    return setAge(event.target.value);
+  };
+  const articleStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  };
+
+ 
+
+  const sortStyle = {
+    paddingTop: "15px",
+    paddingBottom: "15px",
+    borderTop: "2px solid #111",
+    borderBottom: "2px solid #111",
+    listStyle: "none",
+    display: "flex",
+    width: "1200px",
+  };
+
+  const liStyle = {
+    marginRight: "40px",
+    fontSize: "16px",
+  };
+
+  const linkStyle = {};
+
   return (
     <article style={articleStyle}>
-      <Autocomplete
-        disablePortal
-        options={faqList}
-        sx={{ width: 200 }}
-        renderInput={(params) => (
-          <TextField {...params} label="자주 묻는 질문" />
-        )}
-      />
-      <Button
-        size="large"
-        variant="outlined"
-        href="#outlined-buttons"
-        style={button}
-      >
-        문의하기
-        <LuMailQuestion />
-      </Button>
+      <ul className="sort" style={sortStyle}>
+        <li style={liStyle}>
+          <Link stlye={linkStyle} to="#" class="on">
+            결제/서비스
+          </Link>
+        </li>
+        <li style={liStyle}>
+          <Link to="#" class="on">
+            이용문의
+          </Link>
+        </li>
+        <li style={liStyle}>
+          <Link to="#" class="on">
+            으아어어아
+          </Link>
+        </li>
+        <li style={liStyle}>
+          <Link to="#" class="on">
+            뭐있지이
+          </Link>
+        </li>
+      </ul>
     </article>
   );
 };
-const button = {
-  alignItems: "right",
-};
-const articleStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-};
-const faqList = [
-  { label: "그그그그" },
-  { label: "이이이이" },
-  { label: "바바바바" },
-  { label: "마마마마" },
-  { label: "즈즈즈즈" },
-];
+
 export default ContentHead;
