@@ -115,12 +115,11 @@ const Register = () => {
     const changeHandler = (e) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });
-        // Clear the error message when user starts typing again
+
         setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
     };
     /** 인증코드 전송 버튼 */
     const handleEmailVerification = () => {
-        // Make an API call to your backend to send the email verification code
         axios
             .get(`${SEND_EMAIL_CODE_PATH}/${user.email}`, { withCredentials: true })
             .then((response) => {
@@ -233,13 +232,13 @@ const Register = () => {
                                     onChange={changeHandler}
                                     value={user.email}
                                 />
-                                {/* Button to trigger email verification */}
+
                                 <button className="email-verify" type="button" onClick={handleEmailVerification}>
                                     이메일 인증
                                 </button>
                             </div>
                             <span className="error-message">{errors.email}</span>
-                            {/* Conditionally render verification code input */}
+
                             {showVerification && (
                                 <div className="verification-code-container">
                                     <input
