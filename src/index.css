@@ -9,13 +9,28 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
+/*admin 글꼴*/
 @font-face {
     font-family: 'Puradak Gentle Gothic';
     src: url('./styles/font/Puradak Gentle Gothic.ttf') format('truetype');
 }
 
+/*main 글꼴*/
+@font-face {
+    font-family: 'GimpoGothicRegular';
+    src: url('./styles/font/GimpoGothicRegular.ttf') format('truetype');
+}
+/*admin 글꼴*/
 #adminContainer {
     font-family: 'Puradak Gentle Gothic';
-    font-weight: 100px;
+}
+/*main 글꼴*/
+#mainContainer {
+    font-family: 'GimpoGothicRegular';
+    font-weight: 400px;
+    font-size: 18px;
+}
+
+.welcome-user {
+    font-size: 18px;
 }

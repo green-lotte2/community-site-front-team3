@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createReactEditorJS } from "react-editor-js";
 import { EDITOR_JS_TOOLS } from "./tool";
 import { globalPath } from "globalPaths";
+import axios from "axios";
 
 const path = globalPath.path;
 
@@ -51,16 +52,14 @@ const Editor = () => {
 
         /** block 반복해서 이미지 블록 처리 */
         const processedBlocks = outputData.blocks.map((block, index) => {
-
-          // 이미지 블록이면 
+          // 이미지 블록이면
           if (
             block.type === "image" &&
             block.data.url.startsWith("data:image")
           ) {
-
             const base64Data = block.data.url.split(",")[1];
 
-            /** atob :  base64를 decode */
+            /** atob : base64를 decode */
             const byteCharacters = atob(base64Data);
 
             /** 각 문자의 ASCII 코드를 저장 */
@@ -71,16 +70,45 @@ const Editor = () => {
 
             /** ASCII 코드 배열로 Uint8Array(8비트 부호 없는 정수값)를 생성 */
             const byteArray = new Uint8Array(byteNumbers);
-            /** Blob 객체를 생성 */
-            const file = new Blob([byteArray], { type: "image/png" });
 
-            console.log("Blob 객체 : " + file);
+            console.log("byteArray : " + byteArray);
+
+            /** Blob 객체를 생성 */
+            const blob = new Blob([byteArray], { type: "image/png" });
+
+            /** blob을 기반으로 File 객체 생성 */
+            const file = new File([blob], encodeURI(blob.name), {
+              type: blob.type,
+            });
+
+            // 파일 객체 전송 실험
+            // formData 생성 후 전송 ( 성공 )
+            const formTest = new FormData();
+            formTest.append("file", file);
+
+            axios
+              .post(`${path}/testtest`, formTest, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              })
+              .then((response) => {
+                console.log(response.data);
+                alert("파일 전송 !");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+
+            console.log("index : " + index);
+            console.log("file 객체 : " + file);
+
             formData.append(`image_${index}`, file, `image_${index}.png`);
             return {
               ...block,
               data: {
                 ...block.data,
-                url: `image_${index}.png`, 
+                url: `image_${index}.png`,
               },
             };
           }
@@ -104,7 +132,6 @@ const Editor = () => {
       }
     }
   }, []);
-
 
   return (
     <div className="Editor">

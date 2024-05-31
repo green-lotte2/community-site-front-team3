@@ -91,7 +91,7 @@ const ContentHead = ({ handleCate }) => {
             value="service"
             onClick={handleCate}
           >
-            계정관리
+            기타
           </Button>
         </li>
       </ul>
