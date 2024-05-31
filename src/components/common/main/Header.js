@@ -22,9 +22,10 @@ const Header = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
 
+    /** 계정 설정 - 사용자 정보 넘겨줌 */ 
     const getUserInfo = async () => {
 
-        const response = await axios.get(`/user/info?uid=${authSlice.uid}`);
+        const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
         navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
        
 
@@ -36,7 +37,7 @@ const Header = () => {
                 <div class="container">
                     <div class="logo">
                         <Link to= {globalPath.mainPath}>
-                            <img src="/images/logo/logo6.png" alt="aa" style={{ width: '120px' }} />
+                            <img src="/images/logo/logo13.png" alt="aa" style={{ width: '120px' }} />
                         </Link>
                     </div>
                     <div class="nav-search">
