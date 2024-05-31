@@ -1,6 +1,4 @@
-import { globalPath } from 'globalPaths';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const ArticleList = ({ memberList, setMemberList }) => {
