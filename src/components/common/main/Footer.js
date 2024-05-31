@@ -6,7 +6,7 @@ const Footer = () => {
     const appversion = appVersion.version;
     return (
         <>
-            <footer>
+            <footer className="mainFooter">
                 <div class="container">
                     <ul>
                         <li>
