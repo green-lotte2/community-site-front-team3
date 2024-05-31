@@ -22,9 +22,10 @@ const Header = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
 
+    /** 계정 설정 - 사용자 정보 넘겨줌 */ 
     const getUserInfo = async () => {
 
-        const response = await axios.get(`/user/info?uid=${authSlice.uid}`);
+        const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
         navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
        
 

@@ -31,7 +31,9 @@ const authSlice = createSlice({
     name: 'authSlice',
     initialState: loadStateFromCookie() || initState, // 쿠키 확인 후 초기화
     reducers: {
+        /** dispatch(login(resp.data)); 이런 식으로 사용 */
         login: (state, action) => {
+            // payload : JWT 의 내용
             const data = action.payload;
 
             // 리덕스 저장소 상태 업데이터(Username과 accessToken)
@@ -49,7 +51,7 @@ const authSlice = createSlice({
             state.position = data.position;
             state.accessToken = data.accessToken;
 
-            // 영구보관을 위해 쿠키저장
+            // 쿠키저장 (쿠키이름, 값, 유효기간)
             setCookie('auth', data, 1);
         },
         logout: (state) => {
