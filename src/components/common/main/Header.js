@@ -32,7 +32,7 @@ const Header = () => {
 
     return (
         <>
-            <header>
+            <header className='mainHeader'>
                 <div class="container">
                     <div class="logo">
                         <Link to= {globalPath.mainPath}>
@@ -95,15 +95,11 @@ const Header = () => {
                                 <li>
                                     <Link to="#">고객센터</Link>
                                 </li>
+                                <li>
+                                    <Link to="#">요금제가입</Link>
+                                </li>
                             </ul>
                         </nav>
-                    </div>
-                    <div className="user-info">
-                        <div className="user-avatar"></div>
-                    </div>
-                    <div className="action-buttons">
-                        <button className="learn-more">1:1 문의하기</button>
-                        <button className="join-now">요금제 가입</button>
                     </div>
                 </div>
             </header>
