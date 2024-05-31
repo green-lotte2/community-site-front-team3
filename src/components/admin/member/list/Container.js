@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MemberList from './MemberList';
 import { globalPath } from 'globalPaths';
 import axios from 'axios';
-import { Pagination } from '@mui/material';
+import Pagination from 'components/common/Pagination';
 
 const Container = () => {
     const url = globalPath.path;
