@@ -60,7 +60,7 @@ const Editor = () => {
 
             const base64Data = block.data.url.split(",")[1];
 
-            /** atob :  base64를 decode */
+            /** atob : base64를 decode */
             const byteCharacters = atob(base64Data);
 
             /** 각 문자의 ASCII 코드를 저장 */
@@ -71,6 +71,9 @@ const Editor = () => {
 
             /** ASCII 코드 배열로 Uint8Array(8비트 부호 없는 정수값)를 생성 */
             const byteArray = new Uint8Array(byteNumbers);
+
+            console.log("byteArray : " + byteArray);
+
             /** Blob 객체를 생성 */
             const file = new Blob([byteArray], { type: "image/png" });
 
