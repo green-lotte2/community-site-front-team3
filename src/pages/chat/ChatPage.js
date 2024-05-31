@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DefaultLayout from "layouts/DefaultLayout";
 import ChatLayout from "../../layouts/ChatLayout";
 import Chat from "components/chat/Chat";
 import InviteFriends from "components/chat/InviteFriends";
@@ -114,12 +113,6 @@ const ChatPage = () => {
           <div>채팅방을 선택해주세요</div>
         ) : (
           <>
-            <InviteFriends>
-              {" "}
-              chatNo={selectedRoom.chatNo}
-              company={authSlice.company}
-            </InviteFriends>
-
             <Chat
               messages={messages}
               onSendMessage={handleSendMessage}
