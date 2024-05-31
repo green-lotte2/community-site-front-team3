@@ -109,8 +109,8 @@ const Editor = () => {
   return (
     <div className="Editor">
       <h1
-        class="pageTitle"
-        spellCheck="true"
+        className="pageTitle"
+        spellcheck="true"
         placeholder="제목 없음"
         contentEditable="true"
       ></h1>
