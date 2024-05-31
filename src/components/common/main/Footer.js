@@ -1,7 +1,9 @@
+import { appVersion } from 'appVersion';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    const appversion = appVersion.version;
     return (
         <>
             <footer>
@@ -14,7 +16,7 @@ const Footer = () => {
                             <Link to="#">Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link to="#">Terms of Service</Link>
+                            <Link to="#">{appversion}</Link>
                         </li>
                     </ul>
                 </div>

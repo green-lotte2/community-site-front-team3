@@ -80,7 +80,7 @@ const Editor = () => {
               ...block,
               data: {
                 ...block.data,
-                url: `image_${index}.png`, // Placeholder for image file path
+                url: `image_${index}.png`, 
               },
             };
           }
