@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
 $primary-color: #ff8916;
 $secondary-color: #007bff;
@@ -10,8 +10,6 @@ $footer-bg-color: #f8af65;
 $white: #fff;
 $black: #000;
 
-
-
 body {
   font-family: "Noto Sans KR", sans-serif;
   margin: 0;
@@ -20,47 +18,45 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+// 공통 헤더
+.mainHeader {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  height: 60px;
 
-// 공통
-#mainContainer {
-  // 공통 헤더
-  header {
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    height: 60px;
-
-
-   .container {
+  .container {
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 0 20px; /* 좌우 패딩 추가 */
   }
 
-   .logo {
+  .logo {
     display: flex;
     align-items: center;
   }
-   .logo h1 {
+
+  .logo h1 {
     margin: 0;
   }
 
-   .nav-search {
+  .nav-search {
     height: 100%;
     display: flex;
     align-items: center;
     margin-right: 20px;
   }
 
-   nav ul {
+  nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -70,95 +66,98 @@ body {
     height: 100%; /* 부모 컨테이너의 높이와 일치 */
   }
 
-   nav ul li {
+  nav ul li {
     margin: 0 8px; /* li 요소 간의 간격 조정 */
     font-size: 12px;
   }
 
-   nav ul li:hover {
+  nav ul li:hover {
     border-bottom: 2px solid #ff8916;
   }
 
-   nav ul li a {
+  nav ul li a {
     text-decoration: none;
     color: #000;
   }
+
   img.profile-picture {
     width: 22px;
   }
+
   .welcome-section {
     position: relative;
     cursor: pointer;
-}
+  }
 
-.profile-picture {
+  .profile-picture {
     width: 15px;
-}
+  }
 
-.jnd-dropdown-menu.gnb-profile-dropdown.right {
-  display: flex;
-  visibility: visible;
-  width: 500%;
-  justify-content: center;
-  align-items: center;
-  left: -54px;
-  margin-top: 5px;
-}
-h5.jnd-option-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .jnd-dropdown-menu.gnb-profile-dropdown.right {
+    display: flex;
+    visibility: visible;
+    width: 500%;
+    justify-content: center;
+    align-items: center;
+    left: -54px;
+    margin-top: 5px;
+  }
 
-.jnd-dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the start */
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  right: 0;
-  top: 100%;
-  z-index: 1000;
-  padding: 10px;
-}
+  h5.jnd-option-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.jnd-option-title {
-  padding-bottom: 10px; /* Add some space below the title */
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
-  width: 100%; /* Ensure title spans full width */
-}
+  .jnd-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    padding: 10px;
+  }
 
-.jnd-option-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%; /* Ensure list spans full width */
-}
+  .jnd-option-title {
+    padding-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
 
-.jnd-option-item {
-  padding: 10px;
-  cursor: pointer;
-  width: 50%; /* Each item takes half the width of the container */
-  display: flex;
-  align-items: center;
-}
+  .jnd-option-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
 
-.jnd-option-item i {
-  margin-right: 5px;
-}
+  .jnd-option-item {
+    padding: 10px;
+    cursor: pointer;
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
 
-.jnd-option-item:hover {
-  background-color: #f0f0f0;
-}
+  .jnd-option-item i {
+    margin-right: 5px;
+  }
 
-
+  .jnd-option-item:hover {
+    background-color: #f0f0f0;
+  }
 }
+// 공통
+#mainContainer {
   .login-buttons {
     display: flex;
     flex-direction: column;
@@ -287,11 +286,10 @@ h5.jnd-option-title {
     ul li a:hover::after {
       width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
     }
-
   }
   .terms-form button:hover {
-      background-color: #f8af65;
-  } 
+    background-color: #f8af65;
+  }
   // 공통 main + tabs
   main {
     flex: 1;
@@ -356,32 +354,32 @@ h5.jnd-option-title {
     }
   }
 
-.terms-form button:hover {
-  background-color: #f8af65;
+  .terms-form button:hover {
+    background-color: #f8af65;
 
-  .pagination {
-    margin-top: 2rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+    .pagination {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
 
-    > * {
-      cursor: pointer;
+      > * {
+        cursor: pointer;
+      }
+    }
+
+    .pagination__link {
+      transition: all 0.25s;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.3rem;
+    }
+
+    .pagination__link__active {
+      background-color: #bbb;
+      color: #fefefe;
     }
   }
-
-  .pagination__link {
-    transition: all 0.25s;
-    padding: 0.2rem 0.6rem;
-    border-radius: 0.3rem;
-  }
-
-  .pagination__link__active {
-    background-color: #bbb;
-    color: #fefefe;
-  }
-}
 }
 // app version 출력
 .appVersion {

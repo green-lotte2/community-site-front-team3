@@ -14,6 +14,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle }) => {
                 key={index}
                 position={message.uid === uid ? "right" : "left"} // 메시지 위치 설정
                 text={message.message}
+                name={message.name}
               />
             ))}
           </div>
