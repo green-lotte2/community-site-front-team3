@@ -2,7 +2,7 @@ import React from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
-const Chat = ({ messages, onSendMessage, uid, roomTitle }) => {
+const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo }) => {
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
@@ -19,7 +19,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle }) => {
             ))}
           </div>
         </div>
-        <ChatInput onSendMessage={onSendMessage} />
+        <ChatInput onSendMessage={onSendMessage} chatNo={chatNo} />
       </div>
     </div>
   );
