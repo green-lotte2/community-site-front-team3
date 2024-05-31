@@ -11,8 +11,10 @@ const ProfileUpdate = () => {
         department: '',
         position: '',
     });
+
     useEffect(() => {
         if (location.state && location.state.user) {
+            // 헤더에서 넘겨준 사용자 정보 출력
             setProfile(location.state.user);
         }
     }, [location.state]);

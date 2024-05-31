@@ -6,6 +6,7 @@ import axios from 'axios';
 import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
 import { LOGIN_PATH } from 'requestPath';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -18,6 +19,10 @@ const Login = () => {
     const [passwordButtonIcon, setPasswordButtonIcon] = useState('eye-light-off-icon');
     const [error, setError] = useState('');
 
+    const authSlice = useSelector((state) => state.authSlice);
+    if(authSlice.uid){
+        window.location.href = '/main';
+    }
     /** 로그인 버튼 클릭 */
     const submitHandler = (e) => {
         e.preventDefault();
@@ -25,7 +30,7 @@ const Login = () => {
             .post(LOGIN_PATH, user)
             .then((resp) => {
                 console.log(resp.data);
-                // 리덕스 액션 실행
+                // 리덕스 액션 실행 : 로그인 성공 시 사용자 정보를 리덕스 상태에 저장
                 dispatch(login(resp.data));
                 // 메인 전환
                 navigate('/main');
@@ -43,6 +48,7 @@ const Login = () => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
+    /** 비밀번호 show */
     const onPasswordButtonClickHandler = () => {
         if (passwordType === 'text') {
             setPasswordType('password');
