@@ -3,6 +3,13 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import {
+    PROJECT_CREATE_PATH,
+    PROJECT_DELETE_PATH,
+    PROJECT_LIST_PATH,
+    PROJECT_SELECT_PATH,
+    PROJECT_UPDATE_PATH,
+} from 'requestPath';
 
 const ProjectList = () => {
     const navigate = useNavigate();
@@ -27,7 +34,7 @@ const ProjectList = () => {
     // 같은 회사인 유저 조회 //
     const fetchUsersByCompany = async (company) => {
         try {
-            const response = await axios.get(`/user/company?company=${company}`);
+            const response = await axios.get(`${PROJECT_SELECT_PATH}=${company}`);
             console.log('Response:', response.data);
             setUsers(response.data);
         } catch (error) {
@@ -37,7 +44,7 @@ const ProjectList = () => {
     // 프로젝트 리스트 출력 //
     const selectProjectList = async () => {
         try {
-            const response = await axios.get(`/project/list?uid=${authSlice.uid}`);
+            const response = await axios.get(`${PROJECT_LIST_PATH}=${authSlice.uid}`);
             setProjects(response.data);
             console.log('proejct111:', response.data);
         } catch (error) {
@@ -55,7 +62,7 @@ const ProjectList = () => {
                 return;
             }
 
-            const response = await axios.post(`/project/create`, {
+            const response = await axios.post(`${PROJECT_CREATE_PATH}`, {
                 uid: authSlice.uid,
                 title: projectTitle,
                 uids: userUids,
@@ -70,7 +77,7 @@ const ProjectList = () => {
     // 프로젝트 삭제 //
     const deleteProject = async (proNo) => {
         try {
-            const response = await axios.delete(`/project/delete?proNo=${proNo}`);
+            const response = await axios.delete(`${PROJECT_DELETE_PATH}=${proNo}`);
             console.log(response.data);
             setStatus(status + 1);
             alert('삭제완료');
@@ -87,7 +94,7 @@ const ProjectList = () => {
                 alert('제목을 설정해주세요.');
                 return;
             }
-            const response = await axios.put(`/project/update`, {
+            const response = await axios.put(`${PROJECT_UPDATE_PATH}`, {
                 proNo: editProject.proNo,
                 title: projectTitle,
                 status: editProject.status,
