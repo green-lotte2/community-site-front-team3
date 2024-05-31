@@ -6,12 +6,12 @@ const ChatMessage = ({ position, text, name }) => {
   return (
     <div className={`chat-message ${position}`}>
       <div className="chat-user">
+        <span className="chat-username">{name}</span>
         <Avatar
           sx={{ bgcolor: deepOrange[400] }}
           alt={name}
           src="../../images/icon/BigOrage.jpg"
         />
-        <span className="chat-username">{name}</span>
       </div>
       <div className="chat-text">
         <p>{text}</p>

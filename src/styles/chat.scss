@@ -74,6 +74,7 @@
     cursor: pointer;
     border-radius: 3px;
   }
+
   .btnChatPlus {
     width: 30px !important;
     margin-left: 10px;
@@ -105,19 +106,20 @@
 
   /* 레이아웃 */
   .chat-layout-container {
-    width: 100%;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 160px; /* aside 너비와 맞춤 */
+    padding-top: 34px; /* 헤더 높이만큼 위쪽 패딩 추가 */
+    overflow: hidden; /* 불필요한 스크롤바 제거 */
   }
 
   .chat-container {
     flex: 1;
-    padding: 20px;
-    margin-left: 300px; /* aside 너비와 맞춤 */
-    margin-top: 60px; /* 헤더 높이와 맞춤 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    overflow: hidden; /* 불필요한 스크롤바 제거 */
   }
 
   .chat-container .tabs {
@@ -148,7 +150,54 @@
   }
 
   .invite-friends {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
+
+    select {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-right: 10px;
+      box-sizing: border-box;
+      height: 40px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff8916;
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 10px;
+      white-space: nowrap;
+    }
+  }
+
+  .input-and-button {
+    display: flex;
+    align-items: center; /* Flex 컨테이너로 설정 */
+    flex: 1; /* 남은 공간을 차지 */
+
+    input {
+      flex: 1;
+      padding: 10px; /* 크기 키움 */
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-right: 10px; /* 버튼과 간격 */
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px; /* 크기 키움 */
+      border: none;
+      background-color: #ff8916;
+      color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+    }
   }
 
   .messages-wrapper {
@@ -165,7 +214,6 @@
   .messages {
     display: flex;
     flex-direction: column; /* 최신 메시지가 아래에 오도록 설정 */
-    padding-bottom: 20px; /* 입력 칸과 푸터 공간 확보 */
   }
 
   .chat-input {
@@ -187,6 +235,7 @@
     border-radius: 3px;
     margin-right: 10px; /* 버튼과 간격 */
     box-sizing: border-box;
+    height: 40px;
   }
 
   .chat-input button {
@@ -278,7 +327,6 @@
 
   main {
     flex: 0;
-    margin-left: 120px; /* aside 너비와 맞춤 */
     box-sizing: border-box;
   }
 
@@ -290,43 +338,5 @@
   main h2 {
     font-size: 28px;
     margin-bottom: 20px;
-  }
-
-  footer {
-    background-color: #f8af65;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; /* 푸터가 항상 상위에 위치하도록 설정 */
-  }
-
-  footer .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  footer ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 15px; /* 리스트 아이템 간 간격 */
-  }
-
-  footer ul li {
-    margin: 0;
-  }
-
-  footer ul li a {
-    text-decoration: none;
-    color: #fff;
   }
 }
