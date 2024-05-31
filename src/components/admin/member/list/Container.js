@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import MemberList from './MemberList';
 import { globalPath } from 'globalPaths';
 import axios from 'axios';
@@ -19,15 +18,11 @@ const Container = () => {
             setMemberList(response.data);
         };
         fetchData();
-    }, []);
+    }, [url]);
 
     const indexOfLast = currentPage * postsPerPage;
-    console.log('indexOfLast', indexOfLast.length);
     const indexOfFirst = indexOfLast - postsPerPage;
-    const currentUsers = (members) => {
-        return members.slice(indexOfFirst, indexOfLast);
-    };
-    console.log('currentUsers', currentUsers.length);
+    const currentUsers = memberList.slice(indexOfFirst, indexOfLast);
 
     return (
         <>
@@ -39,7 +34,12 @@ const Container = () => {
                     <input type="text" placeholder="Search Invoice" />
                     <button>Create Invoice</button>
                 </div>
-                {<MemberList memberList={currentUsers(memberList)} setMemberList={setMemberList} />}
+                <MemberList
+                    memberList={currentUsers}
+                    setMemberList={setMemberList}
+                    currentPage={currentPage}
+                    postsPerPage={postsPerPage}
+                />
                 <Pagination postsPerPage={postsPerPage} totalPosts={memberList.length} paginate={setCurrentPage} />
             </div>
         </>
