@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent } from "react";
+import React, { useState, SyntheticEvent, useEffect } from "react";
 import ContentHead from "components/cs/ContentHead";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,10 +10,21 @@ import { LuMailQuestion } from "react-icons/lu";
 
 const Content = () => {
   const [expanded, setExpanded] = useState(false);
+  const [csCate, setCsCate] = useState("");
+  const [csContent, setCsContent] = useState("");
+
+  const handleCate = (event) => {
+    let cate = event.target.value;
+    setCsCate((...prev) => ({ prev: cate }));
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  useEffect(() => {
+    // 서버에서 내용 가져오는 로직
+  }, [csCate]);
 
   const style = {
     display: "flex",
@@ -29,25 +40,31 @@ const Content = () => {
   };
   return (
     <div>
-      <ContentHead />
-      <div>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={style}>회원/결제</Typography>
-            <Typography>결제를 카카오 페이로 하고싶어요</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>잘 하면 되지 않을까요?</Typography>
-          </AccordionDetails>
-        </Accordion>
-      </div>
+      <ContentHead handleCate={handleCate} />
+
+      {csContent.length > 0
+        ? csContent.map((content, index) => (
+            <div>
+              <Accordion
+                expanded={expanded === "panel1"}
+                onChange={handleChange("panel1")}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography sx={style}>회원/결제</Typography>
+                  <Typography>결제를 카카오 페이로 하고싶어요</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>잘 하면 되지 않을까요?</Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          ))
+        : null}
+
       <Button
         size="large"
         variant="outlined"
