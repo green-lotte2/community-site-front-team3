@@ -37,7 +37,7 @@ const Header = () => {
                 <div class="container">
                     <div class="logo">
                         <Link to= {globalPath.mainPath}>
-                            <img src="/images/logo/logo6.png" alt="aa" style={{ width: '120px' }} />
+                            <img src="/images/logo/logo13.png" alt="aa" style={{ width: '120px' }} />
                         </Link>
                     </div>
                     <div class="nav-search">
