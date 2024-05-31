@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { LuMailQuestion } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { RiFontSize } from "react-icons/ri";
 
-const ContentHead = () => {
+const ContentHead = ({ handleCate }) => {
   const [age, setAge] = useState("");
 
   const handleChange = (event) => {
@@ -15,8 +13,6 @@ const ContentHead = () => {
     alignItems: "center",
     justifyContent: "space-between",
   };
-
- 
 
   const sortStyle = {
     paddingTop: "15px",
@@ -39,24 +35,64 @@ const ContentHead = () => {
     <article style={articleStyle}>
       <ul className="sort" style={sortStyle}>
         <li style={liStyle}>
-          <Link stlye={linkStyle} to="#" class="on">
-            결제/서비스
-          </Link>
+          <Button
+            variant="outlined"
+            stlye={linkStyle}
+            to="#"
+            class="on"
+            value="service"
+            onClick={handleCate}
+          >
+            결제/환불
+          </Button>
         </li>
         <li style={liStyle}>
-          <Link to="#" class="on">
+          <Button
+            variant="outlined"
+            stlye={linkStyle}
+            to="#"
+            class="on"
+            value="service"
+            onClick={handleCate}
+          >
             이용문의
-          </Link>
+          </Button>
         </li>
         <li style={liStyle}>
-          <Link to="#" class="on">
-            으아어어아
-          </Link>
+          <Button
+            variant="outlined"
+            stlye={linkStyle}
+            to="#"
+            class="on"
+            value="service"
+            onClick={handleCate}
+          >
+            도용/보안
+          </Button>
         </li>
         <li style={liStyle}>
-          <Link to="#" class="on">
-            뭐있지이
-          </Link>
+          <Button
+            variant="outlined"
+            stlye={linkStyle}
+            to="#"
+            class="on"
+            value="service"
+            onClick={handleCate}
+          >
+            계정관리
+          </Button>
+        </li>
+        <li style={liStyle}>
+          <Button
+            variant="outlined"
+            stlye={linkStyle}
+            to="#"
+            class="on"
+            value="service"
+            onClick={handleCate}
+          >
+            계정관리
+          </Button>
         </li>
       </ul>
     </article>
