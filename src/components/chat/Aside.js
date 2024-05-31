@@ -26,12 +26,21 @@ const Aside = ({ setSelectedRoom, uid }) => {
   }, [uid]);
 
   const handleDeleteRoom = async (chatNo) => {
-    try {
-      await axios.delete(`${url}/chatroom/${chatNo}`);
-      setChatRooms(chatRooms.filter((room) => room.chatNo !== chatNo));
-    } catch (error) {
-      console.error("Error deleting chat room", error);
-    }
+    await axios
+      .delete(`${url}/chatroom`, {
+        params: {
+          uid: uid,
+          chatNo: chatNo,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    setChatRooms(chatRooms.filter((room) => room.chatNo !== chatNo));
   };
 
   const handleAddChatRoom = async () => {
@@ -67,7 +76,7 @@ const Aside = ({ setSelectedRoom, uid }) => {
                 {room.title}
               </Link>
               <button onClick={() => handleDeleteRoom(room.chatNo)}>
-                삭제
+                나가기
               </button>
             </li>
           ))
