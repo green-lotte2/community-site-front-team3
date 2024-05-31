@@ -11,7 +11,7 @@ const Container = () => {
 
     // 페이지네이션
     const [currentPage, setCurrentPage] = useState(1);
-    const [membersPerPage] = useState(10);
+    const [postsPerPage] = useState(10);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,11 +21,13 @@ const Container = () => {
         fetchData();
     }, []);
 
-    const indexOfLast = currentPage * membersPerPage;
-    const indexOfFirst = indexOfLast - membersPerPage;
+    const indexOfLast = currentPage * postsPerPage;
+    console.log('indexOfLast', indexOfLast.length);
+    const indexOfFirst = indexOfLast - postsPerPage;
     const currentUsers = (members) => {
         return members.slice(indexOfFirst, indexOfLast);
     };
+    console.log('currentUsers', currentUsers.length);
 
     return (
         <>
@@ -38,11 +40,7 @@ const Container = () => {
                     <button>Create Invoice</button>
                 </div>
                 {<MemberList memberList={currentUsers(memberList)} setMemberList={setMemberList} />}
-                <Pagination
-                    membersPerPage={membersPerPage}
-                    totalMembers={memberList.length}
-                    paginate={setCurrentPage}
-                />
+                <Pagination postsPerPage={postsPerPage} totalPosts={memberList.length} paginate={setCurrentPage} />
             </div>
         </>
     );
