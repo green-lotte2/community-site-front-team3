@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const ArticleList = ({ memberList, setMemberList }) => {
+const ArticleList = ({ memberList, setMemberList, currentPage, postsPerPage }) => {
     console.log('멤버 리스트 가져와지니', memberList.length);
     return (
         <>
@@ -19,12 +19,12 @@ const ArticleList = ({ memberList, setMemberList }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {memberList.map((members) => (
+                    {memberList.map((members, index) => (
                         <tr key={members.uid}>
                             <td>
                                 <input type="checkbox" />
                             </td>
-                            <td></td>
+                            <td className="no">{(currentPage - 1) * postsPerPage + index + 1}</td>
                             <td>
                                 {members.name}
                                 <br />
