@@ -5,7 +5,7 @@ import { globalPath } from 'globalPaths';
 import Dropzone from 'react-dropzone';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateUserProfile } from 'slices/authSlice';
+import { login, updateUserProfile } from 'slices/authSlice';
 
 const ProfileUpdate = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -56,7 +56,9 @@ const ProfileUpdate = () => {
         
         formData.append('uid', authSlice.uid);
         formData.append('nick', user.nick);
-        formData.append('pass', user.pass);
+        if (user.pass) {
+            formData.append('pass', user.pass);
+        }
         formData.append('email', user.email);
         formData.append('hp', user.hp);
         formData.append('company', user.company);
@@ -80,7 +82,7 @@ const ProfileUpdate = () => {
                 
                 console.log("1111:",authSlice)
                 alert("수정완료!");
-                //navigate('/main');
+                navigate('/main');
             })
             .catch((err) => {
                 console.log(err);
