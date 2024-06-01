@@ -52,11 +52,11 @@ const Header = () => {
                                 ) : (
                                     <>
                                         <li className="welcome-section" onClick={toggleDropdown}>
-                                            <img
-                                                src="/images/icon/user.png"
-                                                alt="Profile"
-                                                className="profile-picture"
-                                            />
+                                        {authSlice.profile ? (
+                                            <img src= {`${globalPath.path}/prodImg/${authSlice.profile}`} alt="Profile" className="profile-picture" />
+                                        ) : (
+                                            <img src="/images/icon/user.png" alt="Profile" className="profile-picture" />
+                                        )}
                                             {isDropdownVisible && (
                                                 <div className="jnd-dropdown-menu gnb-profile-dropdown right">
                                                     <h5 className="jnd-option-title">

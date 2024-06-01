@@ -59,8 +59,25 @@ const authSlice = createSlice({
             // initState를 초기화
             return { ...initState };
         },
+        updateUserProfile: (state, action) => {
+            // 프로필 정보 업데이트 액션
+            const updateData = action.payload;
+
+            state.uid = updateData.uid;
+            state.nick = updateData.nick;
+            state.profile = updateData.profile;
+            state.email = updateData.email;
+            state.hp = updateData.hp;
+            state.company = updateData.company;
+            state.department = updateData.department;
+            state.position = updateData.position;
+            state.accessToken = updateData.accessToken;
+
+            // 쿠키저장
+            setCookie('auth', updateData, 1)
+        },
     },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout,updateUserProfile  } = authSlice.actions;
 export default authSlice.reducer;

@@ -2,50 +2,49 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
-import { MAIN_PATH } from 'requestPath';
 import Dropzone from 'react-dropzone';
-import authSlice from 'slices/authSlice';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateUserProfile } from 'slices/authSlice';
 
 const ProfileUpdate = () => {
     const authSlice = useSelector((state) => state.authSlice);
     const location = useLocation();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState({
         uid: '',
         nick: '',
-        password: '',
+        pass: '',
         email: '',
         hp: '',
         company: '',
         department: '',
         position: '',
+        profile: '',
     });
-    const [profilePreviewImg, setProfilePreviewImg] = useState(null);
 
-    useEffect(() => {
-        if (location.state && location.state.user) {
-            setUser(location.state.user);
-        }
-    }, [location.state]);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUser((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-    // 사진
     const [userProfile, setUserProfile] = useState(null);
     const [userProfilePreview, setUserProfilePreview] = useState(null);
 
-    /** 프사 바꾸면  */
+    useEffect(() => {
+        setUser(location.state.user);
+    }, [location.state.user]);
+
+    useEffect(() => {
+        setUserProfilePreview(user.profile);
+    }, [user.profile]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: value,
+        }));
+    };
+
     const handleFileChange = (acceptedFiles) => {
         const selectProfile = acceptedFiles[0];
-        console.log('@@##');
-        console.log(selectProfile);
-
         setUserProfile(selectProfile);
         const preview = URL.createObjectURL(selectProfile);
         setUserProfilePreview(preview);
@@ -54,23 +53,19 @@ const ProfileUpdate = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
-
-        // Append each field of the user object individually
-        formData.append('nick', user.nick);
+        
         formData.append('uid', authSlice.uid);
-        formData.append('password', user.password);
+        formData.append('nick', user.nick);
+        formData.append('pass', user.pass);
         formData.append('email', user.email);
         formData.append('hp', user.hp);
         formData.append('company', user.company);
         formData.append('department', user.department);
         formData.append('position', user.position);
 
-        // Append the file
         if (userProfile) {
             formData.append('file', userProfile);
         }
-
-        console.log('formData : ', formData);
 
         axios
             .post(`${globalPath.path}/user/update`, formData, {
@@ -79,10 +74,13 @@ const ProfileUpdate = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data);
-                alert('완료!');
-
-                //navigate('/');
+                
+                // 사용자 정보
+                dispatch(updateUserProfile(response.data));
+                
+                console.log("1111:",authSlice)
+                alert("수정완료!");
+                //navigate('/main');
             })
             .catch((err) => {
                 console.log(err);
@@ -99,10 +97,10 @@ const ProfileUpdate = () => {
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps({ className: 'dropzone' })}>
                                         <input {...getInputProps()} />
-                                        {profilePreviewImg ? (
+                                        {userProfilePreview || user.profile ? (
                                             <img
                                                 className="profile-picture-preview"
-                                                src={profilePreviewImg}
+                                                src={`${globalPath.path}/prodImg/${user.profile}`}
                                                 alt="프로필 사진"
                                             />
                                         ) : (
@@ -124,13 +122,13 @@ const ProfileUpdate = () => {
                             onChange={handleChange}
                             value={user.nick}
                         />
-                        <label htmlFor="password">비밀번호 변경</label>
+                        <label htmlFor="pass">비밀번호 변경</label>
                         <input
                             type="password"
-                            name="password"
+                            name="pass"
                             placeholder="새로운 비밀번호를 입력하세요."
                             onChange={handleChange}
-                            value={user.password}
+                            value={user.pass}
                         />
                         <label htmlFor="email">이메일 관리</label>
                         <input
