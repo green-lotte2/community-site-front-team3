@@ -21,10 +21,8 @@ import "moment/locale/ko";
 function MonthCalendar() {
   const calendarRef = useRef(null);
   const calendarInstance = useRef(null);
-  const randomNum = useRef(null);
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentYear, setCurrentYear] = useState("");
-  const [numbers, setNumbers] = useState([]);
   const [error, setError] = useState("");
   const authSlice = useSelector((state) => state.authSlice);
 
@@ -286,6 +284,8 @@ function MonthCalendar() {
   /** 오늘 날짜로 돌아가기 */
   const goToday = () => {
     calendarInstance.current.today();
+    setCurrentMonth(calendarInstance.current.getDate().getMonth() + 1);
+    setCurrentYear(calendarInstance.current.getDate().getFullYear());
   };
 
   const buttonStyle = {

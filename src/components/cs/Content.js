@@ -24,6 +24,7 @@ const Content = () => {
 
   useEffect(() => {
     // 서버에서 내용 가져오는 로직
+    console.log("아아");
   }, [csCate]);
 
   const style = {
@@ -71,8 +72,7 @@ const Content = () => {
         href="#outlined-buttons"
         style={button}
       >
-        문의하기
-        <LuMailQuestion />
+        문의하기 <LuMailQuestion />
       </Button>
     </div>
   );

@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { globalPath } from "globalPaths";
+import axios from "axios";
 
 const ContentHead = ({ handleCate }) => {
-  const [age, setAge] = useState("");
+  const [cate, setCate] = useState([]);
+  const url = globalPath.path;
 
-  const handleChange = (event) => {
-    return setAge(event.target.value);
+  /**카테고리 리스트 가져오기 */
+  useEffect(() => {
+    axios
+      .get(`${url}/csCate`)
+      .then((response) => {
+        setCate(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const handlerClick = (e) => {
+    console.log(e.target.value);
   };
   const articleStyle = {
     display: "flex",
@@ -29,71 +42,24 @@ const ContentHead = ({ handleCate }) => {
     fontSize: "16px",
   };
 
-  const linkStyle = {};
+  const linkStyle = { color: "#111", border: "0px solid #111" };
 
   return (
     <article style={articleStyle}>
       <ul className="sort" style={sortStyle}>
-        <li style={liStyle}>
-          <Button
-            variant="outlined"
-            stlye={linkStyle}
-            to="#"
-            class="on"
-            value="service"
-            onClick={handleCate}
-          >
-            결제/환불
-          </Button>
-        </li>
-        <li style={liStyle}>
-          <Button
-            variant="outlined"
-            stlye={linkStyle}
-            to="#"
-            class="on"
-            value="service"
-            onClick={handleCate}
-          >
-            이용문의
-          </Button>
-        </li>
-        <li style={liStyle}>
-          <Button
-            variant="outlined"
-            stlye={linkStyle}
-            to="#"
-            class="on"
-            value="service"
-            onClick={handleCate}
-          >
-            도용/보안
-          </Button>
-        </li>
-        <li style={liStyle}>
-          <Button
-            variant="outlined"
-            stlye={linkStyle}
-            to="#"
-            class="on"
-            value="service"
-            onClick={handleCate}
-          >
-            계정관리
-          </Button>
-        </li>
-        <li style={liStyle}>
-          <Button
-            variant="outlined"
-            stlye={linkStyle}
-            to="#"
-            class="on"
-            value="service"
-            onClick={handleCate}
-          >
-            기타
-          </Button>
-        </li>
+        {cate.map((category, index) => (
+          <li style={liStyle} key={index}>
+            <Button
+              variant="outlined"
+              style={linkStyle}
+              className="on"
+              value={category}
+              onClick={handlerClick}
+            >
+              {category}
+            </Button>
+          </li>
+        ))}
       </ul>
     </article>
   );
