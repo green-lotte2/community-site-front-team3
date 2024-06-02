@@ -16,7 +16,6 @@ const style = {
   flexDirection: "column",
   width: "1200px",
   margin: "0 auto",
-  //height: "100vh", // 높이를 전체 화면으로 설정하여 세로로도 중앙 정렬 ;
 };
 
 export default Article;
