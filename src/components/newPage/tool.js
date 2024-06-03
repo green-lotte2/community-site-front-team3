@@ -31,8 +31,8 @@ export const EDITOR_JS_TOOLS = {
     class: ImageTool,
     config: {
       endpoints: {
-        byFile: `${backPath}/uploadFile`, 
-        byUrl: 'http://localhost:8008/fetchUrl',
+        byFile: `${backPath}/uploads`, 
+        byUrl: `${backPath}/uploads`,
       }
     }
   },

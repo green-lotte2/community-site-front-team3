@@ -3,11 +3,12 @@ import Button from "@mui/material/Button";
 import { globalPath } from "globalPaths";
 import axios from "axios";
 
-const ContentHead = ({ handleCate }) => {
+const ContentHead = ({ value, setValue }) => {
   const [cate, setCate] = useState([]);
+
   const url = globalPath.path;
 
-  /**카테고리 리스트 가져오기 */
+  /** 카테고리 리스트 가져오기 */
   useEffect(() => {
     axios
       .get(`${url}/csCate`)
@@ -18,9 +19,12 @@ const ContentHead = ({ handleCate }) => {
         console.log(err);
       });
   }, []);
+
+  /** 클릭시 카테 저장 */
   const handlerClick = (e) => {
-    console.log(e.target.value);
+    setValue(e.target.value);
   };
+
   const articleStyle = {
     display: "flex",
     alignItems: "center",

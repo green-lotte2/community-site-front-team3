@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
+import InviteFriends from "./InviteFriends"; // Import the InviteFriends component
 
 const url = globalPath.path;
 
-const Aside = ({ setSelectedRoom, uid }) => {
+const Aside = ({ setSelectedRoom }) => {
   const authSlice = useSelector((state) => state.authSlice);
-  uid = authSlice.uid;
+  const uid = authSlice.uid;
   const [newChatRoomTitle, setNewChatRoomTitle] = useState("");
   const [chatRooms, setChatRooms] = useState([]);
+  const [title, setTitle] = useState("");
+  const [selectedRoom, setSelectedRoomState] = useState(null);
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -57,22 +60,26 @@ const Aside = ({ setSelectedRoom, uid }) => {
       );
       setNewChatRoomTitle("");
       setChatRooms([...chatRooms, response.data]);
-      console.log("여기ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ2", response.data);
+      setSelectedRoomState(response.data);
     } catch (error) {
       console.error("Error creating chat room", error);
     }
   };
 
+  const handleSelectRoom = (room) => {
+    setSelectedRoomState(room);
+    setSelectedRoom(room);
+  };
+
   return (
     <aside className="chatAside">
       <ul>
-        <Link to="/main">처음으로</Link>
         {chatRooms.length === 0 ? (
           <li>참여중인 채팅방 없음</li>
         ) : (
           chatRooms.map((room, index) => (
             <li key={index}>
-              <Link to="#" onClick={() => setSelectedRoom(room)}>
+              <Link to="#" onClick={() => handleSelectRoom(room)}>
                 {room.title}
               </Link>
               <button onClick={() => handleDeleteRoom(room.chatNo)}>
@@ -94,6 +101,7 @@ const Aside = ({ setSelectedRoom, uid }) => {
           </button>
         </li>
       </ul>
+      {selectedRoom && <InviteFriends selectedRoom={selectedRoom} />}
     </aside>
   );
 };
