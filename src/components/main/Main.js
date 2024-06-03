@@ -1,9 +1,26 @@
+
 import React from 'react';
-import Updatess from './Updatess';
+import Recents from './Recents';
+import MainCalendar from './MainCalendar';
+import MainPages from './MainPages';
+import MainChat from './MainChat';
+import MainArticles from './MainArticles';
+import MainCs from './MainCs';
+import MainProj from './MainProj';
+import { useSelector } from 'react-redux';
+
 const Main = () => {
+    const authSlice = useSelector((state) => state.authSlice);
+    console.log('main:', authSlice);
     return (
         <>
-            <Updatess />
+            <Recents />
+            <MainCalendar />
+            <MainProj />
+            <MainPages />
+            <MainChat />
+            <MainArticles />
+            <MainCs />
         </>
     );
 };

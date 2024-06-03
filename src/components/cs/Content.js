@@ -7,25 +7,31 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import { LuMailQuestion } from "react-icons/lu";
+import { globalPath } from "globalPaths";
+import axios from "axios";
 
 const Content = () => {
   const [expanded, setExpanded] = useState(false);
-  const [csCate, setCsCate] = useState("");
+  const [value, setValue] = useState("");
   const [csContent, setCsContent] = useState("");
-
-  const handleCate = (event) => {
-    let cate = event.target.value;
-    setCsCate((...prev) => ({ prev: cate }));
-  };
+  const [csTitle, setCsTitle] = useState("");
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  /**서버에서 내용 가져오는 로직 */
   useEffect(() => {
-    // 서버에서 내용 가져오는 로직
-    console.log("아아");
-  }, [csCate]);
+    const url = globalPath.path;
+    axios
+      .get(`${url}/selectCs?cateName=` + value)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [value]);
 
   const style = {
     display: "flex",
@@ -41,7 +47,7 @@ const Content = () => {
   };
   return (
     <div>
-      <ContentHead handleCate={handleCate} />
+      <ContentHead value={value} setValue={setValue} />
 
       {csContent.length > 0
         ? csContent.map((content, index) => (
