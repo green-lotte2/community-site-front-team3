@@ -1,4 +1,6 @@
 import React from 'react';
+import Updatess from './Updatess';
+const Main = () => {
 import Recents from './Recents';
 import MainCalendar from './MainCalendar';
 import MainPages from './MainPages';

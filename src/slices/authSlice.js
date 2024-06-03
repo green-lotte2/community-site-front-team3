@@ -74,10 +74,10 @@ const authSlice = createSlice({
             state.accessToken = updateData.accessToken;
 
             // 쿠키저장
-            setCookie('auth', updateData, 1)
+            setCookie('auth', updateData, 1);
         },
     },
 });
 
-export const { login, logout,updateUserProfile  } = authSlice.actions;
+export const { login, logout, updateUserProfile } = authSlice.actions;
 export default authSlice.reducer;
