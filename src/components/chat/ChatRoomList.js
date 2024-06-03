@@ -10,7 +10,7 @@ const ChatRoomList = ({ uid }) => {
   useEffect(() => {
     const fetchChatRooms = async () => {
       try {
-        const response = await axios.get(`${url}/user/${uid}/chatrooms`);
+        const response = await axios.get(`${url}/user/chatrooms/${uid}`);
         setChatRooms(response.data);
       } catch (error) {
         console.error("Error fetching chat rooms", error);

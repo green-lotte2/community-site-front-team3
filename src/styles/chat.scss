@@ -219,7 +219,7 @@
   .chat-input {
     display: flex;
     justify-content: center; /* 중앙 정렬 */
-    padding: 10px 300px; /* 위아래 여백 추가 */
+    padding: 10px 0px; /* 위아래 여백 추가 */
     position: fixed;
     bottom: 70px; /* 푸터 높이만큼 위로 */
     left: 220px; /* aside 너비와 맞춤 */
@@ -230,6 +230,7 @@
 
   .chat-input input {
     flex: 1;
+    width: 300px;
     padding: 10px; /* 크기 키움 */
     border: 1px solid #ccc;
     border-radius: 3px;
