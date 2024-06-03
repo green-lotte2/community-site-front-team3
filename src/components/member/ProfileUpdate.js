@@ -14,8 +14,8 @@ const ProfileUpdate = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
         uid: '',
-        nick: '',
         pass: '',
+        nick: '',
         email: '',
         hp: '',
         company: '',
@@ -25,14 +25,23 @@ const ProfileUpdate = () => {
     });
 
     const [userProfile, setUserProfile] = useState(null);
-    const [userProfilePreview, setUserProfilePreview] = useState(null);
+    const [userProfilePreview, setUserProfilePreview] = useState('');
 
     useEffect(() => {
-        setUser(location.state.user);
-    }, [location.state.user]);
+        if (location.state && location.state.user) {
+            location.state.user.pass = null;
+
+            setUser(location.state.user);
+            if (location.state.user.profile) {
+                setUserProfilePreview(`${globalPath.path}/prodImg/${location.state.user.profile}`);
+            }
+        }
+    }, [location.state]);
 
     useEffect(() => {
-        setUserProfilePreview(user.profile);
+        if (user.profile) {
+            setUserProfilePreview(`${globalPath.path}/prodImg/${user.profile}`);
+        }
     }, [user.profile]);
 
     const handleChange = (e) => {
@@ -44,21 +53,19 @@ const ProfileUpdate = () => {
     };
 
     const handleFileChange = (acceptedFiles) => {
-        const selectProfile = acceptedFiles[0];
-        setUserProfile(selectProfile);
-        const preview = URL.createObjectURL(selectProfile);
+        const selectedProfile = acceptedFiles[0];
+        setUserProfile(selectedProfile);
+        const preview = URL.createObjectURL(selectedProfile);
         setUserProfilePreview(preview);
     };
 
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        
+
         formData.append('uid', authSlice.uid);
+        formData.append('pass', user.pass);
         formData.append('nick', user.nick);
-        if (user.pass) {
-            formData.append('pass', user.pass);
-        }
         formData.append('email', user.email);
         formData.append('hp', user.hp);
         formData.append('company', user.company);
@@ -70,18 +77,16 @@ const ProfileUpdate = () => {
         }
 
         axios
-            .post(`${globalPath.path}/user/update`, formData, {
+            .patch(`${globalPath.path}/user/update`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
             .then((response) => {
-                
-                // 사용자 정보
+                // 사용자 정보 업데이트
                 dispatch(updateUserProfile(response.data));
-                
-                console.log("1111:",authSlice)
-                alert("수정완료!");
+
+                alert('수정 완료!');
                 navigate('/main');
             })
             .catch((err) => {
@@ -99,10 +104,10 @@ const ProfileUpdate = () => {
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps({ className: 'dropzone' })}>
                                         <input {...getInputProps()} />
-                                        {userProfilePreview || user.profile ? (
+                                        {userProfilePreview ? (
                                             <img
                                                 className="profile-picture-preview"
-                                                src={`${globalPath.path}/prodImg/${user.profile}`}
+                                                src={userProfilePreview}
                                                 alt="프로필 사진"
                                             />
                                         ) : (
