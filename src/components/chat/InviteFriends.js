@@ -5,12 +5,15 @@ import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-const InviteFriends = ({ chatNo }) => {
+const InviteFriends = () => {
   const authSlice = useSelector((state) => state.authSlice);
   const [users, setUsers] = useState([]);
   const [invitedUsers, setInvitedUsers] = useState([]);
   const [userUids, setUserUids] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState("");
+  const [chatRoomNo, setChatRoomNo] = useState(null);
+  const [title, setTitle] = useState("");
+  const uid = authSlice.uid;
 
   useEffect(() => {
     if (authSlice && authSlice.company) {
@@ -18,22 +21,52 @@ const InviteFriends = ({ chatNo }) => {
     }
   }, [authSlice]);
 
-  // 같은 회사인 유저 조회
+  useEffect(() => {
+    fetchTitle();
+  }, [uid]);
+
+  useEffect(() => {
+    if (title) {
+      fetchChatRoomNo(title);
+    }
+  }, [title]);
+
+  const fetchTitle = async () => {
+    const response = await axios.get(`${url}/user/${uid}`);
+    setTitle(response.data[0].title);
+  };
+
+  /** 같은 회사인 유저 조회 */
   const fetchUsersByCompany = async (company) => {
     try {
       const response = await axios.get(`${url}/friends?company=${company}`);
       console.log("Response:", response.data);
       setUsers(response.data);
     } catch (error) {
-      console.error("프로젝트 조회 에러:", error);
+      console.error("유저 조회 에러:", error);
     }
   };
 
-  // 친구 초대
+  /** ChatRoomNo 가져오기 */
+  const fetchChatRoomNo = async (title) => {
+    try {
+      const response = await axios.post(`${url}/chatRoom/getRoomNo`, { title });
+      console.log("ChatRoomNo:", response.data);
+      setChatRoomNo(response.data.chatNo);
+    } catch (error) {
+      console.error("ChatRoomNo 조회 에러:", error);
+    }
+  };
+
+  /** 친구 초대 */
   const handleInvite = async () => {
+    if (!chatRoomNo) {
+      alert("Chat room not found");
+      return;
+    }
     try {
       await axios.post(`${url}/chatroom/invite`, {
-        chatNo: chatNo,
+        chatNo: chatRoomNo,
         uid: selectedFriend,
       });
       alert("친구 초대 성공");
@@ -58,6 +91,7 @@ const InviteFriends = ({ chatNo }) => {
     setSelectedFriend(selectUids);
   };
 
+  /** 이미 초대된 유저 제외 */
   const getFilteredUsers = () => {
     return users.filter((user) => !invitedUsers.includes(user.name));
   };
