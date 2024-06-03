@@ -37,6 +37,7 @@ const Editor = () => {
       editorRef.current = ReactEditorJS;
     },
   });
+  // Editor.js 초기화 핸들러
   const handleInitialize = useCallback((instance) => {
     editorRef.current = instance;
   }, []);
@@ -51,87 +52,92 @@ const Editor = () => {
         const formData = new FormData();
 
         /** block 반복해서 이미지 블록 처리 */
-        const processedBlocks = outputData.blocks.map((block, index) => {
-          // 이미지 블록이면
-          if (
-            block.type === "image" &&
-            block.data.url.startsWith("data:image")
-          ) {
-            const base64Data = block.data.url.split(",")[1];
+        const processedBlocks = await Promise.all(
+          outputData.blocks.map(async (block, index) => {
+            // 이미지 블록이면
+            if (
+              block.type === "image" &&
+              block.data.url.startsWith("data:image")
+            ) {
+              const imgFile = base64ToFile(block.data.url, `image_${index}.png`);
 
-            /** atob : base64를 decode */
-            const byteCharacters = atob(base64Data);
+              const formData2 = new FormData();
+              console.log("@@##");
+              console.log(imgFile);
 
-            /** 각 문자의 ASCII 코드를 저장 */
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
+              formData2.append("imgFile", imgFile)
+              console.log(formData2);
+              // 파일 객체 전송 및 URL 받기
+              try {
+                const response = await axios.post(
+                  `${path}/page/upload`,
+                  formData2,
+                  {
+                    headers: {
+                      'Content-Type': 'multipart/form-data',
+                    },
+                  }
+                );
+
+                const imageUrl = response.data.url; // 서버가 반환한 이미지 URL
+                console.log("파일 전송 성공: ", imageUrl);
+
+                // URL을 사용하여 블록 데이터 업데이트
+                return {
+                  ...block,
+                  data: {
+                    ...block.data,
+                    url: imageUrl,
+                  },
+                };
+              } catch (err) {
+                console.error("파일 전송 실패: ", err);
+                throw new Error(`Image upload failed for block index ${index}`);
+              }
             }
-
-            /** ASCII 코드 배열로 Uint8Array(8비트 부호 없는 정수값)를 생성 */
-            const byteArray = new Uint8Array(byteNumbers);
-
-            console.log("byteArray : " + byteArray);
-
-            /** Blob 객체를 생성 */
-            const blob = new Blob([byteArray], { type: "image/png" });
-
-            /** blob을 기반으로 File 객체 생성 */
-            const file = new File([blob], encodeURI(blob.name), {
-              type: blob.type,
-            });
-
-            // 파일 객체 전송 실험
-            // formData 생성 후 전송 ( 성공 )
-            const formTest = new FormData();
-            formTest.append("file", file);
-
-            axios
-              .post(`${path}/testtest`, formTest, {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                },
-              })
-              .then((response) => {
-                console.log(response.data);
-                alert("파일 전송 !");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-
-            console.log("index : " + index);
-            console.log("file 객체 : " + file);
-
-            formData.append(`image_${index}`, file, `image_${index}.png`);
-            return {
-              ...block,
-              data: {
-                ...block.data,
-                url: `image_${index}.png`,
-              },
-            };
-          }
-          // 이미지 블록이 아니면
-          return block;
-        });
+            // 이미지 블록이 아니면
+            return block;
+          })
+        );
 
         /** 이미지 변환 한 후 formData 저장 */
-        const dataWithoutBase64Images = {
+        const dataWithoutBase64 = {
           ...outputData,
           blocks: processedBlocks,
         };
-        formData.append("data", JSON.stringify(dataWithoutBase64Images));
-        console.log("formData 22 : ", formData);
-        await fetch(`${path}/savepage`, {
+
+        formData.append("data", JSON.stringify(dataWithoutBase64));
+        console.log("formData: ", formData);
+
+        /** 본문 내용 전체 저장 */
+        const response = await fetch(`${path}/savepage`, {
           method: "POST",
           body: formData,
         });
+        
+
       } catch (error) {
         console.error("Saving failed: ", error);
       }
+      
     }
-  }, []);
+  }, [editorRef, path]);
+
+  /** Base64 -> 파일 */
+  const base64ToFile = (blockDataUrl, fileName) => {
+    const dataUrlArr = blockDataUrl.split(",");
+    const mime = dataUrlArr[0].match(/:(.*?);/)[1];
+    const bstr = atob(dataUrlArr[1]); // atob : Base64 decode 
+    let n = bstr.length;
+    console.log("mime : " + mime);
+    console.log(n);
+
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
+  };
 
   return (
     <div className="Editor">
