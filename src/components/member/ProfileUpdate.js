@@ -29,8 +29,6 @@ const ProfileUpdate = () => {
 
     useEffect(() => {
         if (location.state && location.state.user) {
-            location.state.user.pass = null;
-
             setUser(location.state.user);
             if (location.state.user.profile) {
                 setUserProfilePreview(`${globalPath.path}/prodImg/${location.state.user.profile}`);
