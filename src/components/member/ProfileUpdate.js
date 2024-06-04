@@ -13,6 +13,7 @@ const ProfileUpdate = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const url = globalPath.path;
+    const [checkBox, setCheckBox] = useState(false);
 
     const [user, setUser] = useState({
         uid: '',
@@ -109,6 +110,10 @@ const ProfileUpdate = () => {
                 console.log(err);
             });
     };
+    const passCheckBox = () => {
+        setCheckBox(!checkBox);
+        console.log(checkBox);
+    }
 
     return (
         <div className="container">
@@ -147,16 +152,18 @@ const ProfileUpdate = () => {
                         />
                         <label className="passLabel" htmlFor="pass">
                             비밀번호 변경 (선택)
-                            <input className="passCheck" type="checkbox" />
+                            <input className="passCheck" type="checkbox" checked={checkBox} onChange={passCheckBox} />
                         </label>
+                        {checkBox && (
                         <input
-                            type="hidden"
+                            type="password"
                             name="pass"
                             placeholder="새로운 비밀번호를 입력하세요."
                             onChange={handleChange}
                             value={user.pass}
                             required
                         />
+                        )}
                         <label htmlFor="email">이메일 관리</label>
                         <input
                             type="email"
