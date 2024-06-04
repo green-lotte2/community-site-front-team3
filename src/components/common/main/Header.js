@@ -25,7 +25,7 @@ const Header = () => {
     /** 계정 설정 - 사용자 정보 넘겨줌 */
     const getUserInfo = async () => {
         const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-        navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
+        navigate(`/member/passcheck?uid=${authSlice.uid}`, { state: { user: response.data } });
     };
 
     return (
