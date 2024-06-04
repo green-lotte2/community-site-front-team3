@@ -26,7 +26,12 @@ export const EDITOR_JS_TOOLS = {
   marker: Marker,
   list: NestedList,
   code: Code,
-  linkTool: LinkTool,
+  linkTool: {
+    class: LinkTool,
+    config: {
+      endpoint: `${backPath}/uploads`,
+    }
+  },
   image: {
     class: ImageTool,
     config: {

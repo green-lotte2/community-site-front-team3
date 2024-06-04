@@ -286,6 +286,17 @@ body {
         ul li a:hover::after {
             width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
         }
+        .btnPagePlus {
+            width: 20px !important;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            padding: none;
+            border: none;
+            background-color: #ff8916;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+          }
     }
     .terms-form button:hover {
         background-color: #f8af65;
