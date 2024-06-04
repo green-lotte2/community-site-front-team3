@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ChatLayout from "../../layouts/ChatLayout";
 import Chat from "components/chat/Chat";
-import InviteFriends from "components/chat/InviteFriends";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
@@ -17,8 +16,20 @@ const ChatPage = () => {
   const [stompClient, setStompClient] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isMessageSent, setIsMessageSent] = useState(false);
+  const [chatNo, setChatNo] = useState("");
 
   console.log("selectedRoom: " + JSON.stringify(selectedRoom));
+
+  // setChatNo(JSON.stringify(selectedRoom.chatNo));
+  // console.log("ChatNo!!" + chatNo);
+
+  useEffect(() => {
+    if (selectedRoom) {
+      setChatNo(JSON.stringify(selectedRoom.chatNo));
+
+      console.log("ㅁㄴㅇㄹ" + chatNo);
+    }
+  });
 
   // WebSocket 연결 설정
   useEffect(() => {
@@ -89,7 +100,6 @@ const ChatPage = () => {
         message: text,
         chatNo: selectedRoom.chatNo,
       };
-      console.log("Sending chatMessage: ", chatMessage);
 
       stompClient.publish({
         destination: `/app/chat.sendMessage/${selectedRoom.chatNo}`,
@@ -117,6 +127,7 @@ const ChatPage = () => {
               messages={messages}
               onSendMessage={handleSendMessage}
               uid={uid}
+              chatNo={chatNo}
               roomTitle={selectedRoom ? selectedRoom.title : "Chat"}
             />
           </>

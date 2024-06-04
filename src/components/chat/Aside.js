@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
-import InviteFriends from "./InviteFriends"; // Import the InviteFriends component
 
 const url = globalPath.path;
 
@@ -12,7 +11,6 @@ const Aside = ({ setSelectedRoom }) => {
   const uid = authSlice.uid;
   const [newChatRoomTitle, setNewChatRoomTitle] = useState("");
   const [chatRooms, setChatRooms] = useState([]);
-  const [title, setTitle] = useState("");
   const [selectedRoom, setSelectedRoomState] = useState(null);
 
   useEffect(() => {
@@ -101,7 +99,6 @@ const Aside = ({ setSelectedRoom }) => {
           </button>
         </li>
       </ul>
-      {selectedRoom && <InviteFriends selectedRoom={selectedRoom} />}
     </aside>
   );
 };
