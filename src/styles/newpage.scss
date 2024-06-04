@@ -93,6 +93,11 @@ $black: #000;
   .Editor {
     width: 100%;
     height: 100%;
+
+    .cdx-input.cdx-simple-image__caption {
+      display: none;
+  }
+  
   }
   #test {
     padding: 0 20px;
