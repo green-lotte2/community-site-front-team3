@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { globalPath } from 'globalPaths';
 
 const CheckPass = () => {
     const authSlice = useSelector((state) => state.authSlice);
+    const url = globalPath.path;
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,21 +17,59 @@ const CheckPass = () => {
         pass: '',
     });
 
-    const submitHandler = () => {};
+    // 비밀번호 확인 핸들러
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        await axios
+            .post(`${url}/user/check`, user)
+            .then((response) => {
+                console.log(response.data);
+                if (response.data > 0) {
+                    alert('비밀번호 일치');
+                    navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
+                } else {
+                    alert('비밀번호 불일치');
+                }
+            })
+            .catch((err) => {
+                console.log('에러:' + err);
+            });
+    };
+
+    /** 계정 설정 - 사용자 정보 넘겨줌 */
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
+                setUser({ ...user, uid: response.data.uid });
+                console.log('check:', response.data);
+            } catch (error) {
+                console.error('사용자 정보 받기 에러:', error);
+            }
+        };
+
+        if (authSlice.uid) {
+            fetchUserData();
+        }
+    }, [url]);
 
     // 정보 변경 핸들러
     const changeHandler = (e) => {
-        e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
     return (
-        <div className="container">
-            <div className="profile-update-container">
-                <div className="profile-update-form">
+        <div className="check-pass-container">
+            <div className="check-pass-update-container">
+                <div className="check-pass-update-form">
+                    <h3 className="check-pass-title">회원 정보 확인</h3>
                     <form onSubmit={submitHandler}>
-                        <input type="hidden" name="uid" placeholder="아이디를 입력하세요." value={user.uid} />
-                        <label htmlFor="pass">비밀번호 확인</label>
+                        <div className="user-id-display">
+                            <label>사용자 아이디 : </label>
+                            <span>{user.uid}</span>
+                        </div>
+                        <label htmlFor="pass">비밀번호 확인 : </label>
                         <input
                             type="password"
                             name="pass"
@@ -38,7 +77,12 @@ const CheckPass = () => {
                             onChange={changeHandler}
                             value={user.pass}
                         />
-                        <button type="submit">확인</button>
+                        <div className="sumbitButton">
+                            <button type="submit">확인</button>
+                            <button type="button" className="cancel-button">
+                                취소
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

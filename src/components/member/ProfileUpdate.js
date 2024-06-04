@@ -12,6 +12,8 @@ const ProfileUpdate = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const url = globalPath.path;
+
     const [user, setUser] = useState({
         uid: '',
         pass: '',
@@ -42,6 +44,22 @@ const ProfileUpdate = () => {
         }
     }, [user.profile]);
 
+    /** 계정 설정 - 사용자 정보 넘겨줌 */
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
+                setUser(response.data);
+                console.log('check1111:', response.data);
+            } catch (error) {
+                console.error('사용자 정보 받기 에러:', error);
+            }
+        };
+
+        if (authSlice.uid) {
+            fetchUserData();
+        }
+    }, [url]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser((prevUser) => ({
@@ -127,13 +145,17 @@ const ProfileUpdate = () => {
                             onChange={handleChange}
                             value={user.nick}
                         />
-                        <label htmlFor="pass">비밀번호 변경</label>
+                        <label className="passLabel" htmlFor="pass">
+                            비밀번호 변경 (선택)
+                            <input className="passCheck" type="checkbox" />
+                        </label>
                         <input
-                            type="password"
+                            type="hidden"
                             name="pass"
                             placeholder="새로운 비밀번호를 입력하세요."
                             onChange={handleChange}
                             value={user.pass}
+                            required
                         />
                         <label htmlFor="email">이메일 관리</label>
                         <input
