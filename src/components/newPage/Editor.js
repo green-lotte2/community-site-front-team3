@@ -118,6 +118,7 @@ const Editor = () => {
         formData.append("data", JSON.stringify(dataWithoutBase64));
         formData.append("pageTitle", pageTitle);
         console.log("formData: ", formData);
+        console.log("pageTitle : ", pageTitle);
 
         /** 본문 내용 전체 저장 */
         const response = await fetch(`${path}/savepage`, {
