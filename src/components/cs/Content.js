@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ContentHead from "components/cs/ContentHead";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -11,10 +11,9 @@ import { globalPath } from "globalPaths";
 import axios from "axios";
 
 const Content = () => {
-  const [expanded, setExpanded] = useState(false);
-  const [value, setValue] = useState("");
-  const [csContent, setCsContent] = useState("");
-  const [csTitle, setCsTitle] = useState("");
+  const [expanded, setExpanded] = useState();
+  const [value, setValue] = useState("결제/환불");
+  const [articles, setArticles] = useState([]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -26,7 +25,7 @@ const Content = () => {
     axios
       .get(`${url}/selectCs?cateName=` + value)
       .then((response) => {
-        console.log(response.data);
+        setArticles(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -35,8 +34,9 @@ const Content = () => {
 
   const style = {
     display: "flex",
-    width: "33%",
+    width: "35%",
     flexShrink: 0,
+    marginLeft: "20px",
     color: "text.secondary",
   };
   const button = {
@@ -45,32 +45,37 @@ const Content = () => {
     justifyContent: "center",
     padding: "10px 20px",
   };
+
+  const contentStyle = {
+    marginLeft: "20px",
+  };
   return (
     <div>
       <ContentHead value={value} setValue={setValue} />
 
-      {csContent.length > 0
-        ? csContent.map((content, index) => (
-            <div>
-              <Accordion
-                expanded={expanded === "panel1"}
-                onChange={handleChange("panel1")}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
-                >
-                  <Typography sx={style}>회원/결제</Typography>
-                  <Typography>결제를 카카오 페이로 하고싶어요</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>잘 하면 되지 않을까요?</Typography>
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          ))
-        : null}
+      <div>
+        {articles.map((article, index) => (
+          <Accordion
+            key={index}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel${index}bh-content`}
+              id={`panel${index}bh-header`}
+            >
+              <Typography sx={style}>{value}</Typography>
+              <Typography key={index}>{article.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography style={contentStyle} key={index}>
+                {article.content}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
 
       <Button
         size="large"
