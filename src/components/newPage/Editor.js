@@ -9,6 +9,8 @@ const path = globalPath.path;
 
 const Editor = () => {
   const editorRef = useRef(null);
+  const pageTitleRef = useRef(null);
+
   /** 에디터 생성 (기본 블록 포함) */
   const ReactEditorJS = createReactEditorJS({
     holder: "editorjs",
@@ -59,35 +61,39 @@ const Editor = () => {
               block.type === "image" &&
               block.data.url.startsWith("data:image")
             ) {
-              const imgFile = base64ToFile(block.data.url, `image_${index}.png`);
+              const imgFile = base64ToFile(
+                block.data.url,
+                `image_${index}.png`
+              );
 
               const formData2 = new FormData();
-              console.log("@@##");
-              console.log(imgFile);
 
-              formData2.append("imgFile", imgFile)
+              formData2.append("imgFile", imgFile);
               console.log(formData2);
-              // 파일 객체 전송 및 URL 받기
+              // 파일 객체 전송 및 저장명 받기
               try {
-                const response = await axios.post(
+                const resp = await axios.post(
                   `${path}/page/upload`,
                   formData2,
                   {
                     headers: {
-                      'Content-Type': 'multipart/form-data',
+                      "Content-Type": "multipart/form-data",
                     },
                   }
                 );
 
-                const imageUrl = response.data.url; // 서버가 반환한 이미지 URL
-                console.log("파일 전송 성공: ", imageUrl);
-
+                const sName = resp.data; // 서버가 반환한 이미지 URL
+                console.log("파일 전송 성공 sName : ", sName);
+                console.log(
+                  "파일 전송 성공 url : ",
+                  `${path}/uploads/${sName}`
+                );
                 // URL을 사용하여 블록 데이터 업데이트
                 return {
                   ...block,
                   data: {
                     ...block.data,
-                    url: imageUrl,
+                    url: `${path}/uploads/${sName}`,
                   },
                 };
               } catch (err) {
@@ -106,7 +112,11 @@ const Editor = () => {
           blocks: processedBlocks,
         };
 
+        // 제목을 가져옴
+        const pageTitle = pageTitleRef.current.innerText;
+
         formData.append("data", JSON.stringify(dataWithoutBase64));
+        formData.append("pageTitle", pageTitle);
         console.log("formData: ", formData);
 
         /** 본문 내용 전체 저장 */
@@ -114,12 +124,9 @@ const Editor = () => {
           method: "POST",
           body: formData,
         });
-        
-
       } catch (error) {
         console.error("Saving failed: ", error);
       }
-      
     }
   }, [editorRef, path]);
 
@@ -127,7 +134,7 @@ const Editor = () => {
   const base64ToFile = (blockDataUrl, fileName) => {
     const dataUrlArr = blockDataUrl.split(",");
     const mime = dataUrlArr[0].match(/:(.*?);/)[1];
-    const bstr = atob(dataUrlArr[1]); // atob : Base64 decode 
+    const bstr = atob(dataUrlArr[1]); // atob : Base64 decode
     let n = bstr.length;
     console.log("mime : " + mime);
     console.log(n);
@@ -146,6 +153,7 @@ const Editor = () => {
         spellcheck="true"
         placeholder="제목 없음"
         contentEditable="true"
+        ref={pageTitleRef}
       ></h1>
       <div id="test">
         <ReactEditorJS
