@@ -5,7 +5,7 @@ import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-const InviteFriends = () => {
+const InviteFriends = (chatNo) => {
   const authSlice = useSelector((state) => state.authSlice);
   const [users, setUsers] = useState([]);
   const [invitedUsers, setInvitedUsers] = useState([]);
@@ -40,7 +40,7 @@ const InviteFriends = () => {
   const fetchUsersByCompany = async (company) => {
     try {
       const response = await axios.get(`${url}/friends?company=${company}`);
-      console.log("Response:", response.data);
+
       setUsers(response.data);
     } catch (error) {
       console.error("유저 조회 에러:", error);
