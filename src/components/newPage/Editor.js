@@ -7,9 +7,9 @@ import axios from "axios";
 
 const path = globalPath.path;
 
-const Editor = () => {
+const Editor = ({ pageNo }) => {
   const editorRef = useRef(null);
-  const pageTitleRef = useRef(null);
+  console.log("Editor pageNo : ", pageNo);
 
   /** 에디터 생성 (기본 블록 포함) */
   const ReactEditorJS = createReactEditorJS({
@@ -112,13 +112,9 @@ const Editor = () => {
           blocks: processedBlocks,
         };
 
-        // 제목을 가져옴
-        const pageTitle = pageTitleRef.current.innerText;
-
         formData.append("data", JSON.stringify(dataWithoutBase64));
-        formData.append("pageTitle", pageTitle);
+        formData.append("pageNo", pageNo);
         console.log("formData: ", formData);
-        console.log("pageTitle : ", pageTitle);
 
         /** 본문 내용 전체 저장 */
         const response = await fetch(`${path}/savepage`, {
@@ -154,7 +150,6 @@ const Editor = () => {
         spellcheck="true"
         placeholder="제목 없음"
         contentEditable="true"
-        ref={pageTitleRef}
       ></h1>
       <div id="test">
         <ReactEditorJS

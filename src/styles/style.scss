@@ -296,6 +296,14 @@ body {
             color: white;
             cursor: pointer;
             border-radius: 3px;
+        }
+          .addPage{
+            font-size: 13px;
+            color: #333;
+          }
+
+          li > div {
+            margin-left: 15px;
           }
     }
     .terms-form button:hover {

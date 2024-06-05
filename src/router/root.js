@@ -56,7 +56,7 @@ const root = createBrowserRouter([
     { path: '/board/view', element: <View /> },
 
     // newPage
-    { path: '/page', element: <NewPage /> },
+    { path: '/page/:pageNo', element: <NewPage /> },
 
     // chat
     { path: '/chat', element: <Chatpage /> },
