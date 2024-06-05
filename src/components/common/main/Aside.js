@@ -18,7 +18,7 @@ const Aside = () => {
   
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [pages, setPages] = useState([]);
-
+  const [countPage, setCountPage] = useState(0);
   /** 페이지 클릭하면 열림 */
   const togglePageMenu = (e) => {
     e.preventDefault();
@@ -32,12 +32,20 @@ const Aside = () => {
       const response = await axios.get(`${path}/page?uid=${uid}`);
       console.log(response.data);
       setPages(response.data);
+      setCountPage(response.length);
     };
     fetchData();
-  }, []);
+  }, [countPage]);
 
-  const handleAddPage = () => {
-    alert("페이지 추가할 거임");
+  /** 페이지 생성 */
+  const handleAddPage = async () => {
+    const resp = await axios.post(`${path}/page`, {
+      uid : uid,
+      title : "untitled",
+    });
+    const pageNo = resp.data;
+    console.log("페이지 생성 번호 : ", pageNo);
+    setCountPage(countPage + 1);
   };
 
   return (
@@ -78,10 +86,13 @@ const Aside = () => {
                 <>
               <div>
                 {pages.map((page, index) => (
-                    <Link to="/page1" key={index}>{page.pageNo}</Link>
+                    <Link to={`/page/${page.pageNo}`} key={index}>{page.title}</Link>
                 ))}
               </div>
+              <div>
+              <span className="addPage">페이지 추가</span>
               <button onClick={handleAddPage} className="btnPagePlus">+</button>
+              </div>
               </>
             )}
           </li>
