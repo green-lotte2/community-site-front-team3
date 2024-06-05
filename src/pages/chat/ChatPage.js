@@ -115,7 +115,7 @@ const ChatPage = () => {
     if (isMessageSent) {
       setIsMessageSent(false);
     }
-  }, [messages]);
+  }, [isMessageSent, messages]);
 
   return (
     <div className="chat-layout-container">
