@@ -273,7 +273,15 @@
   }
 
   .chat-user {
-    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  .chat-username {
+    font-size: 0.8em;
+    margin-bottom: 5px;
   }
 
   .chat-text {
