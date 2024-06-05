@@ -296,7 +296,7 @@ body {
             color: white;
             cursor: pointer;
             border-radius: 3px;
-          }
+        }
     }
     .terms-form button:hover {
         background-color: #f8af65;
@@ -413,6 +413,7 @@ body {
     white-space: nowrap;
     align-items: center;
     position: relative;
+    padding: 10px 0; /* 버튼 공간 확보를 위해 패딩 추가 */
 }
 
 .scroll-item {
@@ -431,10 +432,11 @@ body {
     border: none;
     cursor: pointer;
     z-index: 10;
+    transition: all 0.3s ease;
 }
 
 .scroll-button-left {
-    left: 0;
+    left: 10px;
 }
 
 .scroll-button-right {

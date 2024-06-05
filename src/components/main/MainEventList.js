@@ -19,30 +19,28 @@ const EventList = ({ events }) => {
     return (
         <div>
             <h3>예정된 이벤트</h3>
-            <IconButton className="scroll-button scroll-button-left" onClick={() => scroll('left')} sx={{}}>
-                <ArrowBackIos />
-            </IconButton>
             <div className="scroll-container" ref={scrollContainerRef}>
+                <IconButton className="scroll-button scroll-button-left" onClick={() => scroll('left')}>
+                    <ArrowBackIos />
+                </IconButton>
                 {events.map((event) => (
-                    <>
-                        <div className="scroll-item" key={event.id}>
-                            <Card>
-                                <CardContent>
-                                    <Typography variant="h6" component="h2">
-                                        {event.title}
-                                    </Typography>
-                                    <Typography color="textSecondary">
-                                        {event.start} - {event.end}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    </>
+                    <div className="scroll-item" key={event.id}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="h6" component="h2">
+                                    {event.title}
+                                </Typography>
+                                <Typography color="textSecondary">
+                                    {event.start} - {event.end}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </div>
                 ))}
+                <IconButton className="scroll-button scroll-button-right" onClick={() => scroll('right')}>
+                    <ArrowForwardIos />
+                </IconButton>
             </div>
-            <IconButton className="scroll-button scroll-button-right" onClick={() => scroll('right')}>
-                <ArrowForwardIos />
-            </IconButton>
         </div>
     );
 };
