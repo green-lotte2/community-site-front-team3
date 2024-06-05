@@ -286,6 +286,17 @@ body {
         ul li a:hover::after {
             width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
         }
+        .btnPagePlus {
+            width: 20px !important;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            padding: none;
+            border: none;
+            background-color: #ff8916;
+            color: white;
+            cursor: pointer;
+            border-radius: 3px;
+          }
     }
     .terms-form button:hover {
         background-color: #f8af65;
@@ -393,4 +404,43 @@ body {
     padding: 10px;
     /* background-color: rgba(0, 0, 0, 0.5); */
     color: white;
+}
+
+// 메인 가로 스크롤 css
+.scroll-container {
+    display: flex;
+    overflow-x: hidden;
+    white-space: nowrap;
+    align-items: center;
+    position: relative;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-button-left {
+    left: 0;
+}
+
+.scroll-button-right {
+    right: 0;
+}
+
+.scroll-item:hover .scroll-button {
+    display: block;
 }

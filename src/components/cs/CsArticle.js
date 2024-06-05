@@ -14,7 +14,7 @@ const Article = () => {
 const style = {
   display: "flex",
   flexDirection: "column",
-  width: "1200px",
+  width: "1000px",
   margin: "0 auto",
 };
 

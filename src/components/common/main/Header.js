@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from 'slices/authSlice';
@@ -11,6 +11,11 @@ const Header = () => {
     const dispatch = useDispatch();
     const authSlice = useSelector((state) => state.authSlice);
     const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        uid: '',
+        profile: '',
+    });
 
     const logoutHandler = async () => {
         // 리덕스 로그아웃 액션 실행
@@ -25,8 +30,22 @@ const Header = () => {
     /** 계정 설정 - 사용자 정보 넘겨줌 */
     const getUserInfo = async () => {
         const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-        navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
+        navigate(`/member/passcheck?uid=${authSlice.uid}`, { state: { user: response.data } });
     };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
+                setUser({uid: response.data.uid, profile: response.data.profile});
+            } catch (error) {
+                console.error('사용자 정보 받기 에러:', error);
+            }
+        };
+        if (authSlice.uid) {
+            fetchUserData();
+        }
+    }, [url]);
 
     return (
         <>
@@ -54,7 +73,7 @@ const Header = () => {
                                         <li className="welcome-section" onClick={toggleDropdown}>
                                             {authSlice.profile ? (
                                                 <img
-                                                    src={`${globalPath.path}/prodImg/${authSlice.profile}`}
+                                                    src={`${globalPath.path}/prodImg/${user.profile}`}
                                                     alt="Profile"
                                                     className="profile-picture"
                                                 />
