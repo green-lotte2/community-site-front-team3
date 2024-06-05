@@ -77,12 +77,7 @@ const Content = () => {
         ))}
       </div>
 
-      <Button
-        size="large"
-        variant="outlined"
-        href="#outlined-buttons"
-        style={button}
-      >
+      <Button size="large" variant="outlined" href="/Write" style={button}>
         문의하기 <LuMailQuestion />
       </Button>
     </div>
