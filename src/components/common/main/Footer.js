@@ -5,10 +5,9 @@ import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import { LuMailQuestion } from "react-icons/lu";
-import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
-const actions = [{ icon: <ContactSupportIcon />, name: "문의하기" }];
+const actions = [{ icon: <QuestionMarkIcon />, name: "문의하기" }];
 
 const Footer = () => {
   const appversion = appVersion.version;
