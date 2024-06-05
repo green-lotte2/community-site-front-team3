@@ -38,7 +38,7 @@ const ContentHead = ({ value, setValue }) => {
     borderBottom: "2px solid #111",
     listStyle: "none",
     display: "flex",
-    width: "1200px",
+    width: "1500px",
   };
 
   const liStyle = {
