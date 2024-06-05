@@ -110,7 +110,13 @@ const ProjectList = () => {
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
-            navigate(`/project/kanban/${proNo}`);
+            const response = await axios.get(`/project/kanban`, {
+                params: {
+                    proNo: proNo,
+                },
+            });
+            navigate(`/project/kanban?proNo=${proNo}`);
+            console.log('PROD', proNo);
         } catch (error) {
             console.error('칸반보드 이동:', error);
         }

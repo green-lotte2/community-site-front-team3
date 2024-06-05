@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MoreHorizontal } from 'react-feather';
 import { Droppable } from 'react-beautiful-dnd';
-
+import './Board.css';
 import Editable from './Editable';
 import Dropdown from './Dropdown';
 import Card from './Card';
@@ -87,8 +87,8 @@ export default function Board(props) {
             </Droppable>
             <div className="board__footer">
                 <Editable
-                    name={'Add Card'}
-                    btnName={'Add Card'}
+                    name={'Add Issue'}
+                    btnName={'Add Issue'}
                     placeholder={'Enter Card Title'}
                     onSubmit={(value) => props.addCard(value, props.id)}
                 />

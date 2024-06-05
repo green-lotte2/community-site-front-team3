@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
-
+import './App.css';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-
 import useLocalStorage from 'use-local-storage';
-import Navbar from 'components/project/Navbar';
-import Board from 'components/project/Board';
-import Editable from 'components/project/Editable';
+import Navbar from '../../components/project/Navbar';
+import Board from '../../components/project/Board';
+import Editable from '../../components/project/Editable';
 import DefaultLayout from 'layouts/DefaultLayout';
+import axios from 'axios';
+import { globalPath } from 'globalPaths';
+
+const path = globalPath.path;
+
 function App() {
     const [data, setData] = useState(
         localStorage.getItem('orangenode') ? JSON.parse(localStorage.getItem('orangenode')) : []
@@ -100,9 +104,17 @@ function App() {
         setData(tempBoards);
     };
 
+    /** localStorage 저장 후 서버에 넘기기 
     useEffect(() => {
         localStorage.setItem('orangenode', JSON.stringify(data));
-    }, [data]);
+        console.log('data ## : ', data);
+
+        const response = axios.post(`${path}/addissue`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }, [data]);*/
 
     return (
         <DefaultLayout>
