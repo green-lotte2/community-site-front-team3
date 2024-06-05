@@ -17,19 +17,15 @@ const ChatPage = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isMessageSent, setIsMessageSent] = useState(false);
   const [chatNo, setChatNo] = useState("");
+  const [name, setName] = useState("");
 
   console.log("selectedRoom: " + JSON.stringify(selectedRoom));
-
-  // setChatNo(JSON.stringify(selectedRoom.chatNo));
-  // console.log("ChatNo!!" + chatNo);
 
   useEffect(() => {
     if (selectedRoom) {
       setChatNo(JSON.stringify(selectedRoom.chatNo));
-
-      console.log("ㅁㄴㅇㄹ" + chatNo);
     }
-  });
+  }, [selectedRoom]);
 
   // WebSocket 연결 설정
   useEffect(() => {
@@ -65,10 +61,12 @@ const ChatPage = () => {
         `/topic/chatroom/${selectedRoom.chatNo}`,
         (message) => {
           const msg = JSON.parse(message.body);
+          msg.name = msg.name || "Unknown";
+          console.log("수신된 메세지 객체 : ", msg);
           setMessages((prevMessages) => [...prevMessages, msg]);
         }
       );
-
+      console.log("사용자 추가 알림 전송");
       stompClient.publish({
         destination: "/app/chat.addUser",
         body: JSON.stringify({ uid }),
@@ -80,10 +78,13 @@ const ChatPage = () => {
     }
   }, [selectedRoom, stompClient, uid]);
 
+  useEffect(() => {}, [messages]);
+
   // 채팅방 조회 및 메시지 초기화
   const handleSelectChatRoom = async (room) => {
     setSelectedRoom(room);
     setMessages([]);
+
     try {
       const response = await axios.get(`${url}/chatroom/${room.chatNo}`);
       setMessages(response.data);
@@ -93,7 +94,7 @@ const ChatPage = () => {
   };
 
   // 메시지 전송
-  const handleSendMessage = (text) => {
+  const onSendMessage = (text) => {
     if (stompClient && stompClient.connected && selectedRoom) {
       const chatMessage = {
         uid: uid,
@@ -125,7 +126,8 @@ const ChatPage = () => {
           <>
             <Chat
               messages={messages}
-              onSendMessage={handleSendMessage}
+              name={name}
+              onSendMessage={onSendMessage}
               uid={uid}
               chatNo={chatNo}
               roomTitle={selectedRoom ? selectedRoom.title : "Chat"}

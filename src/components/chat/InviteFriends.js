@@ -5,16 +5,16 @@ import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-const InviteFriends = (chatNo) => {
+const InviteFriends = ({ chatNo }) => {
   const authSlice = useSelector((state) => state.authSlice);
   const [users, setUsers] = useState([]);
   const [invitedUsers, setInvitedUsers] = useState([]);
   const [userUids, setUserUids] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState("");
-  const [chatRoomNo, setChatRoomNo] = useState(null);
   const [title, setTitle] = useState("");
   const uid = authSlice.uid;
 
+  console.log("InviteFriends : " + chatNo);
   useEffect(() => {
     if (authSlice && authSlice.company) {
       fetchUsersByCompany(authSlice.company);
@@ -24,12 +24,6 @@ const InviteFriends = (chatNo) => {
   useEffect(() => {
     fetchTitle();
   }, [uid]);
-
-  useEffect(() => {
-    if (title) {
-      fetchChatRoomNo(title);
-    }
-  }, [title]);
 
   const fetchTitle = async () => {
     const response = await axios.get(`${url}/user/${uid}`);
@@ -47,26 +41,12 @@ const InviteFriends = (chatNo) => {
     }
   };
 
-  /** ChatRoomNo 가져오기 */
-  const fetchChatRoomNo = async (title) => {
-    try {
-      const response = await axios.post(`${url}/chatRoom/getRoomNo`, { title });
-      console.log("ChatRoomNo:", response.data);
-      setChatRoomNo(response.data.chatNo);
-    } catch (error) {
-      console.error("ChatRoomNo 조회 에러:", error);
-    }
-  };
-
-  /** 친구 초대 */
+  /** 친구 초대 back 전송 */
   const handleInvite = async () => {
-    if (!chatRoomNo) {
-      alert("Chat room not found");
-      return;
-    }
+    console.log("친구 초대 chatNo : ", chatNo);
     try {
       await axios.post(`${url}/chatroom/invite`, {
-        chatNo: chatRoomNo,
+        chatNo: chatNo,
         uid: selectedFriend,
       });
       alert("친구 초대 성공");

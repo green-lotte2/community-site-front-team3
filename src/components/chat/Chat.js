@@ -3,6 +3,7 @@ import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo }) => {
+  console.log(messages);
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
@@ -10,12 +11,14 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo }) => {
         <div className="messages-wrapper">
           <div className="messages">
             {messages.map((message, index) => (
-              <ChatMessage
-                key={index}
-                position={message.uid === uid ? "right" : "left"} // 메시지 위치 설정
-                text={message.message}
-                name={message.name}
-              />
+              <>
+                <ChatMessage
+                  key={index}
+                  position={message.uid === uid ? "right" : "left"} // 메시지 위치 설정
+                  text={message.message}
+                  name={message.name}
+                />
+              </>
             ))}
           </div>
         </div>
