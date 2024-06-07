@@ -22,7 +22,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo }) => {
             ))}
           </div>
         </div>
-        <ChatInput onSendMessage={onSendMessage} chatNo={chatNo} />
+        <ChatInput onSendMessage={onSendMessage} chatNo={chatNo} uid={uid} />
       </div>
     </div>
   );
