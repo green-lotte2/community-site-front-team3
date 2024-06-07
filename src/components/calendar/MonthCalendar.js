@@ -69,7 +69,7 @@ function MonthCalendar() {
     const calendar = new Calendar(container, options);
 
     calendarInstance.current = calendar;
-
+    console.log(calendarRef);
     calendar.setOptions({
       month: {
         isAlways6Weeks: false,
