@@ -62,28 +62,3 @@ const MainChat = () => (
 );
 
 export default MainChat;
-
-/*
-<Card sx={{ maxWidth: 150, maxHeight: 150 }}>
-<CardContent>
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-        }}
-    >
-        <Typography sx={{ bgcolor: red[500] }} variant="h9">
-            제목
-        </Typography>
-        <IconButton aria-label="settings">
-            <MoreVertIcon />
-        </IconButton>
-    </div>
-
-    <Typography variant="body2" color="textSecondary">
-        September 14, 2016
-    </Typography>
-</CardContent>
-</Card>
-*/
