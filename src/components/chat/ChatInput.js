@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import InviteFriends from "./InviteFriends";
 import axios from "axios";
 
-const ChatInput = ({ onSendMessage, chatNo, uid }) => {
+const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
+  console.log("name??? : ", name);
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
 
@@ -21,6 +22,7 @@ const ChatInput = ({ onSendMessage, chatNo, uid }) => {
       formData.append("file", file);
       formData.append("chatNo", chatNo);
       formData.append("uid", uid);
+      formData.append("name", name);
       await axios.post("/chat/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
