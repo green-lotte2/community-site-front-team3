@@ -6,22 +6,26 @@ import { Client } from "@stomp/stompjs";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { globalPath } from "globalPaths";
+
 const url = globalPath.path;
 const ChatPage = () => {
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.uid;
+  const name = authSlice.name;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isMessageSent, setIsMessageSent] = useState(false);
   const [chatNo, setChatNo] = useState("");
-  const [name, setName] = useState("");
+
   console.log("selectedRoom: " + JSON.stringify(selectedRoom));
+
   useEffect(() => {
     if (selectedRoom) {
       setChatNo(JSON.stringify(selectedRoom.chatNo));
     }
   }, [selectedRoom]);
+
   // WebSocket 연결 설정
   useEffect(() => {
     const socket = new SockJS(`${url}/ws/chat`);
@@ -44,6 +48,7 @@ const ChatPage = () => {
       }
     };
   }, [uid]);
+
   // 채팅방 선택 시 메시지 구독 설정 및 초기 메시지 로드
   useEffect(() => {
     if (stompClient && selectedRoom) {
@@ -52,21 +57,22 @@ const ChatPage = () => {
         (message) => {
           const msg = JSON.parse(message.body);
           msg.name = msg.name || "Unknown";
-          console.log("수신된 메세지 객체 : ", msg);
           setMessages((prevMessages) => [...prevMessages, msg]);
         }
       );
-      console.log("사용자 추가 알림 전송");
+
+      // 추가된 코드: 유저 이름을 포함하여 전송
       stompClient.publish({
         destination: "/app/chat.addUser",
-        body: JSON.stringify({ uid }),
+        body: JSON.stringify({ uid, name }),
       });
+
       return () => {
         subscription.unsubscribe();
       };
     }
-  }, [selectedRoom, stompClient, uid]);
-  useEffect(() => {}, [messages]);
+  }, [selectedRoom, stompClient, uid, name]);
+
   // 채팅방 조회 및 메시지 초기화
   const handleSelectChatRoom = async (room) => {
     setSelectedRoom(room);
@@ -78,11 +84,13 @@ const ChatPage = () => {
       console.error("Error fetching chat room messages", error);
     }
   };
+
   // 메시지 전송
   const onSendMessage = (text) => {
     if (stompClient && stompClient.connected && selectedRoom) {
       const chatMessage = {
         uid: uid,
+        name: name,
         message: text,
         chatNo: selectedRoom.chatNo,
       };
@@ -98,6 +106,7 @@ const ChatPage = () => {
       setIsMessageSent(false);
     }
   }, [isMessageSent, messages]);
+
   return (
     <div className="chat-layout-container">
       <ChatLayout setSelectedRoom={handleSelectChatRoom}>
