@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import InviteFriends from "./InviteFriends";
+import axios from "axios";
 
-const ChatInput = ({ onSendMessage, chatNo }) => {
+const ChatInput = ({ onSendMessage, chatNo, uid }) => {
   const [inputText, setInputText] = useState("");
+  const [file, setFile] = useState(null);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -10,6 +12,26 @@ const ChatInput = ({ onSendMessage, chatNo }) => {
       onSendMessage(inputText);
       setInputText("");
     }
+  };
+
+  const handleSendFile = async (e) => {
+    e.preventDefault();
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("chatNo", chatNo);
+      formData.append("uid", uid);
+      await axios.post("/chat/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFile(null);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -23,6 +45,10 @@ const ChatInput = ({ onSendMessage, chatNo }) => {
           placeholder="메시지를 입력하세요"
         />
         <button type="submit">SEND</button>
+      </form>
+      <form onSubmit={handleSendFile}>
+        <input type="file" onChange={handleFileChange} />
+        <button type="submit">UPLOAD</button>
       </form>
     </div>
   );
