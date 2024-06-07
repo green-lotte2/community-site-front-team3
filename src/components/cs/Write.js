@@ -5,21 +5,41 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 
 const Write = () => {
   const editorRef = useRef(null);
+  const editorInstance = useRef(null);
+
+  const toolbarItems = [
+    //["heading", "bold", "italic", "strike"],
+    ["hr", "quote"],
+    ["ul", "ol", "task", "indent", "outdent"],
+    ["image"],
+    //["table", "link"],
+    //["code", "codeblock"],
+    //["scrollSync"],
+  ];
 
   useEffect(() => {
-    if (editorRef.current) {
-      new Editor({
-        el: editorRef.current,
-        height: "500px",
-        initialEditType: "wysiwyg",
-        previewStyle: "tab",
-      });
-    }
+    const editor = new Editor({
+      el: editorRef.current,
+      toolbarItems: toolbarItems,
+      height: "700px",
+      initialEditType: "wysiwyg",
+      previewStyle: "tab",
+    });
+
+    editorInstance.current = editor;
   }, []);
 
+  console.log(editorInstance.current);
+
+  const getContent = () => {
+    if (editorInstance.current) {
+      const html = editorInstance.current.getInstance();
+      console.log(html);
+    }
+  };
   return (
     <div className="Write">
-      <div id="editor" ref={editorRef}></div>
+      <div id="editor" ref={editorRef} onChange={getContent}></div>
     </div>
   );
 };

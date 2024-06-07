@@ -13,10 +13,10 @@ const WriteFooter = () => {
   return (
     <div>
       <section>
-        <Button size="large" variant="outlined" href="/Write" style={button}>
+        <Button size="large" variant="outlined" href="../" style={button}>
           취소
         </Button>
-        <Button size="large" variant="outlined" href="/Write" style={button}>
+        <Button size="large" variant="outlined" href="#" style={button}>
           문의하기 <LuMailQuestion />
         </Button>
       </section>
