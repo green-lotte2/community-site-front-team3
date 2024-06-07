@@ -29,7 +29,7 @@ const Aside = () => {
     /** 페이지 조회 */
     const fetchData = async () => {
         console.log("uid : "+ uid)
-      const response = await axios.get(`${path}/page?uid=${uid}`);
+      const response = await axios.get(`${path}/pages?uid=${uid}`);
       console.log(response.data);
       setPages(response.data);
       setCountPage(response.length);
