@@ -154,6 +154,21 @@
     align-items: center;
     margin-bottom: 10px;
 
+    /* 너비가 768px 이하일 때 적용되는 스타일 */
+    @media (max-width: 768px) {
+      .invite-friends {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .invite-friends select,
+      .invite-friends button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
     select {
       flex: 1;
       padding: 10px;
