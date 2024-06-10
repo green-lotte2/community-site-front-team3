@@ -9,12 +9,12 @@ const InviteFriends = ({ chatNo }) => {
   const authSlice = useSelector((state) => state.authSlice);
   const [users, setUsers] = useState([]);
   const [invitedUsers, setInvitedUsers] = useState([]);
-  const [userUids, setUserUids] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState("");
   const [title, setTitle] = useState("");
   const uid = authSlice.uid;
 
   console.log("InviteFriends : " + chatNo);
+
   useEffect(() => {
     if (authSlice && authSlice.company) {
       fetchUsersByCompany(authSlice.company);
@@ -34,7 +34,6 @@ const InviteFriends = ({ chatNo }) => {
   const fetchUsersByCompany = async (company) => {
     try {
       const response = await axios.get(`${url}/friends?company=${company}`);
-
       setUsers(response.data);
     } catch (error) {
       console.error("유저 조회 에러:", error);
@@ -50,6 +49,12 @@ const InviteFriends = ({ chatNo }) => {
         uid: selectedFriend,
       });
       alert("친구 초대 성공");
+      // 초대된 친구 목록 갱신
+      setInvitedUsers([
+        ...invitedUsers,
+        users.find((user) => user.uid === selectedFriend).name,
+      ]);
+      setSelectedFriend(""); // 초대 후 선택 초기화
     } catch (error) {
       console.error("친구 초대 실패", error);
       alert("친구 초대 실패");
@@ -57,18 +62,7 @@ const InviteFriends = ({ chatNo }) => {
   };
 
   const handleInviteUser = (e) => {
-    const selectdata = e.target.value.split("?");
-    const selectedUser = selectdata[0];
-    const selectUids = selectdata[1];
-
-    if (selectedUser && !invitedUsers.includes(selectedUser)) {
-      setInvitedUsers([...invitedUsers, selectedUser]);
-    }
-    if (selectUids && !userUids.includes(selectUids)) {
-      setUserUids([...userUids, selectUids]);
-    }
-
-    setSelectedFriend(selectUids);
+    setSelectedFriend(e.target.value);
   };
 
   /** 이미 초대된 유저 제외 */
@@ -83,12 +77,14 @@ const InviteFriends = ({ chatNo }) => {
           친구 선택
         </option>
         {getFilteredUsers().map((user, index) => (
-          <option key={index} value={`${user.name}?${user.uid}`}>
+          <option key={index} value={user.uid}>
             {user.name}
           </option>
         ))}
       </select>
-      <button onClick={handleInvite}>친구 초대</button>
+      <button onClick={handleInvite} disabled={!selectedFriend}>
+        친구 초대
+      </button>
     </div>
   );
 };

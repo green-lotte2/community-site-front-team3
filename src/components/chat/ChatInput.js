@@ -3,14 +3,13 @@ import InviteFriends from "./InviteFriends";
 import axios from "axios";
 
 const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
-  console.log("name??? : ", name);
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (inputText.trim() !== "") {
-      onSendMessage(inputText);
+      onSendMessage(inputText, null);
       setInputText("");
     }
   };
@@ -23,12 +22,21 @@ const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
       formData.append("chatNo", chatNo);
       formData.append("uid", uid);
       formData.append("name", name);
-      await axios.post("/chat/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      setFile(null);
+
+      try {
+        const response = await axios.post("/chat/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("파일 업로드 성공:", response.data);
+        setFile(null);
+      } catch (error) {
+        console.error(
+          "파일 업로드 실패:",
+          error.response ? error.response.data : error.message
+        );
+      }
     }
   };
 
