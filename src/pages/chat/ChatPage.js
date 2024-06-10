@@ -57,11 +57,12 @@ const ChatPage = () => {
         (message) => {
           const msg = JSON.parse(message.body);
           msg.name = msg.name || "Unknown";
+          msg.sName = msg.sName || null;
           setMessages((prevMessages) => [...prevMessages, msg]);
         }
       );
 
-      // 추가된 코드: 유저 이름을 포함하여 전송
+      // 유저 이름을 포함하여 전송
       stompClient.publish({
         destination: "/app/chat.addUser",
         body: JSON.stringify({ uid, name }),
@@ -78,7 +79,9 @@ const ChatPage = () => {
     setSelectedRoom(room);
     setMessages([]);
     try {
+      console.log("Fetching messages for chatNo:", room.chatNo);
       const response = await axios.get(`${url}/chatroom/${room.chatNo}`);
+      console.log("Fetched messages:", response.data);
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat room messages", error);
@@ -101,6 +104,7 @@ const ChatPage = () => {
       setIsMessageSent(true);
     }
   };
+
   useEffect(() => {
     if (isMessageSent) {
       setIsMessageSent(false);
