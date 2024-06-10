@@ -297,14 +297,14 @@ body {
             cursor: pointer;
             border-radius: 3px;
         }
-          .addPage{
+        .addPage {
             font-size: 13px;
             color: #333;
-          }
+        }
 
-          li > div {
+        li > div {
             margin-left: 15px;
-          }
+        }
     }
     .terms-form button:hover {
         background-color: #f8af65;
@@ -415,27 +415,33 @@ body {
 }
 
 // 메인 가로 스크롤 css
+.scroll-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .scroll-container {
     display: flex;
-    overflow-x: hidden;
+    overflow-x: auto;
     white-space: nowrap;
     align-items: center;
-    position: relative;
-    padding: 10px 0; /* 버튼 공간 확보를 위해 패딩 추가 */
+    padding: 10px 0;
+    width: calc(100% - 60px); /* 양쪽 버튼 공간 확보를 위해 너비 조정 */
 }
 
 .scroll-item {
     flex: 0 0 auto;
     width: 300px;
     margin-right: 10px;
-    position: relative;
+    white-space: normal;
 }
 
 .scroll-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    display: none;
     background: rgba(255, 255, 255, 0.7);
     border: none;
     cursor: pointer;
@@ -444,13 +450,13 @@ body {
 }
 
 .scroll-button-left {
-    left: 10px;
+    left: 0;
 }
 
 .scroll-button-right {
     right: 0;
 }
 
-.scroll-item:hover .scroll-button {
-    display: block;
+.scroll-button-hidden {
+    display: none;
 }
