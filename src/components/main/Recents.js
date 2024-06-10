@@ -38,7 +38,7 @@ export default function Recents() {
 
     return (
         <>
-            <h3>최근 본 게시글</h3>
+            <h3>최근 방문</h3>
             <Card sx={{ maxWidth: 150, maxHeight: 150 }}>
                 <CardContent>
                     <div
