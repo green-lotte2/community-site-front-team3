@@ -36,6 +36,7 @@ const WritePage = () => {
     });
 
     editorInstance.current = editor;
+
     return () => {
       // cleanup
       if (editor) {
@@ -46,7 +47,7 @@ const WritePage = () => {
 
   const getContent = () => {
     if (editorInstance.current) {
-      const writeContent = editorInstance.current.getMarkdown();
+      const writeContent = editorInstance.current.getHTML();
 
       setContent(writeContent);
     } else {
