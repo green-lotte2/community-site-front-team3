@@ -45,6 +45,11 @@ const Aside = ({ setSelectedRoom }) => {
   };
 
   const handleAddChatRoom = async () => {
+    if (!newChatRoomTitle.trim()) {
+      alert("방 제목을 설정해주세요");
+      return;
+    }
+
     try {
       console.log("아아아" + uid);
       const response = await axios.post(

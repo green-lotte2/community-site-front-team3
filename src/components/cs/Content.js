@@ -39,12 +39,6 @@ const Content = () => {
     marginLeft: "20px",
     color: "text.secondary",
   };
-  const button = {
-    marginTop: "15px",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px 20px",
-  };
 
   const contentStyle = {
     marginLeft: "20px",
@@ -76,15 +70,6 @@ const Content = () => {
           </Accordion>
         ))}
       </div>
-
-      <Button
-        size="large"
-        variant="outlined"
-        href="#outlined-buttons"
-        style={button}
-      >
-        문의하기 <LuMailQuestion />
-      </Button>
     </div>
   );
 };

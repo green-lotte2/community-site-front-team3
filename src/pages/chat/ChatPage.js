@@ -8,10 +8,10 @@ import axios from "axios";
 import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
-
 const ChatPage = () => {
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.uid;
+  const name = authSlice.name;
   const [messages, setMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -20,16 +20,11 @@ const ChatPage = () => {
 
   console.log("selectedRoom: " + JSON.stringify(selectedRoom));
 
-  // setChatNo(JSON.stringify(selectedRoom.chatNo));
-  // console.log("ChatNo!!" + chatNo);
-
   useEffect(() => {
     if (selectedRoom) {
       setChatNo(JSON.stringify(selectedRoom.chatNo));
-
-      console.log("ㅁㄴㅇㄹ" + chatNo);
     }
-  });
+  }, [selectedRoom]);
 
   // WebSocket 연결 설정
   useEffect(() => {
@@ -38,19 +33,15 @@ const ChatPage = () => {
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
     });
-
     client.onConnect = () => {
       console.log("Connected");
       setStompClient(client);
     };
-
     client.onStompError = (frame) => {
       console.error("Broker reported error: " + frame.headers["message"]);
       console.error("Additional details: " + frame.body);
     };
-
     client.activate();
-
     return () => {
       if (client) {
         client.deactivate();
@@ -65,27 +56,32 @@ const ChatPage = () => {
         `/topic/chatroom/${selectedRoom.chatNo}`,
         (message) => {
           const msg = JSON.parse(message.body);
+          msg.name = msg.name || "Unknown";
+          msg.sName = msg.sName || null;
           setMessages((prevMessages) => [...prevMessages, msg]);
         }
       );
 
+      // 유저 이름을 포함하여 전송
       stompClient.publish({
         destination: "/app/chat.addUser",
-        body: JSON.stringify({ uid }),
+        body: JSON.stringify({ uid, name }),
       });
 
       return () => {
         subscription.unsubscribe();
       };
     }
-  }, [selectedRoom, stompClient, uid]);
+  }, [selectedRoom, stompClient, uid, name]);
 
   // 채팅방 조회 및 메시지 초기화
   const handleSelectChatRoom = async (room) => {
     setSelectedRoom(room);
     setMessages([]);
     try {
+      console.log("Fetching messages for chatNo:", room.chatNo);
       const response = await axios.get(`${url}/chatroom/${room.chatNo}`);
+      console.log("Fetched messages:", response.data);
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat room messages", error);
@@ -93,19 +89,18 @@ const ChatPage = () => {
   };
 
   // 메시지 전송
-  const handleSendMessage = (text) => {
+  const onSendMessage = (text) => {
     if (stompClient && stompClient.connected && selectedRoom) {
       const chatMessage = {
         uid: uid,
+        name: name,
         message: text,
         chatNo: selectedRoom.chatNo,
       };
-
       stompClient.publish({
         destination: `/app/chat.sendMessage/${selectedRoom.chatNo}`,
         body: JSON.stringify(chatMessage),
       });
-
       setIsMessageSent(true);
     }
   };
@@ -114,7 +109,7 @@ const ChatPage = () => {
     if (isMessageSent) {
       setIsMessageSent(false);
     }
-  }, [messages]);
+  }, [isMessageSent, messages]);
 
   return (
     <div className="chat-layout-container">
@@ -125,7 +120,8 @@ const ChatPage = () => {
           <>
             <Chat
               messages={messages}
-              onSendMessage={handleSendMessage}
+              name={name}
+              onSendMessage={onSendMessage}
               uid={uid}
               chatNo={chatNo}
               roomTitle={selectedRoom ? selectedRoom.title : "Chat"}
@@ -136,5 +132,4 @@ const ChatPage = () => {
     </div>
   );
 };
-
 export default ChatPage;

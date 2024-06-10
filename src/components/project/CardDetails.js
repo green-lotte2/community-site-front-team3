@@ -1,9 +1,9 @@
-import { Modal } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Calendar, Check, CheckSquare, Clock, CreditCard, List, Plus, Tag, Trash, Type, X } from 'react-feather';
-
-import { v4 as uuidv4 } from 'uuid';
 import Editable from './Editable';
+import Modal from './Modal';
+import './CardDetails.css';
+import { v4 as uuidv4 } from 'uuid';
 import Label from './Label';
 
 export default function CardDetails(props) {

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Plus, X } from 'react-feather';
+import './Editable.css';
 
 const Editable = (props) => {
     const [show, setShow] = useState(props?.handler || false);
     const [text, setText] = useState(props.defaultValue || '');
+    const [data, setData] = useState(
+        localStorage.getItem('orangenode') ? JSON.parse(localStorage.getItem('orangenode')) : []
+    );
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
         if (text && props.onSubmit) {
-            setText('');
             props.onSubmit(text);
         }
+        setText('');
+
         setShow(false);
     };
 
@@ -28,13 +33,15 @@ const Editable = (props) => {
                         />
                         <div className="btn__control">
                             <button className="add__btn" type="submit">
-                                {`${props.btnName}` || 'Add'}
+                                {props.btnName || 'Add'}
                             </button>
                             <X
                                 className="close"
                                 onClick={() => {
                                     setShow(false);
-                                    props?.setHandler(false);
+                                    if (typeof props.setHandler === 'function') {
+                                        props.setHandler(false);
+                                    }
                                 }}
                             />
                         </div>
@@ -52,6 +59,10 @@ const Editable = (props) => {
             )}
         </div>
     );
+};
+
+Editable.defaultProps = {
+    setHandler: () => {},
 };
 
 export default Editable;
