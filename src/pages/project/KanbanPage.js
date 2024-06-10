@@ -102,6 +102,7 @@ function App() {
         tempBoards[index].card[cardIndex] = card;
         console.log(tempBoards);
         setData(tempBoards);
+        alert(321321)
     };
 
     /** localStorage 저장 후 서버에 넘기기 
