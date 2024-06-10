@@ -98,6 +98,7 @@ function App() {
         tempBoards[index].card[cardIndex] = card;
         console.log(tempBoards);
         setData(tempBoards);
+        alert(321321)
     };
 
     useEffect(() => {

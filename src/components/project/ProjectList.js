@@ -110,7 +110,7 @@ const ProjectList = () => {
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
-            navigate(`/project/kanban/${proNo}`);
+            navigate(`/project/kanban?proNo=${proNo}`);
         } catch (error) {
             console.error('칸반보드 이동:', error);
         }
@@ -164,11 +164,11 @@ const ProjectList = () => {
         <>
             <div className="project-list-container">
                 <div className="project-list">
-                    <h2>Project List</h2>
+                    <h2>프로젝트 목록</h2>
                     <div className="search-and-create">
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder=" 프로젝트 검색" />
                         <button className="create-button" onClick={openModal}>
-                            New Project
+                            새 프로젝트
                         </button>
                     </div>
                     {projects && projects.length > 0 ? (
@@ -178,14 +178,14 @@ const ProjectList = () => {
                                 <div className="project-meta">
                                     <span className="date">{moment(projects.rdate).format('YY.MM.DD')}</span>
                                     <span className="actions">
-                                        <button onClick={() => openEditModal(project)}>Edit</button>
-                                        <button onClick={() => deleteProject(project.proNo)}>Delete</button>
+                                        <button onClick={() => openEditModal(project)}>수정</button>
+                                        <button onClick={() => deleteProject(project.proNo)}>삭제</button>
                                     </span>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <p>No projects found</p>
+                        <p>생성된 프로젝트가 없습니다</p>
                     )}
                 </div>
             </div>
@@ -196,12 +196,12 @@ const ProjectList = () => {
                         <button className="close-button" onClick={closeModal}>
                             x
                         </button>
-                        <h2>Create New Project</h2>
-                        <label htmlFor="projectTitle">Project Title:</label>
+                        <h2>새 프로젝트 생성</h2>
+                        <label htmlFor="projectTitle">프로젝트 제목</label>
                         <input type="text" id="projectTitle" value={projectTitle} onChange={handleProjectTitleChange} />
-                        <label htmlFor="inviteUser">Invite User:</label>
+                        <label htmlFor="inviteUser">초대 가능한 사용자</label>
                         <select id="inviteUser" onChange={handleInviteUser}>
-                            <option value="">Select User</option>
+                            <option value="">사용자를 선택하세요</option>
                             {/* 사용자 정보 출력 */}
                             {getFilteredUsers().map((user, index) => (
                                 <option key={index} value={user.name + '?' + user.uid}>
@@ -210,12 +210,12 @@ const ProjectList = () => {
                             ))}
                         </select>
                         <div className="selected-users">
-                            <p>Invited Users:</p>
+                            <p>초대된 사용자</p>
                             {invitedUsers.map((user, index) => (
-                                <span key={index}>{user}</span>
+                                <span className='projectUser' key={index} > {user}</span>
                             ))}
                         </div>
-                        <button onClick={handleCreateProject}>Create Project</button>
+                        <button onClick={handleCreateProject}>프로젝트 생성</button>
                     </div>
                 </div>
             )}
@@ -226,15 +226,15 @@ const ProjectList = () => {
                         <button className="close-button" onClick={closeEditModal}>
                             x
                         </button>
-                        <h2>Edit Project</h2>
-                        <label htmlFor="editProjectTitle">Project Title:</label>
+                        <h2>프로젝트 수정</h2>
+                        <label htmlFor="editProjectTitle">프로젝트 제목</label>
                         <input
                             type="text"
                             id="editProjectTitle"
                             value={projectTitle}
                             onChange={handleProjectTitleChange}
                         />
-                        <label htmlFor="editProjectStatus">Status:</label>
+                        <label htmlFor="editProjectStatus">프로젝트 상태</label>
                         <select
                             id="editProjectStatus"
                             value={editProject.status}
@@ -243,7 +243,7 @@ const ProjectList = () => {
                             <option value="1">완료</option>
                             <option value="0">진행중</option>
                         </select>
-                        <button onClick={updateProject}>Update Project</button>
+                        <button onClick={updateProject}>수정 완료</button>
                     </div>
                 </div>
             )}
