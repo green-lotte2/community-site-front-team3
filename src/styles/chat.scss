@@ -154,6 +154,21 @@
     align-items: center;
     margin-bottom: 10px;
 
+    /* 너비가 768px 이하일 때 적용되는 스타일 */
+    @media (max-width: 768px) {
+      .invite-friends {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .invite-friends select,
+      .invite-friends button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
     select {
       flex: 1;
       padding: 10px;
@@ -250,53 +265,83 @@
 
   .chat-message {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 10px;
   }
 
   .chat-message.right {
-    justify-content: flex-end;
-  }
-
-  .chat-message.left {
-    justify-content: flex-start;
-  }
-
-  .chat-message.right .chat-user {
-    order: 2;
-    margin-left: 10px;
-    margin-right: 0;
-  }
-
-  .chat-message.left .chat-user {
-    margin-right: 10px;
+    align-items: flex-end;
   }
 
   .chat-user {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-right: 10px;
   }
 
   .chat-username {
-    font-size: 0.8em;
-    margin-bottom: 5px;
+    margin-right: 10px;
   }
 
   .chat-text {
     background-color: #f1f1f1;
-    border-radius: 5px;
     padding: 10px;
-    max-width: 60%;
+    border-radius: 10px;
+    max-width: 70%;
   }
 
   .chat-message.right .chat-text {
-    background-color: #e6f3ff;
+    background-color: #e1f1ff;
   }
 
-  .chat-message.left .chat-text {
-    background-color: #f1f1f1;
+  .chat-date {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+
+  .chat-date.left {
+    align-self: flex-start;
+  }
+
+  .chat-date.right {
+    align-self: flex-end;
+  }
+
+  .chat-message.left .chat-date {
+    text-align: left;
+    font-size: 12px;
+    color: grey;
+  }
+
+  .chat-message.right .chat-date {
+    text-align: right;
+    font-size: 12px;
+    color: grey;
+  }
+
+  .date-divider {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: grey;
+  }
+
+  .date-divider::before,
+  .date-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+    margin: auto;
+  }
+
+  .date-divider::before {
+    margin-right: 10px;
+  }
+
+  .date-divider::after {
+    margin-left: 10px;
   }
 
   .Search {

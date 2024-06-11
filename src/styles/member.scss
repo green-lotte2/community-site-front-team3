@@ -733,4 +733,224 @@
         color: #28a745;
         font-weight: 1000;
     }
+    .find-id-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .find-id-update-container {
+        display: flex;
+        align-items: center;
+        background: #f9f9f9; /* Light gray background */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 420px; /* Adjust the width */
+        height: 40%;
+    }
+    
+    .find-id-update-form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px; /* Add some space between form elements */
+    }
+    
+    .input-container label {
+        margin-right: 10px; /* Add some space between label and input */
+    }
+    
+    .find-id-update-form input,
+    .find-id-update-form button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc; /* Add border to input elements */
+        border-radius: 4px; /* Rounded corners */
+    }
+    
+    .find-id-update-form label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .find-id-update-form button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+        height: 40px;
+        border: none;
+        border-radius: 4px; /* Rounded corners */
+    }
+    
+    .find-id-update-form button:hover {
+        background-color: #45a049;
+    }
+    
+    #verification-code-section {
+        display: none;
+    }
+    #verification-code-section.show {
+        display: block;
+        margin-top: 30px;
+      }
+    
+    #verification-code-section label {
+        margin-top: 10px;
+    }
+    
+    #verification-code-section input {
+        margin-bottom: 10px;
+    }
+    
+    #verification-code-section button {
+        margin-top: 10px;
+    }
+    input#name {
+        margin-left: 23px;
+    }
+    input#email {
+        margin-left: 8px;
+    }
+    h3.find-id-title {
+        margin-bottom: 30px;
+    }
+    button#request-code-button {
+        margin-left: 10px;
+    }
+    button#confirm-code-button {
+        margin-left: 10px;
+    }
+    p {
+        color: #e0913b;
+    }
+    .find-pw-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      
+      .find-pw-update-container {
+        display: flex;
+        align-items: center;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 530px;
+        height: 60%;
+      }
+      
+      .find-pw-update-form {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      
+      .input-container label {
+        margin-right: 10px;
+      }
+      
+      .find-pw-update-form input,
+      .find-pw-update-form button {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      
+      .find-pw-update-form label {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      
+      .find-pw-update-form button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+        height: 40px;
+        border: none;
+        border-radius: 4px;
+      }
+      
+      .find-pw-update-form button:hover {
+        background-color: #45a049;
+      }
+      
+      #verification-code-section {
+        display: none;
+      }
+      
+      #verification-code-section.show {
+        display: block;
+        margin-top: 30px;
+      }
+      
+      #verification-code-section label {
+        margin-top: 10px;
+      }
+      
+      #verification-code-section input {
+        margin-bottom: 10px;
+      }
+      
+      #verification-code-section button {
+        margin-top: 10px;
+      }
+      
+      input#name {
+        margin-left: 23px;
+      }
+      
+      input#email {
+        margin-left: 8px;
+      }
+      
+      h3.find-pw-title {
+        margin-bottom: 30px;
+      }
+      
+      button#request-code-button {
+        margin-left: 10px;
+      }
+      
+      button#confirm-code-button {
+        margin-left: 10px;
+      }
+      
+      p {
+        color: #e0913b;
+      }
+      input#userId {
+        margin-left: 8px;
+    }
+    input#verification-code {
+        margin-left: 6px;
+    }
+    .changePass {
+        margin-top: 50px;
+    }
+    input#newPassword {
+        margin-left: 50px;
+    }
+    .pass1 {
+        margin-bottom: 15px;
+    }
+    input#confirmNewPassword {
+        margin-left: 16px;
+    }
+    button#reset-password-button {
+        margin-left: 10px;
+    }
 }

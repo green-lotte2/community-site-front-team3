@@ -2,8 +2,7 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
 
-const ChatMessage = ({ position, text, name }) => {
-  console.log("name" + name);
+const ChatMessage = ({ position, text, name, date, sName }) => {
   return (
     <div className={`chat-message ${position}`}>
       <div className="chat-user">
@@ -14,7 +13,16 @@ const ChatMessage = ({ position, text, name }) => {
         />
       </div>
       <div className="chat-text">
-        <p>{text}</p>
+        {sName ? (
+          <a href={`/uploads/${sName}`} download>
+            {text}
+          </a>
+        ) : (
+          <p>{text}</p>
+        )}
+      </div>
+      <div className={`chat-date ${position}`}>
+        <span>{date}</span>
       </div>
     </div>
   );

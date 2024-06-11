@@ -1,15 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Calendar, { TZDate } from "@toast-ui/calendar";
+import Calendar from "@toast-ui/calendar";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
-import { FaCalendarAlt, FaCalendarWeek, FaItunesNote } from "react-icons/fa";
-import { TbBriefcase2Filled } from "react-icons/tb";
-import {
-  MdLineWeight,
-  MdNavigateNext,
-  MdVerticalAlignBottom,
-} from "react-icons/md";
+import { FaCalendarAlt, FaCalendarWeek } from "react-icons/fa";
+
+import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import axios from "axios";
 import { globalPath } from "globalPaths";
@@ -73,7 +69,7 @@ function MonthCalendar() {
     const calendar = new Calendar(container, options);
 
     calendarInstance.current = calendar;
-
+    console.log(calendarRef);
     calendar.setOptions({
       month: {
         isAlways6Weeks: false,

@@ -1,4 +1,3 @@
-// index.js
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createReactEditorJS } from "react-editor-js";
 import { EDITOR_JS_TOOLS } from "./tool";
@@ -9,36 +8,89 @@ const path = globalPath.path;
 
 const Editor = ({ pageNo }) => {
   const editorRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [blocks, setBlocks] = useState([]);
+  const [loading, setLoading] = useState(true); // 데이터 로딩 여부
+
   console.log("Editor pageNo : ", pageNo);
 
-  /** 에디터 생성 (기본 블록 포함) */
+  /** 제목 불러오기 */
+  useEffect(() => {
+    const fetchPageData = async () => {
+      try {
+        const respPage = await axios.get(`${path}/page?pageNo=${pageNo}`);
+        setTitle(respPage.data.title);
+        console.log("ggg : ", respPage.data);
+      } catch (error) {
+        console.error("Error fetching page data: ", error);
+      }
+    };
+    fetchPageData();
+  }, [pageNo]);
+
+/** 블록 불러오기 */
+useEffect(() => {
+  const fetchPageData = async () => {
+    try {
+      const respBlock = await axios.get(`${path}/block?pageNo=${pageNo}`);
+      console.log("블록 불러오기 : ", respBlock.data);
+
+      // data 필드를 JSON 객체로 변환
+      const transformedBlocks = respBlock.data.map(block => {
+        try {
+          // 데이터를 문자열로 간주하고 JSON 형태로 변환
+          let formattedData = block.data
+            .replace(/(\w+)=/g, '"$1":') // key=value 형식을 "key":"value" 형식으로 변환
+            .replace(/,(\s*)(\w+)=/g, ',"$2":') // key=value 형식을 "key":"value" 형식으로 변환
+            .replace(/'/g, '"');         // 작은 따옴표를 큰 따옴표로 변환
+
+          console.log("here...1 : ", formattedData);
+
+          // 값들이 올바른 따옴표로 감싸져 있는지 확인하고 추가
+          formattedData = formattedData.replace(/"(\w+)":([^",\s\}]+)/g, '"$1":"$2"');
+
+          // http:// 또는 https:// 로 시작하는 문자열을 포함하여 URL 부분을 올바르게 변환
+          formattedData = formattedData.replace(/"url":"(http[^"]+)"/g, '"url":"$1"');
+          formattedData = formattedData.replace(/"caption":"([^"]+)"/g, '"caption":"$1"');
+
+          /*
+          // URL과 파일 이름 필드를 올바르게 변환하고, URL에 서버 경로 추가
+          formattedData = formattedData.replace(/"url":"(\/uploads[^"]*)"/g, `"url":"${path}$1"`);
+          formattedData = formattedData.replace(/"caption":"([^"]+)"/g, '"caption":"$1"');
+*/
+
+          formattedData = formattedData.replace(/"withBorder":"(false|true)"/g, '"withBorder":$1');
+          formattedData = formattedData.replace(/"withBackground":"(false|true)"/g, '"withBackground":$1');
+          formattedData = formattedData.replace(/"stretched":"(false|true)"/g, '"stretched":$1');
+
+          console.log("here...2 : ", formattedData);
+
+          block.data = JSON.parse(formattedData);
+        } catch (error) {
+          console.error("JSON 변환 오류: ", error, block.data);
+        }
+        return block;
+      });
+
+      setBlocks(transformedBlocks || []); // 데이터가 없으면 빈 배열로 설정
+      setLoading(false); // 로딩 상태 해제
+    } catch (error) {
+      console.error("블록 불러오기 오류 : ", error);
+      setLoading(false);
+    }
+  };
+
+  fetchPageData();
+}, [pageNo]);
+
+
+
+  // Editor 생성
   const ReactEditorJS = createReactEditorJS({
-    holder: "editorjs",
-    data: {
-      blocks: [
-        // 출력할 때 이렇게 하면 될 것 같음
-        {
-          type: "header",
-          data: {
-            level: 2, // size
-            text: "header",
-          },
-          config: {
-            placeholder: "제목 입력",
-          },
-        },
-        {
-          type: "paragraph",
-          data: {
-            text: "내용을 입력하세요.",
-          },
-        },
-      ],
-    },
-    onReady: () => {
-      editorRef.current = ReactEditorJS;
-    },
+    holder: "editor-container",
+    data: blocks,
   });
+
   // Editor.js 초기화 핸들러
   const handleInitialize = useCallback((instance) => {
     editorRef.current = instance;
@@ -93,8 +145,9 @@ const Editor = ({ pageNo }) => {
                   ...block,
                   data: {
                     ...block.data,
-                    url: `${path}/uploads/${sName}`,
+                    url: `/uploads/${sName}`,
                   },
+                  order: index,
                 };
               } catch (err) {
                 console.error("파일 전송 실패: ", err);
@@ -102,7 +155,7 @@ const Editor = ({ pageNo }) => {
               }
             }
             // 이미지 블록이 아니면
-            return block;
+            return { ...block, order: index };
           })
         );
 
@@ -115,6 +168,7 @@ const Editor = ({ pageNo }) => {
         formData.append("data", JSON.stringify(dataWithoutBase64));
         formData.append("pageNo", pageNo);
         console.log("formData: ", formData);
+        console.log("pageNo: ", pageNo);
 
         /** 본문 내용 전체 저장 */
         const response = await fetch(`${path}/savepage`, {
@@ -143,21 +197,34 @@ const Editor = ({ pageNo }) => {
     return new File([u8arr], fileName, { type: mime });
   };
 
+  // 데이터 로딩중이면 표시
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const handleBlock = () => {
+    console.log(blocks);
+  };
+
   return (
     <div className="Editor">
       <h1
         className="pageTitle"
-        spellcheck="true"
+        spellCheck="true"
         placeholder="제목 없음"
         contentEditable="true"
-      ></h1>
+      >
+        {title}
+      </h1>
       <div id="test">
         <ReactEditorJS
           tools={EDITOR_JS_TOOLS}
           onInitialize={handleInitialize}
+          data={{ blocks: blocks }} // defaultValue 대신 data를 사용
         />
       </div>
       <button onClick={handleSave}>저장</button>
+      <button onClick={handleBlock}>블록출력</button>
     </div>
   );
 };
