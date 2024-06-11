@@ -93,7 +93,8 @@ const Login = () => {
                             </div>
                             {error && <div className="login-errMsg">{error}</div>}
                             <div className="additional-options">
-                                <Link to="/member/findid">아이디 찾기</Link> |<Link to="/member/findpw"> 비밀번호 찾기</Link>
+                                <Link to="/member/findid">아이디 찾기</Link> |
+                                <Link to="/member/findpw"> 비밀번호 찾기</Link>
                             </div>
                             <LoginButtonContainer>
                                 <LoginButton type="submit">로그인</LoginButton>
