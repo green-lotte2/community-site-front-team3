@@ -2,39 +2,49 @@ import React, { useEffect, useState } from 'react';
 import MemberList from './MemberList';
 import { globalPath } from 'globalPaths';
 import axios from 'axios';
-import { useInview } from 'react-intersection-observer';
 
 const Container = () => {
     const url = globalPath.path;
     const [memberList, setMemberList] = useState([]);
-    const [currentPage, setCurrentPage] = useState([1]);
+    const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [ref, inView] = useInview();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const response = await axios.get(`${url}/admin/member/list`, {
                     params: { page: currentPage, size: 10 },
                 });
-
                 const newMembers = response.data;
 
                 setMemberList((prevList) => [...prevList, ...newMembers]);
-
                 if (newMembers.length < 10) {
                     setHasMore(false);
                 }
-            } catch (err) {
-                console.error('데이터 못 가져옴 ㅋ', err);
+                setLoading(false);
+            } catch (error) {
+                console.error('Failed to fetch members:', error);
+                setLoading(false);
             }
         };
 
-        if (inView && hasMore) {
-            fetchData();
-            setCurrentPage((prevPage) => prevPage + 1);
-        }
-    }, [inView, hasMore, currentPage, url]);
+        fetchData();
+    }, [currentPage, url]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+                if (!loading && hasMore) {
+                    setCurrentPage((prevPage) => prevPage + 1);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [loading, hasMore]);
 
     return (
         <div className="container">
@@ -46,7 +56,7 @@ const Container = () => {
                 <button>Create Invoice</button>
             </div>
             <MemberList memberList={memberList} setMemberList={setMemberList} />
-            <div ref={ref} />
+            {loading && <p>Loading...</p>}
         </div>
     );
 };
