@@ -21,7 +21,6 @@ const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
       formData.append("file", file);
       formData.append("chatNo", chatNo);
       formData.append("uid", uid);
-      formData.append("name", name);
 
       try {
         const response = await axios.post("/chat/upload", formData, {
