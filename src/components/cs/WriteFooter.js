@@ -120,7 +120,7 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
         .post(`${url}/cs/insert`, jsonData)
         .then((response) => {
           console.log(response.data);
-          href.
+          //href.
         })
         .catch((err) => {
           console.log(err);
