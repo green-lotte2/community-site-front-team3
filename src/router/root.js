@@ -1,4 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from '../pages/main/MainPage';
 import AdminPage from '../pages/admin/AdminPage';
 import AdminMember from '../pages/admin/AdminMember';
@@ -24,14 +25,12 @@ import WritePage from 'pages/cs/WritePage';
 
 import ProfileUpdatePage from 'pages/member/ProfileUpdatePage';
 import CheckPassPage from 'pages/member/CheckPassPage';
-import FindIdPage from 'pages/member/FindIdPage';
-import FindPwPage from 'pages/member/FindPwPage';
-import SubscribePage from 'pages/member/SubscribePage';
 
 // 라우터 생성
 const root = createBrowserRouter([
     // main
     { path: '/main', element: <MainPage /> },
+    { path: '/chatroom/:uid', element: <Chatpage /> },
 
     // admin
     { path: '/admin', element: <AdminPage /> },
@@ -48,9 +47,6 @@ const root = createBrowserRouter([
     { path: '/member/logout', element: <Navigate replace to="/" /> },
     { path: '/member/passcheck', element: <CheckPassPage /> },
     { path: '/member/profile', element: <ProfileUpdatePage /> },
-    { path: '/member/findid', element: <FindIdPage /> },
-    { path: '/member/findpw', element: <FindPwPage /> },
-    { path: '/member/subscribe', element: <SubscribePage /> },
 
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
