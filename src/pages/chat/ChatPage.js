@@ -56,11 +56,31 @@ const ChatPage = () => {
         `/topic/chatroom/${selectedRoom.chatNo}`,
         (message) => {
           const msg = JSON.parse(message.body);
-          msg.name = msg.name || "Unknown";
-          msg.sName = msg.sName || null;
-          setMessages((prevMessages) => [...prevMessages, msg]);
+          console.log("WebSocket message received:", msg); // WebSocket 메시지 확인
+          setMessages((prevMessages) => {
+            // 중복 메시지 방지
+            if (!prevMessages.some((m) => m.cmNo === msg.cmNo)) {
+              return [...prevMessages, msg];
+            }
+            return prevMessages;
+          });
         }
       );
+
+      // 초기 메시지 로드
+      const fetchMessages = async () => {
+        try {
+          const response = await axios.get(
+            `${url}/chat/messages?chatNo=${selectedRoom.chatNo}`
+          );
+
+          setMessages(response.data);
+        } catch (error) {
+          console.error("Error fetching chat room messages", error);
+        }
+      };
+
+      fetchMessages();
 
       // 유저 이름을 포함하여 전송
       stompClient.publish({

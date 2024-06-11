@@ -4,7 +4,7 @@ import ChatInput from "./ChatInput";
 import { format, isSameDay, parseISO } from "date-fns";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
-  console.log(messages);
+  console.log("111", messages);
 
   // 서버 응답 데이터 확인
   useEffect(() => {
@@ -30,6 +30,8 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
       const showDate = !lastDate || !isSameDay(lastDate, currentDate);
       lastDate = currentDate;
 
+      console.log("Message to be rendered:", message); // 메시지 데이터 확인
+
       return (
         <React.Fragment key={index}>
           {showDate && (
@@ -39,11 +41,12 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
           )}
           <ChatMessage
             key={index}
-            position={message.uid === uid ? "right" : "left"} // 메시지 위치 설정
+            position={message.uid === uid ? "right" : "left"}
             text={message.message}
             name={message.name}
             date={format(currentDate, "HH:mm")}
-            sName={message.sName}
+            sName={message.sname}
+            oName={message.oname}
           />
         </React.Fragment>
       );
