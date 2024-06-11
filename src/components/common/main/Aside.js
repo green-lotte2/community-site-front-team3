@@ -10,7 +10,7 @@ import { globalPath } from "globalPaths";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const Aside = () => {
+const Aside = ({titleStat}) => {
   const dynamicPath = "/project/list";
   const path = globalPath.path;
   const authSlice = useSelector((state) => state.authSlice);
@@ -19,6 +19,7 @@ const Aside = () => {
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [pages, setPages] = useState([]);
   const [countPage, setCountPage] = useState(0);
+
   /** 페이지 클릭하면 열림 */
   const togglePageMenu = (e) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ const Aside = () => {
       setCountPage(response.length);
     };
     fetchData();
-  }, [countPage]);
+  }, [countPage,titleStat]);
 
   /** 페이지 생성 */
   const handleAddPage = async () => {

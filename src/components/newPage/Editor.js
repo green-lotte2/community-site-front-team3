@@ -6,19 +6,26 @@ import axios from "axios";
 
 const path = globalPath.path;
 
-const Editor = ({ pageNo }) => {
+const Editor = ({ pageNo, setTitleStat }) => {
   const editorRef = useRef(null);
+  const titleRef = useRef(null);
   const [title, setTitle] = useState("");
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true); // 데이터 로딩 여부
+  const [currentPageNo, setCurrentPageNo] = useState(pageNo); // 현재 페이지 번호 상태
 
   console.log("Editor pageNo : ", pageNo);
+
+  /** 현재 페이지 번호 불러오기 */
+  useEffect(() => {
+    setCurrentPageNo(pageNo);
+  }, [pageNo]);
 
   /** 제목 불러오기 */
   useEffect(() => {
     const fetchPageData = async () => {
       try {
-        const respPage = await axios.get(`${path}/page?pageNo=${pageNo}`);
+        const respPage = await axios.get(`${path}/page?pageNo=${currentPageNo}`);
         setTitle(respPage.data.title);
         console.log("ggg : ", respPage.data);
       } catch (error) {
@@ -26,64 +33,55 @@ const Editor = ({ pageNo }) => {
       }
     };
     fetchPageData();
-  }, [pageNo]);
+  }, [currentPageNo]);
 
-/** 블록 불러오기 */
-useEffect(() => {
-  const fetchPageData = async () => {
-    try {
-      const respBlock = await axios.get(`${path}/block?pageNo=${pageNo}`);
-      console.log("블록 불러오기 : ", respBlock.data);
+  /** 블록 불러오기 */
+  useEffect(() => {
+    const fetchPageData = async () => {
+      try {
+        const respBlock = await axios.get(`${path}/block?pageNo=${currentPageNo}`);
+        console.log("블록 불러오기 : ", respBlock.data);
 
-      // data 필드를 JSON 객체로 변환
-      const transformedBlocks = respBlock.data.map(block => {
-        try {
-          // 데이터를 문자열로 간주하고 JSON 형태로 변환
-          let formattedData = block.data
-            .replace(/(\w+)=/g, '"$1":') // key=value 형식을 "key":"value" 형식으로 변환
-            .replace(/,(\s*)(\w+)=/g, ',"$2":') // key=value 형식을 "key":"value" 형식으로 변환
-            .replace(/'/g, '"');         // 작은 따옴표를 큰 따옴표로 변환
+        // data 필드를 JSON 객체로 변환
+        const transformedBlocks = respBlock.data.map(block => {
+          try {
+            let formattedData = block.data
+              .replace(/(\w+)=/g, '"$1":') // key=value 형식을 "key":"value" 형식으로 변환
+              .replace(/,(\s*)(\w+)=/g, ',"$2":') // key=value 형식을 "key":"value" 형식으로 변환
+              .replace(/'/g, '"');         // 작은 따옴표를 큰 따옴표로 변환
 
-          console.log("here...1 : ", formattedData);
+            formattedData = formattedData.replace(/"(\w+)":([^",\s\}]+)/g, '"$1":"$2"');
+            formattedData = formattedData.replace(/"url":"(http[^"]+)"/g, '"url":"$1"');
+            formattedData = formattedData.replace(/"caption":"([^"]+)"/g, '"caption":"$1"');
+            formattedData = formattedData.replace(/"withBorder":"(false|true)"/g, '"withBorder":$1');
+            formattedData = formattedData.replace(/"withBackground":"(false|true)"/g, '"withBackground":$1');
+            formattedData = formattedData.replace(/"stretched":"(false|true)"/g, '"stretched":$1');
 
-          // 값들이 올바른 따옴표로 감싸져 있는지 확인하고 추가
-          formattedData = formattedData.replace(/"(\w+)":([^",\s\}]+)/g, '"$1":"$2"');
+            block.data = JSON.parse(formattedData);
 
-          // http:// 또는 https:// 로 시작하는 문자열을 포함하여 URL 부분을 올바르게 변환
-          formattedData = formattedData.replace(/"url":"(http[^"]+)"/g, '"url":"$1"');
-          formattedData = formattedData.replace(/"caption":"([^"]+)"/g, '"caption":"$1"');
+          } catch (error) {
+            console.error("JSON 변환 오류: ", error, block.data);
+          }
+          return block;
+        });
 
-          /*
-          // URL과 파일 이름 필드를 올바르게 변환하고, URL에 서버 경로 추가
-          formattedData = formattedData.replace(/"url":"(\/uploads[^"]*)"/g, `"url":"${path}$1"`);
-          formattedData = formattedData.replace(/"caption":"([^"]+)"/g, '"caption":"$1"');
-*/
+        setBlocks(transformedBlocks || []); // 데이터가 없으면 빈 배열로 설정
+        setLoading(false); // 로딩 상태 해제
+      } catch (error) {
+        console.error("블록 불러오기 오류 : ", error);
+        setLoading(false);
+      }
+    };
+    setBlocks([]); // pageNo 변경 시 블록 초기화
+    setLoading(true); // 로딩 상태 설정
+    fetchPageData();
 
-          formattedData = formattedData.replace(/"withBorder":"(false|true)"/g, '"withBorder":$1');
-          formattedData = formattedData.replace(/"withBackground":"(false|true)"/g, '"withBackground":$1');
-          formattedData = formattedData.replace(/"stretched":"(false|true)"/g, '"stretched":$1');
+    /** unmount 될 때 저장 */
+    return () => {
+      handleSave();
+    };
 
-          console.log("here...2 : ", formattedData);
-
-          block.data = JSON.parse(formattedData);
-        } catch (error) {
-          console.error("JSON 변환 오류: ", error, block.data);
-        }
-        return block;
-      });
-
-      setBlocks(transformedBlocks || []); // 데이터가 없으면 빈 배열로 설정
-      setLoading(false); // 로딩 상태 해제
-    } catch (error) {
-      console.error("블록 불러오기 오류 : ", error);
-      setLoading(false);
-    }
-  };
-
-  fetchPageData();
-}, [pageNo]);
-
-
+  }, [currentPageNo]);
 
   // Editor 생성
   const ReactEditorJS = createReactEditorJS({
@@ -96,8 +94,10 @@ useEffect(() => {
     editorRef.current = instance;
   }, []);
 
-  /** 저장하기 누르면 */
+  /** 저장하기 */
   const handleSave = useCallback(async () => {
+    console.log("저장 시작 ~ ");
+
     if (editorRef.current) {
       try {
         const outputData = await editorRef.current.save();
@@ -108,6 +108,8 @@ useEffect(() => {
         /** block 반복해서 이미지 블록 처리 */
         const processedBlocks = await Promise.all(
           outputData.blocks.map(async (block, index) => {
+            console.log(block)
+
             // 이미지 블록이면
             if (
               block.type === "image" &&
@@ -147,6 +149,7 @@ useEffect(() => {
                     ...block.data,
                     url: `/uploads/${sName}`,
                   },
+                  bno: block.bno, // bno 추가
                   order: index,
                 };
               } catch (err) {
@@ -154,8 +157,9 @@ useEffect(() => {
                 throw new Error(`Image upload failed for block index ${index}`);
               }
             }
+
             // 이미지 블록이 아니면
-            return { ...block, order: index };
+            return { ...block, bno: block.bno, order: index }; // bno 추가
           })
         );
 
@@ -166,20 +170,25 @@ useEffect(() => {
         };
 
         formData.append("data", JSON.stringify(dataWithoutBase64));
-        formData.append("pageNo", pageNo);
+        formData.append("pageNo", currentPageNo);
+        formData.append("title", title);
+
+        console.log("title: ", title);
         console.log("formData: ", formData);
-        console.log("pageNo: ", pageNo);
+        console.log("pageNo: ", currentPageNo);
 
         /** 본문 내용 전체 저장 */
         const response = await fetch(`${path}/savepage`, {
           method: "POST",
           body: formData,
         });
+        setTitleStat(title);
+        console.log("Saving response: ", response);
       } catch (error) {
         console.error("Saving failed: ", error);
       }
     }
-  }, [editorRef, path]);
+  }, [editorRef, path, currentPageNo, title]);
 
   /** Base64 -> 파일 */
   const base64ToFile = (blockDataUrl, fileName) => {
@@ -187,8 +196,6 @@ useEffect(() => {
     const mime = dataUrlArr[0].match(/:(.*?);/)[1];
     const bstr = atob(dataUrlArr[1]); // atob : Base64 decode
     let n = bstr.length;
-    console.log("mime : " + mime);
-    console.log(n);
 
     const u8arr = new Uint8Array(n);
     while (n--) {
@@ -202,8 +209,28 @@ useEffect(() => {
     return <div>Loading...</div>;
   }
 
-  const handleBlock = () => {
-    console.log(blocks);
+  /** 제목 입력 */
+  const handleInputTitle = (e) => {
+
+    // isComposing : 입력 문자가 조합 문자인지 아닌지를 boolean값으로 반환
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const startOffset = range.startOffset;
+
+    setTitle(e.target.innerText);
+
+    /** 입력 커서 위치 설정 */
+    setTimeout(() => {
+      range.setStart(range.startContainer, startOffset);
+      range.setEnd(range.startContainer, startOffset);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }, 0);
+
   };
 
   return (
@@ -213,6 +240,8 @@ useEffect(() => {
         spellCheck="true"
         placeholder="제목 없음"
         contentEditable="true"
+        onInput={handleInputTitle}
+        ref={titleRef}
       >
         {title}
       </h1>
@@ -220,11 +249,10 @@ useEffect(() => {
         <ReactEditorJS
           tools={EDITOR_JS_TOOLS}
           onInitialize={handleInitialize}
-          data={{ blocks: blocks }} // defaultValue 대신 data를 사용
+          data={{ blocks: blocks }}
         />
       </div>
       <button onClick={handleSave}>저장</button>
-      <button onClick={handleBlock}>블록출력</button>
     </div>
   );
 };
