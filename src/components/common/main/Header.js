@@ -37,7 +37,7 @@ const Header = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-                setUser({uid: response.data.uid, profile: response.data.profile});
+                setUser({ uid: response.data.uid, profile: response.data.profile });
             } catch (error) {
                 console.error('사용자 정보 받기 에러:', error);
             }
@@ -126,13 +126,13 @@ const Header = () => {
                                             <div className="welcome-user">{authSlice.name}님, 반갑습니다.</div>
                                         </li>
                                         <li>
-                                            <Link to="#">관리자</Link>
+                                            <Link to="/admin">관리자</Link>
                                         </li>
                                     </>
                                 )}
 
                                 <li>
-                                    <Link to="#">고객센터</Link>
+                                    <Link to="/cs">고객센터</Link>
                                 </li>
                                 <li>
                                     <Link to="#">요금제가입</Link>
