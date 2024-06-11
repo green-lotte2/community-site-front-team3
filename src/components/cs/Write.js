@@ -10,15 +10,9 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import axios from "axios";
 import { globalPath } from "globalPaths";
 
-const Write = ({ editorRef }) => {
+const Write = ({ setCate, setTitle, editorRef }) => {
   // 불러온 카테고리 저장
   const [loadCate, setLoadCate] = useState([]);
-
-  // 문의글 작성할 때 선택한 카테고리 저장
-  const [cate, setCate] = useState("");
-
-  // 문의글 작성할 때 제목 저장
-  const [title, setTitle] = useState("");
 
   const url = globalPath.path;
 
@@ -74,13 +68,7 @@ const Write = ({ editorRef }) => {
       <Box style={{ width: "150px" }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">문의 내용</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={cate}
-            label="문의 내용"
-            onChange={handlerCateChange}
-          >
+          <Select label="문의 내용" onChange={handlerCateChange}>
             {loadCate.map((name, index) => (
               <MenuItem key={index} value={name}>
                 {name}
@@ -89,7 +77,7 @@ const Write = ({ editorRef }) => {
           </Select>
         </FormControl>
       </Box>
-      <div id="editor" title={title} cate={cate} ref={editorRef}></div>
+      <div id="editor" ref={editorRef}></div>
     </div>
   );
 };
