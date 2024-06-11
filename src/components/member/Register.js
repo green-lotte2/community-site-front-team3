@@ -12,7 +12,7 @@ const Register = () => {
         name: '',
         email: '',
         role: 'USER',
-        grade: 'BASIC',
+        grade: 'FREE',
         verificationCode: '',
     });
     const [errors, setErrors] = useState({
