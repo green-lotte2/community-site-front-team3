@@ -20,7 +20,7 @@ const Login = () => {
     const [error, setError] = useState('');
 
     const authSlice = useSelector((state) => state.authSlice);
-    if(authSlice.uid){
+    if (authSlice.uid) {
         window.location.href = '/main';
     }
     /** 로그인 버튼 클릭 */
@@ -93,7 +93,8 @@ const Login = () => {
                             </div>
                             {error && <div className="login-errMsg">{error}</div>}
                             <div className="additional-options">
-                                <Link to="#">아이디 찾기</Link> |<Link to="#"> 비밀번호 찾기</Link>
+                                <Link to="/member/findid">아이디 찾기</Link> |
+                                <Link to="/member/findpw"> 비밀번호 찾기</Link>
                             </div>
                             <LoginButtonContainer>
                                 <LoginButton type="submit">로그인</LoginButton>

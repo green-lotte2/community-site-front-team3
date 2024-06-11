@@ -14,6 +14,7 @@
     "@editorjs/link": "^2.6.2",
     "@editorjs/marker": "^1.4.0",
     "@editorjs/nested-list": "^1.4.2",
+    "@editorjs/paragraph": "^2.11.4",
     "@editorjs/quote": "^2.6.0",
     "@editorjs/raw": "^2.5.0",
     "@editorjs/simple-image": "^1.6.0",
