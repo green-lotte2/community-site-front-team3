@@ -10,6 +10,7 @@ export const USER_PATH = path + '/user';
 export const LOGIN_PATH = path + '/user/login';
 export const REGISTER_PATH = path + '/member/register';
 export const TERMS_PATH = path + '/user/terms';
+export const UPDATE_GRADE_PATH = path + '/user/updateGrade';
 export const CHECK_EMAIL_CODE_PATH = path + '/member/checkEmailCode';
 export const SEND_EMAIL_CODE_PATH = path + '/member/checkUser/email';
 export const SEND_FINDID_EMAIL_CODE_PATH = path + '/member/sendEmailCode';

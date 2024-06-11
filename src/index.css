@@ -11,8 +11,8 @@ code {
 }
 /*admin 글꼴*/
 @font-face {
-    font-family: 'Puradak Gentle Gothic';
-    src: url('./styles/font/Puradak Gentle Gothic.ttf') format('truetype');
+    font-family: 'GimpoGothicRegular';
+    src: url('./styles/font/GimpoGothicRegular.ttf') format('truetype');
 }
 
 /*main 글꼴*/

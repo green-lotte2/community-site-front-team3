@@ -42,7 +42,7 @@ const MainChatList = (setChatRoom) => {
                 {chatRooms.length > 0 ? (
                     chatRooms.map((chatRoom, index) => (
                         <div key={index}>
-                            <Link to="#" onClick={() => handleSelectRoom(chatRoom)}>
+                            <Link to={`/chatroom/${chatRoom.id}`} onClick={() => setChatRoom(chatRoom)}>
                                 {chatRoom.title}
                             </Link>
                         </div>

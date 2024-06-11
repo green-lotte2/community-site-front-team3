@@ -1,10 +1,19 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LuMailQuestion } from "react-icons/lu";
 import { globalPath } from "globalPaths";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import authSlice from "slices/authSlice";
+import { useSelector } from "react-redux";
 
-const WriteFooter = ({ getContent, content }) => {
+const WriteFooter = ({ cate, title, getContent, content }) => {
+  const authSlice = useSelector((state) => state.authSlice);
+  const [triggerSubmit, setTriggerSubmit] = useState(false);
+
+  // DB에서 받아온 sName 저장
+  const [sName, setsName] = useState("");
+
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -19,43 +28,10 @@ const WriteFooter = ({ getContent, content }) => {
     padding: "10px 20px",
   };
 
-  const path = globalPath.path;
+  const url = globalPath.path;
+  const uid = authSlice.uid;
 
-  /**에디터의 내용 가져오기 + 업로드 File DB 전송 */
-  const handleSubmitFile = () => {
-    getContent();
-
-    let match;
-    let index = 0;
-    const matchSrc = /src="([^"]*)"/g;
-
-    const formData = new FormData();
-
-    while ((match = matchSrc.exec(content)) !== null) {
-      console.log("이미지 src : " + match[1]);
-
-      const imgFiles = base64ToFile(match[1], `image_${index++}.png`);
-
-      console.log(imgFiles);
-      formData.append("imgFiles", imgFiles);
-      axios
-        .post(`${path}/cs/upload`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  /** Base64 -> 파일
-   * blockDataUrl => imgTag
-   */
+  /** Base64 -> 파일 blockDataUrl => imgTag*/
   const base64ToFile = (blockDataUrl, fileName) => {
     const dataUrlArr = blockDataUrl.split(",");
     const mime = dataUrlArr[0].match(/:(.*?);/)[1];
@@ -71,9 +47,92 @@ const WriteFooter = ({ getContent, content }) => {
     return new File([u8arr], fileName, { type: mime });
   };
 
+  /**전송 버튼 두 번 눌러야하는 현상 때문에 trigger변경 */
+  const handleSubmitFile = async () => {
+    await getContent();
+    setTriggerSubmit(true);
+  };
+
+  /** triggerSubmit 변경과 동시에 업로드 File DB 전송 */
   useEffect(() => {
-    console.log("전송할 작성글:", content);
-  }, [content]);
+    if (!triggerSubmit) return;
+
+    if (content === null || content.trim() === "") {
+      alert("내용을 작성하세요");
+      setTriggerSubmit(false);
+      return;
+    }
+    if (!cate || cate.trim() === "") {
+      alert("문의 카테고리를 선택하세요");
+      setTriggerSubmit(false);
+      return;
+    }
+    if (!title || title.trim() === "") {
+      alert("제목을 작성하세요");
+      setTriggerSubmit(false);
+      return;
+    }
+
+    let match;
+
+    const matchSrc = /src="([^"]*)"/g;
+
+    const formData = new FormData();
+    var contents;
+    while ((match = matchSrc.exec(content)) !== null) {
+      console.log("이미지 src : " + match[1]);
+
+      const extension = match[1].split("/")[1].split(";")[0]; // 확장자
+      const sName = `image_${uuidv4()}.${extension}`;
+
+      const imgFiles = base64ToFile(match[1], sName);
+      console.log(match[1]);
+
+      const imageURL = `@FilePath###/uploads/${sName}`;
+      contents = content.replace(match[1], imageURL);
+
+      console.log(contents);
+      formData.append("imgFiles", imgFiles);
+      console.log(content);
+      axios
+        .post(`${url}/cs/upload`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      const jsonData = {
+        uid: uid,
+        cate: cate,
+        title: title,
+        content: contents,
+      };
+
+      console.log(jsonData);
+
+      axios
+        .post(`${url}/cs/insert`, jsonData)
+        .then((response) => {
+          console.log(response.data);
+          href.
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    setTriggerSubmit(false);
+  }, [triggerSubmit, content, url]);
+
+  // useEffect(() => {
+  //   console.log("전송할 작성글:", content);
+  // }, [content]);
 
   return (
     <div style={style}>

@@ -9,6 +9,13 @@ import { LOGIN_PATH } from 'requestPath';
 import { useSelector } from 'react-redux';
 
 const Login = () => {
+    const REST_API_KEY = '8412b8200aef151b8d5e19641b967e1b';
+    const REDIRECT_URI = 'http://localhost:3000/main';
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    const kakaoLogin = () => {
+        window.location.href = KAKAO_AUTH_URL;
+    };
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({
@@ -93,13 +100,14 @@ const Login = () => {
                             </div>
                             {error && <div className="login-errMsg">{error}</div>}
                             <div className="additional-options">
-                                <Link to="/member/findid">아이디 찾기</Link> |<Link to="/member/findpw"> 비밀번호 찾기</Link>
+                                <Link to="/member/findid">아이디 찾기</Link> |
+                                <Link to="/member/findpw"> 비밀번호 찾기</Link>
                             </div>
                             <LoginButtonContainer>
                                 <LoginButton type="submit">로그인</LoginButton>
                             </LoginButtonContainer>
                             <div className="login-buttons">
-                                <button className="kakao-login"></button>
+                                <button className="kakao-login" onClick={kakaoLogin}></button>
                                 <button className="google-login"></button>
                             </div>
                             <div className="login-description-box">

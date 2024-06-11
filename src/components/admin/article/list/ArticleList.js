@@ -65,6 +65,11 @@ const ArticleList = ({ articleList, setArticleList }) => {
         navigate(`/admin/article/${ano}`);
     };
 
+    // 게시글 내용 ... 출력
+    const cutContent = (content, maxLength) => {
+        return content.length > maxLength ? content.subString(0, maxLength) + '...' : content;
+    };
+
     return (
         <div>
             <button onClick={handleDelSelected} className="btn-del-selected">
@@ -74,6 +79,7 @@ const ArticleList = ({ articleList, setArticleList }) => {
                 <thead>
                     <tr>
                         <th>
+                            전체선택
                             <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
                         </th>
                         <th>번호</th>
@@ -100,7 +106,7 @@ const ArticleList = ({ articleList, setArticleList }) => {
                                 <br />
                                 <small>{article.uid}</small>
                             </td>
-                            <td>{article.content}</td>
+                            <td>{cutContent(article.content, 20)}</td>
                             <td>{moment(article.rdate).format('YY-MM-DD')}</td>
                             <td>{article.reply}</td>
                             <td>
