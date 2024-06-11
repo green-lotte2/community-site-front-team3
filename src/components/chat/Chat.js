@@ -61,6 +61,8 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
         <div className="messages-wrapper">
           <div className="messages">{renderMessages()}</div>
         </div>
+        </div>
+        </div>
     );
 };
 
