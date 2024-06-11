@@ -20,7 +20,7 @@ const Login = () => {
     const [error, setError] = useState('');
 
     const authSlice = useSelector((state) => state.authSlice);
-    if(authSlice.uid){
+    if (authSlice.uid) {
         window.location.href = '/main';
     }
     /** 로그인 버튼 클릭 */
