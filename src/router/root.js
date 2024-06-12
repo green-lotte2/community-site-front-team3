@@ -10,6 +10,11 @@ import AdminArticleAnswer from "../pages/admin/AdminArticleAnswer";
 import AdminCsPage from "../pages/admin/AdminCsPage";
 import AdminQuestionPage from "../pages/admin/AdminQuestionPage";
 
+
+import ProfileUpdatePage from 'pages/member/ProfileUpdatePage';
+import CheckPassPage from 'pages/member/CheckPassPage';
+import KakaoRedirectPage from 'pages/member/KakaoRedirectPage';
+import SubscribePage from 'pages/member/SubscribePage';
 import LoginPage from "../pages/member/LoginPage";
 import TermsPage from "../pages/member/TermsPage";
 import RegisterPage from "../pages/member/RegisterPage";
@@ -45,13 +50,16 @@ const root = createBrowserRouter([
   { path: "/admin/cs", element: <AdminCsPage /> },
   { path: "/admin/question", element: <AdminQuestionPage /> },
 
-  // member
-  { path: "/", element: <LoginPage /> },
-  { path: "/member/register", element: <RegisterPage /> },
-  { path: "/member/terms", element: <TermsPage /> },
-  { path: "/member/logout", element: <Navigate replace to="/" /> },
-  { path: "/member/passcheck", element: <CheckPassPage /> },
-  { path: "/member/profile", element: <ProfileUpdatePage /> },
+    // member
+    { path: '/', element: <LoginPage /> },
+    { path: '/member/register', element: <RegisterPage /> },
+    { path: '/member/terms', element: <TermsPage /> },
+    { path: '/member/logout', element: <Navigate replace to="/" /> },
+    { path: '/member/passcheck', element: <CheckPassPage /> },
+    { path: '/member/profile', element: <ProfileUpdatePage /> },
+    { path: '/member/subscribe', element: <SubscribePage /> },
+    { path: '/oauth/callback/kakao', element: <KakaoRedirectPage /> },
+
 
   // project
   { path: "/project/board", element: <ProjectBoardPage /> },

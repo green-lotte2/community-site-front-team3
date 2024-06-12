@@ -37,6 +37,7 @@
     "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
     "@toast-ui/react-editor": "^3.2.3",
     "axios": "^1.7.2",
+    "connected-react-router": "^6.9.3",
     "date-fns": "^3.6.0",
     "editorjs-button": "^3.0.3",
     "editorjs-paragraph-with-alignment": "^3.0.0",
