@@ -5,7 +5,7 @@ import { globalPath } from 'globalPaths';
 import Dropzone from 'react-dropzone';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { login, updateUserProfile } from 'slices/authSlice';
+import { updateUserProfile } from 'slices/authSlice';
 
 const ProfileUpdate = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -70,7 +70,18 @@ const ProfileUpdate = () => {
     };
 
     const handleFileChange = (acceptedFiles) => {
+        const allowedExtensions = ['.jpg', '.gif', '.png', '.jpeg', '.bmp'];
+
+        // 파일 확장자 확인
         const selectedProfile = acceptedFiles[0];
+        const fileExtension = selectedProfile.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes('.' + fileExtension)) {
+            alert('허용되지 않는 파일 형식입니다.');
+            return;
+        }
+
+        // 허용된 파일인 경우 처리
         setUserProfile(selectedProfile);
         const preview = URL.createObjectURL(selectedProfile);
         setUserProfilePreview(preview);
@@ -113,8 +124,7 @@ const ProfileUpdate = () => {
     const passCheckBox = () => {
         setCheckBox(!checkBox);
         console.log(checkBox);
-    }
-
+    };
     return (
         <div className="container">
             <div className="profile-update-container">
@@ -124,7 +134,7 @@ const ProfileUpdate = () => {
                             <Dropzone onDrop={handleFileChange}>
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps({ className: 'dropzone' })}>
-                                        <input {...getInputProps()} />
+                                        <input accept=".jpg, .gif, .png, .jpeg, .bmp" {...getInputProps()} />
                                         {userProfilePreview ? (
                                             <img
                                                 className="profile-picture-preview"
@@ -155,14 +165,14 @@ const ProfileUpdate = () => {
                             <input className="passCheck" type="checkbox" checked={checkBox} onChange={passCheckBox} />
                         </label>
                         {checkBox && (
-                        <input
-                            type="password"
-                            name="pass"
-                            placeholder="새로운 비밀번호를 입력하세요."
-                            onChange={handleChange}
-                            value={user.pass}
-                            required
-                        />
+                            <input
+                                type="password"
+                                name="pass"
+                                placeholder="새로운 비밀번호를 입력하세요."
+                                onChange={handleChange}
+                                value={user.pass}
+                                required
+                            />
                         )}
                         <label htmlFor="email">이메일 관리</label>
                         <input

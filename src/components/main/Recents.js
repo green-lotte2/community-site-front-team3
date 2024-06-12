@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -38,7 +39,10 @@ export default function Recents() {
 
     return (
         <>
-            <h3>최근 방문</h3>
+            <h3 className="main-h3-title">
+                <AccessAlarmsIcon />
+                최근 방문
+            </h3>
             <Card sx={{ maxWidth: 150, maxHeight: 150 }}>
                 <CardContent>
                     <div

@@ -12,7 +12,6 @@ const writeHead = () => {
     display: "flex",
     flexDirection: "column",
     marginTop: "15px",
-    marginBottom: "15px",
   };
   return (
     <div>

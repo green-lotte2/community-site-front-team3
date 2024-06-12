@@ -7,6 +7,12 @@ import AdminMemberList from '../pages/admin/AdminMemberList';
 import AdminArticleList from '../pages/admin/AdminArticleList';
 import AdminArticleView from '../pages/admin/AdminArticleView';
 import AdminArticleAnswer from '../pages/admin/AdminArticleAnswer';
+import AdminCsPage from '../pages/admin/AdminCsPage';
+import AdminQuestionPage from '../pages/admin/AdminQuestionPage';
+import ProfileUpdatePage from 'pages/member/ProfileUpdatePage';
+import CheckPassPage from 'pages/member/CheckPassPage';
+import KakaoRedirectPage from 'pages/member/KakaoRedirectPage';
+import SubscribePage from 'pages/member/SubscribePage';
 import LoginPage from '../pages/member/LoginPage';
 import TermsPage from '../pages/member/TermsPage';
 import RegisterPage from '../pages/member/RegisterPage';
@@ -23,9 +29,6 @@ import Calendar from 'pages/calendar/Calendar';
 import Cs from 'pages/cs/CsPage';
 import WritePage from 'pages/cs/WritePage';
 
-import ProfileUpdatePage from 'pages/member/ProfileUpdatePage';
-import CheckPassPage from 'pages/member/CheckPassPage';
-
 // 라우터 생성
 const root = createBrowserRouter([
     // main
@@ -39,6 +42,8 @@ const root = createBrowserRouter([
     { path: '/admin/article', element: <AdminArticleList /> },
     { path: '/admin/article/:ano', element: <AdminArticleView /> },
     { path: '/admin/article/view/answer', element: <AdminArticleAnswer /> },
+    { path: '/admin/cs', element: <AdminCsPage /> },
+    { path: '/admin/question', element: <AdminQuestionPage /> },
 
     // member
     { path: '/', element: <LoginPage /> },
@@ -47,6 +52,8 @@ const root = createBrowserRouter([
     { path: '/member/logout', element: <Navigate replace to="/" /> },
     { path: '/member/passcheck', element: <CheckPassPage /> },
     { path: '/member/profile', element: <ProfileUpdatePage /> },
+    { path: '/member/subscribe', element: <SubscribePage /> },
+    { path: '/oauth/callback/kakao', element: <KakaoRedirectPage /> },
 
     // project
     { path: '/project/board', element: <ProjectBoardPage /> },
