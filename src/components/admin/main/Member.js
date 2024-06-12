@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { globalPath } from 'globalPaths';
 
 const Member = () => {
+    const url = globalPath.path;
+    const [memberList, setMemberList] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`${url}/admin/member`);
+        };
+    });
     return (
         <>
             <div className="member-list">

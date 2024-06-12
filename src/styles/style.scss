@@ -21,12 +21,12 @@ body {
 // 공통 헤더
 .mainHeader {
     background-color: #f8f8f8;
-    border-bottom: 1px solid #ccc;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    width: 100%;
+    margin-left: 245px;
+    width: calc(100% - 200px);
     top: 0;
     z-index: 1000;
     height: 60px;
@@ -34,19 +34,11 @@ body {
     .container {
         height: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+        margin-right: 25px;
         align-items: center;
         width: 100%;
         padding: 0 20px; /* 좌우 패딩 추가 */
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-    }
-
-    .logo h1 {
-        margin: 0;
     }
 
     .nav-search {
@@ -233,17 +225,26 @@ body {
 
     // 공통 aside
     aside {
-        width: 140px;
-        background-color: #f0f0f0;
-        padding-right: 20px;
-        border-right: 1px solid #ccc;
-        height: calc(100vh - 60px);
+        width: 200px; /* Notion과 유사하게 폭을 조정 */
+        background-color: #e1e1e1; /* 배경 색상을 필요에 따라 업데이트 */
+        padding: 20px; /* 내부 공간 확보를 위한 패딩 추가 */
+        border-right: 1px solid #f1f1f1; /* 테두리 스타일 */
+        height: 100%;
         position: fixed;
-        top: 60px;
         left: 0;
         bottom: 0;
         z-index: 500;
         overflow: auto;
+        box-shadow: 2px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+        }
 
         ul {
             list-style: none;
@@ -258,7 +259,7 @@ body {
         ul li a {
             padding: 10px;
             text-decoration: none;
-            color: #000;
+            color: #231f1f;
             display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
             position: relative;
             font-size: 15px;
@@ -311,9 +312,10 @@ body {
     }
     // 공통 main + tabs
     main {
+        background-color: #f9f9f9;
         min-height: 870px;
         flex: 1;
-        margin-left: 270px;
+        margin-left: 245px;
         padding: 80px 20px 20px 20px;
         box-sizing: border-box;
         overflow: auto;
@@ -459,4 +461,20 @@ body {
 
 .scroll-button-hidden {
     display: none;
+}
+
+// 메인 컴포넌트 간격 조절
+#main-component {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+// 메인화면 제목 css
+.main-h3-title {
+    display: flex;
+    align-items: center;
+    color: #808080;
+    font-size: 14px;
+    padding: 20px;
+    gap: 5px;
 }

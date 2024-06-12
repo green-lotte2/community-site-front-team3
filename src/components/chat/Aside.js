@@ -12,8 +12,19 @@ const Aside = ({ setSelectedRoom }) => {
   const [newChatRoomTitle, setNewChatRoomTitle] = useState("");
   const [chatRooms, setChatRooms] = useState([]);
   const [selectedRoom, setSelectedRoomState] = useState(null);
+  const [isFreeUser, setIsFreeUser] = useState(false);
 
   useEffect(() => {
+    const fetchUserGrade = async () => {
+      try {
+        const response = await axios.get(`${url}/user/grade/${uid}`);
+        setIsFreeUser(response.data === "FREE");
+        console.log("Response.data!!!!!!!!!!", response.data);
+      } catch (error) {
+        console.error("Error fetching user grade", error);
+      }
+    };
+
     const fetchChatRooms = async () => {
       try {
         const response = await axios.get(`${url}/user/${uid}`);
@@ -23,6 +34,7 @@ const Aside = ({ setSelectedRoom }) => {
       }
     };
 
+    fetchUserGrade();
     fetchChatRooms();
   }, [uid]);
 
@@ -51,7 +63,6 @@ const Aside = ({ setSelectedRoom }) => {
     }
 
     try {
-      console.log("아아아" + uid);
       const response = await axios.post(
         `${url}/chatroom/${uid}`,
         { title: newChatRoomTitle, status: "active" },
@@ -91,18 +102,20 @@ const Aside = ({ setSelectedRoom }) => {
             </li>
           ))
         )}
-        <li>
-          <input
-            type="text"
-            value={newChatRoomTitle}
-            onChange={(e) => setNewChatRoomTitle(e.target.value)}
-            placeholder="New Chat Room Title"
-          />
-          <button onClick={handleAddChatRoom} className="btnChatPlus">
-            {" "}
-            +{" "}
-          </button>
-        </li>
+        {!isFreeUser && (
+          <li>
+            <input
+              type="text"
+              value={newChatRoomTitle}
+              onChange={(e) => setNewChatRoomTitle(e.target.value)}
+              placeholder="New Chat Room Title"
+            />
+            <button onClick={handleAddChatRoom} className="btnChatPlus">
+              {" "}
+              +{" "}
+            </button>
+          </li>
+        )}
       </ul>
     </aside>
   );

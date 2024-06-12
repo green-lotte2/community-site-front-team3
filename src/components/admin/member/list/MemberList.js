@@ -11,6 +11,8 @@ const MemberList = ({ memberList }) => {
                     </th>
                     <th>번호</th>
                     <th>회원</th>
+                    <th>회사</th>
+                    <th>부서</th>
                     <th>가입일</th>
                     <th>요금제</th>
                     <th>관리</th>
@@ -28,13 +30,14 @@ const MemberList = ({ memberList }) => {
                             <br />
                             <small>{members.email}</small>
                         </td>
+                        <td>{members.company}</td>
+                        <td>{members.department}</td>
                         <td>{moment(members.rdate).format('YY-MM-DD')}</td>
                         <td>
                             <span className="status paid">Paid</span>
                         </td>
                         <td>
                             <button className="btn-view">관리</button>
-                            <button className="btn-del">정지</button>
                         </td>
                     </tr>
                 ))}

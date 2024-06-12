@@ -1,17 +1,12 @@
-import React, { useEffect } from 'react';
-import ChatMessage from './ChatMessage';
-import ChatInput from './ChatInput';
-import { format, isSameDay, parseISO } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import ChatMessage from "./ChatMessage";
+import ChatInput from "./ChatInput";
+import { format, isSameDay, parseISO } from "date-fns";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
-  console.log("111", messages);
-
   // 서버 응답 데이터 확인
   useEffect(() => {
-    messages.forEach((message, index) => {
-      console.log(`Message ${index}:`, message);
-    });
+    messages.forEach((message, index) => {});
   }, [messages]);
 
   const renderMessages = () => {
@@ -24,14 +19,11 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
         currentDate = parseISO(message.cDate);
         console.log("Parsed Date:", currentDate); // 파싱된 날짜 확인
       } catch (error) {
-        console.error("Invalid date format:", message.cDate);
         currentDate = new Date();
       }
 
       const showDate = !lastDate || !isSameDay(lastDate, currentDate);
       lastDate = currentDate;
-
-      console.log("Message to be rendered:", message); // 메시지 데이터 확인
 
       return (
         <React.Fragment key={index}>
@@ -48,6 +40,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
             date={format(currentDate, "HH:mm")}
             sName={message.sname}
             oName={message.oname}
+            profile={message.profile}
           />
         </React.Fragment>
       );
@@ -61,9 +54,15 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
         <div className="messages-wrapper">
           <div className="messages">{renderMessages()}</div>
         </div>
-        </div>
-        </div>
-    );
+        <ChatInput
+          onSendMessage={onSendMessage}
+          chatNo={chatNo}
+          uid={uid}
+          name={name}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
