@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import ChatMessage from './ChatMessage';
-import ChatInput from './ChatInput';
-import { format, isSameDay, parseISO } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import ChatMessage from "./ChatMessage";
+import ChatInput from "./ChatInput";
+import { format, isSameDay, parseISO } from "date-fns";
+import { useParams } from "react-router-dom";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
   console.log("111", messages);
@@ -61,9 +61,15 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
         <div className="messages-wrapper">
           <div className="messages">{renderMessages()}</div>
         </div>
-        </div>
-        </div>
-    );
+        <ChatInput
+          onSendMessage={onSendMessage}
+          chatNo={chatNo}
+          uid={uid}
+          name={name}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
