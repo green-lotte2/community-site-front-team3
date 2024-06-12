@@ -52,30 +52,33 @@ const Write = ({ setCate, setTitle, editorRef }) => {
       <Box
         component="form"
         style={{
+          marginTop: "20px",
           display: "flex",
-          width: "150px",
+          alignItems: "center",
         }}
         noValidate
         autoComplete="on"
       >
-        <TextField
-          onChange={handlerContent}
-          label="제목"
-          variant="outlined"
-          fullWidth
-        />
-      </Box>
-      <Box style={{ width: "150px" }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">문의 내용</InputLabel>
-          <Select label="문의 내용" onChange={handlerCateChange}>
-            {loadCate.map((name, index) => (
-              <MenuItem key={index} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Box style={{ marginRight: "10px", width: "150px" }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">문의 내용</InputLabel>
+            <Select label="문의 내용" onChange={handlerCateChange}>
+              {loadCate.map((name, index) => (
+                <MenuItem key={index} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <Box style={{ width: "300px" }}>
+          <TextField
+            onChange={handlerContent}
+            label="제목"
+            variant="outlined"
+            fullWidth
+          />
+        </Box>
       </Box>
       <div id="editor" ref={editorRef}></div>
     </div>

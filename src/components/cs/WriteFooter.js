@@ -76,9 +76,12 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
     let match;
 
     const matchSrc = /src="([^"]*)"/g;
-
     const formData = new FormData();
     var contents;
+
+    const promise = [];
+
+    //**이미지가 있을 때 */
     while ((match = matchSrc.exec(content)) !== null) {
       console.log("이미지 src : " + match[1]);
 
@@ -120,10 +123,36 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
         .post(`${url}/cs/insert`, jsonData)
         .then((response) => {
           console.log(response.data);
-          //href.
+          alert("글이 작성되었습니다.");
+          window.location.href = "/main";
         })
         .catch((err) => {
           console.log(err);
+          alert("글이 작성되지 않았습니다. 잠시 후 시도해주세요");
+        });
+    }
+
+    //**이미지가 없을 때 */
+    if (!(match = matchSrc.exec(content))) {
+      const jsonData = {
+        uid: uid,
+        cate: cate,
+        title: title,
+        content: content,
+      };
+
+      console.log(jsonData);
+
+      axios
+        .post(`${url}/cs/insert`, jsonData)
+        .then((response) => {
+          console.log(response.data);
+          alert("글이 작성되었습니다.");
+          window.location.href = "/main";
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("글이 작성되지 않았습니다. 잠시 후 시도해주세요");
         });
     }
 
