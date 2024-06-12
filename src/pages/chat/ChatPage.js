@@ -101,7 +101,6 @@ const ChatPage = () => {
     try {
       console.log("Fetching messages for chatNo:", room.chatNo);
       const response = await axios.get(`${url}/chatroom/${room.chatNo}`);
-      console.log("Fetched messages:", response.data);
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat room messages", error);
@@ -116,7 +115,9 @@ const ChatPage = () => {
         name: name,
         message: text,
         chatNo: selectedRoom.chatNo,
+        cDate: new Date().toISOString(),
       };
+      console.log(chatMessage);
       stompClient.publish({
         destination: `/app/chat.sendMessage/${selectedRoom.chatNo}`,
         body: JSON.stringify(chatMessage),
