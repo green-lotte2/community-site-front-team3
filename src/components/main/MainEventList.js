@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const EventList = ({ events }) => {
     const scrollContainerRef = useRef(null);
@@ -42,7 +43,10 @@ const EventList = ({ events }) => {
 
     return (
         <div>
-            <h3>예정된 이벤트</h3>
+            <h4 className="main-h3-title">
+                <CalendarMonthIcon />
+                예정된 이벤트
+            </h4>
             <div className="scroll-wrapper">
                 <IconButton
                     className={`scroll-button scroll-button-left ${!showScrollButtons ? 'scroll-button-hidden' : ''}`}
