@@ -28,23 +28,19 @@ const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
     }
   };
 
-  const profileImage = profile
-    ? `${url}/prodImg/${profile}`
-    : `${url}/prodImg/BBang2.png`;
-
-  // 이미지 파일 확장자 확인 함수
-  const isImageFile = (filename) => {
-    return filename.match(/\.(jpeg|jpg|gif|png|bmp)$/i);
-  };
-
   return (
     <div className={`chat-message ${position}`}>
       <div className="chat-user">
         <span className="chat-username">{name}</span>
-        <Avatar sx={{ bgcolor: deepOrange[400] }} src={profileImage} />
+        <Avatar
+          sx={{ bgcolor: deepOrange[400] }}
+          src={
+            profile ? `${url}/prodImg/${profile}` : `${url}/prodImg/BBang2.png`
+          }
+        />
       </div>
       <div className="chat-text">
-        {sName && isImageFile(oName) ? (
+        {sName ? (
           <Link to="#" onClick={(e) => handlerdownload(e, sName, oName)}>
             {oName}
           </Link>
