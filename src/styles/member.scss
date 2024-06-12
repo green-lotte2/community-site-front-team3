@@ -160,12 +160,11 @@
     }
 
     .login-form input {
+        flex: 1 1;
         padding: 10px;
-        margin-bottom: 15px;
-        border: none; /* 기존에 적용된 테두리 제거 */
-        border-bottom: 1px solid #ccc; /* 밑에 줄 그어지는 스타일 적용 */
-        box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
-        width: calc(100% - 22px);
+        border: none;
+        border-bottom: 1px solid #ccc;
+        box-sizing: border-box;
     }
 
     .additional-options {
@@ -739,7 +738,7 @@
         align-items: center;
         height: 100vh;
     }
-    
+
     .find-id-update-container {
         display: flex;
         align-items: center;
@@ -750,22 +749,22 @@
         width: 420px; /* Adjust the width */
         height: 40%;
     }
-    
+
     .find-id-update-form {
         display: flex;
         flex-direction: column;
     }
-    
+
     .input-container {
         display: flex;
         align-items: center;
         margin-bottom: 15px; /* Add some space between form elements */
     }
-    
+
     .input-container label {
         margin-right: 10px; /* Add some space between label and input */
     }
-    
+
     .find-id-update-form input,
     .find-id-update-form button {
         padding: 10px;
@@ -773,12 +772,12 @@
         border: 1px solid #ccc; /* Add border to input elements */
         border-radius: 4px; /* Rounded corners */
     }
-    
+
     .find-id-update-form label {
         margin-bottom: 5px;
         font-weight: bold;
     }
-    
+
     .find-id-update-form button {
         background-color: #4caf50;
         color: white;
@@ -787,27 +786,27 @@
         border: none;
         border-radius: 4px; /* Rounded corners */
     }
-    
+
     .find-id-update-form button:hover {
         background-color: #45a049;
     }
-    
+
     #verification-code-section {
         display: none;
     }
     #verification-code-section.show {
         display: block;
         margin-top: 30px;
-      }
-    
+    }
+
     #verification-code-section label {
         margin-top: 10px;
     }
-    
+
     #verification-code-section input {
         margin-bottom: 10px;
     }
-    
+
     #verification-code-section button {
         margin-top: 10px;
     }
@@ -834,9 +833,9 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-      }
-      
-      .find-pw-update-container {
+    }
+
+    .find-pw-update-container {
         display: flex;
         align-items: center;
         background: #f9f9f9;
@@ -845,94 +844,94 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 530px;
         height: 60%;
-      }
-      
-      .find-pw-update-form {
+    }
+
+    .find-pw-update-form {
         display: flex;
         flex-direction: column;
-      }
-      
-      .input-container {
+    }
+
+    .input-container {
         display: flex;
         align-items: center;
         margin-bottom: 15px;
-      }
-      
-      .input-container label {
+    }
+
+    .input-container label {
         margin-right: 10px;
-      }
-      
-      .find-pw-update-form input,
-      .find-pw-update-form button {
+    }
+
+    .find-pw-update-form input,
+    .find-pw-update-form button {
         padding: 10px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 4px;
-      }
-      
-      .find-pw-update-form label {
+    }
+
+    .find-pw-update-form label {
         margin-bottom: 5px;
         font-weight: bold;
-      }
-      
-      .find-pw-update-form button {
+    }
+
+    .find-pw-update-form button {
         background-color: #4caf50;
         color: white;
         cursor: pointer;
         height: 40px;
         border: none;
         border-radius: 4px;
-      }
-      
-      .find-pw-update-form button:hover {
+    }
+
+    .find-pw-update-form button:hover {
         background-color: #45a049;
-      }
-      
-      #verification-code-section {
+    }
+
+    #verification-code-section {
         display: none;
-      }
-      
-      #verification-code-section.show {
+    }
+
+    #verification-code-section.show {
         display: block;
         margin-top: 30px;
-      }
-      
-      #verification-code-section label {
+    }
+
+    #verification-code-section label {
         margin-top: 10px;
-      }
-      
-      #verification-code-section input {
+    }
+
+    #verification-code-section input {
         margin-bottom: 10px;
-      }
-      
-      #verification-code-section button {
+    }
+
+    #verification-code-section button {
         margin-top: 10px;
-      }
-      
-      input#name {
+    }
+
+    input#name {
         margin-left: 23px;
-      }
-      
-      input#email {
+    }
+
+    input#email {
         margin-left: 8px;
-      }
-      
-      h3.find-pw-title {
+    }
+
+    h3.find-pw-title {
         margin-bottom: 30px;
-      }
-      
-      button#request-code-button {
+    }
+
+    button#request-code-button {
         margin-left: 10px;
-      }
-      
-      button#confirm-code-button {
+    }
+
+    button#confirm-code-button {
         margin-left: 10px;
-      }
-      
-      p {
+    }
+
+    p {
         color: #e0913b;
-      }
-      input#userId {
+    }
+    input#userId {
         margin-left: 8px;
     }
     input#verification-code {
@@ -952,5 +951,116 @@
     }
     button#reset-password-button {
         margin-left: 10px;
+    }
+    .link-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    }
+
+    .link-container a {
+        color: #01060cf3;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    .link-container a:hover {
+        text-decoration: underline;
+    }
+
+    .pricing-container {
+        text-align: center;
+        padding: 50px;
+    }
+
+    .pricing-title {
+        font-size: 36px;
+        margin-bottom: 50px;
+    }
+
+    .pricing-cards {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    h2.free-card-title {
+        color: #666;
+    }
+    h2.mvp-card-title {
+        color: #e0913b;
+    }
+
+    .free-price {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #666;
+    }
+    .mvp-price {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #e0913b;
+    }
+
+    .features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .features li {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .free-subscribe-button {
+        background-color: #666;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .mvp-subscribe-button {
+        background-color: #e0913b;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .subscribe-button:hover {
+        background-color: #e0913b;
+    }
+    .free-p {
+        color: #000;
+        font-weight: bold;
+    }
+    .mvp-p {
+        color: #000;
+        font-weight: bold;
     }
 }
