@@ -5,7 +5,7 @@ import { globalPath } from 'globalPaths';
 import Dropzone from 'react-dropzone';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { login, updateUserProfile } from 'slices/authSlice';
+import { updateUserProfile } from 'slices/authSlice';
 
 const ProfileUpdate = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -113,7 +113,7 @@ const ProfileUpdate = () => {
     const passCheckBox = () => {
         setCheckBox(!checkBox);
         console.log(checkBox);
-    }
+    };
 
     return (
         <div className="container">
@@ -155,14 +155,14 @@ const ProfileUpdate = () => {
                             <input className="passCheck" type="checkbox" checked={checkBox} onChange={passCheckBox} />
                         </label>
                         {checkBox && (
-                        <input
-                            type="password"
-                            name="pass"
-                            placeholder="새로운 비밀번호를 입력하세요."
-                            onChange={handleChange}
-                            value={user.pass}
-                            required
-                        />
+                            <input
+                                type="password"
+                                name="pass"
+                                placeholder="새로운 비밀번호를 입력하세요."
+                                onChange={handleChange}
+                                value={user.pass}
+                                required
+                            />
                         )}
                         <label htmlFor="email">이메일 관리</label>
                         <input
