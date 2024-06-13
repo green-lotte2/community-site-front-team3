@@ -1,23 +1,28 @@
-import React, { useEffect } from "react";
-import ChatMessage from "./ChatMessage";
+import React, { useEffect, useState } from "react";
+import ChatMessage from "./ChatMessage"; // 이름 확인
 import ChatInput from "./ChatInput";
 import { format, isSameDay, parseISO } from "date-fns";
 
 const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
-  // 서버 응답 데이터 확인
+  const [chatMessages, setChatMessages] = useState(messages);
+
   useEffect(() => {
-    messages.forEach((message, index) => {});
+    setChatMessages(messages);
   }, [messages]);
+
+  const updateMessages = (newMessage) => {
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
 
   const renderMessages = () => {
     let lastDate = null;
 
-    return messages.map((message, index) => {
+    return chatMessages.map((message, index) => {
       let currentDate;
 
       try {
         currentDate = parseISO(message.cDate);
-        console.log("Parsed Date:", currentDate); // 파싱된 날짜 확인
+        console.log("Parsed Date:", currentDate);
       } catch (error) {
         currentDate = new Date();
       }
@@ -38,8 +43,8 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
             text={message.message}
             name={message.name}
             date={format(currentDate, "HH:mm")}
-            sName={message.sname}
-            oName={message.oname}
+            sName={message.sName} // Note the case here
+            oName={message.oName} // Note the case here
             profile={message.profile}
           />
         </React.Fragment>
@@ -50,7 +55,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
-        <h2>{roomTitle}</h2> {/* 채팅방 제목 표시 */}
+        <h2>{roomTitle}</h2>
         <div className="messages-wrapper">
           <div className="messages">{renderMessages()}</div>
         </div>
@@ -59,6 +64,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
           chatNo={chatNo}
           uid={uid}
           name={name}
+          updateMessages={updateMessages} // 추가
         />
       </div>
     </div>

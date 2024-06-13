@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InviteFriends from "./InviteFriends";
 import axios from "axios";
 
-const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
+const ChatInput = ({ onSendMessage, chatNo, uid, name, updateMessages }) => {
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState(null);
 
@@ -30,6 +30,7 @@ const ChatInput = ({ onSendMessage, chatNo, uid, name }) => {
         });
         console.log("파일 업로드 성공:", response.data);
         setFile(null);
+        updateMessages(response.data); // 추가: 업로드된 파일 정보를 부모 컴포넌트로 전달
       } catch (error) {
         console.error(
           "파일 업로드 실패:",

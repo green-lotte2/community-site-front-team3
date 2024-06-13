@@ -55,4 +55,4 @@ const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
   );
 };
 
-export default ChatMessage;
+export default ChatMessage; // default export
