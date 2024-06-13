@@ -121,7 +121,7 @@ const Aside = ({ setSelectedRoom }) => {
                             type="text"
                             value={newChatRoomTitle}
                             onChange={(e) => setNewChatRoomTitle(e.target.value)}
-                            placeholder="New Chat Room Title"
+                            placeholder="채팅방 생성하기"
                         />
                         <button onClick={handleAddChatRoom} className="btnChatPlus">
                             {' '}
