@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
     .aHeader {
         background-color: $basicColor;
         color: #fff;
@@ -27,12 +28,15 @@
         .aLogo h1 {
             color: $thirdColor;
             margin: 0;
-            margin-left: -290px;
+            margin-left: -215px;
             font-size: 24px;
         }
         .aNav-search {
             display: flex;
             align-items: center;
+        }
+        .profile-picture {
+            width: 22px;
         }
         nav ul {
             list-style: none;
@@ -62,6 +66,10 @@
             border-radius: 3px;
             margin-left: 20px;
         }
+        .admin-welcome-user {
+            color: $thirdColor;
+            font-size: 20px;
+        }
     }
     .content-wrapper {
         display: flex;
@@ -73,7 +81,7 @@
         background-color: $asideColor;
         padding: 20px;
         flex-shrink: 0;
-        position: absolute; /* 화면 좌측에 고정하지 않고 content-wrapper 내부에 고정 */
+        position: fixed; /* 화면 좌측에 고정하지 않고 content-wrapper 내부에 고정 */
         top: 73.9px; /* 헤더 아래에 위치 */
         bottom: 0; /* 푸터 위에 위치 */
         left: 0; /* 화면의 좌측에 고정 */
@@ -138,10 +146,6 @@
                 }
             }
         }
-
-
-
-        
     }
 
     main {

@@ -1,12 +1,13 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
-import { deepOrange } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { globalPath } from "globalPaths";
 import axios from "axios";
 
 const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
   const url = globalPath.path;
+
+  console.log("Profile in ChatMessage:", profile); // 프로필 정보 로그 추가
 
   const handlerdownload = async (e, sName, oName) => {
     e.preventDefault();
@@ -28,23 +29,21 @@ const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
     }
   };
 
-  const profileImage = profile
-    ? `${url}/prodImg/${profile}`
-    : `${url}/prodImg/BBang2.png`;
-
-  // 이미지 파일 확장자 확인 함수
-  const isImageFile = (filename) => {
-    return filename.match(/\.(jpeg|jpg|gif|png|bmp)$/i);
-  };
-
   return (
     <div className={`chat-message ${position}`}>
       <div className="chat-user">
         <span className="chat-username">{name}</span>
-        <Avatar sx={{ bgcolor: deepOrange[400] }} src={profileImage} />
+        <Avatar
+          src={
+            profile && profile !== "default"
+              ? `${url}/prodImg/${profile}`
+              : `${url}/prodImg/BBang2.png`
+          }
+          alt={`${name}'s profile`}
+        />
       </div>
       <div className="chat-text">
-        {sName && isImageFile(oName) ? (
+        {sName ? (
           <Link to="#" onClick={(e) => handlerdownload(e, sName, oName)}>
             {oName}
           </Link>
