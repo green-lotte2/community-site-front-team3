@@ -19,10 +19,14 @@ const Header = () => {
     });
 
     const logoutHandler = async () => {
+        const confrimed = window.confirm('로그아웃을 하시겠습니까?');
         // 리덕스 로그아웃 액션 실행
-        await dispatch(logout());
-        alert('로그아웃 되었습니다.');
-        navigate(`/`);
+        if (confrimed) {
+            await dispatch(logout());
+            localStorage.removeItem('token');
+            alert('로그아웃 되었습니다.');
+            navigate(`/`);
+        }
     };
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
@@ -130,11 +134,9 @@ const Header = () => {
                                 <li>
                                     <Link to="/cs">고객센터</Link>
                                 </li>
-                                {user.grade === 'FREE' && (
-                                    <li>
-                                        <Link to="/member/subscribe">요금제가입</Link>
-                                    </li>
-                                )}
+                                <li>
+                                    <Link to="/member/subscribe">요금제가입</Link>
+                                </li>
                             </ul>
                         </nav>
                     </div>

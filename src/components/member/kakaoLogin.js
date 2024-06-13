@@ -2,9 +2,7 @@ import axios from 'axios';
 import { login } from 'slices/authSlice';
 
 const kakaoLogin = (code) => {
-    return function (dispatch, getState) {
-        alert('카카오 로그인 시작!');
-
+    return function (dispatch) {
         axios({
             method: 'GET',
             url: `http://localhost:8080/oauth/callback/kakao?code=${code}`,
@@ -18,7 +16,7 @@ const kakaoLogin = (code) => {
                 console.log('accessToken:', ACCESS_TOKEN);
                 localStorage.setItem('token', ACCESS_TOKEN);
                 console.log('local스토리지 체크111', localStorage.getItem('token'));
-                alert('로그인성공?');
+                alert('로그인 성공');
                 dispatch(login(res.data));
                 // 토큰 받고 로그인 성공 시 이동
                 window.location.replace('/main');
