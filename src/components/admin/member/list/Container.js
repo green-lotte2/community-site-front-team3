@@ -14,22 +14,23 @@ const Container = () => {
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 저장
 
     // 회원 데이터 가져오기
-    const fetchData = async () => {
+    const fetchData = async (page, query) => {
         try {
             setLoading(true);
             const response = await axios.get(`${url}/admin/member/list`, {
-                params: { page: currentPage, size: 10, search: searchQuery },
+                params: { page, size: 10, search: query },
             });
             const newMembers = response.data;
 
             setMemberList((prevList) => {
-                if (currentPage === 1) {
+                if (page === 1) {
                     return newMembers;
                 } else {
                     return [...prevList, ...newMembers];
                 }
             });
             if (newMembers.length < 10) {
+                // 10명 이하면 그만 불러오기
                 setHasMore(false);
             } else {
                 setHasMore(true);
@@ -42,8 +43,8 @@ const Container = () => {
     };
 
     useEffect(() => {
-        fetchData();
-    }, [currentPage, url, searchQuery]);
+        fetchData(currentPage, searchQuery);
+    }, [currentPage, searchQuery]);
 
     const searchChange = (e) => {
         setSearchUser(e.target.value);
@@ -57,6 +58,12 @@ const Container = () => {
         setMemberList([]); // 새로운 검색 시 이전 검색 결과를 초기화
     };
 
+    const fetchMoreData = () => {
+        if (!loading && hasMore) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
     return (
         <div className="container">
             <h2>회원 목록</h2>
@@ -68,7 +75,7 @@ const Container = () => {
             </div>
             <InfiniteScroll
                 dataLength={memberList.length}
-                next={() => setCurrentPage((prevPage) => prevPage + 1)}
+                next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<h4>Loading...</h4>}
                 endMessage={<p>End of data</p>}
