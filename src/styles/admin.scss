@@ -58,6 +58,47 @@
                 }
             }
         }
+        .jnd-dropdown-menu gnb-profile-dropdown right {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .jnd-dropdown-menu gnb-profile-dropdown right::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #ffffff transparent;
+        }
+
+        .jnd-option-title {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e1e4e8;
+            font-weight: bold;
+        }
+
+        .jnd-option-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .jnd-option-item {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .jnd-option-item:hover {
+            background-color: #f1f3f5;
+        }
         .search input {
             background-color: #f9f9f9;
             margin-right: 40px;

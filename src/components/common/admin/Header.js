@@ -24,7 +24,7 @@ const Header = () => {
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
-    /** 계정 설정 - 사용자 정보 넘겨줌 */
+
     const getUserInfo = async () => {
         const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
         navigate(`/member/passcheck?uid=${authSlice.uid}`, { state: { user: response.data } });
@@ -40,7 +40,6 @@ const Header = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-
                 setUser({ uid: response.data.uid, profile: response.data.profile, grade: response.data.grade });
             } catch (error) {
                 console.error('사용자 정보 받기 에러:', error);
@@ -50,6 +49,7 @@ const Header = () => {
             fetchUserData();
         }
     }, [url]);
+
     return (
         <>
             <header className="aHeader">
