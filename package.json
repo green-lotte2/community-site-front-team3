@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blocknote/core": "^0.14.0",
+    "@blocknote/mantine": "^0.14.0",
+    "@blocknote/react": "^0.14.0",
     "@editorjs/checklist": "^1.6.0",
     "@editorjs/code": "^2.9.0",
     "@editorjs/delimiter": "^1.4.0",
@@ -37,6 +40,7 @@
     "@toast-ui/editor-plugin-color-syntax": "^3.1.0",
     "@toast-ui/react-editor": "^3.2.3",
     "axios": "^1.7.2",
+    "connected-react-router": "^6.9.3",
     "date-fns": "^3.6.0",
     "editorjs-button": "^3.0.3",
     "editorjs-paragraph-with-alignment": "^3.0.0",
@@ -67,7 +71,8 @@
     "tui-time-picker": "^2.1.6",
     "use-local-storage": "^3.0.0",
     "uuid": "^10.0.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "y-webrtc": "^10.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
