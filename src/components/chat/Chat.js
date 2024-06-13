@@ -3,11 +3,20 @@ import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { format, isSameDay, parseISO } from "date-fns";
 
-const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
-  // 서버 응답 데이터 확인
+const Chat = ({
+  messages,
+  onSendMessage,
+  uid,
+  roomTitle,
+  chatNo,
+  name,
+  profile,
+}) => {
   useEffect(() => {
-    messages.forEach((message, index) => {});
+    console.log("Messages updated:", messages);
   }, [messages]);
+
+  console.log("profile in Chat component: ", profile);
 
   const renderMessages = () => {
     let lastDate = null;
@@ -17,7 +26,6 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
 
       try {
         currentDate = parseISO(message.cDate);
-        console.log("Parsed Date:", currentDate); // 파싱된 날짜 확인
       } catch (error) {
         currentDate = new Date();
       }
@@ -50,7 +58,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
   return (
     <div className="chat-layout-container">
       <div className="chat-container">
-        <h2>{roomTitle}</h2> {/* 채팅방 제목 표시 */}
+        <h2>{roomTitle}</h2>
         <div className="messages-wrapper">
           <div className="messages">{renderMessages()}</div>
         </div>
@@ -59,6 +67,7 @@ const Chat = ({ messages, onSendMessage, uid, roomTitle, chatNo, name }) => {
           chatNo={chatNo}
           uid={uid}
           name={name}
+          profile={profile}
         />
       </div>
     </div>
