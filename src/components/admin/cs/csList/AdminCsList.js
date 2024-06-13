@@ -1,64 +1,109 @@
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import ListComponent from "./ListComponent";
+import { globalPath } from "globalPaths";
 
-const columns = [
-  { field: "id", headerName: "No", width: 70 },
-  { field: "title", headerName: "제목", width: 200 },
-  { field: "uid", headerName: "작성자", width: 200 },
-  { field: "content", headerName: "내용", width: 400 },
-  { field: "cate", headerName: "카테고리", width: 90 },
-  { field: "rdate", headerName: "작성날짜", width: 90 },
-];
+const url = globalPath.path;
 
-const rows = [
-  {
-    id: 1,
-    uid: "김땡땡",
-    title: "Snow",
-    content: "Jon",
-    cate: 35,
-    rdate: "24.06.12",
-  },
-  {
-    id: 2,
-    uid: "김땡땡",
-    title: "Lannister",
-    content: "Cersei",
-    cate: 42,
-    rdate: "24.06.12",
-  },
-  {
-    id: 3,
-    uid: "김땡땡",
-    title: "Lannister",
-    content: "Jaime",
-    cate: 45,
-    rdate: "24.06.12",
-  },
-  {
-    id: 4,
-    uid: "김땡땡",
-    title: "Stark",
-    content: "Arya",
-    cate: 16,
-    rdate: "24.06.12",
-  },
-];
+export default function AdminCsList() {
+  const [triger, setTriger] = useState(false);
+  const [csContent, setCsContent] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
 
-export default function DataTable() {
+  useEffect(() => {
+    axios
+      .get(`${url}/cs/selects`, { selectedRows })
+      .then((response) => {
+        console.log(response.data);
+        setCsContent(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [triger]);
+
+  useEffect(() => {
+    console.log(triger);
+  }, [triger]);
+
+  useEffect(() => {
+    console.log(csContent);
+  }, [csContent]);
+
+  const writeHandler = () => {
+    // 글 작성으로 컴포넌트 or 화면 변경
+  };
+
+  const modifyHandler = () => {
+    if ((selectedRows.length = 0)) {
+      // 글 수정으로 컴포넌트 or 화면 변경
+    } else {
+      alert("수정할 글을 선택해주세요.");
+    }
+  };
+
+  const deleteHandler = () => {
+    if (selectedRows.length > 0) {
+      axios
+        .get(`${url}/cs/delete?csNo=${selectedRows}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      alert("삭제 되었습니다.");
+      setTriger(!triger);
+    } else {
+      alert("삭제할 글을 선택해주세요.");
+
+      return;
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectedRows);
+  }, [selectedRows]);
+
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
+    <>
+      <ListComponent
+        csContent={csContent}
+        setSelectedRows={setSelectedRows}
+        triger={triger}
+        setTriger={setTriger}
       />
-    </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "15px",
+        }}
+      >
+        <Button
+          style={{ marginLeft: "auto", color: "#000000" }}
+          variant="text"
+          onClick={modifyHandler}
+        >
+          작성하기
+        </Button>
+        <Button
+          style={{ marginLeft: "10px", color: "#000000" }}
+          variant="text"
+          onClick={modifyHandler}
+        >
+          수정하기
+        </Button>
+        <Button
+          style={{ marginLeft: "10px", color: "#000000" }}
+          variant="text"
+          onClick={deleteHandler}
+        >
+          삭제하기
+        </Button>
+      </div>
+    </>
   );
 }
