@@ -13,6 +13,11 @@ import { globalPath } from 'globalPaths';
 const path = globalPath.path;
 
 function App() {
+    useEffect(() => {
+        return () => {
+            console.log('나가요');
+        };
+    }, []);
     const [data, setData] = useState(
         localStorage.getItem('orangenode') ? JSON.parse(localStorage.getItem('orangenode')) : []
     );
@@ -102,23 +107,31 @@ function App() {
         tempBoards[index].card[cardIndex] = card;
         console.log(tempBoards);
         setData(tempBoards);
-        alert(321321)
+        alert(321321);
     };
 
-    /** localStorage 저장 후 서버에 넘기기 
-    useEffect(() => {
-        localStorage.setItem('orangenode', JSON.stringify(data));
-        console.log('data ## : ', data);
+    // //localStorage 저장 후 서버에 넘기기
+    // useEffect(() => {
+    //     localStorage.setItem('orangenode', JSON.stringify(data));
+    //     console.log('data ## : ', data);
+    //     const response = axios.post(`${path}/addissue`, data, {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
+    // }, [data]);
 
-        const response = axios.post(`${path}/addissue`, data, {
+    const dddd = () => {
+        console.log('data ## : ', data);
+        const res = axios.post(`${path}/dddd`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-    }, [data]);*/
-
+    };
     return (
         <DefaultLayout>
+            <button onClick={dddd}>dddddd</button>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="project-container" data-theme={theme}>
                     <Navbar switchTheme={switchTheme} />
