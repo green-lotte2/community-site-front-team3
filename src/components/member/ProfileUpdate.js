@@ -88,6 +88,7 @@ const ProfileUpdate = () => {
     };
 
     const submitHandler = (e) => {
+        const confrimed = window.confirm('회원정보 수정을 하시겠습니까?');
         e.preventDefault();
         const formData = new FormData();
 
@@ -112,10 +113,12 @@ const ProfileUpdate = () => {
             })
             .then((response) => {
                 // 사용자 정보 업데이트
-                dispatch(updateUserProfile(response.data));
+                if (confrimed) {
+                    dispatch(updateUserProfile(response.data));
 
-                alert('수정 완료!');
-                navigate('/main');
+                    alert('수정 완료!');
+                    navigate('/main');
+                }
             })
             .catch((err) => {
                 console.log(err);
