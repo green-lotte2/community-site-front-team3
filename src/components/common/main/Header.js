@@ -134,11 +134,9 @@ const Header = () => {
                                 <li>
                                     <Link to="/cs">고객센터</Link>
                                 </li>
-                                {user.grade === 'FREE' && (
-                                    <li>
-                                        <Link to="/member/subscribe">요금제가입</Link>
-                                    </li>
-                                )}
+                                <li>
+                                    <Link to="/member/subscribe">요금제가입</Link>
+                                </li>
                             </ul>
                         </nav>
                     </div>
