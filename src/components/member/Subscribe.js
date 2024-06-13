@@ -1,20 +1,45 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { UPDATE_GRADE_PATH } from 'requestPath';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { globalPath } from 'globalPaths';
+
+const url = globalPath.path;
 
 const Subscribe = () => {
     const authSlice = useSelector((state) => state.authSlice);
     const navigate = useNavigate();
+    const [userGrade, setUserGrade] = useState();
     const uid = authSlice.uid;
+    console.log('11111:', authSlice);
+
+    useEffect(() => {
+        const fetchUserGrade = async () => {
+            try {
+                const response = await axios.get(`${url}/user/grade/${uid}`);
+                console.log('response check111:', response.data);
+                setUserGrade(response.data);
+            } catch (error) {
+                console.error('Error fetching user grade', error);
+            }
+        };
+        fetchUserGrade();
+    }, []);
 
     const handleMvpSubscribe = async () => {
-        const confirmed = window.confirm('MVP 요금제 가입을 하시겠습니까?');
+        let confirmMessage = '';
+        if (userGrade === 'FREE') {
+            confirmMessage = 'MVP 요금제 가입을 하시겠습니까?';
+        } else {
+            confirmMessage = 'MVP 요금제 탈퇴를 하시겠습니까?';
+        }
+
+        const confirmed = window.confirm(confirmMessage);
         if (confirmed) {
             const response = await axios.patch(UPDATE_GRADE_PATH, { uid, grade: 'MVP' });
             if (response.data === 1) {
-                alert('MVP 회원이 되신걸 환영합니다');
+                alert('요금제 변경에 성공하셨습니다');
                 navigate('/main');
             } else {
                 alert('가입에 실패하셨습니다');
@@ -29,6 +54,7 @@ const Subscribe = () => {
     return (
         <div class="pricing-container">
             <h1 class="pricing-title">요금 안내</h1>
+            <h3 class="pricing-grade">현재 당신의 등급은 {userGrade} 입니다</h3>
             <div class="pricing-cards">
                 <div class="card">
                     <h2 class="free-card-title">FREE</h2>
@@ -51,7 +77,7 @@ const Subscribe = () => {
                     <h2 class="mvp-card-title">MVP</h2>
                     <p class="mvp-price">멤버당 6000원 /월</p>
                     <button class="mvp-subscribe-button" onClick={handleMvpSubscribe}>
-                        가입하기
+                        {userGrade === 'MVP' ? '탈퇴하기' : '가입하기'}
                     </button>
                     <div className="mvp-regi">
                         <p className="mvp-p">전문적인 협업을 위한 팀에 추천합니다</p>
