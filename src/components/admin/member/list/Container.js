@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MemberList from './MemberList';
 import { globalPath } from 'globalPaths';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Container = () => {
     const url = globalPath.path;
@@ -72,15 +73,28 @@ const Container = () => {
 
     return (
         <div className="container">
-            <h2>회원 목록</h2>
-            <p>회원을 조회하고 관리합니다.</p>
-            <div className="table-actions">
-                <button>전체선택</button>
-                <input type="text" placeholder="검색할 단어를 입력하세요" value={searchUser} onChange={searchChange} />
-                <button onClick={search}>검색하기</button>
-            </div>
-            <MemberList memberList={memberList} />
-            {loading && <p>Loading...</p>}
+            <InfiniteScroll
+                dataLength={100}
+                //next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={<p>End of data</p>}
+            >
+                <h2>회원 목록</h2>
+                <p>회원을 조회하고 관리합니다.</p>
+                <div className="table-actions">
+                    <button>전체선택</button>
+                    <input
+                        type="text"
+                        placeholder="검색할 단어를 입력하세요"
+                        value={searchUser}
+                        onChange={searchChange}
+                    />
+                    <button onClick={search}>검색하기</button>
+                </div>
+                <MemberList memberList={memberList} />
+                {loading && <p>Loading...</p>}
+            </InfiniteScroll>
         </div>
     );
 };
