@@ -14,50 +14,36 @@ const Container = () => {
     const [searchQuery, setSearchQuery] = useState(''); // 검색어 저장
 
     // 회원 데이터 가져오기
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await axios.get(`${url}/admin/member/list`, {
-                    params: { page: currentPage, size: 10, search: searchQuery },
-                });
-                const newMembers = response.data;
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${url}/admin/member/list`, {
+                params: { page: currentPage, size: 10, search: searchQuery },
+            });
+            const newMembers = response.data;
 
-                setMemberList((prevList) => {
-                    if (currentPage === 1) {
-                        return newMembers;
-                    } else {
-                        return [...prevList, ...newMembers];
-                    }
-                });
-                if (newMembers.length < 10) {
-                    setHasMore(false);
+            setMemberList((prevList) => {
+                if (currentPage === 1) {
+                    return newMembers;
                 } else {
-                    setHasMore(true);
+                    return [...prevList, ...newMembers];
                 }
-                setLoading(false);
-            } catch (error) {
-                console.error('유저를 불러오는데 실패했습니다.', error);
-                setLoading(false);
+            });
+            if (newMembers.length < 10) {
+                setHasMore(false);
+            } else {
+                setHasMore(true);
             }
-        };
+            setLoading(false);
+        } catch (error) {
+            console.error('유저를 불러오는데 실패했습니다.', error);
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchData();
     }, [currentPage, url, searchQuery]);
-
-    // 스크롤 하단에 닿을 시 데이터 로드
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-                if (!loading && hasMore) {
-                    setCurrentPage((prevPage) => prevPage + 1);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [loading, hasMore]);
 
     const searchChange = (e) => {
         setSearchUser(e.target.value);
@@ -73,28 +59,23 @@ const Container = () => {
 
     return (
         <div className="container">
+            <h2>회원 목록</h2>
+            <p>회원을 조회하고 관리합니다.</p>
+            <div className="table-actions">
+                <button>전체선택</button>
+                <input type="text" placeholder="검색할 단어를 입력하세요" value={searchUser} onChange={searchChange} />
+                <button onClick={search}>검색하기</button>
+            </div>
             <InfiniteScroll
-                dataLength={100}
-                //next={fetchMoreData}
+                dataLength={memberList.length}
+                next={() => setCurrentPage((prevPage) => prevPage + 1)}
                 hasMore={hasMore}
                 loader={<h4>Loading...</h4>}
                 endMessage={<p>End of data</p>}
             >
-                <h2>회원 목록</h2>
-                <p>회원을 조회하고 관리합니다.</p>
-                <div className="table-actions">
-                    <button>전체선택</button>
-                    <input
-                        type="text"
-                        placeholder="검색할 단어를 입력하세요"
-                        value={searchUser}
-                        onChange={searchChange}
-                    />
-                    <button onClick={search}>검색하기</button>
-                </div>
                 <MemberList memberList={memberList} />
-                {loading && <p>Loading...</p>}
             </InfiniteScroll>
+            {loading && <p>Loading...</p>}
         </div>
     );
 };

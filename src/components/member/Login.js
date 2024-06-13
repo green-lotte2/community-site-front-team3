@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 const Login = () => {
     const REST_API_KEY = '8412b8200aef151b8d5e19641b967e1b';
-    const REDIRECT_URI = 'http://localhost:3000/main';
+    const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const kakaoLogin = () => {
