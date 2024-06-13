@@ -1,5 +1,8 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import axios from "axios";
+import { globalPath } from "globalPaths";
 
 const columns = [
   { field: "id", headerName: "No", width: 70 },
@@ -10,44 +13,34 @@ const columns = [
   { field: "rdate", headerName: "작성날짜", width: 90 },
 ];
 
-const rows = [
-  {
-    id: 1,
-    uid: "김땡땡",
-    title: "Snow",
-    content: "Jon",
-    cate: 35,
-    rdate: "24.06.12",
-  },
-  {
-    id: 2,
-    uid: "김땡땡",
-    title: "Lannister",
-    content: "Cersei",
-    cate: 42,
-    rdate: "24.06.12",
-  },
-  {
-    id: 3,
-    uid: "김땡땡",
-    title: "Lannister",
-    content: "Jaime",
-    cate: 45,
-    rdate: "24.06.12",
-  },
-  {
-    id: 4,
-    uid: "김땡땡",
-    title: "Stark",
-    content: "Arya",
-    cate: 16,
-    rdate: "24.06.12",
-  },
-];
+const url = globalPath.path;
 
 export default function DataTable() {
+  const [csContent, setCsContent] = useState([]);
+
+  const rows = csContent.map((contents, index) => ({
+    id: index + 1,
+    uid: contents.uid,
+    title: contents.title,
+    content: contents.content,
+    cate: contents.cateName,
+    rdate: contents.rdate,
+  }));
+
+  useEffect(() => {
+    axios
+      .get(`${url}/cs/selects`)
+      .then((response) => {
+        console.log(response.data);
+        setCsContent(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: "500px", width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
