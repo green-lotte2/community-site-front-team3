@@ -8,11 +8,6 @@ const writeHead = () => {
     margin: "0 auto",
   };
 
-  const question = {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "15px",
-  };
   return (
     <div>
       <h2 style={style}>문의하기</h2>
