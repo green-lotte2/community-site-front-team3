@@ -89,6 +89,7 @@ function App() {
         setData(dragCardInBoard(source, destination));
     };
 
+
     const updateCard = (bid, cid, card) => {
         const index = data.findIndex((item) => item.id === bid);
         if (index < 0) return;
@@ -102,21 +103,24 @@ function App() {
         tempBoards[index].card[cardIndex] = card;
         console.log(tempBoards);
         setData(tempBoards);
-        alert(321321)
+        //alert(321321)
     };
 
-    /** localStorage 저장 후 서버에 넘기기 
+    /** localStorage 저장 후 서버에 넘기기 */
+
     useEffect(() => {
         localStorage.setItem('orangenode', JSON.stringify(data));
         console.log('data ## : ', data);
 
+        /*
         const response = axios.post(`${path}/addissue`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-    }, [data]);*/
-
+        */
+    }, [data]);
+    
     return (
         <DefaultLayout>
             <DragDropContext onDragEnd={onDragEnd}>
