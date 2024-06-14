@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { globalPath } from 'globalPaths';
 import { login } from 'slices/authSlice';
+
+const serverHost = globalPath.serverHost;
 
 const kakaoLogin = (code) => {
     return function (dispatch) {
         axios({
             method: 'GET',
-            url: `http://localhost:8080/oauth/callback/kakao?code=${code}`,
+            url: `http://${serverHost}:8080/oauth/callback/kakao?code=${code}`,
             withCredentials: true,
         })
             .then((res) => {
