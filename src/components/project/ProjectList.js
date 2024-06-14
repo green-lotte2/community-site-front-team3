@@ -110,14 +110,8 @@ const ProjectList = () => {
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
+            console.log('333333333333', proNo);
             navigate(`/project/kanban?proNo=${proNo}`);
-            const response = await axios.get(`/project/kanban`, {
-                params: {
-                    proNo: proNo,
-                },
-            });
-            navigate(`/project/kanban?proNo=${proNo}`);
-            console.log('PROD', proNo);
         } catch (error) {
             console.error('칸반보드 이동:', error);
         }
@@ -219,7 +213,10 @@ const ProjectList = () => {
                         <div className="selected-users">
                             <p>초대된 사용자</p>
                             {invitedUsers.map((user, index) => (
-                                <span className='projectUser' key={index} > {user}</span>
+                                <span className="projectUser" key={index}>
+                                    {' '}
+                                    {user}
+                                </span>
                             ))}
                         </div>
                         <button onClick={handleCreateProject}>프로젝트 생성</button>
