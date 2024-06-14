@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { createReactEditorJS } from "react-editor-js";
-import { EDITOR_JS_TOOLS } from "./tool";
 import { globalPath } from "globalPaths";
 import axios from "axios";
 import "@blocknote/core/fonts/inter.css";
@@ -16,17 +14,31 @@ const serverHost = globalPath.serverHost;
 const Editor = ({ pageNo, setTitleStat }) => {
   const editorRef   = useRef(null);
   const titleRef    = useRef(null);
+
   const [title, setTitle] = useState("");
   const [uid, setUid] = useState("");
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true); // 데이터 로딩 여부
   const [currentPageNo, setCurrentPageNo] = useState(pageNo); // 현재 페이지 번호 상태
-  const [initialContentLoaded, setInitialContentLoaded] = useState(false);
 
-  console.log("Editor pageNo : ", pageNo);
+  console.log("현재 pageNo : ", pageNo);
 
   const doc = new Y.Doc();
   const provider = useRef(null);
+
+  /** 에디터 생성 설정 */
+  const editor = useCreateBlockNote({
+    defaultStyles: true,
+    collaboration: {
+      provider: provider.current,
+      fragment: doc.getXmlFragment("document-store"),
+      user: {
+        name: "My Username",
+        color: "#ff0000",
+      },
+    },
+    uploadFile,
+  });
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 WebrtcProvider를 생성합니다.
@@ -36,7 +48,9 @@ const Editor = ({ pageNo, setTitleStat }) => {
 
     // 컴포넌트가 언마운트될 때 provider를 정리합니다.
     return () => {
+      handleSave();
       provider.current.destroy();
+      editor.removeBlocks(editor.document); // editor 내용 초기화 
     };
   }, [pageNo]);
 
@@ -54,16 +68,20 @@ const Editor = ({ pageNo, setTitleStat }) => {
           );
           setTitle(respPage.data.title);
           setUid(respPage.data.uid);
-          setBlocks(respPage.data.content);
+          setBlocks(respPage.data.content); // Page 깡
 
           console.log("!!@!@!@!@!");
           console.log(respPage.data.content);
 
           if (editor.document.length === 1) {
+            console.log("if문 안");
             for(let i=0 ; i < 1; i++){
+              console.log("for문 안 1 ");
                 const docView = JSON.parse(respPage.data.content);
-                console.log(docView)                    
-                editor.insertBlocks(docView, docView[i].id, "after");
+                console.log(docView)     
+                console.log("for문 안 2 ");               
+                //editor.insertBlocks(docView, docView[i].id, "after");
+                editor.replaceBlocks(editor.document, docView); 
                 console.log("성공");
             }
         }
@@ -78,19 +96,6 @@ const Editor = ({ pageNo, setTitleStat }) => {
     }, [currentPageNo]);
 
 
-  /** 에디터 생성 */
-  const editor = useCreateBlockNote({
-    defaultStyles: true,
-    collaboration: {
-      provider: provider.current,
-      fragment: doc.getXmlFragment("document-store"),
-      user: {
-        name: "My Username",
-        color: "#ff0000",
-      },
-    },
-    uploadFile,
-  });
 
   /** 데이터 입력시 blocks에 추가 */
   const editorSelectHandler = () => {
@@ -106,13 +111,14 @@ const Editor = ({ pageNo, setTitleStat }) => {
     
   };
 
-
-
   /** 블록 저장 */
   const handleSave = async () => {
-    //const storedBlocks = await loadFromStorage();
-    //console.log("저장 할 블록들 : ", JSON.stringify(storedBlocks, null, 2));
+
+    console.log("블록 저장 currentPageNo : ", currentPageNo);
+
     const allBlocks = editor.document;
+    console.log("uid : " , uid);
+    console.log("제목? : " , title);
     try {
       const resp = await axios.post(`${path}/savepage`, {
         content: JSON.stringify(allBlocks),
@@ -165,6 +171,7 @@ const Editor = ({ pageNo, setTitleStat }) => {
     const range = selection.getRangeAt(0);
     const startOffset = range.startOffset;
 
+    console.log("제목 쓰는 중 : " , e.target.innerText);
     setTitle(e.target.innerText);
 
     /** 입력 커서 위치 설정 */
@@ -194,12 +201,6 @@ const Editor = ({ pageNo, setTitleStat }) => {
         theme="light"
       />
       <button  onClick={handleSave}>임시 저장 버튼 ! </button>
-      <div>Selection JSON:</div>
-      <div className={"item bordered"}>
-        <pre>
-          <code>{JSON.stringify(blocks, null, 2)}</code>
-        </pre>
-      </div>
     </div>
   );
 };
