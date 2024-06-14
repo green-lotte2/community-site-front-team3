@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import ChatLayout from "../../layouts/ChatLayout";
 import Chat from "components/chat/Chat";
@@ -22,101 +21,80 @@ const ChatPage = () => {
   const stompClientRef = useRef(null); // WebSocket 클라이언트 참조를 추가
   const subscriptionRef = useRef(null); // 구독 참조 추가
 
-  console.log("selectedRoom: " + JSON.stringify(selectedRoom));
-  console.log("profile: ", profile); // 프로필 정보 로그 추가
-
   useEffect(() => {
     if (selectedRoom) {
       setChatNo(selectedRoom.chatNo);
+      setupWebSocket();
+      fetchMessages(selectedRoom.chatNo);
     }
   }, [selectedRoom]);
 
-  useEffect(() => {
-    const setupWebSocket = () => {
-      if (selectedRoom) {
-        // 기존 WebSocket 연결 해제
-        if (stompClientRef.current) {
-          if (subscriptionRef.current) {
-            subscriptionRef.current.unsubscribe();
-            subscriptionRef.current = null;
-          }
-          stompClientRef.current.deactivate();
-          stompClientRef.current = null;
-        }
-
-        const socket = new SockJS(`${url}/ws/chat`);
-        const client = new Client({
-          webSocketFactory: () => socket,
-          reconnectDelay: 5000,
-        });
-
-        client.onConnect = () => {
-          console.log("Connected to WebSocket");
-          stompClientRef.current = client;
-
-          subscriptionRef.current = client.subscribe(
-            `/topic/chatroom/${selectedRoom.chatNo}`,
-            (message) => {
-              const msg = JSON.parse(message.body);
-              console.log("WebSocket message received:", msg);
-              setMessages((prevMessages) => {
-                if (
-                  !prevMessages.some(
-                    (m) => m.cmNo === msg.cmNo && m.cDate === msg.cDate
-                  )
-                ) {
-                  return [...prevMessages, msg];
-                }
-                return prevMessages;
-              });
-            }
-          );
-
-          client.publish({
-            destination: "/app/chat.addUser",
-            body: JSON.stringify({ uid, name, profile }),
-          });
-        };
-
-        client.onStompError = (frame) => {
-          console.error("Broker reported error: " + frame.headers["message"]);
-          console.error("Additional details: " + frame.body);
-        };
-
-        client.activate();
-      }
-    };
-
-    setupWebSocket();
-
-    // 컴포넌트 언마운트 시 WebSocket 연결 해제
-    return () => {
+  const setupWebSocket = () => {
+    if (selectedRoom) {
+      // 기존 WebSocket 연결 해제
       if (stompClientRef.current) {
         if (subscriptionRef.current) {
           subscriptionRef.current.unsubscribe();
+          subscriptionRef.current = null;
         }
         stompClientRef.current.deactivate();
+        stompClientRef.current = null;
       }
-    };
-  }, [selectedRoom]);
 
-  useEffect(() => {
-    if (selectedRoom) {
-      const fetchMessages = async () => {
-        try {
-          const response = await axios.get(
-            `${url}/chat/messages?chatNo=${selectedRoom.chatNo}`
-          );
-          console.log("Fetched messages:", response.data); // 메시지 데이터 로그 추가
-          setMessages(response.data);
-        } catch (error) {
-          console.error("Error fetching chat room messages", error);
-        }
+      const socket = new SockJS(`${url}/ws/chat`);
+      const client = new Client({
+        webSocketFactory: () => socket,
+        reconnectDelay: 5000,
+      });
+
+      client.onConnect = () => {
+        console.log("Connected to WebSocket");
+        stompClientRef.current = client;
+
+        subscriptionRef.current = client.subscribe(
+          `/topic/chatroom/${selectedRoom.chatNo}`,
+          (message) => handleMessageReceived(message)
+        );
+
+        client.publish({
+          destination: "/app/chat.addUser",
+          body: JSON.stringify({ uid, name, profile }),
+        });
       };
 
-      fetchMessages();
+      client.onStompError = (frame) => {
+        console.error("Broker reported error: " + frame.headers["message"]);
+        console.error("Additional details: " + frame.body);
+      };
+
+      client.activate();
     }
-  }, [selectedRoom]);
+  };
+
+  const handleMessageReceived = (message) => {
+    const msg = JSON.parse(message.body);
+    console.log("WebSocket message received:", msg);
+    setMessages((prevMessages) => {
+      if (
+        !prevMessages.some((m) => m.cmNo === msg.cmNo && m.cDate === msg.cDate)
+      ) {
+        return [...prevMessages, msg];
+      } else {
+        console.log("Duplicate message detected:", msg);
+      }
+      return prevMessages;
+    });
+  };
+
+  const fetchMessages = async (chatNo) => {
+    try {
+      const response = await axios.get(`${url}/chat/messages?chatNo=${chatNo}`);
+      console.log("Fetched messages:", response.data); // 메시지 데이터 로그 추가
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Error fetching chat room messages", error);
+    }
+  };
 
   const handleSelectChatRoom = async (room) => {
     console.log("Chat room selected:", room);
@@ -164,25 +142,28 @@ const ChatPage = () => {
         body: JSON.stringify(chatMessage),
       });
 
-      // 메시지를 전송 후 바로 상태 업데이트
-      setMessages((prevMessages) => {
-        const isDuplicate = prevMessages.some(
-          (m) =>
-            m.cDate === chatMessage.cDate && m.message === chatMessage.message
-        );
-        if (!isDuplicate) {
-          return [...prevMessages, chatMessage];
-        }
-        return prevMessages;
-      });
+      // 메시지를 전송 후 바로 상태 업데이트하지 않음
+      // WebSocket 메시지를 통해서만 상태를 업데이트함
     }
   };
+
+  // 컴포넌트 언마운트 시 WebSocket 연결 해제
+  useEffect(() => {
+    return () => {
+      if (stompClientRef.current) {
+        if (subscriptionRef.current) {
+          subscriptionRef.current.unsubscribe();
+        }
+        stompClientRef.current.deactivate();
+      }
+    };
+  }, []);
 
   return (
     <div className="chat-layout-container">
       <ChatLayout setSelectedRoom={handleSelectChatRoom}>
         {!selectedRoom ? (
-          <div>채팅방을 선택해주세요</div>
+          <div></div>
         ) : (
           <Chat
             messages={messages}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { format, isSameDay, parseISO } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 const Chat = ({
   messages,
@@ -25,7 +26,8 @@ const Chat = ({
       let currentDate;
 
       try {
-        currentDate = parseISO(message.cDate);
+        const utcDate = parseISO(message.cDate);
+        currentDate = toZonedTime(utcDate, "Asia/Seoul");
       } catch (error) {
         currentDate = new Date();
       }
