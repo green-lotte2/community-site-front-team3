@@ -1,16 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BoardTabs = () => {
+const BoardTabs = ({ articleCate, setCateValue }) => {
+  const handlerClickCate = (e) => {
+    setCateValue(e);
+  };
+
   return (
     <>
       <div className="BoardTabs">
-        <Link to="#" className="active">Overview</Link>
-        <Link to="#">Tasks</Link>
-        <Link to="#">Documents</Link>
-        <Link to="#">Team</Link>
-        <Link to="#">Reports</Link>
-        <Link to="#">Admin</Link>
+        {articleCate.map((cate, index) => (
+          <Link
+            onClick={() => {
+              handlerClickCate(cate.cateName);
+            }}
+            to="#"
+            key={index}
+            className="active"
+          >
+            {cate.cateName}
+          </Link>
+        ))}
+
+        <Link to="#" className="active">
+          +
+        </Link>
       </div>
     </>
   );
