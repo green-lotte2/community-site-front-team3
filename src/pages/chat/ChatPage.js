@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import ChatLayout from "../../layouts/ChatLayout";
 import Chat from "components/chat/Chat";
@@ -164,7 +163,7 @@ const ChatPage = () => {
     <div className="chat-layout-container">
       <ChatLayout setSelectedRoom={handleSelectChatRoom}>
         {!selectedRoom ? (
-          <div>채팅방을 선택해주세요</div>
+          <div></div>
         ) : (
           <Chat
             messages={messages}
