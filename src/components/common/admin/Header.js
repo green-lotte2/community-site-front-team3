@@ -24,7 +24,7 @@ const Header = () => {
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
-    /** 계정 설정 - 사용자 정보 넘겨줌 */
+
     const getUserInfo = async () => {
         const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
         navigate(`/member/passcheck?uid=${authSlice.uid}`, { state: { user: response.data } });
@@ -40,7 +40,6 @@ const Header = () => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-
                 setUser({ uid: response.data.uid, profile: response.data.profile, grade: response.data.grade });
             } catch (error) {
                 console.error('사용자 정보 받기 에러:', error);
@@ -50,6 +49,7 @@ const Header = () => {
             fetchUserData();
         }
     }, [url]);
+
     return (
         <>
             <header className="aHeader">
@@ -89,36 +89,33 @@ const Header = () => {
                                                 />
                                             )}
                                             {isDropdownVisible && (
-                                                <div className="jnd-dropdown-menu gnb-profile-dropdown right">
-                                                    <h5 className="jnd-option-title">
-                                                        <span className="jnd-option-txt">
+                                                <div className="admin-dropdown-menu">
+                                                    <h5 className="admin-dropdown-title">
+                                                        <span className="admin-dropdown-txt">
                                                             <span className="ng-scope">프로필</span>
                                                         </span>
                                                     </h5>
-                                                    <ul className="jnd-option-list">
+                                                    <ul className="admin-dropdown-list">
                                                         <li
                                                             tabIndex="0"
-                                                            className="jnd-option-item"
+                                                            className="admin-dropdown-item"
                                                             onClick={getUserInfo}
                                                         >
-                                                            <i
-                                                                className="jnd-option-icon icon-pencil"
-                                                                aria-hidden="true"
-                                                            ></i>
-                                                            <span className="jnd-option-txt">
+                                                            <i className="admin-dropdown-icon" aria-hidden="true"></i>
+                                                            <span className="admin-dropdown-txt">
                                                                 <span className="ng-scope">계정 설정</span>
                                                             </span>
                                                         </li>
                                                         <li
                                                             tabIndex="0"
-                                                            className="jnd-option-item"
+                                                            className="admin-dropdown-item"
                                                             onClick={logoutHandler}
                                                         >
                                                             <i
-                                                                className="jnd-option-icon icon-sign-out"
+                                                                className="admin-dropdown-icon icon-sign-out"
                                                                 aria-hidden="true"
                                                             ></i>
-                                                            <span className="jnd-option-txt">
+                                                            <span className="admin-dropdown-txt">
                                                                 <span className="ng-scope">로그아웃</span>
                                                             </span>
                                                         </li>
