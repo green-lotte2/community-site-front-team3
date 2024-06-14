@@ -60,9 +60,10 @@
         }
         .admin-dropdown-menu {
             position: absolute;
-            top: 60px;
-            right: 0;
-            background-color: #ffffff;
+            top: 30px;
+            width: 100px;
+            right: -10px;
+            background-color: $basicColor;
             border: 1px solid #e1e4e8;
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
             border-radius: 4px;
@@ -81,24 +82,40 @@
 
         .admin-dropdown-title {
             padding: 10px 15px;
-            border-bottom: 1px solid #e1e4e8;
+            border-bottom: 1px solid $thirdColor;
             font-weight: bold;
         }
 
         .admin-dropdown-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+            list-style-type: disc;
+            color: $thirdColor;
+            width: 200px;
+            padding-right: 50px;
+            display: flex;
+            align-content: flex-start;
+            flex-direction: column;
+            flex-wrap: wrap;
         }
 
-        .jnd-option-item {
-            padding: 10px 15px;
+        .admin-dropdown-item {
             cursor: pointer;
+            padding: 5px;
         }
 
-        .jnd-option-item:hover {
-            background-color: #f1f3f5;
+        .admin-dropdown-txt {
+            text-align: center;
+            color: $thirdColor;
+            display: flex;
         }
+
+        .admin-dropdown-item:hover {
+            background-color: $hoverColor;
+        }
+
+        .admin-welcome-section {
+            position: relative;
+        }
+
         .search input {
             background-color: #f9f9f9;
             margin-right: 40px;
@@ -108,6 +125,7 @@
             margin-left: 20px;
         }
         .admin-welcome-user {
+            margin-left: 10px;
             color: $thirdColor;
             font-size: 20px;
         }
