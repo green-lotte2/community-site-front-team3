@@ -13,14 +13,15 @@ const Header = () => {
     const navigate = useNavigate();
 
     const logoutHandler = async () => {
-        const confrimed = window.confirm('로그아웃 하시겠습니까?');
-        if (confrimed) {
+        const confirmed = window.confirm('로그아웃 하시겠습니까?');
+        if (confirmed) {
             await dispatch(logout());
             localStorage.removeItem('token');
             alert('로그아웃 되었습니다.');
             navigate(`/`);
         }
     };
+
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
@@ -58,7 +59,7 @@ const Header = () => {
                         <img src="/images/logo/logo13.png" alt="aa" style={{ width: '120px' }} />
                     </Link>
                     <div className="aLogo">
-                        <h1>관리자 페이지</h1>
+                        <h1></h1>
                     </div>
                     <div className="aNav-search">
                         <nav>
@@ -98,7 +99,7 @@ const Header = () => {
                                                     <ul className="admin-dropdown-list">
                                                         <li
                                                             tabIndex="0"
-                                                            className="admin-dropdown-item"
+                                                            className="admin-dropdown-item a"
                                                             onClick={getUserInfo}
                                                         >
                                                             <i className="admin-dropdown-icon" aria-hidden="true"></i>
@@ -108,7 +109,7 @@ const Header = () => {
                                                         </li>
                                                         <li
                                                             tabIndex="0"
-                                                            className="admin-dropdown-item"
+                                                            className="admin-dropdown-item b"
                                                             onClick={logoutHandler}
                                                         >
                                                             <i

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import styled from 'styled-components';
 
 const Member = () => {
     const url = globalPath.path;
@@ -8,9 +10,11 @@ const Member = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`${url}/admin/member`);
+            const response = await axios.get(`${url}/admin/member/list`);
+            setMemberList(response.data.slice(0, 5)); // 최대 5명 출력
         };
-    });
+        fetchData();
+    }, [url]);
     return (
         <>
             <div className="member-list">
