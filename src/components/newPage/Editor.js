@@ -34,13 +34,6 @@ const Editor = ({ pageNo, setTitleStat }) => {
       signaling: [`ws://${serverHost}:8080/ws/crdt`],
     });
 
-    // 협업 제공자가 준비되었을 때 초기 콘텐츠를 설정합니다.
-    provider.current.on("synced", () => {
-      if (!initialContentLoaded) {
-        setInitialContentLoaded(true);
-      }
-    });
-
     // 컴포넌트가 언마운트될 때 provider를 정리합니다.
     return () => {
       provider.current.destroy();
@@ -62,7 +55,21 @@ const Editor = ({ pageNo, setTitleStat }) => {
           setTitle(respPage.data.title);
           setUid(respPage.data.uid);
           setBlocks(respPage.data.content);
+
+          console.log("!!@!@!@!@!");
+          console.log(respPage.data.content);
+
+          if (editor.document.length === 1) {
+            for(let i=0 ; i < 1; i++){
+                const docView = JSON.parse(respPage.data.content);
+                console.log(docView)                    
+                editor.insertBlocks(docView, docView[i].id, "after");
+                console.log("성공");
+            }
+        }
+
           console.log("ggg : ", respPage.data);
+          console.log("ddd : ", blocks);
         } catch (error) {
           console.error("Error fetching page data: ", error);
         }
@@ -96,47 +103,19 @@ const Editor = ({ pageNo, setTitleStat }) => {
     }
     // 로컬 스토리지에 전체 블록 업데이트
     const allBlocks = editor.document;
-    saveToStorage(allBlocks);
+    
   };
 
-  /** 로컬 스토리지에 저장 */
-  async function saveToStorage(jsonBlocks) {
-    localStorage.setItem("editorContent", JSON.stringify(jsonBlocks));
-  }
 
-  /** 로컬 스토리지에서 불러오기 */
-  async function loadFromStorage() {
-    const storageString = localStorage.getItem("editorContent");
-    return storageString ? JSON.parse(storageString) : undefined;
-  }
-
-  /** 페이지 로드될 때 스토리지에서 꺼내와서 editor 업데이트 */
-  useEffect(() => {
-    const loadBlocksFromStorage = async () => {
-      const storedBlocks = await loadFromStorage();
-      if (storedBlocks && editor) {
-        const referenceBlock = editor.document[0]?.id || null;
-        if (referenceBlock) {
-          editor.insertBlocks(storedBlocks, referenceBlock, "before");
-        } else {
-          editor.insertBlocks(storedBlocks, null, "nested");
-        }
-        setBlocks(storedBlocks); // 로드된 블록을 상태에 저장
-      }
-    };
-
-    if (initialContentLoaded) {
-      loadBlocksFromStorage();
-    }
-  }, [initialContentLoaded, editor]);
 
   /** 블록 저장 */
   const handleSave = async () => {
-    const storedBlocks = await loadFromStorage();
-    console.log("저장 할 블록들 : ", JSON.stringify(storedBlocks, null, 2));
+    //const storedBlocks = await loadFromStorage();
+    //console.log("저장 할 블록들 : ", JSON.stringify(storedBlocks, null, 2));
+    const allBlocks = editor.document;
     try {
       const resp = await axios.post(`${path}/savepage`, {
-        content: JSON.stringify(storedBlocks),
+        content: JSON.stringify(allBlocks),
         uid: uid,
         pageNo: pageNo,
         title: title,
@@ -174,11 +153,6 @@ const Editor = ({ pageNo, setTitleStat }) => {
     console.log(allBlocks);
   }, [blocks]);
 
-
-  // 데이터 로딩중이면 표시
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   /** 제목 입력 */
   const handleInputTitle = (e) => {
