@@ -58,7 +58,7 @@
                 }
             }
         }
-        .jnd-dropdown-menu gnb-profile-dropdown right {
+        .admin-dropdown-menu {
             position: absolute;
             top: 60px;
             right: 0;
@@ -69,7 +69,7 @@
             z-index: 1000;
         }
 
-        .jnd-dropdown-menu gnb-profile-dropdown right::before {
+        .admin-dropdown-menu::before {
             content: '';
             position: absolute;
             top: -10px;
@@ -79,13 +79,13 @@
             border-color: transparent transparent #ffffff transparent;
         }
 
-        .jnd-option-title {
+        .admin-dropdown-title {
             padding: 10px 15px;
             border-bottom: 1px solid #e1e4e8;
             font-weight: bold;
         }
 
-        .jnd-option-list {
+        .admin-dropdown-list {
             list-style: none;
             margin: 0;
             padding: 0;
