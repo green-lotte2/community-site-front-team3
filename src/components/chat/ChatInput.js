@@ -34,12 +34,19 @@ const ChatInput = ({ onSendMessage, chatNo, uid, name, profile }) => {
         console.log("파일 업로드 성공:", response.data);
         setFile(null);
         // 파일 업로드 후 서버에서 응답으로 새로운 메시지를 받아온 후 이를 전송
-        onSendMessage(response.data.message, {
-          message: file.name,
-          sname: response.data.sName,
-          oname: response.data.oName,
-          profile: profile, // 프로필 추가
-        });
+        if (response.data && response.data.message) {
+          const chatMessage = response.data.message;
+          onSendMessage(chatMessage.message, {
+            message: chatMessage.message,
+            sName: chatMessage.sName,
+            oName: chatMessage.oName,
+            profile: chatMessage.profile,
+            cmNo: chatMessage.cmNo,
+            cDate: chatMessage.cDate,
+          });
+        } else {
+          console.error("Invalid response data:", response.data);
+        }
       } catch (error) {
         console.error(
           "파일 업로드 실패:",
