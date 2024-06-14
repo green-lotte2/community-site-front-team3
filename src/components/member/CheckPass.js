@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
 
 const CheckPass = () => {
     const authSlice = useSelector((state) => state.authSlice);
     const url = globalPath.path;
-    const location = useLocation();
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // user 상태 설정
@@ -58,6 +56,9 @@ const CheckPass = () => {
     const changeHandler = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
+    const cancelHandler = () => {
+        navigate(-1);
+    };
 
     return (
         <div className="check-pass-container">
@@ -79,7 +80,7 @@ const CheckPass = () => {
                         />
                         <div className="sumbitButton">
                             <button type="submit">확인</button>
-                            <button type="button" className="cancel-button">
+                            <button type="button" className="cancel-button" onClick={cancelHandler}>
                                 취소
                             </button>
                         </div>

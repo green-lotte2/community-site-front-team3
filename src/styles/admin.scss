@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
     .aHeader {
         background-color: $basicColor;
         color: #fff;
@@ -27,12 +28,15 @@
         .aLogo h1 {
             color: $thirdColor;
             margin: 0;
-            margin-left: -290px;
+            margin-left: -215px;
             font-size: 24px;
         }
         .aNav-search {
             display: flex;
             align-items: center;
+        }
+        .profile-picture {
+            width: 22px;
         }
         nav ul {
             list-style: none;
@@ -54,6 +58,47 @@
                 }
             }
         }
+        .admin-dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid #e1e4e8;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .admin-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #ffffff transparent;
+        }
+
+        .admin-dropdown-title {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e1e4e8;
+            font-weight: bold;
+        }
+
+        .admin-dropdown-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .jnd-option-item {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .jnd-option-item:hover {
+            background-color: #f1f3f5;
+        }
         .search input {
             background-color: #f9f9f9;
             margin-right: 40px;
@@ -61,6 +106,10 @@
             border: 1px solid $thirdColor;
             border-radius: 3px;
             margin-left: 20px;
+        }
+        .admin-welcome-user {
+            color: $thirdColor;
+            font-size: 20px;
         }
     }
     .content-wrapper {
@@ -73,7 +122,7 @@
         background-color: $asideColor;
         padding: 20px;
         flex-shrink: 0;
-        position: absolute; /* 화면 좌측에 고정하지 않고 content-wrapper 내부에 고정 */
+        position: fixed; /* 화면 좌측에 고정하지 않고 content-wrapper 내부에 고정 */
         top: 73.9px; /* 헤더 아래에 위치 */
         bottom: 0; /* 푸터 위에 위치 */
         left: 0; /* 화면의 좌측에 고정 */
@@ -138,10 +187,6 @@
                 }
             }
         }
-
-
-
-        
     }
 
     main {

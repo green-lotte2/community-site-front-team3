@@ -11,11 +11,13 @@ import * as Y from "yjs";
 import { WebrtcProvider } from "y-webrtc";
 
 const path = globalPath.path;
+const serverHost = globalPath.serverHost;
 
 const Editor = ({ pageNo, setTitleStat }) => {
-  const editorRef = useRef(null);
-  const titleRef = useRef(null);
+  const editorRef   = useRef(null);
+  const titleRef    = useRef(null);
   const [title, setTitle] = useState("");
+  const [uid, setUid] = useState("");
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true); // 데이터 로딩 여부
   const [currentPageNo, setCurrentPageNo] = useState(pageNo); // 현재 페이지 번호 상태
@@ -29,14 +31,7 @@ const Editor = ({ pageNo, setTitleStat }) => {
   useEffect(() => {
     // 컴포넌트가 마운트될 때 WebrtcProvider를 생성합니다.
     provider.current = new WebrtcProvider(`page${pageNo}`, doc, {
-      signaling: ["ws://localhost:8080/ws/crdt"],
-    });
-
-    // 협업 제공자가 준비되었을 때 초기 콘텐츠를 설정합니다.
-    provider.current.on("synced", () => {
-      if (!initialContentLoaded) {
-        setInitialContentLoaded(true);
-      }
+      signaling: [`ws://${serverHost}:8080/ws/crdt`],
     });
 
     // 컴포넌트가 언마운트될 때 provider를 정리합니다.
@@ -44,6 +39,44 @@ const Editor = ({ pageNo, setTitleStat }) => {
       provider.current.destroy();
     };
   }, [pageNo]);
+
+    /** 현재 페이지 번호 불러오기 */
+    useEffect(() => {
+      setCurrentPageNo(pageNo);
+    }, [pageNo]);
+  
+    /** 페이진 정보 불러오기 */
+    useEffect(() => {
+      const fetchPageData = async () => {
+        try {
+          const respPage = await axios.get(
+            `${path}/page?pageNo=${currentPageNo}`
+          );
+          setTitle(respPage.data.title);
+          setUid(respPage.data.uid);
+          setBlocks(respPage.data.content);
+
+          console.log("!!@!@!@!@!");
+          console.log(respPage.data.content);
+
+          if (editor.document.length === 1) {
+            for(let i=0 ; i < 1; i++){
+                const docView = JSON.parse(respPage.data.content);
+                console.log(docView)                    
+                editor.insertBlocks(docView, docView[i].id, "after");
+                console.log("성공");
+            }
+        }
+
+          console.log("ggg : ", respPage.data);
+          console.log("ddd : ", blocks);
+        } catch (error) {
+          console.error("Error fetching page data: ", error);
+        }
+      };
+      fetchPageData();
+    }, [currentPageNo]);
+
 
   /** 에디터 생성 */
   const editor = useCreateBlockNote({
@@ -62,88 +95,55 @@ const Editor = ({ pageNo, setTitleStat }) => {
   /** 데이터 입력시 blocks에 추가 */
   const editorSelectHandler = () => {
     const selection = editor.getSelection();
-    let newBlocks = [];
+    // block 변수 state
     if (selection !== undefined) {
-      newBlocks = selection.blocks;
+      setBlocks(selection.blocks);
     } else {
-      newBlocks = [editor.getTextCursorPosition().block];
+      setBlocks([editor.getTextCursorPosition().block]);
     }
+    // 로컬 스토리지에 전체 블록 업데이트
     const allBlocks = editor.document;
-    const updatedBlocks = [...blocks, ...newBlocks];
-    setBlocks(updatedBlocks);
-    saveToStorage(allBlocks);
+    
   };
 
-  /** 로컬 스토리지에 저장 */
-  async function saveToStorage(jsonBlocks) {
-    localStorage.setItem("editorContent", JSON.stringify(jsonBlocks));
-  }
 
-  /** 로컬 스토리지에서 불러오기 */
-  async function loadFromStorage() {
-    const storageString = localStorage.getItem("editorContent");
-    return storageString ? JSON.parse(storageString) : undefined;
-  }
 
-  /** 페이지 로드될 때 스토리지에서 꺼내와서 editor 업데이트 */
-  useEffect(() => {
-    const loadBlocksFromStorage = async () => {
-      const storedBlocks = await loadFromStorage();
-      if (storedBlocks && editor) {
-        const referenceBlock = editor.document[0]?.id || null;
-        if (referenceBlock) {
-          editor.insertBlocks(storedBlocks, referenceBlock, "before");
-        } else {
-          editor.insertBlocks(storedBlocks, null, "nested");
+  /** 블록 저장 */
+  const handleSave = async () => {
+    //const storedBlocks = await loadFromStorage();
+    //console.log("저장 할 블록들 : ", JSON.stringify(storedBlocks, null, 2));
+    const allBlocks = editor.document;
+    try {
+      const resp = await axios.post(`${path}/savepage`, {
+        content: JSON.stringify(allBlocks),
+        uid: uid,
+        pageNo: pageNo,
+        title: title,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-        setBlocks(storedBlocks); // 로드된 블록을 상태에 저장
-      }
-    };
-
-    if (initialContentLoaded) {
-      loadBlocksFromStorage();
+      });
+      console.log("Response:", resp);
+    } catch (error) {
+      console.error("Error saving page:", error);
     }
-  }, [initialContentLoaded, editor]);
-
-  /** 현재 페이지 번호 불러오기 */
-  useEffect(() => {
-    setCurrentPageNo(pageNo);
-  }, [pageNo]);
-
-  /** 제목 불러오기 */
-  useEffect(() => {
-    const fetchPageData = async () => {
-      try {
-        const respPage = await axios.get(
-          `${path}/page?pageNo=${currentPageNo}`
-        );
-        setTitle(respPage.data.title);
-        console.log("ggg : ", respPage.data);
-      } catch (error) {
-        console.error("Error fetching page data: ", error);
-      }
-    };
-    fetchPageData();
-  }, [currentPageNo]);
-
+  };
+  
   /** 파일 업로드 */
   async function uploadFile(file) {
     const body = new FormData();
     body.append("file", file);
 
-    const resp = await axios.post(
-      `${path}/page/upload`,
-      body,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const resp = await axios.post(`${path}/page/upload`, body, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     const sName = resp.data; // 서버가 반환한 이미지 URL
     console.log("파일 전송 성공 sName : ", sName);
-    const src = path +'/uploads/'+ sName;
-    console.log("file 경로 : " , src);
+    const src = path + "/uploads/" + sName;
+    console.log("file 경로 : ", src);
     return src;
   }
 
@@ -153,77 +153,6 @@ const Editor = ({ pageNo, setTitleStat }) => {
     console.log(allBlocks);
   }, [blocks]);
 
-  /** 블록 불러오기 */
-  useEffect(() => {
-    const fetchPageData = async () => {
-      try {
-        const respBlock = await axios.get(
-          `${path}/block?pageNo=${currentPageNo}`
-        );
-        console.log("블록 불러오기 : ", respBlock.data);
-
-        // data 필드를 JSON 객체로 변환
-        const transformedBlocks = respBlock.data.map((block) => {
-          try {
-            let formattedData = block.data
-              .replace(/(\w+)=/g, '"$1":') // key=value 형식을 "key":"value" 형식으로 변환
-              .replace(/,(\s*)(\w+)=/g, ',"$2":') // key=value 형식을 "key":"value" 형식으로 변환
-              .replace(/'/g, '"'); // 작은 따옴표를 큰 따옴표로 변환
-
-            formattedData = formattedData.replace(
-              /"(\w+)":([^",\s\}]+)/g,
-              '"$1":"$2"'
-            );
-            formattedData = formattedData.replace(
-              /"url":"(http[^"]+)"/g,
-              '"url":"$1"'
-            );
-            formattedData = formattedData.replace(
-              /"caption":"([^"]+)"/g,
-              '"caption":"$1"'
-            );
-            formattedData = formattedData.replace(
-              /"withBorder":"(false|true)"/g,
-              '"withBorder":$1'
-            );
-            formattedData = formattedData.replace(
-              /"withBackground":"(false|true)"/g,
-              '"withBackground":$1'
-            );
-            formattedData = formattedData.replace(
-              /"stretched":"(false|true)"/g,
-              '"stretched":$1'
-            );
-
-            block.data = JSON.parse(formattedData);
-          } catch (error) {
-            console.error("JSON 변환 오류: ", error, block.data);
-          }
-          return block;
-        });
-
-        setBlocks(transformedBlocks || []); // 데이터가 없으면 빈 배열로 설정
-        setLoading(false); // 로딩 상태 해제
-      } catch (error) {
-        console.error("블록 불러오기 오류 : ", error);
-        setLoading(false);
-      }
-    };
-    setBlocks([]); // pageNo 변경 시 블록 초기화
-    setLoading(true); // 로딩 상태 설정
-    fetchPageData();
-
-    /** unmount 될 때 저장 */
-    return () => {
-      // handleSave();
-    };
-  }, [currentPageNo]);
-
-
-  // 데이터 로딩중이면 표시
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   /** 제목 입력 */
   const handleInputTitle = (e) => {
@@ -264,6 +193,7 @@ const Editor = ({ pageNo, setTitleStat }) => {
         onSelectionChange={editorSelectHandler}
         theme="light"
       />
+      <button  onClick={handleSave}>임시 저장 버튼 ! </button>
       <div>Selection JSON:</div>
       <div className={"item bordered"}>
         <pre>
