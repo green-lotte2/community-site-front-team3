@@ -1,0 +1,100 @@
+
+// board 게시판
+.boardContainer {
+  main .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+
+  main h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+  }
+
+  .BoardTabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      a {
+          text-decoration: none;
+          color: #333;
+          padding: 10px 20px;
+          border-radius: 3px;
+          transition: background-color 0.3s;
+          background-color: #f0f0f0;
+          flex: none;
+          text-align: center;
+      }
+
+      a.active {
+          background-color: #ff8916;
+          color: #fff;
+      }
+
+      a:hover {
+          background-color: #ff8916;
+          color: #fff;
+      }
+  }
+
+  .search-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 20px;
+
+      button,
+      input {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          margin-right: 10px;
+      }
+
+      input {
+          flex: 1;
+      }
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+
+      th,
+      td {
+          padding: 10px;
+          border: 1px solid #ccc;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f8f8f8;
+      }
+  }
+
+  .status.paid {
+      color: green;
+  }
+
+  .pagination {
+      text-align: center;
+
+      a {
+          text-decoration: none;
+          color: #333;
+          padding: 5px;
+          border: 1px solid #ccc;
+          margin: 0 5px;
+          border-radius: 3px;
+
+          &:hover {
+              background-color: #007bff;
+              color: #fff;
+              border: 1px solid #007bff;
+          }
+      }
+  }
+}

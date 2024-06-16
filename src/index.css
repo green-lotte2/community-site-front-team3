@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+/*admin 글꼴*/
+@font-face {
+    font-family: 'GimpoGothicRegular';
+    src: url('./styles/font/GimpoGothicRegular.ttf') format('truetype');
+}
+
+/*main 글꼴*/
+@font-face {
+    font-family: 'GimpoGothicRegular';
+    src: url('./styles/font/GimpoGothicRegular.ttf') format('truetype');
+}
+/*admin 글꼴*/
+#adminContainer {
+    font-family: 'Puradak Gentle Gothic';
+}
+/*main 글꼴*/
+#mainContainer {
+    font-family: 'GimpoGothicRegular';
+    font-weight: 400px;
+    font-size: 18px;
+}
+
+.welcome-user {
+    font-size: 18px;
+}
