@@ -119,20 +119,18 @@ function App() {
     }, [proNo]);
 
     // 칸반리스트 출력
-
     const selectKanbanList = async () => {
         try {
             console.log('proNo:', proNo);
             const response = await axios.get(`${PROJECT_KANBAN_PATH}?proNo=${proNo}`, { withCredentials: true });
             if (response.data) {
-                console.log('response.data1111:', response.data);
-                if (response.data.content == null || response.data.content === '') {
+                console.log('response.data:', response.data);
+                if (response.data.length === 0) {
                     localStorage.removeItem('orangenode');
                     setData([]);
                 } else {
-                    console.log('response.data.content 2222:', response.data.content);
-                    localStorage.setItem('orangenode', JSON.stringify(response.data.content));
-                    setData(response.data.content);
+                    localStorage.setItem('orangenode', JSON.stringify(response.data));
+                    setData(response.data);
                 }
             } else {
                 console.log('No data received');
