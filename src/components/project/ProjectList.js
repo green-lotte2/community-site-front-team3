@@ -69,6 +69,11 @@ const ProjectList = () => {
             });
             alert('프로젝트 생성완료!');
             selectProjectList();
+            setStatus(status + 1);
+            setProjectTitle('');
+            setInvitedUsers([]);
+            setuserUids([]);
+            closeModal();
             console.log('프로젝트 생성:', response.data.proNo);
         } catch (error) {
             console.error('프로젝트 생성 에러:', error);
@@ -123,6 +128,9 @@ const ProjectList = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setProjectTitle('');
+        setInvitedUsers([]);
+        setuserUids([]);
     };
 
     const handleProjectTitleChange = (e) => {
@@ -148,7 +156,7 @@ const ProjectList = () => {
     };
 
     const getFilteredUsers = () => {
-        return users.filter((user) => !invitedUsers.includes(user.uid));
+        return users.filter((user) => !userUids.includes(user.uid));
     };
     const openEditModal = (project) => {
         setEditProject(project);
