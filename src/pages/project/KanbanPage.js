@@ -78,7 +78,6 @@ function App() {
             card: [],
         });
         setData(tempData);
-        alert(11111);
     };
 
     const removeBoard = (bid) => {
@@ -112,11 +111,29 @@ function App() {
         setData(tempBoards);
     };
 
+    // proNo값이 렌더링 될 때 마다 데이터 조회
     useEffect(() => {
         if (proNo) {
             selectKanbanList();
         }
     }, [proNo]);
+
+    // 화면 이동을 할 때 데이터 저장
+    useEffect(() => {
+        // 사용자가 페이지를 떠나려고 할 때 실행
+        const handleBeforeUnload = (event) => {
+            saveHandler();
+            event.preventDefault();
+        };
+        // 사용자가 페이지를 떠날 때 handleBeforeUnload 함수 실행(데이터 저장)
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        // 컴포넌트가 언마운트 될 때 beforeunload 이벤트 리스너 제거 및 데이터 저장
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            saveHandler();
+        };
+    }, [data]);
 
     // 칸반리스트 출력
     const selectKanbanList = async () => {
@@ -141,7 +158,7 @@ function App() {
         }
     };
 
-    // //localStorage 저장 후 서버에 넘기기
+    // 칸반보드 데이터 저장
     const saveHandler = async () => {
         localStorage.setItem('orangenode', JSON.stringify(data));
         try {
@@ -166,7 +183,6 @@ function App() {
 
     return (
         <DefaultLayout>
-            <button onClick={saveHandler}>버튼입니다.</button>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="project-container" data-theme={theme}>
                     <Navbar switchTheme={switchTheme} />
