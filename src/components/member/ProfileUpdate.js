@@ -126,6 +126,11 @@ const ProfileUpdate = () => {
     };
     const passCheckBox = () => {
         setCheckBox(!checkBox);
+        if (!checkBox) {
+            setUser((prevUser) => ({
+                ...prevUser,
+            }));
+        }
         console.log(checkBox);
     };
     return (

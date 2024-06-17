@@ -49,6 +49,14 @@ function App() {
         return tempData;
     };
 
+    const dragCardInSameBoard = (source, destination) => {
+        let tempData = [...data];
+        const boardIdx = tempData.findIndex((item) => item.id.toString() === source.droppableId);
+        const [movedCard] = tempData[boardIdx].card.splice(source.index, 1);
+        tempData[boardIdx].card.splice(destination.index, 0, movedCard);
+        return tempData;
+    };
+
     const addCard = (title, bid) => {
         const index = data.findIndex((item) => item.id === bid);
         const tempData = [...data];
@@ -91,9 +99,11 @@ function App() {
         const { source, destination } = result;
         if (!destination) return;
 
-        if (source.droppableId === destination.droppableId) return;
-
-        setData(dragCardInBoard(source, destination));
+        if (source.droppableId === destination.droppableId) {
+            setData(dragCardInSameBoard(source, destination));
+        } else {
+            setData(dragCardInBoard(source, destination));
+        }
     };
 
     const updateCard = (bid, cid, card) => {
@@ -127,7 +137,7 @@ function App() {
         };
         // 사용자가 페이지를 떠날 때 handleBeforeUnload 함수 실행(데이터 저장)
         window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
         // 컴포넌트가 언마운트 될 때 beforeunload 이벤트 리스너 제거 및 데이터 저장
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);

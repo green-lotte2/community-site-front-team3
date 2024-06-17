@@ -335,6 +335,7 @@
         border-bottom: 1px solid #ccc; /* 밑에 줄 그어지는 스타일 적용 */
         box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
         width: calc(100% - 22px);
+        height: 30px;
     }
 
     .email-verify {
@@ -1067,5 +1068,19 @@
     .mvp-p {
         color: #000;
         font-weight: bold;
+    }
+    .login-test-user {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        align-items: center;
+        background-color: #9acd32;
+        height: 50px;
+    }
+
+    .test-user-title,
+    .test-user-id,
+    .test-user-pass {
+        margin-right: 20px;
     }
 }

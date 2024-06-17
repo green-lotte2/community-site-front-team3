@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SEND_FINDID_EMAIL_CODE_PATH, FINDID_PATH, CHECK_EMAIL_CODE_PATH } from 'requestPath';
+import { SEND_EMAIL_CODE_PATH, FINDID_PATH, CHECK_EMAIL_CODE_PATH, SEND_FINDID_EMAIL_CODE_PATH } from 'requestPath';
 import { Link } from 'react-router-dom';
 
 const FindId = () => {
@@ -10,6 +10,7 @@ const FindId = () => {
     const [uid, setUid] = useState('');
     const [verificationSent, setVerificationSent] = useState(false);
     const [verificationCode, setVerificationCode] = useState('');
+    const [serverCode, setServerCode] = useState('');
 
     const handleRequestCode = async () => {
         try {
@@ -17,6 +18,7 @@ const FindId = () => {
             if (response.status === 200) {
                 setShowVerificationCodeSection(true);
                 setVerificationSent(true);
+                setServerCode(response.data.code);
                 alert('인증코드가 이메일로 전송되었습니다.');
             } else {
                 alert('전송 실패.');
@@ -28,16 +30,23 @@ const FindId = () => {
 
     const handleConfirmCode = async () => {
         try {
-            const response = await axios.get(`${CHECK_EMAIL_CODE_PATH}/${verificationCode}`, { withCredentials: true });
+            const response = await axios.post(
+                CHECK_EMAIL_CODE_PATH,
+                {
+                    code: serverCode,
+                    inputCode: verificationCode,
+                },
+                {
+                    withCredentials: true,
+                }
+            );
             if (response.status === 200) {
                 const { result } = response.data;
-                console.log('result check1', result);
                 if (result === 0) {
                     const userIdResponse = await axios.get(`${FINDID_PATH}?name=${name}&email=${email}`, {
                         withCredentials: true,
                     });
                     if (userIdResponse.status === 200) {
-                        console.log('userIdResponse check1', userIdResponse);
                         setUid(userIdResponse.data.uid);
                     } else {
                         alert('유저가 없습니다.');
