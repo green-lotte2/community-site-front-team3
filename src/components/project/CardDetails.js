@@ -228,13 +228,6 @@ export default function CardDetails(props) {
                                 {labelShow && (
                                     <Label color={colors} addTag={addTag} tags={values.tags} onClose={setLabelShow} />
                                 )}
-                                <button>
-                                    <span className="icon__sm">
-                                        <Clock />
-                                    </span>
-                                    Date
-                                </button>
-
                                 <button onClick={() => props.removeCard(props.bid, values.id)}>
                                     <span className="icon__sm">
                                         <Trash />

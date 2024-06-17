@@ -143,7 +143,7 @@ function App() {
             window.removeEventListener('beforeunload', handleBeforeUnload);
             saveHandler();
         };
-    }, []);
+    }, [data]);
 
     // 칸반리스트 출력
     const selectKanbanList = async () => {
@@ -176,7 +176,7 @@ function App() {
                 `${path}/kanban/create`,
                 {
                     proNo: proNo,
-                    content: JSON.stringify(90),
+                    content: JSON.stringify(data),
                 },
                 {
                     withCredentials: true,
