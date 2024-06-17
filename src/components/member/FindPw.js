@@ -14,6 +14,7 @@ const FindPw = () => {
     const [showPassChange, setShowPassChange] = useState(false);
     const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
     const navigate = useNavigate();
+    const [serverCode, setServerCode] = useState('');
 
     const handleRequestCode = async () => {
         try {
@@ -21,6 +22,7 @@ const FindPw = () => {
             if (response.status === 200) {
                 setShowVerificationCode(true);
                 setVerificationSent(true);
+                setServerCode(response.data.code); // Save the encrypted code from the server
                 alert('인증코드가 이메일로 전송되었습니다.');
             } else {
                 alert('전송 실패.');
@@ -32,7 +34,14 @@ const FindPw = () => {
 
     const handleConfirmCode = async () => {
         try {
-            const response = await axios.get(`${CHECK_EMAIL_CODE_PATH}/${verificationCode}`, { withCredentials: true });
+            const response = await axios.post(
+                CHECK_EMAIL_CODE_PATH,
+                {
+                    code: serverCode,
+                    inputCode: verificationCode,
+                },
+                { withCredentials: true }
+            );
             if (response.data.result === 0) {
                 setShowPassChange(true); // 인증 코드가 일치하면 비밀번호 변경 부분을 보여줍니다.
                 alert(`인증 코드가 일치합니다.`);

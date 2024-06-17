@@ -118,6 +118,11 @@ const Login = () => {
                                     </span>
                                 </div>
                             </div>
+                            <div className="login-test-user">
+                                <div className="test-user-title">!!! 테스트 계정 입니다 !!! : </div>
+                                <div className="test-user-id"> id: test0</div>
+                                <div className="test-user-pass"> pass: qwer1234!</div>
+                            </div>
                         </form>
                     </div>
                 </div>
