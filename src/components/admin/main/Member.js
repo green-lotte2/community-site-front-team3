@@ -24,6 +24,13 @@ const Member = () => {
                         <Item key={memberList.uid}>
                             <ul>
                                 <li>{member.uid}</li>
+                                <li>
+                                    <small>{member.email}</small>
+                                </li>
+                                <li>
+                                    <small>{member.company}</small>
+                                </li>
+                                <DateItem>{moment(member.rdate).format('YY-MM-DD')}</DateItem>
                             </ul>
                         </Item>
                     ))}
