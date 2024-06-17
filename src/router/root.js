@@ -2,7 +2,11 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from '../pages/main/MainPage';
 import AdminPage from '../pages/admin/AdminPage';
+<<<<<<< HEAD
 import AdminMemberPlan from '../pages/admin/AdminMemberPlan';
+=======
+import AdminMember from '../pages/admin/AdminMember';
+>>>>>>> 065f14e7219f996a8f722cef144ef550f6342aa4
 import AdminMemberList from '../pages/admin/AdminMemberList';
 import AdminArticleList from '../pages/admin/AdminArticleList';
 import AdminArticleView from '../pages/admin/AdminArticleView';
@@ -27,6 +31,11 @@ import Chatpage from 'pages/chat/ChatPage';
 import Calendar from 'pages/calendar/Calendar';
 import Cs from 'pages/cs/CsPage';
 import WritePage from 'pages/cs/WritePage';
+<<<<<<< HEAD
+=======
+import FindIdPage from 'pages/member/FindIdPage';
+import FindPwPage from 'pages/member/FindPwPage';
+>>>>>>> 065f14e7219f996a8f722cef144ef550f6342aa4
 
 // 라우터 생성
 const root = createBrowserRouter([
@@ -36,7 +45,11 @@ const root = createBrowserRouter([
 
     // admin
     { path: '/admin', element: <AdminPage /> },
+<<<<<<< HEAD
     { path: '/admin/member/plan ', element: <AdminMemberPlan /> },
+=======
+    { path: '/admin/member', element: <AdminMember /> },
+>>>>>>> 065f14e7219f996a8f722cef144ef550f6342aa4
     { path: '/admin/member/list', element: <AdminMemberList /> },
     { path: '/admin/article', element: <AdminArticleList /> },
     { path: '/admin/article/:ano', element: <AdminArticleView /> },
@@ -53,6 +66,11 @@ const root = createBrowserRouter([
     { path: '/member/profile', element: <ProfileUpdatePage /> },
     { path: '/member/subscribe', element: <SubscribePage /> },
     { path: '/oauth/callback/kakao', element: <KakaoRedirectPage /> },
+<<<<<<< HEAD
+=======
+    { path: '/member/findid', element: <FindIdPage /> },
+    { path: '/member/findpw', element: <FindPwPage /> },
+>>>>>>> 065f14e7219f996a8f722cef144ef550f6342aa4
 
     // project
     { path: '/project/list', element: <ProjectListPage /> },

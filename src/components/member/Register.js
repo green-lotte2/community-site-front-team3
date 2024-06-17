@@ -30,6 +30,7 @@ const Register = () => {
     const [confirmPasswordButtonIcon, setConfirmPasswordButtonIcon] = useState('eye-light-off-icon');
 
     const [showVerification, setShowVerification] = useState(false);
+    const [serverCode, setServerCode] = useState(''); // 서버로부터 받은 인증코드 저장
 
     const togglePasswordVisibility = () => {
         setPasswordType(passwordType === 'password' ? 'text' : 'password');
@@ -123,12 +124,13 @@ const Register = () => {
     /** 인증코드 전송 버튼 */
     const handleEmailVerification = () => {
         axios
-            .get(`${SEND_EMAIL_CODE_PATH}/${user.email}`, { withCredentials: true })
+            .post(SEND_EMAIL_CODE_PATH, { email: user.email })
             .then((response) => {
                 if (response.data.result === 1) {
                     return;
                 } else {
                     alert('인증코드가 이메일로 전송되었습니다.');
+                    setServerCode(response.data.code); // 서버로부터 받은 암호화된 코드 저장
                     setShowVerification(true);
                 }
             })
@@ -140,10 +142,8 @@ const Register = () => {
 
     /** 인증코드 확인 버튼 */
     const checkEmailCode = () => {
-        console.log('check...1 : ' + user.verificationCode);
-
         axios
-            .get(`${CHECK_EMAIL_CODE_PATH}/${user.verificationCode}`, { withCredentials: true })
+            .post(CHECK_EMAIL_CODE_PATH, { code: serverCode, inputCode: user.verificationCode })
             .then((response) => {
                 const data = response.data;
                 if (data.result === 0) {
@@ -156,7 +156,6 @@ const Register = () => {
             .catch((error) => {
                 console.log(user.verificationCode);
                 console.error('인증코드 확인에 실패하였습니다.', error);
-                //alert('인증코드 확인에 실패했습니다.');
             });
     };
 
