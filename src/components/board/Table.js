@@ -16,7 +16,7 @@ const Table = ({ articleList }) => {
             </tr>
           </thead>
           <tbody>
-            {/* {articleList.map((List, index) => (
+            {articleList.map((List, index) => (
               <tr>
                 <td>
                   <input type="checkbox" />
@@ -36,7 +36,7 @@ const Table = ({ articleList }) => {
                   <button>삭제</button>
                 </td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>

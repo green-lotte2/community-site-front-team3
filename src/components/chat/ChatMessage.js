@@ -7,14 +7,16 @@ import axios from "axios";
 const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
   const url = globalPath.path;
 
-  console.log("Profile in ChatMessage:", profile); // 프로필 정보 로그 추가
-
   const handlerdownload = async (e, sName, oName) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`${url}/chat/download/${sName}`, { withCredentials: true }, {
-        responseType: "blob",
-      });
+      const response = await axios.get(
+        `${url}/chat/download/${sName}`,
+        { withCredentials: true },
+        {
+          responseType: "blob",
+        }
+      );
 
       const blob = new Blob([response.data], {
         type: response.headers["content-type"],
