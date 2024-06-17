@@ -39,6 +39,16 @@ const Aside = ({ titleStat, setPageState }) => {
 
   /** 페이지 생성 */
   const handleAddPage = async () => {
+    // 페이지 생성 제한 조건 추가
+    if (authSlice.grade === 'FREE' && countPage >= 3) {
+      alert('FREE 등급은 페이지를 3개까지만 생성할 수 있습니다.');
+      return;
+    }
+    if (authSlice.grade !== 'MVP' && countPage >= 4) {
+      alert('MVP 등급이 아닌 경우 페이지를 4개까지만 생성할 수 있습니다.');
+      return;
+    }
+
     const resp = await axios.post(`${path}/page`, {
       uid: uid,
       title: 'untitled',
@@ -96,7 +106,7 @@ const Aside = ({ titleStat, setPageState }) => {
                     <Link 
                       to={`/page/${page.pageNo}`} 
                       key={index} 
-                      onClick={() => setPageState(true)} // setPageState 호출 수정
+                      onClick={() => setPageState && setPageState(true)} // setPageState 호출 수정
                     >
                       {page.title}
                     </Link>

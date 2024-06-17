@@ -305,6 +305,8 @@ body {
 
         li > div {
             margin-left: 15px;
+            display: flex;
+            flex-direction: column;
         }
     }
     .terms-form button:hover {
