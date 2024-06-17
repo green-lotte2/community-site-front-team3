@@ -48,7 +48,9 @@ const Subscribe = () => {
     };
 
     const handleFreeSubscribe = () => {
-        navigate('/member/terms');
+        if (!authSlice) {
+            navigate('/member/terms');
+        }
     };
 
     return (
