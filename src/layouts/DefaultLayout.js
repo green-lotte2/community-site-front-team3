@@ -8,10 +8,7 @@ const DefaultLayout = ({ children, titleStat, setPageState }) => {
     <div id="mainContainer">
       <Header />
       <main>{children}</main>
-      <Aside 
-        titleStat={titleStat}
-        setPageState={setPageState}
-      />
+      <Aside titleStat={titleStat} setPageState={setPageState} />
       <Footer />
     </div>
   );
