@@ -129,7 +129,6 @@ const ProfileUpdate = () => {
         if (!checkBox) {
             setUser((prevUser) => ({
                 ...prevUser,
-                pass: '',
             }));
         }
         console.log(checkBox);
