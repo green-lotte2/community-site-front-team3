@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const WriteFooter = ({ cate, title, getContent, content }) => {
   const authSlice = useSelector((state) => state.authSlice);
   const [triggerSubmit, setTriggerSubmit] = useState(false);
+  
 
   const style = {
     display: "flex",
