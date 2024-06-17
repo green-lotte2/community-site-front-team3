@@ -5,43 +5,49 @@ import Search from "../../components/board/Search";
 import Table from "../../components/board/Table";
 import DefaultLayout from "layouts/DefaultLayout";
 import { getList } from "api/ArticleApi";
+import axios from "axios";
+import { globalPath } from "globalPaths";
+
+const url = globalPath.path;
 
 const List = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const cno = queryParams.get('cno');
-  const pg = queryParams.get('pg');
- console.log(pg);
- console.log(cno);
-  const [articleList, setArticleList] = useState(null);
+  const [articleCate, setArticleCate] = useState([]);
+  const [cateValue, setCateValue] = useState("자유게시판");
+  const [articleList, setArticleList] = useState([]);
 
-  // render 시 실행 
   useEffect(() => {
-    console.log("asdasd");
-      // 비동기 함수 정의
-      const fetchData = async () => {
-          try {
-              const response = await getList(8);
-              setArticleList(response);
-          } catch (error) {
-              console.log(error);
-          }
-      };
-      
-      // 비동기 함수 호출
-      fetchData();
+    axios
+      .get(`${url}/board/cate`)
+      .then((response) => {
+        console.log(response.data);
+        setArticleCate(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-        // cno(카테고리)가 변경될 때마다 실행
-      }, [cno]);
+  useEffect(() => {
+    axios
+      .get(`${url}/board/list?cateName=${cateValue}`)
+      .then((response) => {
+        console.log(response.data);
+        setArticleList(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [cateValue]);
+
   return (
     <DefaultLayout>
       <div className="boardContainer">
         <h2>게시판 목록</h2>
-        <BoardTabs />
+        <BoardTabs articleCate={articleCate} setCateValue={setCateValue} />
         <Search />
-        <Table  articleList={articleList}/>
+        <Table articleList={articleList} />
       </div>
-    </DefaultLayout> 
+    </DefaultLayout>
   );
 };
 

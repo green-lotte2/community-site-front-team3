@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { PROJECT_KANBAN_PATH } from 'requestPath';
+import { useSelector } from 'react-redux';
 import './App.css';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,35 +11,44 @@ import Editable from '../../components/project/Editable';
 import DefaultLayout from 'layouts/DefaultLayout';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
+import { useLocation, useParams } from 'react-router-dom';
 const path = globalPath.path;
+
 function App() {
-    useEffect(() => {
-        return () => {
-            console.log('나가요');
-        };
-    }, []);
+    //const { proNo } = useParams();
+    const authSlice = useSelector((state) => state.authSlice);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const proNo = queryParams.get('proNo');
+
     const [data, setData] = useState(
         localStorage.getItem('orangenode') ? JSON.parse(localStorage.getItem('orangenode')) : []
     );
+
     const defaultDark = window.matchMedia('(prefers-colors-scheme: dark)').matches;
     const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+
     const switchTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
     };
+
     const setName = (title, bid) => {
         const index = data.findIndex((item) => item.id === bid);
         const tempData = [...data];
         tempData[index].boardName = title;
         setData(tempData);
     };
+
     const dragCardInBoard = (source, destination) => {
         let tempData = [...data];
         const destinationBoardIdx = tempData.findIndex((item) => item.id.toString() === destination.droppableId);
         const sourceBoardIdx = tempData.findIndex((item) => item.id.toString() === source.droppableId);
         tempData[destinationBoardIdx].card.splice(destination.index, 0, tempData[sourceBoardIdx].card[source.index]);
         tempData[sourceBoardIdx].card.splice(source.index, 1);
+
         return tempData;
     };
+
     const addCard = (title, bid) => {
         const index = data.findIndex((item) => item.id === bid);
         const tempData = [...data];
@@ -49,13 +60,16 @@ function App() {
         });
         setData(tempData);
     };
+
     const removeCard = (boardId, cardId) => {
         const index = data.findIndex((item) => item.id === boardId);
         const tempData = [...data];
         const cardIndex = data[index].card.findIndex((item) => item.id === cardId);
+
         tempData[index].card.splice(cardIndex, 1);
         setData(tempData);
     };
+
     const addBoard = (title) => {
         const tempData = [...data];
         tempData.push({
@@ -65,69 +79,129 @@ function App() {
         });
         setData(tempData);
     };
+
     const removeBoard = (bid) => {
         const tempData = [...data];
         const index = data.findIndex((item) => item.id === bid);
         tempData.splice(index, 1);
         setData(tempData);
     };
+
     const onDragEnd = (result) => {
         const { source, destination } = result;
         if (!destination) return;
+
         if (source.droppableId === destination.droppableId) return;
+
         setData(dragCardInBoard(source, destination));
     };
+
     const updateCard = (bid, cid, card) => {
         const index = data.findIndex((item) => item.id === bid);
         if (index < 0) return;
+
         const tempBoards = [...data];
         const cards = tempBoards[index].card;
+
         const cardIndex = cards.findIndex((item) => item.id === cid);
         if (cardIndex < 0) return;
+
         tempBoards[index].card[cardIndex] = card;
         console.log(tempBoards);
         setData(tempBoards);
-        alert(321321);
     };
-    // //localStorage 저장 후 서버에 넘기기
-    // useEffect(() => {
-    //     localStorage.setItem('orangenode', JSON.stringify(data));
-    //     console.log('data ## : ', data);
-    //     const response = axios.post(`${path}/addissue`, data, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     });
-    // }, [data]);
-    const dddd = () => {
-        console.log('data ## : ', data);
-        const res = axios.post(`${path}/dddd`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+
+    // proNo값이 렌더링 될 때 마다 데이터 조회
+    useEffect(() => {
+        if (proNo) {
+            selectKanbanList();
+        }
+    }, [proNo]);
+
+    // 화면 이동을 할 때 데이터 저장
+    useEffect(() => {
+        // 사용자가 페이지를 떠나려고 할 때 실행
+        const handleBeforeUnload = (event) => {
+            saveHandler();
+            event.preventDefault();
+        };
+        // 사용자가 페이지를 떠날 때 handleBeforeUnload 함수 실행(데이터 저장)
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        // 컴포넌트가 언마운트 될 때 beforeunload 이벤트 리스너 제거 및 데이터 저장
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            saveHandler();
+        };
+    }, [data]);
+
+    // 칸반리스트 출력
+    const selectKanbanList = async () => {
+        try {
+            console.log('proNo:', proNo);
+            const response = await axios.get(`${PROJECT_KANBAN_PATH}?proNo=${proNo}`, { withCredentials: true });
+            if (response.data) {
+                console.log('response.data:', response.data);
+                if (response.data.length === 0) {
+                    localStorage.removeItem('orangenode');
+                    setData([]);
+                } else {
+                    localStorage.setItem('orangenode', JSON.stringify(response.data));
+                    setData(response.data);
+                }
+            } else {
+                console.log('No data received');
+                setData([]);
+            }
+        } catch (error) {
+            console.error('Error fetching kanban list:', error);
+        }
     };
+
+    // 칸반보드 데이터 저장
+    const saveHandler = async () => {
+        localStorage.setItem('orangenode', JSON.stringify(data));
+        try {
+            const response = await axios.post(
+                `${path}/kanban/create`,
+                {
+                    proNo: proNo,
+                    content: JSON.stringify(data),
+                },
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log('response.data :', response.data);
+        } catch (error) {
+            console.error('post 에러:', error);
+        }
+    };
+
     return (
         <DefaultLayout>
-            <button onClick={dddd}>dddddd</button>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="project-container" data-theme={theme}>
                     <Navbar switchTheme={switchTheme} />
                     <div className="app_outer">
                         <div className="app_boards">
-                            {data.map((item) => (
-                                <Board
-                                    key={item.id}
-                                    id={item.id}
-                                    name={item.boardName}
-                                    card={item.card}
-                                    setName={setName}
-                                    addCard={addCard}
-                                    removeCard={removeCard}
-                                    removeBoard={removeBoard}
-                                    updateCard={updateCard}
-                                />
-                            ))}
+                            {Array.isArray(data) &&
+                                data.map((item) => (
+                                    <Board
+                                        key={item.id}
+                                        id={item.id}
+                                        name={item.boardName}
+                                        card={item.card}
+                                        setName={setName}
+                                        addCard={addCard}
+                                        removeCard={removeCard}
+                                        removeBoard={removeBoard}
+                                        updateCard={updateCard}
+                                    />
+                                ))}
                             <Editable
                                 class={'add__board'}
                                 name={'Add Board'}

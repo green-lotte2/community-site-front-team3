@@ -12,7 +12,7 @@ const ChatMessage = ({ position, text, name, date, sName, oName, profile }) => {
   const handlerdownload = async (e, sName, oName) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`${url}/chat/download/${sName}`, {
+      const response = await axios.get(`${url}/chat/download/${sName}`, { withCredentials: true }, {
         responseType: "blob",
       });
 
