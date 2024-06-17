@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import BoardTabs from "../../components/board/BoardTabs";
 import Search from "../../components/board/Search";
 import Table from "../../components/board/Table";
 import DefaultLayout from "layouts/DefaultLayout";
-import { getList } from "api/ArticleApi";
 import axios from "axios";
 import { globalPath } from "globalPaths";
 
@@ -17,7 +15,7 @@ const List = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/board/cate`)
+      .get(`${url}/article/cate`)
       .then((response) => {
         console.log(response.data);
         setArticleCate(response.data);
@@ -29,9 +27,9 @@ const List = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/board/list?cateName=${cateValue}`)
+      .get(`${url}/article/list?cateName=${cateValue}`)
       .then((response) => {
-        console.log(response.data);
+        console.log("List", response.data);
         setArticleList(response.data);
       })
       .catch((err) => {

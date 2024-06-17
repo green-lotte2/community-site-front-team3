@@ -6,21 +6,25 @@ const BoardTabs = ({ articleCate, setCateValue }) => {
     setCateValue(e);
   };
 
+  console.log(articleCate);
   return (
     <>
       <div className="BoardTabs">
-        {articleCate.map((cate, index) => (
-          <Link
-            onClick={() => {
-              handlerClickCate(cate.cateName);
-            }}
-            to="#"
-            key={index}
-            className="active"
-          >
-            {cate.cateName}
-          </Link>
-        ))}
+        {articleCate.map((cate, index) => {
+          return (
+            <Link
+              onClick={() => {
+                handlerClickCate();
+              }}
+              to="#"
+              className="active"
+              value={cate.cateName}
+              key={index}
+            >
+              {cate.cateName}
+            </Link>
+          );
+        })}
 
         <Link to="#" className="active">
           +
