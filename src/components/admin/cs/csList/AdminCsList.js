@@ -3,18 +3,23 @@ import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import ListComponent from "./ListComponent";
+import WriteComponent from "./CsWrite";
+import ModifyComponent from "./ModifyComponent";
 import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-export default function AdminCsList() {
+export default function AdminCsList({ view, setView }) {
+  // useEffect 관리
   const [triger, setTriger] = useState(false);
+  // 글 내용 관리
   const [csContent, setCsContent] = useState([]);
+  // checkbox 관리
   const [selectedRows, setSelectedRows] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${url}/cs/selects`, { selectedRows })
+      .get(`${url}/cs/selects`)
       .then((response) => {
         console.log(response.data);
         setCsContent(response.data);
@@ -37,10 +42,11 @@ export default function AdminCsList() {
   };
 
   const modifyHandler = () => {
-    if ((selectedRows.length = 0)) {
+    if (selectedRows.length === 1) {
       // 글 수정으로 컴포넌트 or 화면 변경
+      setView("modify");
     } else {
-      alert("수정할 글을 선택해주세요.");
+      alert("수정할 글을 한 개만 선택해주세요.");
     }
   };
 
@@ -69,40 +75,54 @@ export default function AdminCsList() {
 
   return (
     <>
-      <ListComponent
-        csContent={csContent}
-        setSelectedRows={setSelectedRows}
-        triger={triger}
-        setTriger={setTriger}
-      />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginTop: "15px",
-        }}
-      >
-        <Button
-          style={{ marginLeft: "auto", color: "#000000" }}
-          variant="text"
-          onClick={modifyHandler}
-        >
-          작성하기
-        </Button>
-        <Button
-          style={{ marginLeft: "10px", color: "#000000" }}
-          variant="text"
-          onClick={modifyHandler}
-        >
-          수정하기
-        </Button>
-        <Button
-          style={{ marginLeft: "10px", color: "#000000" }}
-          variant="text"
-          onClick={deleteHandler}
-        >
-          삭제하기
-        </Button>
+      {view === "list" && (
+        <>
+          <ListComponent
+            csContent={csContent}
+            setSelectedRows={setSelectedRows}
+            triger={triger}
+            setTriger={setTriger}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "15px",
+            }}
+          >
+            <Button
+              style={{ marginLeft: "auto", color: "#000000" }}
+              variant="text"
+              onClick={writeHandler}
+            >
+              작성하기
+            </Button>
+            <Button
+              style={{ marginLeft: "10px", color: "#000000" }}
+              variant="text"
+              onClick={modifyHandler}
+            >
+              수정하기
+            </Button>
+            <Button
+              style={{ marginLeft: "10px", color: "#000000" }}
+              variant="text"
+              onClick={deleteHandler}
+            >
+              삭제하기
+            </Button>
+          </div>
+        </>
+      )}
+      <div>
+        {view === "write" && (
+          <WriteComponent selectedRows={selectedRows} setView={setView} />
+        )}
+      </div>
+      <div>
+        {view === "modify" && (
+          <ModifyComponent setView={setView} selectedRows={selectedRows} />
+        )}
       </div>
     </>
   );

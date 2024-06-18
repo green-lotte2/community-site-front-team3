@@ -1,6 +1,11 @@
 import React from "react";
+import Moment from "moment";
+import "moment/locale/ko";
 
 const Table = ({ articleList }) => {
+  const handlerBtnModify = () => {};
+  const handlerBtnDelete = () => {};
+
   return (
     <>
       <div className="Table">
@@ -10,33 +15,35 @@ const Table = ({ articleList }) => {
               <th></th>
               <th>번호</th>
               <th>작성자</th>
+              <th>제목</th>
               <th>작성일</th>
-              <th>상태</th>
+              <th>조회수</th>
               <th>관리</th>
             </tr>
           </thead>
           <tbody>
-            {/* {articleList.map((List, index) => (
-              <tr>
-                <td>
-                  <input type="checkbox" />
-                </td>
-                <td key={index}>{List.ano}</td>
-                <td key={index}>
-                  {List.uid}
-                  <br />
-                  j.stevenson@example.com
-                </td>
-                <td>22 Oct 2019</td>
-                <td>
-                  <span className="paid">Paid</span>
-                </td>
-                <td>
-                  <button>수정</button>
-                  <button>삭제</button>
-                </td>
-              </tr>
-            ))} */}
+            {articleList.map((article, index) => {
+              return (
+                <tr key={article.ano}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td>{index + 1}</td>
+                  <td>{article.uid}</td>
+                  <td>{article.title}</td>
+                  <td>
+                    {Moment(article.rdate)
+                      .subtract(1, "months")
+                      .format("YYYY-MM-DD")}
+                  </td>
+                  <td>{article.hit}</td>
+                  <td>
+                    <button onClick={handlerBtnModify}>수정</button>
+                    <button onClick={handlerBtnDelete}>삭제</button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

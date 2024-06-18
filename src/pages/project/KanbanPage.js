@@ -137,11 +137,12 @@ function App() {
         };
         // 사용자가 페이지를 떠날 때 handleBeforeUnload 함수 실행(데이터 저장)
         window.addEventListener('beforeunload', handleBeforeUnload);
-
+        localStorage.removeItem('orangenode');
         // 컴포넌트가 언마운트 될 때 beforeunload 이벤트 리스너 제거 및 데이터 저장
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
             saveHandler();
+            localStorage.removeItem('orangenode');
         };
     }, [data]);
 

@@ -13,8 +13,6 @@ const InviteFriends = ({ chatNo }) => {
   const [title, setTitle] = useState("");
   const uid = authSlice.uid;
 
-  console.log("InviteFriends : " + chatNo);
-
   useEffect(() => {
     if (authSlice && authSlice.company) {
       fetchUsersByCompany(authSlice.company);
