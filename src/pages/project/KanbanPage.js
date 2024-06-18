@@ -143,7 +143,8 @@ function App() {
             window.removeEventListener('beforeunload', handleBeforeUnload);
             saveHandler();
         };
-    }, [data]);
+        
+    }, []);
 
     // 칸반리스트 출력
     const selectKanbanList = async () => {

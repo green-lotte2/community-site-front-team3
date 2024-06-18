@@ -286,7 +286,7 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
         className="pageTitle"
         spellCheck="true"
         placeholder="제목 없음"
-        contentEditable="true"
+        contentEditable={authSlice.uid === uid}
         onInput={handleInputTitle}
         ref={titleRef}
       >
