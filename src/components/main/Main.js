@@ -5,10 +5,12 @@ import MainPages from './MainPages';
 import MainChat from './MainChat';
 import MainArticles from './MainArticles';
 import MainCs from './MainCs';
+import MainProfile from './MainProfile';
 import MainProj from './MainProj';
 import { useSelector } from 'react-redux';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import IconButton from '@mui/material/IconButton';
+import MainDateTime from './MainDateTime';
 
 const Main = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -52,7 +54,14 @@ const Main = () => {
     };
 
     return (
-        <>
+        <div
+            style={{
+                backgroundImage: 'url(/images/background_4.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100vh',
+            }}
+        >
             <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
                 <IconButton onClick={toggleDropdown}>
                     <MoreVertTwoToneIcon />
@@ -129,6 +138,9 @@ const Main = () => {
                 )}
             </div>
             <div id="main-component">
+                <MainDateTime />
+                <MainProfile />
+
                 <Recents />
                 {visibleComponents.calendar && <MainCalendar />}
                 {visibleComponents.proj && <MainProj />}
@@ -136,7 +148,7 @@ const Main = () => {
                 {visibleComponents.chat && <MainChat />}
                 {visibleComponents.articles && <MainArticles />}
             </div>
-        </>
+        </div>
     );
 };
 
