@@ -16,6 +16,8 @@ export default function AdminCsList({ view, setView }) {
   const [csContent, setCsContent] = useState([]);
   // checkbox 관리
   const [selectedRows, setSelectedRows] = useState([]);
+  // 글 수정시 게시글 하나 가져오기
+  const [selectArticle, setSelectArticle] = useState([]);
 
   useEffect(() => {
     axios
@@ -29,26 +31,32 @@ export default function AdminCsList({ view, setView }) {
       });
   }, [triger]);
 
-  useEffect(() => {
-    console.log(triger);
-  }, [triger]);
-
-  useEffect(() => {
-    console.log(csContent);
-  }, [csContent]);
-
   const writeHandler = () => {
     // 글 작성으로 컴포넌트 or 화면 변경
   };
 
+  /**글 수정 버튼 */
   const modifyHandler = () => {
     if (selectedRows.length === 1) {
-      // 글 수정으로 컴포넌트 or 화면 변경
+      axios
+        .get(`${url}/cs/select?csNo=${selectedRows}`)
+        .then((response) => {
+          console.log(response.data);
+          setSelectArticle(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       setView("modify");
     } else {
       alert("수정할 글을 한 개만 선택해주세요.");
     }
   };
+
+  useEffect(() => {
+    console.log(selectArticle);
+  }, [selectArticle]);
 
   const deleteHandler = () => {
     if (selectedRows.length > 0) {
@@ -68,10 +76,6 @@ export default function AdminCsList({ view, setView }) {
       return;
     }
   };
-
-  useEffect(() => {
-    console.log(selectedRows);
-  }, [selectedRows]);
 
   return (
     <>
@@ -121,7 +125,11 @@ export default function AdminCsList({ view, setView }) {
       </div>
       <div>
         {view === "modify" && (
-          <ModifyComponent setView={setView} selectedRows={selectedRows} />
+          <ModifyComponent
+            setView={setView}
+            selectedRows={selectedRows}
+            selectArticle={selectArticle}
+          />
         )}
       </div>
     </>
