@@ -6,6 +6,7 @@ const serverHost = globalPath.serverHost;
 
 const kakaoLogin = (code) => {
     return function (dispatch) {
+        // 받은 인가코드 백엔드에 넘기고 토큰 받기
         axios({
             method: 'GET',
             url: `http://${serverHost}:8080/oauth/callback/kakao?code=${code}`,
@@ -14,9 +15,11 @@ const kakaoLogin = (code) => {
             .then((res) => {
                 console.log('token 들어오나?', JSON.stringify(res));
 
+                // 받아온 토큰
                 const ACCESS_TOKEN = res.data;
 
                 console.log('accessToken:', ACCESS_TOKEN);
+                // 받아온 토큰을 로컬에 저장
                 localStorage.setItem('token', ACCESS_TOKEN);
                 console.log('local스토리지 체크111', localStorage.getItem('token'));
                 alert('로그인 성공');

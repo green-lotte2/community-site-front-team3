@@ -29,8 +29,13 @@ export default function Board(props) {
                             className="title__input"
                             type={'text'}
                             defaultValue={props.name}
-                            onChange={(e) => {
+                            onBlur={(e) => {
                                 props.setName(e.target.value, props.id);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    props.setName(e.target.value, props.id);
+                                }
                             }}
                         />
                     </div>
