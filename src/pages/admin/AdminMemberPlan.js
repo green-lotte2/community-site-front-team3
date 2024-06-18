@@ -1,13 +1,13 @@
 import React from 'react';
 import { AdminDefaultLayout } from '../../layouts/AdminDefaultLayout';
-import Container from '../../components/admin/member/Container';
+import MemberPlan from '../../components/admin/member/MemberPlan';
 
-const AdminMember = () => {
+const AdminMemberPlan = () => {
     return (
         <AdminDefaultLayout>
-            <Container />
+            <MemberPlan />
         </AdminDefaultLayout>
     );
 };
 
-export default AdminMember;
+export default AdminMemberPlan;

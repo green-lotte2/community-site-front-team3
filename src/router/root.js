@@ -2,7 +2,7 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from '../pages/main/MainPage';
 import AdminPage from '../pages/admin/AdminPage';
-import AdminMember from '../pages/admin/AdminMember';
+import AdminMemberPlan from '../pages/admin/AdminMemberPlan';
 import AdminMemberList from '../pages/admin/AdminMemberList';
 import AdminArticleList from '../pages/admin/AdminArticleList';
 import AdminArticleView from '../pages/admin/AdminArticleView';
@@ -38,7 +38,7 @@ const root = createBrowserRouter([
 
     // admin
     { path: '/admin', element: <AdminPage /> },
-    { path: '/admin/member', element: <AdminMember /> },
+    { path: '/admin/member/plan', element: <AdminMemberPlan /> },
     { path: '/admin/member/list', element: <AdminMemberList /> },
     { path: '/admin/article', element: <AdminArticleList /> },
     { path: '/admin/article/:ano', element: <AdminArticleView /> },
