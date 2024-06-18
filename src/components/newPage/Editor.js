@@ -99,7 +99,9 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
   useEffect(() => {
     setSelectedUsers(invitedUsers);
     console.log("이미 초대 : " + invitedUsers);
-    setIsCurrentUserInvited(invitedUsers.some((user) => user.uid === authSlice.uid));
+    setIsCurrentUserInvited(
+      invitedUsers.some((user) => user.uid === authSlice.uid)
+    );
   }, [invitedUsers, authSlice.uid]);
 
   /** 페이지 정보 불러오기 */
@@ -223,7 +225,11 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
 
   /** 현재 사용자 제외 */
   const getFilteredUsers = () => {
-    return users.filter((user) => user.uid !== authSlice.uid && !invitedUsers.map((inuser) => inuser.uid).includes(user.uid));
+    return users.filter(
+      (user) =>
+        user.uid !== authSlice.uid &&
+        !invitedUsers.map((inuser) => inuser.uid).includes(user.uid)
+    );
   };
 
   /** 협력자 초대 및 삭제 요청 */
@@ -233,8 +239,12 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
     const invitedUserIds = invitedUsers.map((user) => user.uid);
     const selectedUserIds = selectedUsers.map((user) => user.uid);
 
-    const usersToAdd = selectedUserIds.filter((uid) => !invitedUserIds.includes(uid));
-    const usersToRemove = invitedUserIds.filter((uid) => !selectedUserIds.includes(uid));
+    const usersToAdd = selectedUserIds.filter(
+      (uid) => !invitedUserIds.includes(uid)
+    );
+    const usersToRemove = invitedUserIds.filter(
+      (uid) => !selectedUserIds.includes(uid)
+    );
 
     console.log("기존 사용자 {} ", invitedUsers);
     console.log("추가할 사용자 {} ", usersToAdd);
@@ -299,10 +309,18 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
       />
       {!isCurrentUserInvited && (
         <>
-          <button className="btnInvite" onClick={() => setModalOpen(true)}>
+          <button
+            className="btnInvite"
+            onClick={() => setModalOpen(true)}
+            style={{ marginTop: "10px" }}
+          >
             협력자초대
           </button>
-          <button className="btnDelete" onClick={deleteHandler}>
+          <button
+            className="btnDelete"
+            onClick={deleteHandler}
+            style={{ marginTop: "10px" }}
+          >
             페이지삭제
           </button>
         </>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
 
 $primary-color: #ff8916;
 $secondary-color: #007bff;
@@ -11,472 +11,484 @@ $white: #fff;
 $black: #000;
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 // 공통 헤더
 .mainHeader {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  margin-left: 245px;
+  width: calc(100% - 200px);
+  top: 0;
+  z-index: 1000;
+  height: 60px;
+
+  .container {
+    height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    margin-right: 25px;
     align-items: center;
-    position: fixed;
-    margin-left: 245px;
-    width: calc(100% - 200px);
-    top: 0;
-    z-index: 1000;
-    height: 60px;
-
-    .container {
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        margin-right: 25px;
-        align-items: center;
-        width: 100%;
-        padding: 0 20px; /* 좌우 패딩 추가 */
-    }
-
-    .nav-search {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-    }
-
-    nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%; /* 부모 컨테이너의 높이와 일치 */
-    }
-
-    nav ul li {
-        margin: 0 8px; /* li 요소 간의 간격 조정 */
-        font-size: 12px;
-    }
-
-    nav ul li:hover {
-        border-bottom: 2px solid #ff8916;
-    }
-
-    nav ul li a {
-        text-decoration: none;
-        color: #000;
-    }
-
-    img.profile-picture {
-        width: 22px;
-    }
-
-    .welcome-section {
-        position: relative;
-        cursor: pointer;
-    }
-
-    .profile-picture {
-        width: 15px;
-    }
-
-    .jnd-dropdown-menu.gnb-profile-dropdown.right {
-        display: flex;
-        visibility: visible;
-        width: 500%;
-        justify-content: center;
-        align-items: center;
-        left: -54px;
-        margin-top: 5px;
-    }
-
-    h5.jnd-option-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .jnd-dropdown-menu {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: absolute;
-        right: 0;
-        top: 100%;
-        z-index: 1000;
-        padding: 10px;
-    }
-
-    .jnd-option-title {
-        padding-bottom: 10px;
-        font-weight: bold;
-        border-bottom: 1px solid #ddd;
-        width: 100%;
-    }
-
-    .jnd-option-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-    }
-
-    .jnd-option-item {
-        padding: 10px;
-        cursor: pointer;
-        width: 50%;
-        display: flex;
-        align-items: center;
-    }
-
-    .jnd-option-item i {
-        margin-right: 5px;
-    }
-
-    .jnd-option-item:hover {
-        background-color: #f0f0f0;
-    }
-}
-// 공통
-#mainContainer {
-    .login-buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-    }
-
-    .kakao-login {
-        background-image: url('../../public/images/member/kakao_login_large.png');
-    }
-
-    .google-login {
-        background-image: url('../../public/images/member/google_login_large.png');
-    }
-
-    .login-form label {
-        margin: 10px 0 5px;
-    }
-
-    .login-form input {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
-        width: 246px;
-    }
-
-    .additional-options {
-        margin-bottom: 15px;
-        text-align: center;
-    }
-
-    .additional-options a {
-        text-decoration: none;
-        color: #000;
-        font-size: 14px;
-    }
-
-    .additional-options a:hover {
-        text-decoration: underline;
-    }
-    /* 회원가입 페이지 스타일 */
-    .signup-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .signup-Form {
-        padding: 30px;
-        border: 1px solid #ccc;
-        width: 250vh; /* 변경된 가로폭 */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
-        height: 10%; /* 높이 조절 */
-        border: none;
-    }
-    .signup-Form form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    header .search input {
-        margin-right: 40px;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-left: 20px;
-    }
-
-    // 공통 aside
-    aside {
-        width: 200px; /* Notion과 유사하게 폭을 조정 */
-        background-color: #e1e1e1; /* 배경 색상을 필요에 따라 업데이트 */
-        padding: 20px; /* 내부 공간 확보를 위한 패딩 추가 */
-        border-right: 1px solid #f1f1f1; /* 테두리 스타일 */
-        height: 100%;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        z-index: 500;
-        overflow: auto;
-        box-shadow: 2px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo h1 {
-            margin: 0;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul li {
-            margin-bottom: 20px;
-            padding: 5px;
-        }
-
-        ul li a {
-            padding: 10px;
-            text-decoration: none;
-            color: #231f1f;
-            display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
-            position: relative;
-            font-size: 15px;
-            svg {
-                vertical-align: bottom;
-                margin-right: 5px;
-            }
-        }
-        ul li a::after {
-            content: '';
-            margin-left: 10px;
-            display: block;
-            width: 0;
-            height: 2px;
-            background: #ff8916;
-            transition: width 0.3s;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: white;
-        }
-
-        ul li a:hover::after {
-            width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
-        }
-        .btnPagePlus {
-            width: 20px !important;
-            margin-left: 10px;
-            margin-bottom: 10px;
-            padding: none;
-            border: none;
-            background-color: #ff8916;
-            color: white;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        .addPage {
-            font-size: 13px;
-            color: #333;
-        }
-
-        li > div {
-            margin-left: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-    }
-    .terms-form button:hover {
-        background-color: #f8af65;
-    }
-    // 공통 main + tabs
-    main {
-        background-color: #f9f9f9;
-        min-height: 870px;
-        flex: 1;
-        margin-left: 245px;
-        padding: 80px 20px 20px 20px;
-        box-sizing: border-box;
-        overflow: auto;
-    }
-
-    main .tabs {
-        display: flex;
-        margin-bottom: 20px;
-    }
-
-    main .tabs a {
-        margin-right: 10px;
-        text-decoration: none;
-        padding: 10px 20px;
-        background-color: #e0e0e0;
-        border-radius: 3px;
-        color: #000;
-    }
-
-    main .tabs a.active {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .terms-form button:hover {
-        background-color: #f8af65;
-
-        .pagination {
-            margin-top: 2rem;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-
-            > * {
-                cursor: pointer;
-            }
-        }
-
-        .pagination__link {
-            transition: all 0.25s;
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.3rem;
-        }
-
-        .pagination__link__active {
-            background-color: #bbb;
-            color: #fefefe;
-        }
-    }
-}
-// 공통 footer
-.mainFooter {
-    background-color: #f8af65;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
     width: 100%;
-    bottom: 0;
-    height: 40px;
+    padding: 0 20px; /* 좌우 패딩 추가 */
+  }
+
+  .nav-search {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%; /* 부모 컨테이너의 높이와 일치 */
+  }
 
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+  nav ul li {
+    height: auto;
+    margin: 0 8px; /* li 요소 간의 간격 조정 */
+    font-size: 12px;
+    border-bottom: 2px solid #f8f8f8;
+  }
+
+  nav ul li:hover {
+    border-bottom: 2px solid #ff8916;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  img.profile-picture {
+    width: 22px;
+  }
+
+  .welcome-section {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .profile-picture {
+    width: 15px;
+  }
+
+  .jnd-dropdown-menu.gnb-profile-dropdown.right {
+    display: flex;
+    visibility: visible;
+    width: 500%;
+    justify-content: center;
+    align-items: center;
+    left: -54px;
+    margin-top: 5px;
+  }
+
+  h5.jnd-option-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .jnd-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    padding: 10px;
+  }
+
+  .jnd-option-title {
+    padding-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+
+  .jnd-option-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .jnd-option-item {
+    padding: 10px;
+    cursor: pointer;
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
+
+  .jnd-option-item i {
+    margin-right: 5px;
+  }
+
+  .jnd-option-item:hover {
+    background-color: #f0f0f0;
+  }
+}
+// 공통
+#mainContainer {
+  .login-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .kakao-login {
+    background-image: url("../../public/images/member/kakao_login_large.png");
+  }
+
+  .google-login {
+    background-image: url("../../public/images/member/google_login_large.png");
+  }
+
+  .login-form label {
+    margin: 10px 0 5px;
+  }
+
+  .login-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* 입력 상자의 너비가 border-box로 계산되도록 설정 */
+    width: 246px;
+  }
+
+  .additional-options {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .additional-options a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+  }
+
+  .additional-options a:hover {
+    text-decoration: underline;
+  }
+  /* 회원가입 페이지 스타일 */
+  .signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signup-Form {
+    padding: 30px;
+    border: 1px solid #ccc;
+    width: 250vh; /* 변경된 가로폭 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* 회원가입 폼 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 회원가입 폼 내부 요소 가운데 정렬 */
+    height: 10%; /* 높이 조절 */
+    border: none;
+  }
+  .signup-Form form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header .search input {
+    margin-right: 40px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 20px;
+  }
+
+  // 공통 aside
+  aside {
+    width: 200px; /* Notion과 유사하게 폭을 조정 */
+    background-color: #e1e1e1; /* 배경 색상을 필요에 따라 업데이트 */
+    padding: 20px; /* 내부 공간 확보를 위한 패딩 추가 */
+    border-right: 1px solid #f1f1f1; /* 테두리 스타일 */
+    height: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 500;
+    overflow: auto;
+    box-shadow: 2px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo h1 {
+      margin: 0;
     }
 
     ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 15px; /* 리스트 아이템 간 간격 */
+      list-style: none;
+      padding: 0;
     }
 
     ul li {
-        margin: 0;
+      margin-bottom: 20px;
+      padding: 5px;
     }
+
     ul li a {
-        text-decoration: none;
-        color: #fff;
+      padding: 10px;
+      text-decoration: none;
+      color: #231f1f;
+      display: inline-block; /* 텍스트 길이에 맞게 밑줄 적용 */
+      position: relative;
+      font-size: 15px;
+      svg {
+        vertical-align: bottom;
+        margin-right: 5px;
+      }
     }
+    ul li a::after {
+      content: "";
+      margin-left: 10px;
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #ff8916;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: white;
+    }
+
+    ul li a:hover::after {
+      width: 100%; /* 텍스트 길이에 맞게 밑줄 확장 */
+    }
+    .btnPagePlus {
+      width: 20px !important;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      padding: none;
+      border: none;
+      background-color: #ff8916;
+      color: white;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .addPage {
+      font-size: 13px;
+      color: #333;
+    }
+
+    li > div {
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    .plusPage {
+      flex-direction: row;
+      margin-left: 26px;
+      margin-top: 7px;
+      cursor: pointer;
+      align-items: center;
+    }
+    .plusPage:hover span {
+      color: #f78718;
+    }
+  }
+  .terms-form button:hover {
+    background-color: #f8af65;
+  }
+  // 공통 main + tabs
+  main {
+    background-color: #f9f9f9;
+    min-height: 870px;
+    flex: 1;
+    margin-left: 245px;
+    padding: 80px 20px 20px 20px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+  main .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  main .tabs a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    color: #000;
+  }
+
+  main .tabs a.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .terms-form button:hover {
+    background-color: #f8af65;
+
+    .pagination {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      > * {
+        cursor: pointer;
+      }
+    }
+
+    .pagination__link {
+      transition: all 0.25s;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.3rem;
+    }
+
+    .pagination__link__active {
+      background-color: #bbb;
+      color: #fefefe;
+    }
+  }
+}
+// 공통 footer
+.mainFooter {
+  background-color: #f8af65;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  bottom: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px; /* 리스트 아이템 간 간격 */
+  }
+
+  ul li {
+    margin: 0;
+  }
+  ul li a {
+    text-decoration: none;
+    color: #fff;
+  }
 }
 
 // app version 출력
 .appVersion {
-    position: fixed;
-    bottom: 6%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    color: white;
+  position: fixed;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  color: white;
 }
 
 // 메인 가로 스크롤 css
 .scroll-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .scroll-container {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    align-items: center;
-    padding: 10px 0;
-    width: calc(100% - 60px); /* 양쪽 버튼 공간 확보를 위해 너비 조정 */
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  align-items: center;
+  padding: 10px 0;
+  width: calc(100% - 60px); /* 양쪽 버튼 공간 확보를 위해 너비 조정 */
 }
 
 .scroll-item {
-    flex: 0 0 auto;
-    width: 300px;
-    margin-right: 10px;
-    white-space: normal;
+  flex: 0 0 auto;
+  width: 300px;
+  margin-right: 10px;
+  white-space: normal;
 }
 
 .scroll-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
 .scroll-button-left {
-    left: 0;
+  left: 0;
 }
 
 .scroll-button-right {
-    right: 0;
+  right: 0;
 }
 
 .scroll-button-hidden {
-    display: none;
+  display: none;
 }
 
 // 메인 컴포넌트 간격 조절
 #main-component {
-    margin-bottom: 20px;
-    margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 // 메인화면 제목 css
 .main-h3-title {
-    display: flex;
-    align-items: center;
-    color: #808080;
-    font-size: 14px;
-    padding: 20px;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  color: #808080;
+  font-size: 14px;
+  padding: 20px;
+  gap: 5px;
 }
