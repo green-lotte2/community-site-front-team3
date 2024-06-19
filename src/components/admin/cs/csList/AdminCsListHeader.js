@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AdminCsListHeader = ({ view }) => {
   const getTitle = () => {
@@ -9,7 +9,7 @@ const AdminCsListHeader = ({ view }) => {
       case "modify":
         return "게시할 문의글 수정";
 
-      case "wirte":
+      case "write":
         return "게시할 문의글 작성";
 
       default:
@@ -20,11 +20,19 @@ const AdminCsListHeader = ({ view }) => {
   return (
     <div>
       <h2
-        style={{
-          display: "flex",
-          marginBottom: "20px",
-          alignItems: "center",
-        }}
+        style={
+          view === "modify"
+            ? {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }
+            : {
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+              }
+        }
       >
         {getTitle()}
       </h2>

@@ -18,6 +18,8 @@ export default function AdminCsList({ view, setView }) {
   const [selectedRows, setSelectedRows] = useState([]);
   // 글 수정시 게시글 하나 가져오기
   const [selectArticle, setSelectArticle] = useState([]);
+  // 카테 리스트 가져오기
+  const [cateList, setCateList] = useState([]);
 
   useEffect(() => {
     axios
@@ -31,8 +33,10 @@ export default function AdminCsList({ view, setView }) {
       });
   }, [triger]);
 
+  // 글 작성 버튼
   const writeHandler = () => {
     // 글 작성으로 컴포넌트 or 화면 변경
+    setView("write");
   };
 
   /**글 수정 버튼 */
@@ -43,6 +47,16 @@ export default function AdminCsList({ view, setView }) {
         .then((response) => {
           console.log(response.data);
           setSelectArticle(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      /** 카테고리 리스트 가져오기 */
+      axios
+        .get(`${url}/csCate`)
+        .then((response) => {
+          setCateList(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -118,17 +132,13 @@ export default function AdminCsList({ view, setView }) {
           </div>
         </>
       )}
-      <div>
-        {view === "write" && (
-          <WriteComponent selectedRows={selectedRows} setView={setView} />
-        )}
-      </div>
+      <div>{view === "write" && <WriteComponent setView={setView} />}</div>
       <div>
         {view === "modify" && (
           <ModifyComponent
             setView={setView}
-            selectedRows={selectedRows}
             selectArticle={selectArticle}
+            cateList={cateList}
           />
         )}
       </div>
