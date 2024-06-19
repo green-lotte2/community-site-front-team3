@@ -1,6 +1,5 @@
-//const serverHost = '127.0.0.1';
-const serverHost = '3.34.204.24';
-//const serverHost = 'ec2-3-34-204-24.ap-northeast-2.compute.amazonaws.com';
+const serverHost = '127.0.0.1';
+// const serverHost = '3.34.204.24'; 
 
 export const globalPath = {
     serverHost,

@@ -130,7 +130,7 @@ const Aside = ({ titleStat, setPageState }) => {
             )}
           </li>
           <li>
-            <Link to="/board/list">
+            <Link to="/article/list">
               <FaClipboardList size={20} color="#009425" />
               게시판
             </Link>
