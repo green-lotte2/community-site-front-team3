@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
+import MainAvatar from './MainAvatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
@@ -26,7 +26,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({ profile, name }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -38,11 +38,7 @@ export default function RecipeReviewCard() {
             <h4 className="main-h3-title">>>프로필 보기</h4>
             <Card sx={{ maxWidth: 550 }}>
                 <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            프로필
-                        </Avatar>
-                    }
+                    avatar={<MainAvatar profile={profile} name={name} />}
                     action={
                         <IconButton aria-label="settings">
                             <MoreVertIcon />
