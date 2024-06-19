@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Moment from "moment";
 import "moment/locale/ko";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { globalPath } from "globalPaths";
 
@@ -10,11 +10,11 @@ const url = globalPath.path;
 const Table = ({ articleList, fetchArticles }) => {
   const navigate = useNavigate();
 
-  const handlerBtnModify = (ano) => {
+  const handleModify = (ano) => {
     navigate(`/article/modify/${ano}`);
   };
 
-  const handlerBtnDelete = async (ano) => {
+  const handleDelete = async (ano) => {
     try {
       await axios.delete(`${url}/articles/${ano}`);
       fetchArticles(); // 삭제 후 리스트 갱신
@@ -23,7 +23,7 @@ const Table = ({ articleList, fetchArticles }) => {
     }
   };
 
-  const handlerTitleClick = (ano) => {
+  const handleTitleClick = (ano) => {
     navigate(`/article/view/${ano}`);
   };
 
@@ -32,11 +32,10 @@ const Table = ({ articleList, fetchArticles }) => {
       <table>
         <thead>
           <tr>
-            <th></th>
             <th>번호</th>
-            <th>작성자</th>
             <th>제목</th>
-            <th>작성일</th>
+            <th>글쓴이</th>
+            <th>등록일</th>
             <th>조회수</th>
             <th>관리</th>
           </tr>
@@ -44,32 +43,25 @@ const Table = ({ articleList, fetchArticles }) => {
         <tbody>
           {articleList.map((article, index) => (
             <tr key={article.ano}>
-              <td>
-                <input type="checkbox" />
-              </td>
               <td>{index + 1}</td>
-              <td>{article.uid}</td>
               <td>
-                <a href="#" onClick={() => handlerTitleClick(article.ano)}>
+                <a href="#" onClick={() => handleTitleClick(article.ano)}>
                   {article.title}
                 </a>
               </td>
-              <td>
-                {Moment(article.rdate)
-                  .subtract(1, "months")
-                  .format("YYYY-MM-DD")}
-              </td>
+              <td>{article.uid}</td>
+              <td>{Moment(article.rdate).format("YYYY-MM-DD")}</td>
               <td>{article.hit}</td>
               <td className="table-actions">
                 <button
                   className="modify"
-                  onClick={() => handlerBtnModify(article.ano)}
+                  onClick={() => handleModify(article.ano)}
                 >
                   수정
                 </button>
                 <button
                   className="delete"
-                  onClick={() => handlerBtnDelete(article.ano)}
+                  onClick={() => handleDelete(article.ano)}
                 >
                   삭제
                 </button>

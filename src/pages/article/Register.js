@@ -5,7 +5,7 @@ import DefaultLayout from "layouts/DefaultLayout";
 const Register = () => {
   return (
     <DefaultLayout>
-      <BoardContainer props="작성" />
+      <BoardContainer />
     </DefaultLayout>
   );
 };

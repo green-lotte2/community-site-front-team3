@@ -6,47 +6,43 @@ import WriteFooter from "components/cs/WriteFooter";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 import Editor from "@toast-ui/editor";
+import axios from "axios";
+import { globalPath } from "globalPaths";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+const url = globalPath.path;
 
 const WritePage = () => {
-  // 문의 글 내용
   const [content, setContent] = useState("");
-  // 문의글 작성할 때 선택한 카테고리 저장
   const [cate, setCate] = useState("");
-  // 문의글 작성할 때 제목 저장
   const [title, setTitle] = useState("");
-
   const editorRef = useRef();
   const editorInstance = useRef();
+  const uid = useSelector((state) => state.authSlice.uid);
+  const navigate = useNavigate();
 
-  /**에디터 커스터마이징 하는곳
-   * (게시판은 해당 부분 주석 다 없애서 사용해주셔야 할듯!)
-   */
-
-  //"italic"
   const toolbarItems = [
-    ["heading", "bold", "strike"],
+    ["heading", "bold", "italic", "strike"],
     ["hr", "quote"],
     ["ul", "ol", "task", "indent", "outdent"],
-    ["image"],
-    ["table", "link"],
-    //["code", "codeblock"],
-    //["scrollSync"],
+    ["table", "image", "link"],
+    ["code", "codeblock"],
   ];
 
-  /** 에디터 객체 생성 */
   useEffect(() => {
     const editor = new Editor({
       el: editorRef.current,
       toolbarItems: toolbarItems,
       height: "700px",
       initialEditType: "wysiwyg",
-      previewStyle: "tab",
+      previewStyle: "vertical",
+      theme: "dark",
     });
 
     editorInstance.current = editor;
 
     return () => {
-      // cleanup
       if (editor) {
         editor.destroy();
       }
@@ -62,22 +58,40 @@ const WritePage = () => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const content = editorInstance.current.getHTML();
+    try {
+      await axios.post(`${url}/articles`, {
+        title,
+        content,
+        uid,
+        cateName: cate,
+      });
+      navigate("/article/list");
+    } catch (err) {
+      console.error("Failed to submit article:", err);
+    }
+  };
+
   return (
     <DefaultLayout>
       <div>
         <WriteHeader />
-        <Write
-          setCate={setCate}
-          setTitle={setTitle}
-          editorRef={editorRef}
-          editorInstance={editorInstance}
-        />
-        <WriteFooter
-          cate={cate}
-          title={title}
-          getContent={getContent}
-          content={content}
-        />
+        <form onSubmit={handleSubmit}>
+          <Write
+            setCate={setCate}
+            setTitle={setTitle}
+            editorRef={editorRef}
+            editorInstance={editorInstance}
+          />
+          <WriteFooter
+            cate={cate}
+            title={title}
+            getContent={getContent}
+            content={content}
+          />
+        </form>
       </div>
     </DefaultLayout>
   );

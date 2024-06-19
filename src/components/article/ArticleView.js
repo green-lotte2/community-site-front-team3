@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Moment from "moment";
+import "moment/locale/ko";
+import { useParams } from "react-router-dom";
 import { globalPath } from "globalPaths";
-import authSlice from "slices/authSlice";
+import { useSelector } from "react-redux";
 
 const url = globalPath.path;
 
@@ -12,8 +13,20 @@ const ArticleView = () => {
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const uid = useSelector((state) => state.authSlice.uid);
 
-  useEffect(() => {
+  const getComment = async () => {
+    axios
+      .get(`${url}/articles/${ano}/comments`)
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch comments:", error);
+      });
+  };
+
+  const getArticle = async () => {
     axios
       .get(`${url}/articles/${ano}`)
       .then((response) => {
@@ -23,27 +36,29 @@ const ArticleView = () => {
         console.error("Failed to fetch the article:", error);
       });
 
+    // 조회수 증가
     axios
-      .get(`${url}/articles/${ano}/comments`)
-      .then((response) => {
-        setComments(response.data);
+      .post(`${url}/articles/${ano}/incrementHit`)
+      .then(() => {
+        console.log("조회수 증가");
       })
       .catch((error) => {
-        console.error("Failed to fetch comments:", error);
+        console.error("Failed to increment hit count:", error);
       });
+  };
+
+  useEffect(() => {
+    getComment();
+    getArticle();
   }, [ano]);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    const uid = authSlice.uid;
     axios
-      .post(`${url}/articles/comments/${ano}`, { content: newComment, uid })
+      .post(`${url}/articles/${ano}/comments`, { content: newComment, uid })
       .then(() => {
         setNewComment("");
-        return axios.get(`${url}/articles/comments/${ano}`);
-      })
-      .then((response) => {
-        setComments(response.data);
+        getComment();
       })
       .catch((error) => {
         console.error("Failed to post comment:", error);
@@ -76,7 +91,7 @@ const ArticleView = () => {
         </form>
         <div className="comments-list">
           {comments.map((comment) => (
-            <div key={comment.id} className="comment">
+            <div key={comment.ano} className="comment">
               <p>{comment.content}</p>
               <p>작성자: {comment.uid}</p>
               <p>작성일: {Moment(comment.rdate).format("YYYY-MM-DD")}</p>

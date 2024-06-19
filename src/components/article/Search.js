@@ -1,11 +1,25 @@
-import React from "react";
-import { CustomButton } from "../styles/CustomButton";
+import React, { useState } from "react";
 
-const Search = () => {
+const Search = ({ setSearchTerm }) => {
+  const [input, setInput] = useState("");
+
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearchTerm(input);
+  };
+
   return (
-    <div className="Search">
-      <input type="text" placeholder="Search Invoice" />
-      <button>검색</button>
+    <div className="search-container">
+      <input
+        type="text"
+        value={input}
+        onChange={handleInputChange}
+        placeholder="검색어를 입력하세요"
+      />
+      <button onClick={handleSearch}>검색</button>
     </div>
   );
 };

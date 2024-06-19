@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const PageUl = styled.ul`
-  float: flex;
+  display: flex;
   list-style: none;
   text-align: center;
-  border-radius: 3px;
-  color: 0c1425;
   padding: 1px;
   border-top: 3px solid #0c1425;
   border-bottom: 3px solid #0c1425;
+  justify-content: center;
+  margin: 20px 0;
 `;
 
 const PageLi = styled.li`
