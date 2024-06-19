@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Recents from './Recents';
 import MainCalendar from './MainCalendar';
-import MainPages from './MainPages';
-import MainChat from './MainChat';
-import MainArticles from './MainArticles';
-import MainCs from './MainCs';
 import MainProfile from './MainProfile';
-import MainProj from './MainProj';
 import { useSelector } from 'react-redux';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import IconButton from '@mui/material/IconButton';
-import MainDateTime from './MainDateTime';
+import { useInterval } from 'use-interval';
+import Moment from 'react-moment';
 
 const Main = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -53,6 +48,13 @@ const Main = () => {
         setWidgetMenuVisible(!widgetMenuVisible);
     };
 
+    // 현재 시각 표시
+    const [nowTime, setNowTime] = useState(Date.now());
+
+    useInterval(() => {
+        setNowTime(Date.now());
+    }, 1000);
+
     return (
         <div
             style={{
@@ -90,47 +92,29 @@ const Main = () => {
                                 <label>
                                     <input
                                         type="checkbox"
+                                        name="nowTime"
+                                        checked={visibleComponents.nowTime}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    현재시각
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="profile"
+                                        checked={visibleComponents.profile}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    내 프로필
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
                                         name="calendar"
                                         checked={visibleComponents.calendar}
                                         onChange={handleCheckboxChange}
                                     />
                                     예정된 이벤트
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="proj"
-                                        checked={visibleComponents.proj}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    참가 중인 프로젝트
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="pages"
-                                        checked={visibleComponents.pages}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    작업 중인 페이지
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="chat"
-                                        checked={visibleComponents.chat}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    참가 중인 채팅
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="articles"
-                                        checked={visibleComponents.articles}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    나의 게시글
                                 </label>
                             </div>
                         )}
@@ -138,15 +122,15 @@ const Main = () => {
                 )}
             </div>
             <div id="main-component">
-                <MainDateTime />
-                <MainProfile />
-
-                <Recents />
+                {visibleComponents.nowTime && (
+                    <div className="main-day">
+                        <Moment format={'YYYY년 MM월 DD일 HH:mm:ss'} className={'moment-box'}>
+                            {nowTime}
+                        </Moment>
+                    </div>
+                )}
+                {visibleComponents.profile && <MainProfile />}
                 {visibleComponents.calendar && <MainCalendar />}
-                {visibleComponents.proj && <MainProj />}
-                {visibleComponents.pages && <MainPages />}
-                {visibleComponents.chat && <MainChat />}
-                {visibleComponents.articles && <MainArticles />}
             </div>
         </div>
     );

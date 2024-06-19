@@ -3,13 +3,16 @@ import { globalPath } from 'globalPaths';
 import { login } from 'slices/authSlice';
 
 const serverHost = globalPath.serverHost;
+const path = globalPath.path;
+//const serverHost = '3.34.204.24';
 
 const kakaoLogin = (code) => {
     return function (dispatch) {
+        console.log('code 들어오나?', code);
         // 받은 인가코드 백엔드에 넘기고 토큰 받기
         axios({
             method: 'GET',
-            url: `http://${serverHost}:8080/oauth/callback/kakao?code=${code}`,
+            url: `http://3.34.204.24:8080/oauth/callback/kakao?code=${code}`,
             withCredentials: true,
         })
             .then((res) => {
