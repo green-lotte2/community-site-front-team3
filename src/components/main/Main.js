@@ -58,7 +58,7 @@ const Main = () => {
     return (
         <div
             style={{
-                backgroundImage: 'url(/images/background_4.jpg)',
+                backgroundImage: 'url(/images/background8.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: '100vh',
