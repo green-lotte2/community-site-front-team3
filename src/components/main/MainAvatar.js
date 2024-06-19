@@ -8,7 +8,7 @@ const AvatarImage = ({ profile, name }) => {
     const url = globalPath.path;
     const imageUrl = getProfileImageUrl(profile, url);
 
-    return <Avatar src={imageUrl} alt={`${name}'s profile`} />;
+    return <Avatar src={imageUrl} alt={`${name}'s profile`} sx={{ width: 128, height: 128 }} />;
 };
 
 export default AvatarImage;
