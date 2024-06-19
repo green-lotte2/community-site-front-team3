@@ -23,7 +23,7 @@ import List from "pages/article/List";
 import Modify from "pages/article/Modify";
 import Register from "pages/article/Register";
 import View from "pages/article/View";
-import BoardWrite from "pages/article/WritePage";
+import BoardWrite from "pages/article/Register";
 
 import NewPage from "pages/newPage/NewPage";
 import Chatpage from "pages/chat/ChatPage";

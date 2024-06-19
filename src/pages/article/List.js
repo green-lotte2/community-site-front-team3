@@ -6,6 +6,7 @@ import Pagination from "components/common/Pagination";
 import DefaultLayout from "layouts/DefaultLayout";
 import axios from "axios";
 import { globalPath } from "globalPaths";
+import { useNavigate } from "react-router-dom";
 
 const url = globalPath.path;
 
@@ -13,6 +14,7 @@ const List = () => {
   const [articleCate, setArticleCate] = useState([]);
   const [cateValue, setCateValue] = useState("자유게시판");
   const [articleList, setArticleList] = useState([]);
+  const navigate = useNavigate();
 
   /** 페이지네이션 useState */
   const [postsPerPage, setpostsPerPage] = useState(10);
@@ -55,6 +57,10 @@ const List = () => {
 
   const handlePageNum = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleWrite = () => {
+    navigate("/article/register");
+  };
+
   return (
     <DefaultLayout>
       <div className="boardContainer">
@@ -65,6 +71,7 @@ const List = () => {
           fetchCategories={fetchCategories}
         />
         <Search />
+        <button onClick={handleWrite}>글쓰기</button>
         <Table articleList={articleList} fetchArticles={fetchArticles} />
         <Pagination
           postsPerPage={postsPerPage}
