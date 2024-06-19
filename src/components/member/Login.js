@@ -7,15 +7,18 @@ import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
 import { LOGIN_PATH } from 'requestPath';
 import { useSelector } from 'react-redux';
+const serverHost = globalPath.serverHost;
+//const serverHost = '3.34.204.24';
 
 const Login = () => {
     const REST_API_KEY = '8412b8200aef151b8d5e19641b967e1b';
-    const REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
-    // const REDIRECT_URI = "http://3:34:204:24:3000/oauth/callback/kakao";
+    const REDIRECT_URI = `http://3.34.204.24/oauth/callback/kakao`;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-    const kakaoLogin = () => {
+    const kakaoLogin = (e) => {
+        e.preventDefault();
         window.location.href = KAKAO_AUTH_URL;
+        console.log('kakao요청 갔찌 ? :');
     };
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -34,6 +37,7 @@ const Login = () => {
     /** 로그인 버튼 클릭 */
     const submitHandler = (e) => {
         e.preventDefault();
+        console.log('여기야 설마??');
         axios
             .post(LOGIN_PATH, user)
             .then((resp) => {
@@ -108,7 +112,7 @@ const Login = () => {
                                 <LoginButton type="submit">로그인</LoginButton>
                             </LoginButtonContainer>
                             <div className="login-buttons">
-                                <button className="kakao-login" onClick={kakaoLogin}></button>
+                                <button className="kakao-login" onClick={(e) => kakaoLogin(e)}></button>
                                 <button className="google-login"></button>
                             </div>
                             <div className="login-description-box">
