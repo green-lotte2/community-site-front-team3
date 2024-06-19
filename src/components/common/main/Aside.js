@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaCalendarAlt, FaClipboardList, FaHome } from 'react-icons/fa';
-import { IoChatboxEllipses } from 'react-icons/io5';
-import { MdContactPage } from 'react-icons/md';
-import { RiCustomerServiceFill } from 'react-icons/ri';
-import { AiFillProject } from 'react-icons/ai';
-import { globalPath } from 'globalPaths';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaCalendarAlt, FaClipboardList, FaHome } from "react-icons/fa";
+import { IoChatboxEllipses } from "react-icons/io5";
+import { MdContactPage } from "react-icons/md";
+import { RiCustomerServiceFill } from "react-icons/ri";
+import { AiFillProject } from "react-icons/ai";
+import { globalPath } from "globalPaths";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Aside = ({ titleStat, setPageState }) => {
-  const dynamicPath = '/project/list';
+  const dynamicPath = "/project/list";
   const path = globalPath.path;
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.uid;
@@ -28,7 +28,7 @@ const Aside = ({ titleStat, setPageState }) => {
   useEffect(() => {
     /** 페이지 조회 */
     const fetchData = async () => {
-      console.log('uid : ' + uid);
+      console.log("uid : " + uid);
       const response = await axios.get(`${path}/pages?uid=${uid}`);
       console.log(response.data);
       setPages(response.data);
@@ -40,21 +40,21 @@ const Aside = ({ titleStat, setPageState }) => {
   /** 페이지 생성 */
   const handleAddPage = async () => {
     // 페이지 생성 제한 조건 추가
-    if (authSlice.grade === 'FREE' && countPage >= 3) {
-      alert('FREE 등급은 페이지를 3개까지만 생성할 수 있습니다.');
+    if (authSlice.grade === "FREE" && countPage >= 3) {
+      alert("FREE 등급은 페이지를 3개까지만 생성할 수 있습니다.");
       return;
     }
-    if (authSlice.grade !== 'MVP' && countPage >= 4) {
-      alert('MVP 등급이 아닌 경우 페이지를 4개까지만 생성할 수 있습니다.');
+    if (authSlice.grade !== "MVP" && countPage >= 4) {
+      alert("MVP 등급이 아닌 경우 페이지를 4개까지만 생성할 수 있습니다.");
       return;
     }
 
     const resp = await axios.post(`${path}/page`, {
       uid: uid,
-      title: 'untitled',
+      title: "untitled",
     });
     const pageNo = resp.data;
-    console.log('페이지 생성 번호 : ', pageNo);
+    console.log("페이지 생성 번호 : ", pageNo);
     setCountPage(countPage + 1);
   };
 
@@ -65,7 +65,11 @@ const Aside = ({ titleStat, setPageState }) => {
           <li>
             <div className="logo">
               <Link to={globalPath.mainPath}>
-                <img src="/images/logo/logo13.png" alt="aa" style={{ width: '140px' }} />
+                <img
+                  src="/images/logo/logo13.png"
+                  alt="aa"
+                  style={{ width: "140px" }}
+                />
               </Link>
             </div>
           </li>
@@ -91,9 +95,9 @@ const Aside = ({ titleStat, setPageState }) => {
             <Link
               onClick={togglePageMenu}
               style={{
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <MdContactPage size={20} color="#ff8916" />
@@ -103,18 +107,22 @@ const Aside = ({ titleStat, setPageState }) => {
               <>
                 <div>
                   {pages.map((page, index) => (
-                    <Link 
-                      to={`/page/${page.pageNo}`} 
-                      key={index} 
+                    <Link
+                      to={`/page/${page.pageNo}`}
+                      key={index}
                       onClick={() => setPageState && setPageState(true)} // setPageState 호출 수정
                     >
                       {page.title}
                     </Link>
                   ))}
                 </div>
-                <div>
+                <div className="plusPage">
                   <span className="addPage">페이지 추가</span>
-                  <button onClick={handleAddPage} className="btnPagePlus">
+                  <button
+                    onClick={handleAddPage}
+                    className="btnPagePlus"
+                    style={{ margin: "0 0 0 6px" }}
+                  >
                     +
                   </button>
                 </div>

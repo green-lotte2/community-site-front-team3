@@ -49,8 +49,14 @@ const NewPage = () => {
 
   return (
     <DefaultLayout titleStat={titleStat} setPageState={setPageState}>
-      <div className="NewPageMain">
-        {pageState && <Editor pageNo={pageNo} submitPage={submitPage} setTitleStat={setTitleStat} />}
+      <div className="NewPageMain" style={{ marginTop: "0" }}>
+        {pageState && (
+          <Editor
+            pageNo={pageNo}
+            submitPage={submitPage}
+            setTitleStat={setTitleStat}
+          />
+        )}
       </div>
     </DefaultLayout>
   );
