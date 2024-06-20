@@ -14,6 +14,7 @@ const List = () => {
   const [articleCate, setArticleCate] = useState([]);
   const [cateValue, setCateValue] = useState("자유게시판");
   const [articleList, setArticleList] = useState([]);
+  const [total, setTotal] = useState("");
   const navigate = useNavigate();
 
   /** 페이지네이션 useState */
@@ -35,17 +36,19 @@ const List = () => {
   }, []);
 
   const fetchArticles = async () => {
+    const data = {
+      cateName: cateValue,
+      pg: currentPage, // 서버 페이지 인덱스가 0부터 시작하는 경우
+      size: postsPerPage,
+    };
+
     try {
-      const response = await axios.get(`${url}/article/list`, {
-        params: {
-          cateName: cateValue,
-          page: currentPage - 1, // 서버 페이지 인덱스가 0부터 시작하는 경우
-          size: postsPerPage,
-        },
-      });
+      const response = await axios.post(`${url}/article/list`, data);
       setArticleList(response.data.dtoList);
       setTotalPosts(response.data.total);
       setpostsPerPage(response.data.size);
+      console.log(response.data);
+      setTotal(response.data.total);
     } catch (err) {
       console.log(err);
     }
@@ -61,6 +64,25 @@ const List = () => {
     navigate("/article/register");
   };
 
+  const searchKeyword = async (keyword) => {
+    const data = {
+      cateName: cateValue,
+      pg: currentPage, // 서버 페이지 인덱스가 0부터 시작하는 경우
+      size: postsPerPage,
+      searchKeyword: keyword,
+      searchType: "title",
+    };
+
+    try {
+      const response = await axios.post(`${url}/article/list`, data);
+      setArticleList(response.data.dtoList);
+      setTotalPosts(response.data.total);
+      setpostsPerPage(response.data.size);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <DefaultLayout>
       <div className="boardContainer">
@@ -70,9 +92,14 @@ const List = () => {
           setCateValue={setCateValue}
           fetchCategories={fetchCategories}
         />
-        <Search />
+        <Search searchKeyword={searchKeyword} />
         <button onClick={handleWrite}>글쓰기</button>
-        <Table articleList={articleList} fetchArticles={fetchArticles} />
+        <Table
+          articleList={articleList}
+          fetchArticles={fetchArticles}
+          totalPosts={totalPosts}
+          total={total}
+        />
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={totalPosts}

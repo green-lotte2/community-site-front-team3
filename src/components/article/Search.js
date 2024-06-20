@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 
-const Search = ({ setSearchTerm }) => {
+const Search = ({ searchKeyword }) => {
   const [input, setInput] = useState("");
 
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
-
   const handleSearch = () => {
-    setSearchTerm(input);
+    searchKeyword(input);
   };
 
   return (
@@ -16,7 +12,7 @@ const Search = ({ setSearchTerm }) => {
       <input
         type="text"
         value={input}
-        onChange={handleInputChange}
+        onChange={(e) => setInput(e.target.value)}
         placeholder="검색어를 입력하세요"
       />
       <button onClick={handleSearch}>검색</button>
