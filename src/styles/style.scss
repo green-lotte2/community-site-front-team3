@@ -520,3 +520,43 @@ body {
     font-weight: bold;
     border-bottom: 2px solid #ff8916;
 }
+
+// 메인화면 최근 게시글
+.main-article-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 카드 사이의 간격 */
+    max-width: 550px;
+    margin-left: 40px;
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+.scroll-article {
+    margin-right: 10px;
+}
+.scroll-container-article {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    align-items: center;
+    padding: 10px 0;
+    width: calc(100% - 60px); /* 양쪽 버튼 공간 확보를 위해 너비 조정 */
+}
+
+.main-eventList-title {
+    font-size: 24px;
+    color: #333;
+}
+.main-article-card {
+    min-width: 200px;
+}
+.main-eventList-article {
+    font-size: 16px;
+    color: #666;
+    border-bottom: 1px solid #ff8916;
+}
+
+.main-article {
+    font-size: 14px;
+    color: #999;
+}
