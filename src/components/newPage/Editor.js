@@ -18,6 +18,7 @@ import {
   uploadFile,
   getPageData,
 } from "api/PageApi";
+import { useNavigate } from "react-router-dom";
 
 const serverHost = globalPath.serverHost;
 
@@ -45,7 +46,7 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
 
   const doc = new Y.Doc();
   const provider = useRef(null);
-
+  const navigate = useNavigate();
   /** 에디터 생성 설정 */
   const editor = useCreateBlockNote({
     defaultStyles: true,
@@ -155,6 +156,7 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
     try {
       const response = await deletePage(pageNo);
       console.log("Delete:", response);
+      navigate(-1);
     } catch (error) {
       console.error("Error deleting page:", error);
     }

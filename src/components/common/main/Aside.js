@@ -41,11 +41,11 @@ const Aside = ({ titleStat, setPageState }) => {
   const handleAddPage = async () => {
     // 페이지 생성 제한 조건 추가
     if (authSlice.grade === "FREE" && countPage >= 3) {
-      alert("FREE 등급은 페이지를 3개까지만 생성할 수 있습니다.");
+      alert("FREE 등급은 페이지를 3개까지만 이용할 수 있습니다.");
       return;
     }
     if (authSlice.grade !== "MVP" && countPage >= 4) {
-      alert("MVP 등급이 아닌 경우 페이지를 4개까지만 생성할 수 있습니다.");
+      alert("MVP 등급이 아닌 경우 페이지를 3개까지만 이용할 수 있습니다.");
       return;
     }
 
@@ -117,7 +117,7 @@ const Aside = ({ titleStat, setPageState }) => {
                   ))}
                 </div>
                 <div className="plusPage">
-                  <span className="addPage">페이지 추가</span>
+                  <span className="addPage" onClick={handleAddPage}>페이지 추가</span>
                   <button
                     onClick={handleAddPage}
                     className="btnPagePlus"
