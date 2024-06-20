@@ -80,13 +80,16 @@ const List = () => {
       searchKeyword: keyword,
       searchType: "title",
     };
-
+    console.log(1);
     try {
+      console.log(2);
       const response = await axios.post(`${url}/article/list`, data);
+      console.log(3);
       setArticleList(response.data.dtoList);
       setTotalPosts(response.data.total);
       setPostsPerPage(response.data.size);
     } catch (err) {
+      console.log(4);
       console.log(err);
     }
   };
