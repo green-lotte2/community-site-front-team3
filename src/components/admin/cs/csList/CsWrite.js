@@ -17,13 +17,15 @@ const button = {
   padding: "10px 20px",
 };
 
-
 const Write = ({ setView }) => {
   // 불러온 카테고리 저장
   const [loadCate, setLoadCate] = useState([]);
+
+  /**작성한 카테고리, 제목, 글 저장 State */
   const [writeCate, setWriteCate] = useState("");
   const [writeTitle, setWriteTitle] = useState("");
   const [writeContent, setWriteContent] = useState("");
+
   const authSlice = useSelector((state) => state.authSlice);
 
   const url = globalPath.path;
@@ -43,11 +45,24 @@ const Write = ({ setView }) => {
     setWriteContent(e.target.value);
   };
 
+  /** 카테고리 리스트 가져오기 */
+  useEffect(() => {
+    axios
+      .get(`${url}/csCate`)
+      .then((response) => {
+        setLoadCate(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   /**작성, 취소 버튼 메서드 */
   const handlerCancel = () => {
     setView("list");
   };
 
+  /**전송 버튼 */
   const handlerSubmit = (e) => {
     e.preventDefault();
 
@@ -71,18 +86,6 @@ const Write = ({ setView }) => {
         console.log(err);
       });
   };
-
-  /** 카테고리 리스트 가져오기 */
-  useEffect(() => {
-    axios
-      .get(`${url}/csCate`)
-      .then((response) => {
-        setLoadCate(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div>

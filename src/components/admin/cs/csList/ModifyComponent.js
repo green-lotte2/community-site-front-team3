@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { AlignCenter, AlignJustify } from "react-feather";
 
 const url = globalPath.path;
 
@@ -53,7 +52,6 @@ const ModifyComponent = ({ selectArticle, cateList, setView }) => {
       cateName: changeCateName,
       content: changeContent,
     };
-    console.log(jsonData);
 
     axios
       .post(`${url}/cs/modify`, jsonData)

@@ -21,6 +21,7 @@ export default function AdminCsList({ view, setView }) {
   // 카테 리스트 가져오기
   const [cateList, setCateList] = useState([]);
 
+  /**cs 내용 가져오기 */
   useEffect(() => {
     axios
       .get(`${url}/cs/selects`)
@@ -33,7 +34,7 @@ export default function AdminCsList({ view, setView }) {
       });
   }, [triger]);
 
-  // 글 작성 버튼
+  /**글 작성 버튼 */
   const writeHandler = () => {
     // 글 작성으로 컴포넌트 or 화면 변경
     setView("write");
@@ -68,10 +69,7 @@ export default function AdminCsList({ view, setView }) {
     }
   };
 
-  useEffect(() => {
-    console.log(selectArticle);
-  }, [selectArticle]);
-
+  /**삭제 버튼 */
   const deleteHandler = () => {
     if (selectedRows.length > 0) {
       axios
