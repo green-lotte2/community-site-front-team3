@@ -13,6 +13,7 @@ const BoardTabs = ({ articleCate, setCateValue, fetchCategories }) => {
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.uid;
 
+  // 사용자 조회
   useEffect(() => {
     axios
       .get(`${url}/article/userInfo?uid=${uid}`)
@@ -24,10 +25,12 @@ const BoardTabs = ({ articleCate, setCateValue, fetchCategories }) => {
       });
   }, [uid]);
 
+  // 카테고리 선택
   const handlerClickCate = (e) => {
     setCateValue(e);
   };
 
+  // 카테고리 추가
   const handleAddCate = () => {
     if (newCateName.trim() === "") return;
     const categoryData = {

@@ -67,6 +67,7 @@ const BoardContainer = () => {
     setTitle(e.target.value);
   };
 
+  // 쓴 글을 서버에 전송
   const handleSubmit = async () => {
     if (editorInstance.current) {
       const writeContent = editorInstance.current.getHTML();
@@ -132,12 +133,7 @@ const BoardContainer = () => {
         size="large"
         onClick={handleSubmit}
         variant="outlined"
-        style={{
-          marginTop: "15px",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "10px 20px",
-        }}
+        className="submit-button"
       >
         제출
       </Button>
