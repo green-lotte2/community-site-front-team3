@@ -57,9 +57,9 @@ const EventList = ({ events }) => {
                 <div className="scroll-container" ref={scrollContainerRef}>
                     {events.map((event) => (
                         <div className="scroll-item" key={event.id}>
-                            <Card sx={{ minHeight: 200 }}>
+                            <Card className="main-eventList" sx={{ minHeight: 200 }}>
                                 <CardContent>
-                                    <Typography variant="h6" component="h2">
+                                    <Typography className="main-eventList-title" variant="h5" component="h2">
                                         할 일: {event.title}
                                     </Typography>
                                     <br />
