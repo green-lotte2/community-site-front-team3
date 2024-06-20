@@ -35,7 +35,7 @@ export default function RecipeReviewCard({ profile, name }) {
                 <AccountBoxIcon />
                 프로필 보기
             </h4>
-            <Card sx={{ maxWidth: 550 }}>
+            <Card className="main-profile">
                 <CardHeader
                     avatar={<MainAvatar profile={profile} name={name} />}
                     action={

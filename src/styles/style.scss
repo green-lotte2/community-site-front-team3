@@ -499,3 +499,24 @@ body {
     left: 75%;
     color: #808080;
 }
+
+// 메인화면 프로필 카드
+.main-profile {
+    max-width: 550px;
+    margin-left: 40px;
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+
+// 메인화면 이벤트 카드
+.main-eventList {
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    border-radius: 200%;
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+
+.main-eventList-title {
+    color: #231f1f;
+    font-weight: bold;
+    border-bottom: 2px solid #ff8916;
+}
