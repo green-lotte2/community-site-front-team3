@@ -30,6 +30,7 @@ const ProfileUpdate = () => {
     const [userProfile, setUserProfile] = useState(null);
     const [userProfilePreview, setUserProfilePreview] = useState('');
 
+    // 페이지 라우팅시 프로필 사진 미리보기 변경
     useEffect(() => {
         if (location.state && location.state.user) {
             setUser(location.state.user);
@@ -38,7 +39,7 @@ const ProfileUpdate = () => {
             }
         }
     }, [location.state]);
-
+    // 프로필 사진 선택했을때 미리보기 변경
     useEffect(() => {
         if (user.profile) {
             setUserProfilePreview(`${globalPath.path}/prodImg/${user.profile}`);
@@ -61,6 +62,7 @@ const ProfileUpdate = () => {
             fetchUserData();
         }
     }, [url]);
+    // value 값 입력
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser((prevUser) => ({
@@ -68,7 +70,7 @@ const ProfileUpdate = () => {
             [name]: value,
         }));
     };
-
+    // 파일 형식 검사 및 업로드
     const handleFileChange = (acceptedFiles) => {
         const allowedExtensions = ['.jpg', '.gif', '.png', '.jpeg', '.bmp'];
 
@@ -87,6 +89,7 @@ const ProfileUpdate = () => {
         setUserProfilePreview(preview);
     };
 
+    // 회원정보 수정 핸들러
     const submitHandler = (e) => {
         const confrimed = window.confirm('회원정보 수정을 하시겠습니까?');
         e.preventDefault();
@@ -124,6 +127,7 @@ const ProfileUpdate = () => {
                 console.log(err);
             });
     };
+    // 비밀번호 수정 체크박스
     const passCheckBox = () => {
         setCheckBox(!checkBox);
         if (!checkBox) {

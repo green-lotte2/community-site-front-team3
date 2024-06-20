@@ -8,6 +8,7 @@ const KakaoRedirect = () => {
     // 인가 코드
     let code = new URL(window.location.href).searchParams.get('code');
 
+    // 토큰으로 로그인 요청
     React.useEffect(() => {
         console.log('code11111', code);
         const fetchData = async () => {
