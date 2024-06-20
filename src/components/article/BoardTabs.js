@@ -7,29 +7,19 @@ import { useSelector } from "react-redux";
 const url = globalPath.path;
 
 const BoardTabs = ({ articleCate, setCateValue, fetchCategories }) => {
-  const [userInfo, setUserInfo] = useState(null);
   const [newCateName, setNewCateName] = useState("");
   const [CateName, setCateName] = useState(false);
   const authSlice = useSelector((state) => state.authSlice);
   const uid = authSlice.uid;
-
-  // 사용자 조회
-  useEffect(() => {
-    axios
-      .get(`${url}/article/userInfo?uid=${uid}`)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [uid]);
+  const grade = authSlice.grade;
 
   // 카테고리 선택
   const handlerClickCate = (e) => {
     setCateValue(e);
   };
-
+  useEffect(() => {
+    console.log(grade);
+  }, []);
   // 카테고리 추가
   const handleAddCate = () => {
     if (newCateName.trim() === "") return;
@@ -70,7 +60,7 @@ const BoardTabs = ({ articleCate, setCateValue, fetchCategories }) => {
           <p>카테고리가 없습니다.</p>
         )}
 
-        {userInfo && userInfo.grade === "MVP" && (
+        {grade === "MVP" && (
           <>
             {CateName ? (
               <div>
@@ -84,7 +74,7 @@ const BoardTabs = ({ articleCate, setCateValue, fetchCategories }) => {
               </div>
             ) : (
               <Link to="#" className="active" onClick={() => setCateName(true)}>
-                +
+                &#43;
               </Link>
             )}
           </>
