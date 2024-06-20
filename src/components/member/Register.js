@@ -128,6 +128,7 @@ const Register = () => {
             .post(SEND_EMAIL_CODE_PATH, { email: user.email })
             .then((response) => {
                 if (response.data.result === 1) {
+                    console.log('코드전송 response.data:', response.data);
                     return;
                 } else {
                     alert('인증코드가 이메일로 전송되었습니다.');
@@ -147,6 +148,8 @@ const Register = () => {
             .post(CHECK_EMAIL_CODE_PATH, { code: serverCode, inputCode: user.verificationCode })
             .then((response) => {
                 const data = response.data;
+                console.log('코드확인 response.data:', response.data);
+                console.log('코드확인 data:', data);
                 if (data.result === 0) {
                     alert('인증코드가 일치합니다.');
                     emailOk = true;

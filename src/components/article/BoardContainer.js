@@ -12,6 +12,7 @@ import Editor from "@toast-ui/editor";
 import axios from "axios";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 const url = globalPath.path;
 
@@ -67,17 +68,52 @@ const BoardContainer = () => {
     setTitle(e.target.value);
   };
 
+  const base64ToFile = (blockDataUrl, fileName) => {
+    const dataUrlArr = blockDataUrl.split(",");
+    const mime = dataUrlArr[0].match(/:(.*?);/)[1];
+    const bstr = atob(dataUrlArr[1]); // atob : Base64 decode
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
+  };
+
   // 쓴 글을 서버에 전송
   const handleSubmit = async () => {
     if (editorInstance.current) {
       const writeContent = editorInstance.current.getHTML();
       setContent(writeContent);
 
+      let match;
+      const matchSrc = /src="([^"]*)"/g;
+      const formData = new FormData();
+      let contents = writeContent;
+
+      while ((match = matchSrc.exec(writeContent)) !== null) {
+        const extension = match[1].split("/")[1].split(";")[0]; // 확장자
+        const sName = `image_${uuidv4()}.${extension}`;
+
+        const imgFiles = base64ToFile(match[1], sName);
+        const imageURL = `@FilePath###/uploads/${sName}`;
+        contents = contents.replace(match[1], imageURL);
+        formData.append("imgFiles", imgFiles);
+      }
+
+      if (formData.has("imgFiles")) {
+        await axios.post(`${url}/cs/upload`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+
       const articleData = {
         uid: uid,
         cno: cno,
         title: title,
-        content: writeContent,
+        content: contents,
       };
 
       try {
