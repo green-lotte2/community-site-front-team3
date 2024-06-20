@@ -33,7 +33,6 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
   const authSlice = useSelector((state) => state.authSlice);
   const [title, setTitle] = useState("");
   const [uid, setUid] = useState("");
-  const [blocks, setBlocks] = useState([]);
   const [currentPageNo, setCurrentPageNo] = useState(pageNo); // 현재 페이지 번호 상태
   const [modalOpen, setModalOpen] = useState(false);
   /** 초대된 협력자, 선택한 협력자, 같은 회사 사용자 */
@@ -110,7 +109,6 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
       const pageData = await getPageData(currentPageNo);
       setTitle(pageData.title);
       setUid(pageData.uid);
-      setBlocks(pageData.content); // Page 깡
 
       console.log("!!@!@!@!@!");
       console.log(pageData.content);
@@ -128,40 +126,6 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
     }
   };
 
-  /** 데이터 입력시 blocks에 추가 */
-  const editorSelectHandler = () => {
-    const selection = editor.getSelection();
-    // block 변수 state
-    if (selection !== undefined) {
-      setBlocks(selection.blocks);
-    } else {
-      setBlocks([editor.getTextCursorPosition().block]);
-    }
-    // 로컬 스토리지에 전체 블록 업데이트
-    const allBlocks = editor.document;
-  };
-
-  /** 블록 저장 */
-  const handleSave = async () => {
-    console.log("블록 저장 currentPageNo : ", currentPageNo);
-
-    const allBlocks = editor.document;
-    console.log("uid : ", uid);
-    console.log("제목? : ", title);
-    const pageData = {
-      content: JSON.stringify(allBlocks),
-      uid: uid,
-      pageNo: pageNo,
-      title: title,
-    };
-
-    try {
-      const response = await savePage(pageData);
-      console.log("Response:", response);
-    } catch (error) {
-      console.error("Error saving page:", error);
-    }
-  };
 
   /** 제목 입력 */
   const handleInputTitle = (e) => {
@@ -304,7 +268,6 @@ const Editor = ({ pageNo, submitPage, setTitleStat }) => {
       </h1>
       <BlockNoteView
         editor={editor}
-        onSelectionChange={editorSelectHandler}
         theme="light"
       />
       {!isCurrentUserInvited && (
