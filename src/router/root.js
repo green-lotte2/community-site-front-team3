@@ -61,7 +61,7 @@ const root = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={["ADMIN"]}>
         <AdminPage />
       </AuthRoute>
     ),
@@ -69,7 +69,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/member/plan",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
         <AdminMemberPlan />
       </AuthRoute>
     ),
@@ -77,7 +77,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/member/list",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
         <AdminMemberList />
       </AuthRoute>
     ),
@@ -85,7 +85,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/article",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
         <AdminArticleList />
       </AuthRoute>
     ),
@@ -93,7 +93,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/article/:ano",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
         <AdminArticleView />
       </AuthRoute>
     ),
@@ -101,7 +101,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/article/view/answer",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={["ADMIN"]}>
         <AdminArticleAnswer />
       </AuthRoute>
     ),
@@ -109,7 +109,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/cs",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={["ADMIN"]}>
         <AdminCsListPage />
       </AuthRoute>
     ),
@@ -117,7 +117,7 @@ const root = createBrowserRouter([
   {
     path: "/admin/question",
     element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+      <AuthRoute allowedRoles={["ADMIN"]}>
         <AdminQuestionPage />
       </AuthRoute>
     ),
