@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainCalendar from './MainCalendar';
 import MainProfile from './MainProfile';
+import MainRecentArticles from './MainRecentArticles';
 import { useSelector } from 'react-redux';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import IconButton from '@mui/material/IconButton';
@@ -110,6 +111,15 @@ const Main = () => {
                                 <label>
                                     <input
                                         type="checkbox"
+                                        name="article"
+                                        checked={visibleComponents.article}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    최근 게시글
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
                                         name="calendar"
                                         checked={visibleComponents.calendar}
                                         onChange={handleCheckboxChange}
@@ -130,6 +140,7 @@ const Main = () => {
                     </div>
                 )}
                 {visibleComponents.profile && <MainProfile />}
+                {visibleComponents.article && <MainRecentArticles />}
                 {visibleComponents.calendar && <MainCalendar />}
             </div>
         </div>
