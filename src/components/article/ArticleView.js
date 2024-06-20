@@ -16,7 +16,6 @@ const ArticleView = () => {
   const [newComment, setNewComment] = useState("");
   const uid = useSelector((state) => state.authSlice.uid);
 
-  // 서버에서 댓글 가져오기
   const getComment = async () => {
     axios
       .get(`${url}/articles/${ano}/comments`)
@@ -28,7 +27,6 @@ const ArticleView = () => {
       });
   };
 
-  // 서버에서 게시글 가져오기
   const getArticle = async () => {
     axios
       .get(`${url}/articles/${ano}`)
@@ -55,7 +53,6 @@ const ArticleView = () => {
     getArticle();
   }, [ano]);
 
-  // 댓글 등록할때
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     axios
@@ -87,7 +84,7 @@ const ArticleView = () => {
       </div>
       <div className="comments-section">
         <h3>댓글</h3>
-        <form onSubmit={handleCommentSubmit}>
+        <form onSubmit={handleCommentSubmit} className="comment-form">
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
@@ -100,13 +97,15 @@ const ArticleView = () => {
           {comments.map((comment) => (
             <div key={comment.ano} className="comment">
               <p>{comment.content}</p>
-              <p>작성자: {comment.uid}</p>
-              <p>
-                작성일:{" "}
-                {Moment(comment.rdate)
-                  .subtract(1, "month")
-                  .format("YYYY-MM-DD")}
-              </p>
+              <div className="comment-meta">
+                <span>작성자: {comment.uid}</span>
+                <span>
+                  작성일:{" "}
+                  {Moment(comment.rdate)
+                    .subtract(1, "month")
+                    .format("YYYY-MM-DD")}
+                </span>
+              </div>
             </div>
           ))}
         </div>

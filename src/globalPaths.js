@@ -1,6 +1,7 @@
 //const serverHost = '127.0.0.1';
 const serverHost = '3.34.204.24';
 
+
 export const globalPath = {
     serverHost,
     path: `http://${serverHost}:8080`,
