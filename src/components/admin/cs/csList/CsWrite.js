@@ -17,12 +17,6 @@ const button = {
   padding: "10px 20px",
 };
 
-const style = {
-  display: "flex",
-  flexDirection: "column",
-  width: "1500px",
-  margin: "0 auto",
-};
 
 const Write = ({ setView }) => {
   // 불러온 카테고리 저장
@@ -34,6 +28,7 @@ const Write = ({ setView }) => {
 
   const url = globalPath.path;
   const uid = authSlice.uid;
+
   /**글 작성 state 관리 */
   const handlerCate = (e) => {
     setWriteCate(e.target.value);
@@ -63,16 +58,18 @@ const Write = ({ setView }) => {
       content: writeContent,
     };
     console.log(jsonData);
-    /*
+
     axios
       .post(`${url}/cs/write`, jsonData)
       .then((response) => {
         console.log(response.data);
+        alert("글이 작성되었습니다!");
+        setView("list");
       })
       .catch((err) => {
+        alert("글이 작성되지 않았습니다.");
         console.log(err);
       });
-      */
   };
 
   /** 카테고리 리스트 가져오기 */
