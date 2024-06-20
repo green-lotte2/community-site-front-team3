@@ -80,7 +80,7 @@ function MonthCalendar() {
     console.log("아이디 : " + uid);
     const url = globalPath.path;
 
-    // 일정에 랜덤 아이디 부여
+    /** 일정에 랜덤 아이디 부여*/
     const randomDate = Moment(new Date()).format("YYMMDDHHmmSS");
     const eventId = randomDate + uid;
     console.log(eventId);

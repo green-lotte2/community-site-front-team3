@@ -13,8 +13,8 @@ const url = globalPath.path;
 export default function RecipeReviewCard() {
   const [question, setQuestion] = useState([]);
 
+  /**문의 글 목록 가져오기(다 가져와서 status로 나눠서 출력) */
   useEffect(() => {
-    // 답변하지 않은 글 목록
     axios
       .get(`${url}/question/select`)
       .then((response) => {
@@ -26,6 +26,7 @@ export default function RecipeReviewCard() {
       });
   }, []);
 
+  /**답변하기 버튼 시 view 페이지로 이동 */
   const handlerClickBtn = () => {};
 
   return (

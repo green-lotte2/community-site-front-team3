@@ -3,6 +3,7 @@ import AdminCsListHeader from "../../components/admin/cs/csList/AdminCsListHeade
 import AdminCsList from "../../components/admin/cs/csList/AdminCsList";
 import { AdminDefaultLayout } from "layouts/AdminDefaultLayout";
 const AdminCsListPage = () => {
+  /**화면 컴포넌트 렌더링 변경 관리 State */
   const [view, setView] = useState("list");
 
   return (
