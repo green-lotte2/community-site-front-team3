@@ -4,12 +4,14 @@ import "moment/locale/ko";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { globalPath } from "globalPaths";
+import { useSelector } from "react-redux";
 
 const url = globalPath.path;
 
-const Table = ({ articleList, fetchArticles, totalPosts, total }) => {
+const Table = ({ articleList, fetchArticles, totalPosts, total, pageNo }) => {
   const navigate = useNavigate();
-  console.log("!11", articleList);
+  const uid = useSelector((state) => state.authSlice.uid);
+
   const handleModify = (ano) => {
     navigate(`/article/modify/${ano}`);
   };
@@ -44,28 +46,36 @@ const Table = ({ articleList, fetchArticles, totalPosts, total }) => {
           {articleList.length > 0 ? (
             articleList.map((article, index) => (
               <tr key={article.ano}>
-                <td>{total - index}</td>
+                <td>{total - (pageNo - 1) * 10 - index}</td>
                 <td>
                   <a href="#" onClick={() => handleTitleClick(article.ano)}>
                     {article.title}
                   </a>
                 </td>
                 <td>{article.uid}</td>
-                <td>{Moment(article.rdate).format("YYYY-MM-DD")}</td>
+                <td>
+                  {Moment(article.rdate)
+                    .subtract(1, "month")
+                    .format("YYYY-MM-DD")}
+                </td>
                 <td>{article.hit}</td>
                 <td className="table-actions">
-                  <button
-                    className="modify"
-                    onClick={() => handleModify(article.ano)}
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(article.ano)}
-                  >
-                    삭제
-                  </button>
+                  {article.uid === uid && (
+                    <>
+                      <button
+                        className="modify"
+                        onClick={() => handleModify(article.ano)}
+                      >
+                        수정
+                      </button>
+                      <button
+                        className="delete"
+                        onClick={() => handleDelete(article.ano)}
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))
