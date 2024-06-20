@@ -5,6 +5,7 @@ import "moment/locale/ko";
 import { useParams } from "react-router-dom";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
+import "../../styles/board.scss";
 
 const url = globalPath.path;
 
@@ -15,6 +16,7 @@ const ArticleView = () => {
   const [newComment, setNewComment] = useState("");
   const uid = useSelector((state) => state.authSlice.uid);
 
+  // 서버에서 댓글 가져오기
   const getComment = async () => {
     axios
       .get(`${url}/articles/${ano}/comments`)
@@ -26,6 +28,7 @@ const ArticleView = () => {
       });
   };
 
+  // 서버에서 게시글 가져오기
   const getArticle = async () => {
     axios
       .get(`${url}/articles/${ano}`)
@@ -52,6 +55,7 @@ const ArticleView = () => {
     getArticle();
   }, [ano]);
 
+  // 댓글 등록할때
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     axios
@@ -75,7 +79,10 @@ const ArticleView = () => {
       <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
       <div className="article-details">
         <p>작성자: {article.uid}</p>
-        <p>작성일: {Moment(article.rdate).format("YYYY-MM-DD")}</p>
+        <p>
+          작성일:{" "}
+          {Moment(article.rdate).subtract(1, "month").format("YYYY-MM-DD")}
+        </p>
         <p>조회수: {article.hit}</p>
       </div>
       <div className="comments-section">
@@ -94,7 +101,12 @@ const ArticleView = () => {
             <div key={comment.ano} className="comment">
               <p>{comment.content}</p>
               <p>작성자: {comment.uid}</p>
-              <p>작성일: {Moment(comment.rdate).format("YYYY-MM-DD")}</p>
+              <p>
+                작성일:{" "}
+                {Moment(comment.rdate)
+                  .subtract(1, "month")
+                  .format("YYYY-MM-DD")}
+              </p>
             </div>
           ))}
         </div>

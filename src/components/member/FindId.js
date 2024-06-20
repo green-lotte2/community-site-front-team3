@@ -12,6 +12,7 @@ const FindId = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [serverCode, setServerCode] = useState('');
 
+    // 아이디 찾기 인증코드 전송
     const handleRequestCode = async () => {
         try {
             const response = await axios.post(SEND_FINDID_EMAIL_CODE_PATH, { email }, { withCredentials: true });
@@ -28,6 +29,7 @@ const FindId = () => {
         }
     };
 
+    // 이메일 중복 검사 및 인증코드 체크
     const handleConfirmCode = async () => {
         try {
             const response = await axios.post(

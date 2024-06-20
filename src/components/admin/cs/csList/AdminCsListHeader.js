@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
+/**view에 할당된 값에 따라 안내 글 변경 */
 const AdminCsListHeader = ({ view }) => {
   const getTitle = () => {
     switch (view) {

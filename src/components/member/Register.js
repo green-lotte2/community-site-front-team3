@@ -23,7 +23,7 @@ const Register = () => {
         email: '',
         verificationCode: '',
     });
-    // 비밀번호 숨기기
+
     const [passwordType, setPasswordType] = useState('password');
     const [passwordButtonIcon, setPasswordButtonIcon] = useState('eye-light-off-icon');
     const [confirmPasswordType, setConfirmPasswordType] = useState('password');
@@ -32,11 +32,12 @@ const Register = () => {
     const [showVerification, setShowVerification] = useState(false);
     const [serverCode, setServerCode] = useState(''); // 서버로부터 받은 인증코드 저장
 
+    // 비밀번호 숨기기
     const togglePasswordVisibility = () => {
         setPasswordType(passwordType === 'password' ? 'text' : 'password');
         setPasswordButtonIcon(passwordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
     };
-
+    // 비밀번호 숨기기
     const toggleConfirmPasswordVisibility = () => {
         setConfirmPasswordType(confirmPasswordType === 'password' ? 'text' : 'password');
         setConfirmPasswordButtonIcon(confirmPasswordType === 'password' ? 'eye-light-on-icon' : 'eye-light-off-icon');
@@ -101,7 +102,7 @@ const Register = () => {
         }
     };
 
-    /** 모든 유효성 검사 통과하면 */
+    /** 모든 유효성 검사 통과하면 회원가입 */
     const registerUser = () => {
         axios
             .post(USER_PATH, user)
@@ -114,7 +115,7 @@ const Register = () => {
                 console.log(err);
             });
     };
-
+    // value change 핸들러
     const changeHandler = (e) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });

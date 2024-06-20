@@ -37,7 +37,7 @@ const WritePage = () => {
       height: "700px",
       initialEditType: "wysiwyg",
       previewStyle: "vertical",
-      theme: "dark",
+      theme: "light",
     });
 
     editorInstance.current = editor;

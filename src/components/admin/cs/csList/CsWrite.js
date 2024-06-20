@@ -17,23 +17,20 @@ const button = {
   padding: "10px 20px",
 };
 
-const style = {
-  display: "flex",
-  flexDirection: "column",
-  width: "1500px",
-  margin: "0 auto",
-};
-
 const Write = ({ setView }) => {
   // 불러온 카테고리 저장
   const [loadCate, setLoadCate] = useState([]);
+
+  /**작성한 카테고리, 제목, 글 저장 State */
   const [writeCate, setWriteCate] = useState("");
   const [writeTitle, setWriteTitle] = useState("");
   const [writeContent, setWriteContent] = useState("");
+
   const authSlice = useSelector((state) => state.authSlice);
 
   const url = globalPath.path;
   const uid = authSlice.uid;
+
   /**글 작성 state 관리 */
   const handlerCate = (e) => {
     setWriteCate(e.target.value);
@@ -48,33 +45,6 @@ const Write = ({ setView }) => {
     setWriteContent(e.target.value);
   };
 
-  /**작성, 취소 버튼 메서드 */
-  const handlerCancel = () => {
-    setView("list");
-  };
-
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-
-    const jsonData = {
-      uid: uid,
-      title: writeTitle,
-      cateName: writeCate,
-      content: writeContent,
-    };
-    console.log(jsonData);
-    /*
-    axios
-      .post(`${url}/cs/write`, jsonData)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      */
-  };
-
   /** 카테고리 리스트 가져오기 */
   useEffect(() => {
     axios
@@ -86,6 +56,36 @@ const Write = ({ setView }) => {
         console.log(err);
       });
   }, []);
+
+  /**작성, 취소 버튼 메서드 */
+  const handlerCancel = () => {
+    setView("list");
+  };
+
+  /**전송 버튼 */
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+
+    const jsonData = {
+      uid: uid,
+      title: writeTitle,
+      cateName: writeCate,
+      content: writeContent,
+    };
+    console.log(jsonData);
+
+    axios
+      .post(`${url}/cs/write`, jsonData)
+      .then((response) => {
+        console.log(response.data);
+        alert("글이 작성되었습니다!");
+        setView("list");
+      })
+      .catch((err) => {
+        alert("글이 작성되지 않았습니다.");
+        console.log(err);
+      });
+  };
 
   return (
     <div>

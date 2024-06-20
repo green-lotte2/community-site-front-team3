@@ -14,6 +14,7 @@ const Subscribe = () => {
     const uid = authSlice.uid;
     console.log('11111:', authSlice);
 
+    // 화면 렌더링 시 회원 등급 상태 업데이트
     useEffect(() => {
         const fetchUserGrade = async () => {
             try {
@@ -21,12 +22,13 @@ const Subscribe = () => {
                 console.log('response check111:', response.data);
                 setUserGrade(response.data);
             } catch (error) {
-                console.error('Error fetching user grade', error);
+                console.error('등급 변경 에러', error);
             }
         };
         fetchUserGrade();
     }, []);
 
+    // 요금제 등급 가입 및 탈퇴 핸들러
     const handleMvpSubscribe = async () => {
         let confirmMessage = '';
         if (userGrade === 'FREE') {
@@ -47,6 +49,7 @@ const Subscribe = () => {
         }
     };
 
+    // 회원이 아니라면 회원가입 버튼
     const handleFreeSubscribe = () => {
         if (!authSlice) {
             navigate('/member/terms');

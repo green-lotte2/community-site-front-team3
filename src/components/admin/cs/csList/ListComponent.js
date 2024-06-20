@@ -18,6 +18,7 @@ const columns = [
 const url = globalPath.path;
 
 const ListComponent = ({ csContent, setSelectedRows }) => {
+  /**리스트 테이블에 값 할당 */
   const rows = csContent.map((contents, index) => {
     const modifyDate = Moment(contents.rdate);
     return {

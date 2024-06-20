@@ -16,6 +16,7 @@ const FindPw = () => {
     const navigate = useNavigate();
     const [serverCode, setServerCode] = useState('');
 
+    // 비밀번호 찾기 이메일 인증코드 전송
     const handleRequestCode = async () => {
         try {
             const response = await axios.post(SEND_FINDID_EMAIL_CODE_PATH, { email }, { withCredentials: true });
@@ -32,6 +33,7 @@ const FindPw = () => {
         }
     };
 
+    // 비밀번호 찾기 이메일 중복 및 인증코드 확인
     const handleConfirmCode = async () => {
         try {
             const response = await axios.post(
@@ -54,6 +56,7 @@ const FindPw = () => {
         }
     };
 
+    // 비밀번호 수정 로직
     const handleResetPassword = async () => {
         try {
             if (newPassword !== confirmNewPassword) {
