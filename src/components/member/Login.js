@@ -11,10 +11,12 @@ const serverHost = globalPath.serverHost;
 //const serverHost = '3.34.204.24';
 
 const Login = () => {
+    // 카카오 소셜로그인 필요한 코드 및 주소
     const REST_API_KEY = '8412b8200aef151b8d5e19641b967e1b';
     const REDIRECT_URI = `http://3.34.204.24/oauth/callback/kakao`;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
+    // 카카오 로그인 버튼
     const kakaoLogin = (e) => {
         e.preventDefault();
         window.location.href = KAKAO_AUTH_URL;
@@ -30,6 +32,7 @@ const Login = () => {
     const [passwordButtonIcon, setPasswordButtonIcon] = useState('eye-light-off-icon');
     const [error, setError] = useState('');
 
+    // 유효한 토큰이 있다면 메인 페이지로 이동
     const authSlice = useSelector((state) => state.authSlice);
     if (authSlice.uid) {
         window.location.href = '/main';

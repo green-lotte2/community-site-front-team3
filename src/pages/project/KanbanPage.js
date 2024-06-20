@@ -21,24 +21,25 @@ function App() {
     const queryParams = new URLSearchParams(location.search);
     const proNo = queryParams.get('proNo');
 
+    // data에 localStorage에 담긴 값 담아주기
     const [data, setData] = useState(
         localStorage.getItem('orangenode') ? JSON.parse(localStorage.getItem('orangenode')) : []
     );
-
+    // 다크 화면 전환
     const defaultDark = window.matchMedia('(prefers-colors-scheme: dark)').matches;
     const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
 
     const switchTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
     };
-
+    // 보드 이름 업데이트
     const setName = (title, bid) => {
         const index = data.findIndex((item) => item.id === bid);
         const tempData = [...data];
         tempData[index].boardName = title;
         setData(tempData);
     };
-
+    // 다른 보드로 카드 이동
     const dragCardInBoard = (source, destination) => {
         let tempData = [...data];
         const destinationBoardIdx = tempData.findIndex((item) => item.id.toString() === destination.droppableId);
@@ -48,7 +49,7 @@ function App() {
 
         return tempData;
     };
-
+    // 같은 보드에서 카드 이동
     const dragCardInSameBoard = (source, destination) => {
         let tempData = [...data];
         const boardIdx = tempData.findIndex((item) => item.id.toString() === source.droppableId);
@@ -56,7 +57,7 @@ function App() {
         tempData[boardIdx].card.splice(destination.index, 0, movedCard);
         return tempData;
     };
-
+    // 카드 추가
     const addCard = (title, bid) => {
         const index = data.findIndex((item) => item.id === bid);
         const tempData = [...data];
@@ -68,7 +69,7 @@ function App() {
         });
         setData(tempData);
     };
-
+    // 카드 삭제
     const removeCard = (boardId, cardId) => {
         const index = data.findIndex((item) => item.id === boardId);
         const tempData = [...data];
@@ -77,7 +78,7 @@ function App() {
         tempData[index].card.splice(cardIndex, 1);
         setData(tempData);
     };
-
+    // 보드 생성
     const addBoard = (title) => {
         const tempData = [...data];
         tempData.push({
@@ -87,14 +88,14 @@ function App() {
         });
         setData(tempData);
     };
-
+    // 보드 삭제
     const removeBoard = (bid) => {
         const tempData = [...data];
         const index = data.findIndex((item) => item.id === bid);
         tempData.splice(index, 1);
         setData(tempData);
     };
-
+    // 카드를 이동 시켰을 때 이동한 카드의 데이터 업데이트
     const onDragEnd = (result) => {
         const { source, destination } = result;
         if (!destination) return;
@@ -105,7 +106,7 @@ function App() {
             setData(dragCardInBoard(source, destination));
         }
     };
-
+    // 카드 수정
     const updateCard = (bid, cid, card) => {
         const index = data.findIndex((item) => item.id === bid);
         if (index < 0) return;

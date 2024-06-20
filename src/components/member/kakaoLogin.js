@@ -9,7 +9,7 @@ const path = globalPath.path;
 const kakaoLogin = (code) => {
     return function (dispatch) {
         console.log('code 들어오나?', code);
-        // 받은 인가코드 백엔드에 넘기고 토큰 받기
+        // 카카오에서 받은 인가코드 백엔드에 넘기고 토큰 받기
         axios({
             method: 'GET',
             url: `http://3.34.204.24:8080/oauth/callback/kakao?code=${code}`,
@@ -19,7 +19,7 @@ const kakaoLogin = (code) => {
                 console.log('token 들어오나?', JSON.stringify(res));
 
                 // 받아온 토큰
-                const ACCESS_TOKEN = res.data;
+                const ACCESS_TOKEN = res.data.a;
 
                 console.log('accessToken:', ACCESS_TOKEN);
                 // 받아온 토큰을 로컬에 저장
