@@ -7,9 +7,9 @@ import { globalPath } from "globalPaths";
 
 const url = globalPath.path;
 
-const Table = ({ articleList, fetchArticles }) => {
+const Table = ({ articleList, fetchArticles, totalPosts, total }) => {
   const navigate = useNavigate();
-
+  console.log("!11", articleList);
   const handleModify = (ano) => {
     navigate(`/article/modify/${ano}`);
   };
@@ -41,33 +41,41 @@ const Table = ({ articleList, fetchArticles }) => {
           </tr>
         </thead>
         <tbody>
-          {articleList.map((article, index) => (
-            <tr key={article.ano}>
-              <td>{index + 1}</td>
-              <td>
-                <a href="#" onClick={() => handleTitleClick(article.ano)}>
-                  {article.title}
-                </a>
-              </td>
-              <td>{article.uid}</td>
-              <td>{Moment(article.rdate).format("YYYY-MM-DD")}</td>
-              <td>{article.hit}</td>
-              <td className="table-actions">
-                <button
-                  className="modify"
-                  onClick={() => handleModify(article.ano)}
-                >
-                  수정
-                </button>
-                <button
-                  className="delete"
-                  onClick={() => handleDelete(article.ano)}
-                >
-                  삭제
-                </button>
+          {articleList.length > 0 ? (
+            articleList.map((article, index) => (
+              <tr key={article.ano}>
+                <td>{total - index}</td>
+                <td>
+                  <a href="#" onClick={() => handleTitleClick(article.ano)}>
+                    {article.title}
+                  </a>
+                </td>
+                <td>{article.uid}</td>
+                <td>{Moment(article.rdate).format("YYYY-MM-DD")}</td>
+                <td>{article.hit}</td>
+                <td className="table-actions">
+                  <button
+                    className="modify"
+                    onClick={() => handleModify(article.ano)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="delete"
+                    onClick={() => handleDelete(article.ano)}
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} style={{ textAlign: "center" }}>
+                등록된 게시글이 없습니다.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

@@ -82,9 +82,8 @@ const BoardContainer = () => {
       try {
         await axios.post(`${url}/article`, articleData);
         alert("글이 작성되었습니다.");
-        window.location.href = "/main";
+        window.location.href = "/article/list";
       } catch (error) {
-        console.error("Failed to submit article:", error);
         alert("글이 작성되지 않았습니다. 잠시 후 시도해주세요.");
       }
     }
