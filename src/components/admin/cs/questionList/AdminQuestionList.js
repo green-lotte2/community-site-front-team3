@@ -40,11 +40,11 @@ export default function RecipeReviewCard() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                width: "300px",
+                width: "18%",
                 height: "200px",
                 justifyContent: "space-between",
                 marginRight: "100px",
-                margin: "50px",
+                margin: "10px",
               }}
             >
               <CardContent>
