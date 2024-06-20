@@ -155,10 +155,8 @@ const ProjectList = () => {
         const selectedUser = selectdata[0];
         const selectUids = selectdata[1];
 
-        if (selectedUser && !invitedUsers.includes(selectedUser)) {
-            setInvitedUsers([...invitedUsers, selectedUser]);
-        }
-        if (selectUids && !selectUids.includes(selectedUser)) {
+        if (selectedUser && !invitedUsers.some((user) => user.uid === selectUids)) {
+            setInvitedUsers([...invitedUsers, { name: selectedUser, uid: selectUids }]);
             setuserUids([...userUids, selectUids]);
         }
     };
@@ -183,7 +181,7 @@ const ProjectList = () => {
     };
     // 협력자 초대 목록에 필터링
     const getFilteredUsers = () => {
-        return users.filter((user) => !userUids.includes(user.uid));
+        return users.filter((user) => !userUids.includes(user.uid) && user.uid !== authSlice.uid);
     };
     // 프로젝트 수정 모달창 열기
     const openEditModal = (project) => {
@@ -300,8 +298,8 @@ const ProjectList = () => {
                             <p>초대된 사용자</p>
                             {invitedUsers.map((user, index) => (
                                 <span className="projectUser" key={index}>
-                                    {' '}
-                                    {user}
+                                    {user.name}
+                                    {' | '}
                                 </span>
                             ))}
                         </div>
