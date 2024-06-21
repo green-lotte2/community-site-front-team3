@@ -41,7 +41,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0px;
 
     button,
     input {
@@ -100,7 +100,16 @@
 
       th:nth-child(6),
       td:nth-child(6) {
-        width: 15%; // 관리 열
+        width: 0%; // 관리 열
+
+        span {
+          height: 25px;
+        }
+      }
+      a {
+        text-decoration: none;
+        color: #333;
+        flex: none;
       }
     }
   }
@@ -368,6 +377,7 @@
         .MuiTextField-root {
           flex: 2;
         }
+
       }
     }
 
@@ -490,21 +500,21 @@
     flex-direction: column;
     gap: 20px;
     margin-top: 20px;
+  }
+  .MuiBox-root {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    margin-bottom: 10px;
 
-    .MuiBox-root {
-      display: flex;
-      gap: 10px;
+    .MuiFormControl-root {
+      flex: 1;
+    }
 
-      .MuiFormControl-root {
-        flex: 1;
-      }
-
-      .MuiTextField-root {
-        flex: 2;
-      }
+    .MuiTextField-root {
+      flex: 2;
     }
   }
-
   #editor {
     height: 500px;
     margin-bottom: 20px;
@@ -528,5 +538,35 @@
     &:hover {
       background-color: #e57a13;
     }
+  }
+}
+
+.btnAddArt, .btnAddCancel {
+  margin-top: 1px;
+  margin-left: 2px;
+  background-color: #9ca0a3;
+  color: #fff;
+  border: none;
+  border-radius: 30px; /* 둥글게 만들기 */
+  padding: 8px 10px; /* 버튼의 크기 조정 */
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+.btnAddArt {
+  background-color: #9ca0a3;
+  color: #fff;
+
+  &:hover {
+    background-color: #f38925;
+  }
+}
+
+.btnAddCancel {
+  background-color: hsl(350, 3%, 54%);
+  color: #fff;
+
+  &:hover {
+    background-color: #f38925;
   }
 }
