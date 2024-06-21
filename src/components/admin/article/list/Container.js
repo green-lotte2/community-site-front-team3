@@ -39,11 +39,7 @@ const Container = () => {
         <div className="container">
             <h2>게시글 관리</h2>
             <p>-- 게시글 수정, 삭제 및 조회 --</p>
-            <div className="table-actions">
-                <button>Action</button>
-                <input type="text" placeholder="Search Invoice" />
-                <button>Create Invoice</button>
-            </div>
+            <div className="table-actions"></div>
             {<ArticleList articleList={currentPosts(articleList)} setArticleList={setArticleList} />}
             <Pagination postsPerPage={postsPerPage} totalPosts={articleList.length} paginate={setCurrentPage} />
         </div>

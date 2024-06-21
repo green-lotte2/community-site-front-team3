@@ -25,7 +25,7 @@ const MemberList = ({ memberList }) => {
                             <input type="checkbox" />
                         </td>
                         <td className="no">{index + 1}</td>
-                        <td>
+                        <td className="members-name">
                             {members.name}
                             <br />
                             <small>{members.email}</small>
@@ -33,9 +33,7 @@ const MemberList = ({ memberList }) => {
                         <td>{members.company}</td>
                         <td>{members.department}</td>
                         <td>{moment(members.rdate).format('YY-MM-DD')}</td>
-                        <td>
-                            <span className="status paid">Paid</span>
-                        </td>
+                        <td className={`${members.grade}`}>{members.grade}</td>
                         <td>
                             <button className="btn-view">관리</button>
                         </td>
