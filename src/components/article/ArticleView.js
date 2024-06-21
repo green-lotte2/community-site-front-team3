@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { globalPath } from "globalPaths";
 import { useSelector } from "react-redux";
 import "../../styles/board.scss";
+import { replace } from "connected-react-router";
 
 const url = globalPath.path;
 
@@ -31,7 +32,15 @@ const ArticleView = () => {
     axios
       .get(`${url}/articles/${ano}`)
       .then((response) => {
+        console.log(response.data);
         setArticle(response.data);
+
+        const fixedFilePath = response.data.content.replace(
+          "@FilePath###",
+          url
+        );
+
+        setArticle({ ...response.data, content: fixedFilePath });
       })
       .catch((error) => {
         console.error("Failed to fetch the article:", error);
