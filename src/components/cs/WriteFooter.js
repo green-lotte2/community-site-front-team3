@@ -85,10 +85,12 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
       const imgFiles = base64ToFile(match[1], sName);
       console.log(match[1]);
 
-      const imageURL = `${url}/uploads/${sName}`;
+      const imageURL = `@FilePath###/uploads/${sName}`;
+
       contents = content.replace(match[1], imageURL);
 
       console.log(contents);
+
       formData.append("imgFiles", imgFiles);
       console.log(content);
       axios
