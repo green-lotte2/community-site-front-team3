@@ -76,6 +76,11 @@ const Table = ({ articleList, fetchArticles, totalPosts, total, pageNo }) => {
                       </button>
                     </>
                   )}
+                  {article.uid !== uid && (
+                    <>
+                      <span> </span>
+                    </>
+                  )}
                 </td>
               </tr>
             ))
