@@ -85,7 +85,7 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
       const imgFiles = base64ToFile(match[1], sName);
       console.log(match[1]);
 
-      const imageURL = `@FilePath###/uploads/${sName}`;
+      const imageURL = `${url}/uploads/${sName}`;
       contents = content.replace(match[1], imageURL);
 
       console.log(contents);
