@@ -104,15 +104,6 @@ const Main = () => {
                 <label>
                   <input
                     type="checkbox"
-                    name="nowTime"
-                    checked={visibleComponents.nowTime}
-                    onChange={handleCheckboxChange}
-                  />
-                  현재시각
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
                     name="profile"
                     checked={visibleComponents.profile}
                     onChange={handleCheckboxChange}
