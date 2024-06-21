@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import React from "react";
 import { Card } from "@mui/material";
+import "../../styles/cs/cs.scss";
+import { globalPath } from "globalPaths";
 
 const style = {
   position: "absolute",
@@ -16,6 +18,8 @@ const style = {
   p: 4,
 };
 
+const url = globalPath.path;
+
 export default function CsModal({ open, handleClose, myAnswer }) {
   return (
     <Modal
@@ -25,11 +29,60 @@ export default function CsModal({ open, handleClose, myAnswer }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          답변 안된 문의
+        <Typography
+          style={{
+            display: "inline-block",
+            fontWeight: "bolder",
+            padding: "6px 12px",
+            border: "1px solid #FFFFFF",
+            borderRadius: "10px",
+            fontWeight: "bold",
+            backgroundColor: "#8181F7",
+            color: "#FFFFFF",
+            textAlign: "center",
+            marginLeft: "6px",
+          }}
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        >
+          답변 대기
         </Typography>
         {myAnswer
           .filter((answer) => answer.status === 0)
+          .map((answer, index) => (
+            <Card style={{ margin: "10px" }}>
+              <Typography
+                key={index}
+                id="modal-modal-description"
+                style={{ mt: 2 }}
+                dangerouslySetInnerHTML={{
+                  __html: answer.content.replace("@FilePath###", url),
+                }}
+              ></Typography>
+            </Card>
+          ))}
+        <Typography
+          style={{
+            display: "inline-block",
+            fontWeight: "bolder",
+            padding: "6px 12px",
+            border: "1px solid #FFFFFF",
+            borderRadius: "10px",
+            fontWeight: "bold",
+            backgroundColor: "#3ADF00",
+            color: "#FFFFFF",
+            textAlign: "center",
+            marginLeft: "6px",
+          }}
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+        >
+          답변 완료
+        </Typography>
+        {myAnswer
+          .filter((answer) => answer.status === 1)
           .map((answer, index) => (
             <Card style={{ margin: "10px" }}>
               <Typography
