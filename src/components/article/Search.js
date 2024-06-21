@@ -7,6 +7,8 @@ const Search = ({ searchKeyword }) => {
     searchKeyword(input);
   };
 
+  console.log("???", searchKeyword);
+
   return (
     <div className="search-container">
       <input

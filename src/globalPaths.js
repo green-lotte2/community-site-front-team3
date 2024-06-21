@@ -1,5 +1,9 @@
 //const serverHost = '127.0.0.1';
 const serverHost = '3.34.204.24';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a740e5162b96b05b52f5ed8f2e44205ccd14e64
 
 export const globalPath = {
     serverHost,
