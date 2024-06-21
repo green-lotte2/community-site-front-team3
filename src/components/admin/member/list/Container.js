@@ -5,7 +5,7 @@ import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Container = () => {
-    const url = globalPath.serverHost;
+    const url = globalPath.path;
     const [memberList, setMemberList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
@@ -17,7 +17,7 @@ const Container = () => {
     const fetchData = async (page, query) => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://${url}/admin/member/search`, {
+            const response = await axios.get(`${url}/admin/member/search`, {
                 params: { page, size: 10, search: query },
             });
             const newMembers = response.data;

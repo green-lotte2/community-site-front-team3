@@ -4,9 +4,25 @@
     $asideColor: #f9f9f9;
     $thirdColor: #0c1425;
     $hoverColor: #727787;
+    $freeColor: #009425;
+    $mvpColor: #ff8916;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    .members-name {
+        font-weight: bold;
+    }
+
+    .MVP {
+        color: $mvpColor;
+        font-weight: bold;
+    }
+
+    .FREE {
+        color: $freeColor;
+        font-weight: bold;
+    }
 
     .aHeader {
         background-color: $basicColor;
@@ -374,7 +390,8 @@
             border: 1px solid #ccc;
             border-radius: 3px;
             background-color: #f9f9f9;
-            min-height: 400px;
+            min-height: 500px;
+            min-width: 1100px;
         }
         .post-actions {
             display: flex;
@@ -456,5 +473,54 @@
                 }
             }
         }
+    }
+    // admin 글 수정
+    .post-header-title {
+        width: 1000px;
+    }
+
+    // admin article table
+    .admin-article-table > thead > tr > th {
+        text-align: center;
+    }
+
+    .admin-article-table .no {
+        text-align: center;
+    }
+    .admin-article-table .admin-article-checkbox {
+        max-width: 15px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .admin-article-table .admin-article-set {
+        max-width: 50px;
+    }
+
+    .admin-article-title {
+        min-width: 300px;
+    }
+
+    .admin-article-no {
+        max-width: 10px;
+        text-align: center;
+    }
+
+    // admin recent
+    .recent-title {
+        color: #86879d;
+        text-decoration: none;
+    }
+
+    .recent-title::after {
+        display: block;
+        content: '';
+        border-bottom: 2px solid $thirdColor;
+        transform: scaleX(0);
+        transition: transform 250ms ease-in-out;
+    }
+
+    .recent-title:hover:after {
+        transform: scaleX(1);
     }
 }
