@@ -10,9 +10,12 @@ const Header = () => {
   const url = globalPath.path;
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [open, setOpen] = useState(false); // 모달 오픈 상태
+  const [myAnswer, setMyAnswer] = useState([]); // 가져온 문의 관리 State
   const dispatch = useDispatch();
   const authSlice = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
+
+  const uid = authSlice.uid;
 
   const [user, setUser] = useState({
     uid: "",
@@ -41,7 +44,22 @@ const Header = () => {
     });
   };
 
-  const handleOpen = () => setOpen(true); // 모달 오픈 핸들러
+  /**모달 오픈 핸들러*/
+  const handleOpen = () => {
+    setOpen(true);
+    const fetchData = async () => {
+      await axios
+        .get(`${url}/question/selectMy?uid=${uid}`)
+        .then((response) => {
+          setMyAnswer(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    fetchData();
+  };
   const handleClose = () => setOpen(false); // 모달 클로즈 핸들러
 
   useEffect(() => {
@@ -168,7 +186,7 @@ const Header = () => {
             </nav>
           </div>
         </div>
-        <CsModal open={open} handleClose={handleClose} /> {/* 모달 컴포넌트 추가 */}
+        <CsModal open={open} handleClose={handleClose} myAnswer={myAnswer} />
       </header>
     </>
   );
