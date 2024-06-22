@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CHECK_EMAIL_CODE_PATH, SEND_EMAIL_CODE_PATH, USER_PATH } from 'requestPath';
+import {registerUser, sendUserEmailCode, checkEmailCode} from 'api/UserApi';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Register = () => {
 
     const [showVerification, setShowVerification] = useState(false);
     const [serverCode, setServerCode] = useState(''); // 서버로부터 받은 인증코드 저장
+    const [emailOk, setEmailOk] = useState(false); // 이메일 인증 상태
 
     // 비밀번호 숨기기
     const togglePasswordVisibility = () => {
@@ -78,7 +80,6 @@ const Register = () => {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
     };
 
-    let emailOk = false;
     /** 가입하기 버튼 */
     const submitHandler = (e) => {
         e.preventDefault();
@@ -88,32 +89,17 @@ const Register = () => {
                 return;
             }
         }
-
         for (const error in errors) {
             if (errors[error]) {
                 alert('양식을 올바르게 작성해주세요.');
                 return;
             }
         }
-        if (emailOk === true) {
-            registerUser();
+        if (emailOk) {
+            registerUser(USER_PATH, user, navigate);
         } else {
             alert('이메일을 확인해주세요.');
         }
-    };
-
-    /** 모든 유효성 검사 통과하면 회원가입 */
-    const registerUser = () => {
-        axios
-            .post(USER_PATH, user)
-            .then((response) => {
-                console.log(response.data);
-                alert('회원가입 완료!');
-                navigate('/');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     };
     // value change 핸들러
     const changeHandler = (e) => {
@@ -123,46 +109,15 @@ const Register = () => {
         setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
     };
     /** 인증코드 전송 버튼 */
-    const handleEmailVerification = () => {
-        axios
-            .post(SEND_EMAIL_CODE_PATH, { email: user.email })
-            .then((response) => {
-                if (response.data.result === 1) {
-                    console.log('코드전송 response.data:', response.data);
-                    return;
-                } else {
-                    alert('인증코드가 이메일로 전송되었습니다.');
-                    setServerCode(response.data.code); // 서버로부터 받은 암호화된 코드 저장
-                    setShowVerification(true);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                alert('이메일이 중복되었습니다. 다른 이메일을 사용해주세요.');
-            });
-    };
-
+    const sendUserEmailCodeHandler = () => {
+        sendUserEmailCode(user.email, setServerCode, setShowVerification);
+    }
     /** 인증코드 확인 버튼 */
-    const checkEmailCode = () => {
-        axios
-            .post(CHECK_EMAIL_CODE_PATH, { code: serverCode, inputCode: user.verificationCode })
-            .then((response) => {
-                const data = response.data;
-                console.log('코드확인 response.data:', response.data);
-                console.log('코드확인 data:', data);
-                if (data.result === 0) {
-                    alert('인증코드가 일치합니다.');
-                    emailOk = true;
-                } else {
-                    alert('인증코드가 일치하지 않습니다.');
-                }
-            })
-            .catch((error) => {
-                console.log(user.verificationCode);
-                console.error('인증코드 확인에 실패하였습니다.', error);
-            });
-    };
-
+    const checkEmailCodeHandler = () => {
+        checkEmailCode(serverCode, user.verificationCode);
+        setEmailOk(true);
+    }
+    
     return (
         <>
             <div className="container">
@@ -238,7 +193,7 @@ const Register = () => {
                                     value={user.email}
                                 />
 
-                                <button className="email-verify" type="button" onClick={handleEmailVerification}>
+                                <button className="email-verify" type="button" onClick={sendUserEmailCodeHandler}>
                                     이메일 인증
                                 </button>
                             </div>
@@ -254,7 +209,7 @@ const Register = () => {
                                         onChange={changeHandler}
                                         value={user.verificationCode}
                                     />
-                                    <button className="email-verify" type="button" onClick={checkEmailCode}>
+                                    <button className="email-verify" type="button" onClick={checkEmailCodeHandler}>
                                         인증코드 확인
                                     </button>
                                 </div>
