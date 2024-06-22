@@ -218,6 +218,10 @@ const ProjectList = () => {
     const totalPages = Math.ceil(projects.length / projectsPerPage);
     const totalSets = Math.ceil(totalPages / pagesPerSet);
 
+    useEffect(() => {
+        console.log("321:", currentProjects);
+    }, [currentProjects]);
+
     return (
         <>
             <div className="project-list-container">
@@ -245,7 +249,9 @@ const ProjectList = () => {
                                     {project.title}
                                 </p>
                                 <div className="project-meta">
-                                    <span className="date">{moment(project.rdate).format('YY.MM.DD')}</span>
+                                    <span className="date">
+                                        {moment(project.rdate.join('-'), 'YYYY-M-D-H-m-s').format('YY.MM.DD')}
+                                    </span>
                                     <span className="actions">
                                         <button onClick={() => openEditModal(project)}>수정</button>
                                         <button onClick={() => deleteProject(project.proNo)}>삭제</button>
