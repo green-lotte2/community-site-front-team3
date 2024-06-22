@@ -113,7 +113,7 @@ export default function RecipeReviewCard() {
 
   return (
     <>
-      <h3 style={{ marginLeft: "10px" }}>답변해주세요!</h3>
+      <h3 style={{ marginLeft: "10px", fontWeight: "border" }}>답변 대기글</h3>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {question
           .filter((question) => question.status === 0)
@@ -130,22 +130,51 @@ export default function RecipeReviewCard() {
                 marginRight: "100px",
                 margin: "10px",
                 cursor: "pointer",
+                position: "relative", // 위치 설정을 위해 추가
+                overflow: "scroll",
               }}
             >
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginRight: "35px" }}
+                >
                   {question.title}
                 </Typography>
                 <Typography
-                  style={{ float: "left", color: "#808080", mb: 1.5 }}
+                  style={{
+                    padding: "6px 12px",
+                    border: "1px solid #FFFFFF",
+                    borderRadius: "10px",
+                    backgroundColor: "#FFFFFF",
+                    color: "#FFFFFF",
+                    textAlign: "center",
+                    marginLeft: "6px",
+                    marginTop: "30px",
+                  }}
+                  gutterBottom
+                  variant="span"
+                  component="span"
+                  dangerouslySetInnerHTML={{
+                    __html: question?.content?.replace("@FilePath###", url),
+                  }}
+                />
+                <Typography
+                  style={{ float: "left", color: "#808080" }}
                   color="text.secondary"
                 >
+                  작성날짜:
                   {Moment(question.rdate)
                     .subtract(1, "month")
                     .format("YYYY-MM-DD")}
                 </Typography>
                 <Typography
                   style={{
+                    position: "absolute",
+                    top: "12px",
+                    right: "5px",
                     border: "1px solid #FFFFFF",
                     borderRadius: "10px",
                     padding: "5px",
@@ -153,15 +182,12 @@ export default function RecipeReviewCard() {
                     fontWeight: "bold",
                     backgroundColor: "#8181F7",
                     color: "#FFFFFF",
-                    mb: 1.5,
                   }}
                 >
                   답변중
                 </Typography>
 
-                <Typography
-                  style={{ float: "right", color: "#808080", mb: 1.5 }}
-                >
+                <Typography style={{ float: "left", color: "#808080" }}>
                   {""}
                   작성자:{question.uid}
                 </Typography>
@@ -186,22 +212,32 @@ export default function RecipeReviewCard() {
                 marginRight: "100px",
                 margin: "10px",
                 cursor: "pointer",
+                position: "relative", // 위치 설정을 위해 추가
               }}
             >
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  style={{ marginRight: "45px" }}
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                >
                   {question.title}
                 </Typography>
                 <Typography
                   style={{ float: "left", color: "#808080", mb: 1.5 }}
                   color="text.secondary"
                 >
+                  답변 작성날짜:
                   {Moment(question.rdate)
                     .subtract(1, "month")
                     .format("YYYY-MM-DD")}
                 </Typography>
                 <Typography
                   style={{
+                    position: "absolute",
+                    top: "12px",
+                    right: "5px",
                     border: "1px solid #FFFFFF",
                     borderRadius: "10px",
                     padding: "5px",
@@ -215,10 +251,10 @@ export default function RecipeReviewCard() {
                   답변완료!
                 </Typography>
                 <Typography
-                  style={{ float: "right", color: "#808080", mb: 1.5 }}
+                  style={{ float: "left", color: "#808080", marginTop: "5px" }}
                 >
                   {""}
-                  작성자:{question.uid}
+                  답변 작성자:{question.uid}
                 </Typography>
               </CardContent>
             </Card>
@@ -272,18 +308,25 @@ export default function RecipeReviewCard() {
       >
         <Box sx={style}>
           <Typography
-            style={{ marginBottom: "5px" }}
+            style={{ marginBottom: "5px", fontWeight: "border" }}
             id="modal-modal-title"
-            variant="h6"
+            variant="h5"
             component="h2"
           >
             답변
           </Typography>
-          <Typography style={{ marginBottom: "5px" }}>
+          <Typography style={{ marginBottom: "5px", marginTop: "15px" }}>
             {" "}
             내용 : {getAnswer.content}
           </Typography>
-          <Typography style={{ float: "right" }}>
+          <Typography
+            style={{ float: "left", color: "#808080", marginTop: "15px" }}
+          >
+            작성자:{getAnswer.uid}
+          </Typography>
+          <Typography
+            style={{ float: "right", color: "#808080", marginTop: "15px" }}
+          >
             {Moment(getAnswer.rdate).subtract(1, "month").format("YYYY-MM-DD")}{" "}
           </Typography>
         </Box>
