@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { globalPath } from 'globalPaths';
+import { checkPassword } from 'api/UserApi';
 
 const CheckPass = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -16,22 +17,20 @@ const CheckPass = () => {
     });
 
     // 비밀번호 확인 핸들러
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
-
-        await axios
-            .post(`${url}/user/check`, user)
-            .then((response) => {
-                console.log(response.data);
-                if (response.data > 0) {
+        checkPassword(url, user)
+            .then(data => {
+                console.log(data);
+                if (data > 0) {
                     alert('비밀번호 일치');
-                    navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: response.data } });
+                    navigate(`/member/profile?uid=${authSlice.uid}`, { state: { user: data } });
                 } else {
                     alert('비밀번호 불일치');
                 }
             })
-            .catch((err) => {
-                console.log('에러:' + err);
+            .catch(err => {
+                console.log('에러:', err);
             });
     };
 

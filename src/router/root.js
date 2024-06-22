@@ -127,6 +127,8 @@ const root = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
   { path: "/member/register", element: <RegisterPage /> },
   { path: "/member/terms", element: <TermsPage /> },
+  { path: "/member/findid", element: <FindIdPage /> },
+  { path: "/member/findpw", element: <FindPwPage /> },
   {
     path: "/member/logout",
     element: (
@@ -167,23 +169,7 @@ const root = createBrowserRouter([
       </AuthRoute>
     ),
   },
-  {
-    path: "/member/findid",
-    element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
-        <FindIdPage />
-      </AuthRoute>
-    ),
-  },
-  {
-    path: "/member/findpw",
-    element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
-        <FindPwPage />
-      </AuthRoute>
-    ),
-  },
-
+  
   // project
   {
     path: "/project/list",
