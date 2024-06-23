@@ -95,6 +95,7 @@ const ProjectList = () => {
         try {
             const response = await axios.delete(`${PROJECT_DELETE_PATH}=${proNo}`);
             console.log(response.data);
+            // status 상태변수를 업데이트하여 컴포넌트를 다시 렌더링 시킴
             setStatus(status + 1);
             alert('삭제완료');
             selectProjectList();
@@ -128,7 +129,6 @@ const ProjectList = () => {
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
-            console.log('333333333333', proNo);
             navigate(`/project/kanban?proNo=${proNo}`);
         } catch (error) {
             console.error('칸반보드 이동:', error);
