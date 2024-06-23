@@ -20,8 +20,8 @@ export const selectTerms = async (TERMS_PATH, setTerms) => {
 };
 
 /* 회원가입 인증코드 전송 버튼 */
-export const sendUserEmailCode = async (email, setServerCode, setShowVerification) => {
-  await axios
+export const sendUserEmailCode = (email, setServerCode, setShowVerification) => {
+   axios
       .post(SEND_EMAIL_CODE_PATH, { email})
       .then((response) => {
           if (response.data.result === 1) {
@@ -40,8 +40,8 @@ export const sendUserEmailCode = async (email, setServerCode, setShowVerificatio
 };
 
 /** 인증코드 확인 버튼 */
-export const checkEmailCode = async (serverCode, verificationCode) => {
-    await axios
+export const checkEmailCode = (serverCode, verificationCode) => {
+     axios
         .post(CHECK_EMAIL_CODE_PATH, { code: serverCode, inputCode: verificationCode })
         .then((response) => {
             const data = response.data;
@@ -112,6 +112,7 @@ export const updateGrade = (uid, userGrade) => {
               return false;
           });
   } else {
+    // 요금제 변경을 취소했을때 즉시 비동기 방식으로 취소 처리
       return Promise.resolve(false);
   }
 };

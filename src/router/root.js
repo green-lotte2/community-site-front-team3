@@ -129,6 +129,7 @@ const root = createBrowserRouter([
   { path: "/member/terms", element: <TermsPage /> },
   { path: "/member/findid", element: <FindIdPage /> },
   { path: "/member/findpw", element: <FindPwPage /> },
+  { path: "/oauth/callback/kakao", element: <KakaoRedirectPage /> },
   {
     path: "/member/logout",
     element: (
@@ -161,14 +162,14 @@ const root = createBrowserRouter([
       </AuthRoute>
     ),
   },
-  {
-    path: "/oauth/callback/kakao",
-    element: (
-      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
-        <KakaoRedirectPage />
-      </AuthRoute>
-    ),
-  },
+  // {
+  //   path: "/oauth/callback/kakao",
+  //   element: (
+  //     <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+  //       <KakaoRedirectPage />
+  //     </AuthRoute>
+  //   ),
+  // },
   
   // project
   {
