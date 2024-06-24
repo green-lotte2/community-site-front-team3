@@ -6,29 +6,23 @@ import { useSelector } from 'react-redux';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import IconButton from '@mui/material/IconButton';
 import Moment from 'react-moment';
-
 const Main = () => {
     const authSlice = useSelector((state) => state.authSlice);
     console.log('main:', authSlice);
-
     const defaultVisibleComponents = {
         calendar: true,
         profile: true,
         article: true,
     };
-
     const [visibleComponents, setVisibleComponents] = useState(() => {
         const savedState = localStorage.getItem('visibleComponents');
         return savedState ? JSON.parse(savedState) : defaultVisibleComponents;
     });
-
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [widgetMenuVisible, setWidgetMenuVisible] = useState(false);
-
     useEffect(() => {
         localStorage.setItem('visibleComponents', JSON.stringify(visibleComponents));
     }, [visibleComponents]);
-
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         setVisibleComponents((prev) => ({
@@ -36,18 +30,12 @@ const Main = () => {
             [name]: checked,
         }));
     };
-
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
-
     const toggleWidgetMenu = () => {
         setWidgetMenuVisible(!widgetMenuVisible);
     };
-
-    // 현재 시각 표시
-    const [nowTime, setNowTime] = useState(Date.now());
-
     return (
         <div
             style={{
@@ -63,11 +51,6 @@ const Main = () => {
                     justifyContent: 'flex-end',
                     position: 'relative',
                 }}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
             >
                 <IconButton onClick={toggleDropdown}>
                     <MoreVertTwoToneIcon />
@@ -99,15 +82,6 @@ const Main = () => {
                                     marginTop: '10px',
                                 }}
                             >
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="nowTime"
-                                        checked={visibleComponents.nowTime}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    현재시각
-                                </label>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -147,51 +121,16 @@ const Main = () => {
             </div>
         </div>
     );
-<<<<<<< HEAD
-=======
-              >
-                <label>
-                  <input
-                    type="checkbox"
-                    name="profile"
-                    checked={visibleComponents.profile}
-                    onChange={handleCheckboxChange}
-                  />
-                  내 프로필
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="article"
-                    checked={visibleComponents.article}
-                    onChange={handleCheckboxChange}
-                  />
-                  최근 게시글
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="calendar"
-                    checked={visibleComponents.calendar}
-                    onChange={handleCheckboxChange}
-                  />
-                  예정된 이벤트
-                </label>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-      <div id="main-component">
-        {visibleComponents.profile && <MainProfile />}
-        {visibleComponents.article && <MainRecentArticles />}
-        {visibleComponents.calendar && <MainCalendar />}
-      </div>
-    </div>
-  );
->>>>>>> ab632297998ff111764d142e96377af5f3c02c11
-=======
->>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
 };
-
 export default Main;
+
+
+
+
+
+
+
+
+
+
+
