@@ -5,7 +5,7 @@ import axios from 'axios';
 import Pagination from 'components/common/Pagination';
 import { globalPath } from 'globalPaths';
 
-const url = globalPath.path;
+const url = globalPath.serverHost;
 
 const Container = () => {
     const location = useLocation();
@@ -22,7 +22,7 @@ const Container = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const response = await axios.get(`${url}/admin/article`); // 정렬 파라미터 추가
+            const response = await axios.get(`http://${url}/admin/article`); // 정렬 파라미터 추가
             setArticleList(response.data);
             setLoading(false);
         };

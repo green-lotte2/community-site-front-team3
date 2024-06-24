@@ -63,7 +63,11 @@ const Main = () => {
                     justifyContent: 'flex-end',
                     position: 'relative',
                 }}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
             >
                 <IconButton onClick={toggleDropdown}>
                     <MoreVertTwoToneIcon />
@@ -143,6 +147,51 @@ const Main = () => {
             </div>
         </div>
     );
+<<<<<<< HEAD
+=======
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    name="profile"
+                    checked={visibleComponents.profile}
+                    onChange={handleCheckboxChange}
+                  />
+                  내 프로필
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="article"
+                    checked={visibleComponents.article}
+                    onChange={handleCheckboxChange}
+                  />
+                  최근 게시글
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="calendar"
+                    checked={visibleComponents.calendar}
+                    onChange={handleCheckboxChange}
+                  />
+                  예정된 이벤트
+                </label>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div id="main-component">
+        {visibleComponents.profile && <MainProfile />}
+        {visibleComponents.article && <MainRecentArticles />}
+        {visibleComponents.calendar && <MainCalendar />}
+      </div>
+    </div>
+  );
+>>>>>>> ab632297998ff111764d142e96377af5f3c02c11
+=======
+>>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
 };
 
 export default Main;
