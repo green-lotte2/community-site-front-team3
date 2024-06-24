@@ -17,7 +17,7 @@ const Container = () => {
     const fetchData = async (page, query) => {
         try {
             setLoading(true);
-            const response = await axios.get(`${url}/admin/member/list`, {
+            const response = await axios.get(`${url}/admin/member/search`, {
                 params: { page, size: 10, search: query },
             });
             const newMembers = response.data;
@@ -58,6 +58,13 @@ const Container = () => {
         setMemberList([]); // 새로운 검색 시 이전 검색 결과를 초기화
     };
 
+    // enter key 로 검색하기
+    const keydown = (e) => {
+        if (e.key === 'Enter') {
+            search();
+        }
+    };
+
     const fetchMoreData = () => {
         if (!loading && hasMore) {
             setCurrentPage((prevPage) => prevPage + 1);
@@ -70,15 +77,21 @@ const Container = () => {
             <p>회원을 조회하고 관리합니다.</p>
             <div className="table-actions">
                 <button>전체선택</button>
-                <input type="text" placeholder="검색할 단어를 입력하세요" value={searchUser} onChange={searchChange} />
+                <input
+                    type="text"
+                    placeholder="검색할 단어를 입력하세요"
+                    value={searchUser}
+                    onChange={searchChange}
+                    onKeyDown={keydown} // 엔터키 입력시 검색
+                />
                 <button onClick={search}>검색하기</button>
             </div>
             <InfiniteScroll
                 dataLength={memberList.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
-                endMessage={<p>End of data</p>}
+                loader={<h4>검색 중...</h4>}
+                endMessage={<p>검색이 완료 되었습니다.</p>}
             >
                 <MemberList memberList={memberList} />
             </InfiniteScroll>

@@ -1,11 +1,11 @@
 import React from "react";
-import BoardContainer from "components/board/BoardContainer";
 import DefaultLayout from "layouts/DefaultLayout";
+import ArticleView from "components/article/ArticleView";
 
 const View = () => {
   return (
     <DefaultLayout>
-      <BoardContainer props="보기"/>
+      <ArticleView />
     </DefaultLayout>
   );
 };

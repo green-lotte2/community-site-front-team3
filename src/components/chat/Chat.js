@@ -14,10 +14,8 @@ const Chat = ({
   profile,
 }) => {
   useEffect(() => {
-    console.log("Messages updated:", messages);
+    console.log("Messages updated");
   }, [messages]);
-
-  console.log("profile in Chat component: ", profile);
 
   const renderMessages = () => {
     let lastDate = null;

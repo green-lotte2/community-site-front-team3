@@ -86,9 +86,11 @@ const WriteFooter = ({ cate, title, getContent, content }) => {
       console.log(match[1]);
 
       const imageURL = `@FilePath###/uploads/${sName}`;
+
       contents = content.replace(match[1], imageURL);
 
       console.log(contents);
+
       formData.append("imgFiles", imgFiles);
       console.log(content);
       axios

@@ -1,8 +1,10 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AuthRoute from "./AuthRoute";
+
 import MainPage from "../pages/main/MainPage";
 import AdminPage from "../pages/admin/AdminPage";
-import AdminMember from "../pages/admin/AdminMember";
+import AdminMemberPlan from "../pages/admin/AdminMemberPlan";
 import AdminMemberList from "../pages/admin/AdminMemberList";
 import AdminArticleList from "../pages/admin/AdminArticleList";
 import AdminArticleView from "../pages/admin/AdminArticleView";
@@ -16,68 +18,266 @@ import SubscribePage from "pages/member/SubscribePage";
 import LoginPage from "../pages/member/LoginPage";
 import TermsPage from "../pages/member/TermsPage";
 import RegisterPage from "../pages/member/RegisterPage";
-import ProjectBoardPage from "pages/project/ProjectBoardPage";
 import ProjectListPage from "pages/project/ProjectListPage";
 import KanbanPage from "pages/project/KanbanPage";
-import List from "pages/board/List";
-import Modify from "pages/board/Modify";
-import Register from "pages/board/Register";
-import View from "pages/board/View";
+
+import List from "pages/article/List";
+import Modify from "pages/article/Modify";
+import Register from "pages/article/Register";
+import View from "pages/article/View";
+import BoardWrite from "pages/article/Register";
+
 import NewPage from "pages/newPage/NewPage";
 import Chatpage from "pages/chat/ChatPage";
 import Calendar from "pages/calendar/Calendar";
 import Cs from "pages/cs/CsPage";
 import WritePage from "pages/cs/WritePage";
+import FindIdPage from "pages/member/FindIdPage";
+import FindPwPage from "pages/member/FindPwPage";
 
 // 라우터 생성
 const root = createBrowserRouter([
   // main
-  { path: "/main", element: <MainPage /> },
-  { path: "/chatroom/:uid", element: <Chatpage /> },
+  {
+    path: "/main",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <MainPage />
+      </AuthRoute>
+    ),
+  },
+
+  // chat
+  {
+    path: "/chatroom/:uid",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Chatpage />
+      </AuthRoute>
+    ),
+  },
 
   // admin
-  { path: "/admin", element: <AdminPage /> },
-  { path: "/admin/member", element: <AdminMember /> },
-  { path: "/admin/member/list", element: <AdminMemberList /> },
-  { path: "/admin/article", element: <AdminArticleList /> },
-  { path: "/admin/article/:ano", element: <AdminArticleView /> },
-  { path: "/admin/article/view/answer", element: <AdminArticleAnswer /> },
-  { path: "/admin/cs", element: <AdminCsListPage /> },
-  { path: "/admin/question", element: <AdminQuestionPage /> },
+  {
+    path: "/admin",
+    element: (
+      <AuthRoute allowedRoles={["ADMIN"]}>
+        <AdminPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/member/plan",
+    element: (
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
+        <AdminMemberPlan />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/member/list",
+    element: (
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
+        <AdminMemberList />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/article",
+    element: (
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
+        <AdminArticleList />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/article/:ano",
+    element: (
+      <AuthRoute allowedRoles={[ "ADMIN"]}>
+        <AdminArticleView />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/article/view/answer",
+    element: (
+      <AuthRoute allowedRoles={["ADMIN"]}>
+        <AdminArticleAnswer />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/cs",
+    element: (
+      <AuthRoute allowedRoles={["ADMIN"]}>
+        <AdminCsListPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/admin/question",
+    element: (
+      <AuthRoute allowedRoles={["ADMIN"]}>
+        <AdminQuestionPage />
+      </AuthRoute>
+    ),
+  },
 
   // member
   { path: "/", element: <LoginPage /> },
   { path: "/member/register", element: <RegisterPage /> },
   { path: "/member/terms", element: <TermsPage /> },
-  { path: "/member/logout", element: <Navigate replace to="/" /> },
-  { path: "/member/passcheck", element: <CheckPassPage /> },
-  { path: "/member/profile", element: <ProfileUpdatePage /> },
-  { path: "/member/subscribe", element: <SubscribePage /> },
+  { path: "/member/findid", element: <FindIdPage /> },
+  { path: "/member/findpw", element: <FindPwPage /> },
   { path: "/oauth/callback/kakao", element: <KakaoRedirectPage /> },
-
+  {
+    path: "/member/logout",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Navigate replace to="/" />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/member/passcheck",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <CheckPassPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/member/profile",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <ProfileUpdatePage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/member/subscribe",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <SubscribePage />
+      </AuthRoute>
+    ),
+  },
+  // {
+  //   path: "/oauth/callback/kakao",
+  //   element: (
+  //     <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+  //       <KakaoRedirectPage />
+  //     </AuthRoute>
+  //   ),
+  // },
+  
   // project
-  { path: "/project/board", element: <ProjectBoardPage /> },
-  { path: "/project/list", element: <ProjectListPage /> },
-  { path: "/project/kanban", element: <KanbanPage /> },
+  {
+    path: "/project/list",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <ProjectListPage />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/project/kanban",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <KanbanPage />
+      </AuthRoute>
+    ),
+  },
 
-  // board
-  { path: "/board/list", element: <List /> },
-  { path: "/board/modify", element: <Modify /> },
-  { path: "/board/register", element: <Register /> },
-  { path: "/board/view", element: <View /> },
+  // article
+  {
+    path: "/article/list",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <List />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/article/modify/:ano",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Modify />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/article/register",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Register />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/article/view/:ano",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <View />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/article/write",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <BoardWrite />
+      </AuthRoute>
+    ),
+  },
 
   // newPage
-  { path: "/page/:pageNo", element: <NewPage /> },
+  {
+    path: "/page/:pageNo",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <NewPage />
+      </AuthRoute>
+    ),
+  },
 
   // chat
-  { path: "/chat", element: <Chatpage /> },
+  {
+    path: "/chat",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Chatpage />
+      </AuthRoute>
+    ),
+  },
 
   // calendar
-  { path: "/calendar", element: <Calendar /> },
+  {
+    path: "/calendar",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Calendar />
+      </AuthRoute>
+    ),
+  },
 
   // cs
-  { path: "/cs", element: <Cs /> },
-  { path: "/write", element: <WritePage /> },
+  {
+    path: "/cs",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <Cs />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/write",
+    element: (
+      <AuthRoute allowedRoles={["USER", "ADMIN"]}>
+        <WritePage />
+      </AuthRoute>
+    ),
+  },
 ]);
 
 // 라우터 내보내기

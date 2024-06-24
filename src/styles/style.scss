@@ -59,8 +59,10 @@ body {
     }
 
     nav ul li {
+        height: auto;
         margin: 0 8px; /* li 요소 간의 간격 조정 */
         font-size: 12px;
+        border-bottom: 2px solid #f8f8f8;
     }
 
     nav ul li:hover {
@@ -305,6 +307,18 @@ body {
 
         li > div {
             margin-left: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .plusPage {
+            flex-direction: row;
+            margin-left: 26px;
+            margin-top: 7px;
+            cursor: pointer;
+            align-items: center;
+        }
+        .plusPage:hover span {
+            color: #f78718;
         }
     }
     .terms-form button:hover {
@@ -477,4 +491,72 @@ body {
     font-size: 14px;
     padding: 20px;
     gap: 5px;
+}
+
+// 메인화면 시간 표시 수정
+.moment-box {
+    position: relative;
+    left: 75%;
+    color: #808080;
+}
+
+// 메인화면 프로필 카드
+.main-profile {
+    max-width: 550px;
+    margin-left: 40px;
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+
+// 메인화면 이벤트 카드
+.main-eventList {
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    border-radius: 200%;
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+
+.main-eventList-title {
+    color: #231f1f;
+    font-weight: bold;
+    border-bottom: 2px solid #ff8916;
+}
+
+// 메인화면 최근 게시글
+.main-article-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 카드 사이의 간격 */
+    max-width: 550px;
+    margin-left: 40px;
+    border: 2px solid #e3e3e3; /* 테두리 스타일 */
+    box-shadow: 4px 0 5px #e7e7e7; /* 더 나은 UI를 위한 그림자 추가 */
+}
+.scroll-article {
+    margin-right: 10px;
+}
+.scroll-container-article {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    align-items: center;
+    padding: 10px 0;
+    width: calc(100% - 60px); /* 양쪽 버튼 공간 확보를 위해 너비 조정 */
+}
+
+.main-eventList-title {
+    font-size: 24px;
+    color: #333;
+}
+.main-article-card {
+    min-width: 200px;
+}
+.main-eventList-article {
+    font-size: 16px;
+    color: #666;
+    border-bottom: 1px solid #ff8916;
+}
+
+.main-article {
+    font-size: 14px;
+    color: #999;
 }

@@ -57,14 +57,14 @@ const EventList = ({ events }) => {
                 <div className="scroll-container" ref={scrollContainerRef}>
                     {events.map((event) => (
                         <div className="scroll-item" key={event.id}>
-                            <Card>
+                            <Card className="main-eventList" sx={{ minHeight: 200 }}>
                                 <CardContent>
-                                    <Typography variant="h6" component="h2">
-                                        {event.title}
+                                    <Typography className="main-eventList-title" variant="h5" component="h2">
+                                        할 일: {event.title}
                                     </Typography>
-                                    <Typography color="textSecondary">
-                                        {formatDate(event.start)} - {formatDate(event.end)}
-                                    </Typography>
+                                    <br />
+                                    <Typography color="textSecondary">시작일: {formatDate(event.start)}</Typography>
+                                    <Typography color="textSecondary">종료일: {formatDate(event.end)} </Typography>
                                 </CardContent>
                             </Card>
                         </div>

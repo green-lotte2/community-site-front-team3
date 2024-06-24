@@ -21,8 +21,16 @@ const ProjectList = () => {
     const [userUids, setuserUids] = useState([]);
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [allProjects, setAllProjects] = useState([]); // 전체 프로젝트 목록 상태 추가
     const [status, setStatus] = useState(1);
     const [editProject, setEditProject] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // 페이징 처리
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+    const [currentSet, setCurrentSet] = useState(1); // 현재 페이지 세트
+    const projectsPerPage = 5; // 한 페이지당 프로젝트 수
+    const pagesPerSet = 10; // 한 세트당 페이지 수
 
     useEffect(() => {
         if (authSlice && authSlice.uid && authSlice.company) {
@@ -41,11 +49,13 @@ const ProjectList = () => {
             console.error('프로젝트 조회 에러:', error);
         }
     };
+
     // 프로젝트 리스트 출력 //
     const selectProjectList = async () => {
         try {
             const response = await axios.get(`${PROJECT_LIST_PATH}=${authSlice.uid}`);
             setProjects(response.data);
+            setAllProjects(response.data); // 전체 프로젝트 목록 업데이트
             console.log('proejct111:', response.data);
         } catch (error) {
             console.error('프로젝트 출력 에러:', error);
@@ -69,16 +79,23 @@ const ProjectList = () => {
             });
             alert('프로젝트 생성완료!');
             selectProjectList();
+            setStatus(status + 1);
+            setProjectTitle('');
+            setInvitedUsers([]);
+            setuserUids([]);
+            closeModal();
             console.log('프로젝트 생성:', response.data.proNo);
         } catch (error) {
             console.error('프로젝트 생성 에러:', error);
         }
     };
+
     // 프로젝트 삭제 //
     const deleteProject = async (proNo) => {
         try {
             const response = await axios.delete(`${PROJECT_DELETE_PATH}=${proNo}`);
             console.log(response.data);
+            // status 상태변수를 업데이트하여 컴포넌트를 다시 렌더링 시킴
             setStatus(status + 1);
             alert('삭제완료');
             selectProjectList();
@@ -86,6 +103,7 @@ const ProjectList = () => {
             console.error('프로젝트 삭제 에러:', error);
         }
     };
+
     // 프로젝트 수정 //
     const updateProject = async (e) => {
         try {
@@ -107,77 +125,133 @@ const ProjectList = () => {
             console.error('업데이트 에러:', error);
         }
     };
+
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
-            console.log('333333333333', proNo);
             navigate(`/project/kanban?proNo=${proNo}`);
         } catch (error) {
             console.error('칸반보드 이동:', error);
         }
     };
-
+    // 모달창 열기
     const openModal = () => {
         setIsModalOpen(true);
     };
-
+    // 모달창 닫기
     const closeModal = () => {
         setIsModalOpen(false);
+        setProjectTitle('');
+        setInvitedUsers([]);
+        setuserUids([]);
     };
-
+    // 프로젝트 제목 변경 핸들러
     const handleProjectTitleChange = (e) => {
         setProjectTitle(e.target.value);
     };
-
+    // 협력자 초대 핸들러
     const handleInviteUser = (e) => {
         const selectdata = e.target.value.split('?');
         const selectedUser = selectdata[0];
         const selectUids = selectdata[1];
 
-        if (selectedUser && !invitedUsers.includes(selectedUser)) {
-            setInvitedUsers([...invitedUsers, selectedUser]);
-        }
-        if (selectUids && !selectUids.includes(selectedUser)) {
+        if (selectedUser && !invitedUsers.some((user) => user.uid === selectUids)) {
+            setInvitedUsers([...invitedUsers, { name: selectedUser, uid: selectUids }]);
             setuserUids([...userUids, selectUids]);
         }
     };
-
+    // 프로젝트 생성 버튼 핸들러
     const handleCreateProject = (e) => {
         createProject(e);
         closeModal();
     };
-
-    const getFilteredUsers = () => {
-        return users.filter((user) => !invitedUsers.includes(user.uid));
+    // 프로젝트 검색 상태 업데이트
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
     };
+    // 프로젝트 검색 핸들러
+    const handleSearch = () => {
+        // 검색 기능 구현
+        const filteredProjects = allProjects.filter((project) =>
+            project.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setProjects(filteredProjects);
+        setCurrentPage(1); // 검색 결과로 첫 페이지로 이동
+        setCurrentSet(1); // 검색 결과로 첫 페이지 세트로 이동
+    };
+    // 협력자 초대 목록에 필터링
+    const getFilteredUsers = () => {
+        return users.filter((user) => !userUids.includes(user.uid) && user.uid !== authSlice.uid);
+    };
+    // 프로젝트 수정 모달창 열기
     const openEditModal = (project) => {
         setEditProject(project);
         setProjectTitle(project.title);
         setIsEditModalOpen(true);
     };
-
+    // 프로젝트 수정 모달창 닫기
     const closeEditModal = () => {
         setIsEditModalOpen(false);
         setEditProject(null);
         setProjectTitle('');
     };
+
+    // 페이지를 클릭하여 이동할 때 호출되는 함수
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // 다음 페이지 세트로 이동할 때 호출되는 함수
+    const handleNextSet = () => {
+        setCurrentSet(currentSet + 1);
+        setCurrentPage(currentSet * pagesPerSet + 1);
+    };
+
+    // 이전 페이지 세트로 이동할 때 호출되는 함수
+    const handlePrevSet = () => {
+        setCurrentSet(currentSet - 1);
+        setCurrentPage((currentSet - 2) * pagesPerSet + 1);
+    };
+
+    const indexOfLastProject = currentPage * projectsPerPage;
+    const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+    const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+
+    const totalPages = Math.ceil(projects.length / projectsPerPage);
+    const totalSets = Math.ceil(totalPages / pagesPerSet);
+
+    useEffect(() => {
+        console.log("321:", currentProjects);
+    }, [currentProjects]);
+
     return (
         <>
             <div className="project-list-container">
                 <div className="project-list">
                     <h2>프로젝트 목록</h2>
                     <div className="search-and-create">
-                        <input type="text" placeholder=" 프로젝트 검색" />
+                        <input
+                            type="text"
+                            placeholder="프로젝트 검색"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
+                        <button className="search-button" onClick={handleSearch}>
+                            검색
+                        </button>
                         <button className="create-button" onClick={openModal}>
                             새 프로젝트
                         </button>
                     </div>
-                    {projects && projects.length > 0 ? (
-                        projects.map((project, index) => (
+                    {currentProjects && currentProjects.length > 0 ? (
+                        currentProjects.map((project, index) => (
                             <div className="project-card" key={index}>
-                                <p onClick={() => viewKanban(project.proNo)}>{project.title}</p>
+                                <p onClick={() => viewKanban(project.proNo)}>
+                                    {project.status === 1 && '🍊 '}
+                                    {project.title}
+                                </p>
                                 <div className="project-meta">
-                                    <span className="date">{moment(projects.rdate).format('YY.MM.DD')}</span>
+                                    <span className="date">
+                                        {moment(project.rdate.join('-'), 'YYYY-M-D-H-m-s').format('YY.MM.DD')}
+                                    </span>
                                     <span className="actions">
                                         <button onClick={() => openEditModal(project)}>수정</button>
                                         <button onClick={() => deleteProject(project.proNo)}>삭제</button>
@@ -188,6 +262,22 @@ const ProjectList = () => {
                     ) : (
                         <p>생성된 프로젝트가 없습니다</p>
                     )}
+                </div>
+                <div className="pagination">
+                    {currentSet > 1 && <button onClick={handlePrevSet}>이전</button>}
+                    {[...Array(pagesPerSet).keys()]
+                        .map((num) => num + 1 + (currentSet - 1) * pagesPerSet)
+                        .filter((page) => page <= totalPages)
+                        .map((pageNumber) => (
+                            <button
+                                key={pageNumber}
+                                onClick={() => paginate(pageNumber)}
+                                className={currentPage === pageNumber ? 'active' : ''}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
+                    {currentSet < totalSets && <button onClick={handleNextSet}>다음</button>}
                 </div>
             </div>
             {/* 모달 */}
@@ -214,8 +304,8 @@ const ProjectList = () => {
                             <p>초대된 사용자</p>
                             {invitedUsers.map((user, index) => (
                                 <span className="projectUser" key={index}>
-                                    {' '}
-                                    {user}
+                                    {user.name}
+                                    {' | '}
                                 </span>
                             ))}
                         </div>

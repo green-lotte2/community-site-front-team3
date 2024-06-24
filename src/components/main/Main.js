@@ -1,40 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Recents from './Recents';
 import MainCalendar from './MainCalendar';
-import MainPages from './MainPages';
-import MainChat from './MainChat';
-import MainArticles from './MainArticles';
-import MainCs from './MainCs';
-import MainProj from './MainProj';
+import MainProfile from './MainProfile';
+import MainRecentArticles from './MainRecentArticles';
 import { useSelector } from 'react-redux';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import IconButton from '@mui/material/IconButton';
-
+import Moment from 'react-moment';
 const Main = () => {
     const authSlice = useSelector((state) => state.authSlice);
     console.log('main:', authSlice);
-
     const defaultVisibleComponents = {
         calendar: true,
-        proj: true,
-        pages: true,
-        chat: true,
-        articles: true,
-        cs: true,
+        profile: true,
+        article: true,
     };
-
     const [visibleComponents, setVisibleComponents] = useState(() => {
         const savedState = localStorage.getItem('visibleComponents');
         return savedState ? JSON.parse(savedState) : defaultVisibleComponents;
     });
-
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [widgetMenuVisible, setWidgetMenuVisible] = useState(false);
-
     useEffect(() => {
         localStorage.setItem('visibleComponents', JSON.stringify(visibleComponents));
     }, [visibleComponents]);
-
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         setVisibleComponents((prev) => ({
@@ -42,18 +30,28 @@ const Main = () => {
             [name]: checked,
         }));
     };
-
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
-
     const toggleWidgetMenu = () => {
         setWidgetMenuVisible(!widgetMenuVisible);
     };
-
     return (
-        <>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'relative' }}>
+        <div
+            style={{
+                backgroundImage: 'url(/images/background.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100vh',
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    position: 'relative',
+                }}
+            >
                 <IconButton onClick={toggleDropdown}>
                     <MoreVertTwoToneIcon />
                 </IconButton>
@@ -77,7 +75,31 @@ const Main = () => {
                             위젯 설정 / 숨기기
                         </label>
                         {widgetMenuVisible && (
-                            <div style={{ display: 'flex', flexDirection: 'column', marginTop: '10px' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    marginTop: '10px',
+                                }}
+                            >
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="profile"
+                                        checked={visibleComponents.profile}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    내 프로필
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="article"
+                                        checked={visibleComponents.article}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    최근 게시글
+                                </label>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -87,57 +109,28 @@ const Main = () => {
                                     />
                                     예정된 이벤트
                                 </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="proj"
-                                        checked={visibleComponents.proj}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    참가 중인 프로젝트
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="pages"
-                                        checked={visibleComponents.pages}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    작업 중인 페이지
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="chat"
-                                        checked={visibleComponents.chat}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    참가 중인 채팅
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="articles"
-                                        checked={visibleComponents.articles}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    나의 게시글
-                                </label>
                             </div>
                         )}
                     </div>
                 )}
             </div>
             <div id="main-component">
-                <Recents />
+                {visibleComponents.profile && <MainProfile />}
+                {visibleComponents.article && <MainRecentArticles />}
                 {visibleComponents.calendar && <MainCalendar />}
-                {visibleComponents.proj && <MainProj />}
-                {visibleComponents.pages && <MainPages />}
-                {visibleComponents.chat && <MainChat />}
-                {visibleComponents.articles && <MainArticles />}
             </div>
-        </>
+        </div>
     );
 };
-
 export default Main;
+
+
+
+
+
+
+
+
+
+
+

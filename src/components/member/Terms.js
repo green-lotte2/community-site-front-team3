@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
 import { TERMS_PATH } from 'requestPath';
+import {selectTerms} from 'api/UserApi';
 
 const Terms = () => {
     const [terms, setTerms] = useState({
@@ -17,27 +18,19 @@ const Terms = () => {
     const [modalContent, setModalContent] = useState('');
     const navigate = useNavigate();
 
+    // 처음 화면 렌더링시 이용 약관 상태 업데이트
     useEffect(() => {
-        selectTerms();
+        selectTerms(TERMS_PATH,setTerms);
     }, []);
 
-    const selectTerms = async () => {
-        try {
-            const response = await axios.get(TERMS_PATH);
-            const termsData = response.data[0];
-            setTerms({ terms: termsData.terms, privacy: termsData.privacy, age: termsData.age });
-        } catch (error) {
-            console.error('에러 발생:', error);
-        }
-    };
-
+    // 이용 약관 동의 전체 체크
     const handleAllAgree = () => {
         setTermsAgreed(!allAgreed);
         setPrivacyAgreed(!allAgreed);
         setAgeAgreed(!allAgreed);
         setAllAgreed(!allAgreed);
     };
-
+    // 이용 약관 동의 체크
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         switch (name) {
@@ -60,7 +53,7 @@ const Terms = () => {
             setAllAgreed(false);
         }
     };
-
+    // 이용약관 체크하고 회원가입으로 넘어가는 핸들러
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
@@ -70,11 +63,11 @@ const Terms = () => {
             alert('필수 약관을 동의해주세요.');
         }
     };
-
+    // 모달창 열기
     const openModal = (content) => {
         setModalContent(content);
     };
-
+    // 모달창 닫기
     const closeModal = () => {
         setModalContent('');
     };

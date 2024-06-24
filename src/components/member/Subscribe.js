@@ -4,6 +4,7 @@ import { UPDATE_GRADE_PATH } from 'requestPath';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
+import { fetchUserGrade, updateGrade } from 'api/UserApi';
 
 const url = globalPath.path;
 
@@ -12,43 +13,32 @@ const Subscribe = () => {
     const navigate = useNavigate();
     const [userGrade, setUserGrade] = useState();
     const uid = authSlice.uid;
-    console.log('11111:', authSlice);
 
-    useEffect(() => {
-        const fetchUserGrade = async () => {
-            try {
-                const response = await axios.get(`${url}/user/grade/${uid}`);
-                console.log('response check111:', response.data);
-                setUserGrade(response.data);
-            } catch (error) {
-                console.error('Error fetching user grade', error);
-            }
-        };
-        fetchUserGrade();
-    }, []);
-
-    const handleMvpSubscribe = async () => {
-        let confirmMessage = '';
-        if (userGrade === 'FREE') {
-            confirmMessage = 'MVP 요금제 가입을 하시겠습니까?';
-        } else {
-            confirmMessage = 'MVP 요금제 탈퇴를 하시겠습니까?';
-        }
-
-        const confirmed = window.confirm(confirmMessage);
-        if (confirmed) {
-            const response = await axios.patch(UPDATE_GRADE_PATH, { uid, grade: 'MVP' });
-            if (response.data === 1) {
-                alert('요금제 변경에 성공하셨습니다');
+     // 요금제 등급 가입 및 탈퇴 핸들러
+     const handleMvpSubscribe = () => {
+        updateGrade(uid, userGrade).then(success => {
+            if (success) {
                 navigate('/main');
-            } else {
-                alert('가입에 실패하셨습니다');
             }
-        }
+        });
     };
+    // 화면 렌더링 시 회원 등급 상태 업데이트
+    useEffect(() => {
+        fetchUserGrade(url, uid)
+            .then(grade => {
+                console.log('response check111:', grade);
+                setUserGrade(grade);
+            })
+            .catch(error => {
+                console.error('등급 변경 에러', error);
+            });
+    }, [url, uid]);
 
+    // 회원이 아니라면 회원가입 버튼
     const handleFreeSubscribe = () => {
-        navigate('/member/terms');
+        if (!authSlice) {
+            navigate('/member/terms');
+        }
     };
 
     return (

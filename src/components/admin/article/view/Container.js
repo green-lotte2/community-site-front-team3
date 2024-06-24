@@ -50,6 +50,7 @@ const Container = () => {
                 <div className="post-details">
                     <div className="post-header">
                         <input
+                            className="post-header-title"
                             type="text"
                             value={article.title}
                             onChange={(e) => setArticle({ ...article, title: e.target.value })}

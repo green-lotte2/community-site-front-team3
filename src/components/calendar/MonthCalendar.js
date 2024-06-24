@@ -80,7 +80,7 @@ function MonthCalendar() {
     console.log("아이디 : " + uid);
     const url = globalPath.path;
 
-    // 일정에 랜덤 아이디 부여
+    /** 일정에 랜덤 아이디 부여*/
     const randomDate = Moment(new Date()).format("YYMMDDHHmmSS");
     const eventId = randomDate + uid;
     console.log(eventId);
@@ -167,7 +167,7 @@ function MonthCalendar() {
     /** 일정을 수정 */
     calendar.on("beforeUpdateEvent", ({ event, changes }) => {
       calendar.updateEvent(event.id, event.calendarId, changes);
-
+      console.log(changes);
       const start =
         changes.start === undefined
           ? null
@@ -195,7 +195,7 @@ function MonthCalendar() {
         .post(`${url}/calendar/modify/${event.id}`, chage)
         .then((response) => {
           console.log(response.data);
-          window.location.reload();
+          //window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -290,6 +290,7 @@ function MonthCalendar() {
     fontSize: "15px",
     color: "#333",
     marginRight: "5px",
+    cursor: "pointer",
   };
   const btnToday = {
     borderRadius: "25px",
@@ -308,12 +309,14 @@ function MonthCalendar() {
     fontSize: "15px",
     color: "#333",
     marginRight: "5px",
+    cursor: "pointer",
   };
   const dateSpan = {
     fontSize: "19px",
     lineHeight: "30px",
     verticalAlign: "bottom",
     marginLeft: "7px",
+    cursor: "pointer",
   };
   return (
     <div>

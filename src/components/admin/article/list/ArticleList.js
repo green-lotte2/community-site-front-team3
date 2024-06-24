@@ -67,7 +67,7 @@ const ArticleList = ({ articleList, setArticleList }) => {
 
     // 게시글 내용 ... 출력
     const cutContent = (content, maxLength) => {
-        return content.length > maxLength ? content.subString(0, maxLength) + '...' : content;
+        return content.length > maxLength ? content.substring(0, maxLength) + '...' : content;
     };
 
     return (
@@ -75,38 +75,36 @@ const ArticleList = ({ articleList, setArticleList }) => {
             <button onClick={handleDelSelected} className="btn-del-selected">
                 선택삭제
             </button>
-            <table>
+            <table className="admin-article-table">
                 <thead>
-                    <tr>
-                        <th>
+                    <tr className="admin-article-tabl-tr">
+                        <th className="admin-article-checkbox">
                             전체선택
                             <input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
                         </th>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>내용</th>
+                        <th className="admin-article-no">번호</th>
+                        <th className="admin-article-title">제목</th>
                         <th>날짜</th>
                         <th>상태</th>
-                        <th>관리</th>
+                        <th className="admin-article-set">관리</th>
                     </tr>
                 </thead>
                 <tbody>
                     {articleList.map((article) => (
                         <tr key={article.ano}>
-                            <td>
+                            <td className="admin-article-checkbox">
                                 <input
                                     type="checkbox"
                                     checked={selectedArticles.includes(article.ano)}
                                     onChange={() => handleSelectArticle(article.ano)}
                                 />
                             </td>
-                            <td>{article.ano}</td>
+                            <td className="no">{article.ano}</td>
                             <td>
                                 {article.title}
                                 <br />
                                 <small>{article.uid}</small>
                             </td>
-                            <td>{cutContent(article.content, 20)}</td>
                             <td>{moment(article.rdate).format('YY-MM-DD')}</td>
                             <td>{article.reply}</td>
                             <td>

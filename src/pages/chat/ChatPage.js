@@ -48,7 +48,6 @@ const ChatPage = () => {
       });
 
       client.onConnect = () => {
-        console.log("Connected to WebSocket");
         stompClientRef.current = client;
 
         subscriptionRef.current = client.subscribe(
@@ -89,7 +88,6 @@ const ChatPage = () => {
   const fetchMessages = async (chatNo) => {
     try {
       const response = await axios.get(`${url}/chat/messages?chatNo=${chatNo}`);
-      console.log("Fetched messages:", response.data); // 메시지 데이터 로그 추가
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching chat room messages", error);
@@ -97,7 +95,6 @@ const ChatPage = () => {
   };
 
   const handleSelectChatRoom = async (room) => {
-    console.log("Chat room selected:", room);
     setSelectedRoom(room);
     setMessages([]);
     try {

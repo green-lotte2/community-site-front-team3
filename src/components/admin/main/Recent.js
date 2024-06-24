@@ -3,10 +3,12 @@ import { globalPath } from 'globalPaths';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Recent = () => {
     const url = globalPath.path;
     const [articleList, setArticleList] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,12 +25,14 @@ const Recent = () => {
                 {articleList.map((article) => (
                     <Item key={article.ano}>
                         <ul>
-                            <li>{article.title}</li>
+                            제목:{' '}
+                            <Link className="recent-title" to={`/admin/article/${article.ano}`}>
+                                {article.title}
+                            </Link>
                             <li>
-                                <small>{article.uid}</small>
+                                <small>작성자: {article.uid}</small>
                             </li>
-                            <li>{article.content}</li>
-                            <DateItem>{moment(article.rdate).format('YY-MM-DD')}</DateItem>
+                            <DateItem>작성일: {moment(article.rdate).format('YY-MM-DD')}</DateItem>
                         </ul>
                     </Item>
                 ))}

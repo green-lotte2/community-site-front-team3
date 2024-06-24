@@ -5,7 +5,7 @@ import axios from 'axios';
 import Pagination from 'components/common/Pagination';
 import { globalPath } from 'globalPaths';
 
-const url = globalPath.path;
+const url = globalPath.serverHost;
 
 const Container = () => {
     const location = useLocation();
@@ -22,7 +22,7 @@ const Container = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const response = await axios.get(`${url}/admin/article`); // 정렬 파라미터 추가
+            const response = await axios.get(`http://${url}/admin/article`); // 정렬 파라미터 추가
             setArticleList(response.data);
             setLoading(false);
         };
@@ -39,11 +39,7 @@ const Container = () => {
         <div className="container">
             <h2>게시글 관리</h2>
             <p>-- 게시글 수정, 삭제 및 조회 --</p>
-            <div className="table-actions">
-                <button>Action</button>
-                <input type="text" placeholder="Search Invoice" />
-                <button>Create Invoice</button>
-            </div>
+            <div className="table-actions"></div>
             {<ArticleList articleList={currentPosts(articleList)} setArticleList={setArticleList} />}
             <Pagination postsPerPage={postsPerPage} totalPosts={articleList.length} paginate={setCurrentPage} />
         </div>
