@@ -7,6 +7,8 @@ import { login } from 'slices/authSlice';
 import { globalPath } from 'globalPaths';
 import { LOGIN_PATH } from 'requestPath';
 import { useSelector } from 'react-redux';
+import { loginUser } from 'api/UserApi';
+
 const serverHost = globalPath.serverHost;
 //const serverHost = '3.34.204.24';
 
@@ -40,21 +42,8 @@ const Login = () => {
     /** 로그인 버튼 클릭 */
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log('여기야 설마??');
-        axios
-            .post(LOGIN_PATH, user)
-            .then((resp) => {
-                console.log(resp.data);
-                // 리덕스 액션 실행 : 로그인 성공 시 사용자 정보를 리덕스 상태에 저장
-                dispatch(login(resp.data));
-                // 메인 전환
-                navigate('/main');
-                alert('로그인에 성공하셨습니다');
-            })
-            .catch((err) => {
-                console.log(err);
-                setError('아이디 또는 비밀번호가 틀렸습니다. 다시 확인해주세요.');
-            });
+        loginUser(user, dispatch, navigate, login)
+            .catch(err => setError(err.message));
     };
 
     /** 값 입력  */

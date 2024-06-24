@@ -64,6 +64,10 @@ const Main = () => {
                     position: 'relative',
                 }}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
             >
                 <IconButton onClick={toggleDropdown}>
                     <MoreVertTwoToneIcon />
@@ -143,6 +147,7 @@ const Main = () => {
             </div>
         </div>
     );
+<<<<<<< HEAD
 =======
               >
                 <label>
@@ -185,6 +190,8 @@ const Main = () => {
     </div>
   );
 >>>>>>> ab632297998ff111764d142e96377af5f3c02c11
+=======
+>>>>>>> 38311ef4b0b1b9b872ee09f8d719079aa19214cc
 };
 
 export default Main;

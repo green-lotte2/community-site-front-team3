@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { SEND_EMAIL_CODE_PATH, FINDID_PATH, CHECK_EMAIL_CODE_PATH, SEND_FINDID_EMAIL_CODE_PATH } from 'requestPath';
 import { Link } from 'react-router-dom';
+import { confirmFindIdCode, requestFindIdCode } from 'api/UserApi';
 
 const FindId = () => {
     const [showVerificationCodeSection, setShowVerificationCodeSection] = useState(false);
@@ -13,55 +14,28 @@ const FindId = () => {
     const [serverCode, setServerCode] = useState('');
 
     // 아이디 찾기 인증코드 전송
-    const handleRequestCode = async () => {
-        try {
-            const response = await axios.post(SEND_FINDID_EMAIL_CODE_PATH, { email }, { withCredentials: true });
-            if (response.status === 200) {
+    const handleRequestCode = () => {
+        requestFindIdCode(email)
+            .then(code => {
                 setShowVerificationCodeSection(true);
                 setVerificationSent(true);
-                setServerCode(response.data.code);
+                setServerCode(code);
                 alert('인증코드가 이메일로 전송되었습니다.');
-            } else {
-                alert('전송 실패.');
-            }
-        } catch (error) {
-            alert('이메일 주소가 틀렸습니다.');
-        }
+            })
+            .catch(error => {
+                alert(error.message);
+            });
     };
 
     // 이메일 중복 검사 및 인증코드 체크
-    const handleConfirmCode = async () => {
-        try {
-            const response = await axios.post(
-                CHECK_EMAIL_CODE_PATH,
-                {
-                    code: serverCode,
-                    inputCode: verificationCode,
-                },
-                {
-                    withCredentials: true,
-                }
-            );
-            if (response.status === 200) {
-                const { result } = response.data;
-                if (result === 0) {
-                    const userIdResponse = await axios.get(`${FINDID_PATH}?name=${name}&email=${email}`, {
-                        withCredentials: true,
-                    });
-                    if (userIdResponse.status === 200) {
-                        setUid(userIdResponse.data.uid);
-                    } else {
-                        alert('유저가 없습니다.');
-                    }
-                } else {
-                    alert('올바르지 않은 인증 코드입니다.');
-                }
-            } else {
-                alert('인증 실패. 서버 오류가 발생했습니다.');
-            }
-        } catch (error) {
-            alert('인증 실패. 네트워크 오류가 발생했습니다.');
-        }
+    const handleConfirmCode = () => {
+        confirmFindIdCode(serverCode, verificationCode, name, email)
+            .then(uid => {
+                setUid(uid);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
     };
 
     return (

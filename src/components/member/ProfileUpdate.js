@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from 'slices/authSlice';
+import { fetchUserData, updateUser } from 'api/UserApi';
 
 const ProfileUpdate = () => {
     const authSlice = useSelector((state) => state.authSlice);
@@ -39,6 +40,7 @@ const ProfileUpdate = () => {
             }
         }
     }, [location.state]);
+    
     // 프로필 사진 선택했을때 미리보기 변경
     useEffect(() => {
         if (user.profile) {
@@ -48,20 +50,18 @@ const ProfileUpdate = () => {
 
     /** 계정 설정 - 사용자 정보 넘겨줌 */
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get(`${url}/user/info?uid=${authSlice.uid}`);
-                setUser(response.data);
-                console.log('check1111:', response.data);
-            } catch (error) {
-                console.error('사용자 정보 받기 에러:', error);
-            }
-        };
-
         if (authSlice.uid) {
-            fetchUserData();
+            fetchUserData(url, authSlice.uid)
+                 .then(data => {
+                    setUser(data);
+                       console.log('check1111:', data);
+                 })
+                 .catch(error => {
+                     console.error('사용자 정보 받기 에러:', error);
+                 });
         }
-    }, [url]);
+     }, [url, authSlice.uid]);
+
     // value 값 입력
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -70,6 +70,7 @@ const ProfileUpdate = () => {
             [name]: value,
         }));
     };
+
     // 파일 형식 검사 및 업로드
     const handleFileChange = (acceptedFiles) => {
         const allowedExtensions = ['.jpg', '.gif', '.png', '.jpeg', '.bmp'];
@@ -91,41 +92,34 @@ const ProfileUpdate = () => {
 
     // 회원정보 수정 핸들러
     const submitHandler = (e) => {
-        const confrimed = window.confirm('회원정보 수정을 하시겠습니까?');
         e.preventDefault();
-        const formData = new FormData();
+        const confirmed = window.confirm('회원정보 수정을 하시겠습니까?');
 
-        formData.append('uid', authSlice.uid);
-        formData.append('pass', user.pass);
-        formData.append('nick', user.nick);
-        formData.append('email', user.email);
-        formData.append('hp', user.hp);
-        formData.append('company', user.company);
-        formData.append('department', user.department);
-        formData.append('position', user.position);
+        if (confirmed) {
+            const formData = new FormData();
+            formData.append('uid', authSlice.uid);
+            formData.append('pass', user.pass);
+            formData.append('nick', user.nick);
+            formData.append('email', user.email);
+            formData.append('hp', user.hp);
+            formData.append('company', user.company);
+            formData.append('department', user.department);
+            formData.append('position', user.position);
 
-        if (userProfile) {
-            formData.append('file', userProfile);
-        }
+            if (userProfile) {
+                formData.append('file', userProfile);
+            }
 
-        axios
-            .patch(`${globalPath.path}/user/update`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-            .then((response) => {
-                // 사용자 정보 업데이트
-                if (confrimed) {
-                    dispatch(updateUserProfile(response.data));
-
+            updateUser(formData)
+                .then(data => {
+                    dispatch(updateUserProfile(data));
                     alert('수정 완료!');
                     navigate('/main');
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
     };
     // 비밀번호 수정 체크박스
     const passCheckBox = () => {

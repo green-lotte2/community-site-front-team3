@@ -95,6 +95,7 @@ const ProjectList = () => {
         try {
             const response = await axios.delete(`${PROJECT_DELETE_PATH}=${proNo}`);
             console.log(response.data);
+            // status 상태변수를 업데이트하여 컴포넌트를 다시 렌더링 시킴
             setStatus(status + 1);
             alert('삭제완료');
             selectProjectList();
@@ -128,7 +129,6 @@ const ProjectList = () => {
     // 프로젝트 칸반보드 이동 //
     const viewKanban = async (proNo) => {
         try {
-            console.log('333333333333', proNo);
             navigate(`/project/kanban?proNo=${proNo}`);
         } catch (error) {
             console.error('칸반보드 이동:', error);
@@ -218,6 +218,10 @@ const ProjectList = () => {
     const totalPages = Math.ceil(projects.length / projectsPerPage);
     const totalSets = Math.ceil(totalPages / pagesPerSet);
 
+    useEffect(() => {
+        console.log("321:", currentProjects);
+    }, [currentProjects]);
+
     return (
         <>
             <div className="project-list-container">
@@ -245,7 +249,9 @@ const ProjectList = () => {
                                     {project.title}
                                 </p>
                                 <div className="project-meta">
-                                    <span className="date">{moment(project.rdate).format('YY.MM.DD')}</span>
+                                    <span className="date">
+                                        {moment(project.rdate.join('-'), 'YYYY-M-D-H-m-s').format('YY.MM.DD')}
+                                    </span>
                                     <span className="actions">
                                         <button onClick={() => openEditModal(project)}>수정</button>
                                         <button onClick={() => deleteProject(project.proNo)}>삭제</button>

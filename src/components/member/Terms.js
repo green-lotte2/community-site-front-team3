@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { globalPath } from 'globalPaths';
 import { TERMS_PATH } from 'requestPath';
+import {selectTerms} from 'api/UserApi';
 
 const Terms = () => {
     const [terms, setTerms] = useState({
@@ -19,19 +20,9 @@ const Terms = () => {
 
     // 처음 화면 렌더링시 이용 약관 상태 업데이트
     useEffect(() => {
-        selectTerms();
+        selectTerms(TERMS_PATH,setTerms);
     }, []);
 
-    // 이용 약관 조회
-    const selectTerms = async () => {
-        try {
-            const response = await axios.get(TERMS_PATH);
-            const termsData = response.data[0];
-            setTerms({ terms: termsData.terms, privacy: termsData.privacy, age: termsData.age });
-        } catch (error) {
-            console.error('에러 발생:', error);
-        }
-    };
     // 이용 약관 동의 전체 체크
     const handleAllAgree = () => {
         setTermsAgreed(!allAgreed);
